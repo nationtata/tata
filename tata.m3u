@@ -3,127 +3,127 @@
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:D6&stream=196699&extension=ts&play_token=vmAan78Qyz
+http://176.65.153.66:6001/play/a01x/index.m3u8
 #EXTINF:-1 tvg-name="ATV" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838305.png" group-title="Ulusal",ATV
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:D6&stream=196682&extension=ts&play_token=bdFA2u0of1
+http://82.70.45.131/Uyan.php?ID=atv
 #EXTINF:-1 tvg-name="STAR" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838418.png" group-title="Ulusal",STAR
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:D6&stream=196695&extension=ts&play_token=9rZyNWfIPX
+https://dogus.daioncdn.net/startv/startv_720p.m3u8?&sid=88jhb6leqiih&app=a20ac41e-bdc3-4aa1-934d-26b484480ac9&ce=3
 #EXTINF:-1 tvg-name="SHOW" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839061.png" group-title="Ulusal",SHOW
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:D6&stream=196697&extension=ts&play_token=S05dySmbjf
+https://ciner.daioncdn.net/showtv/showtv_1080p.m3u8?ex=1664766175&st=RBzhSuGauna0OGld-DJUVA&tv=1&sid=88iye2ldl2ew&app=4bc856ef-4c68-4a94-bc87-37dfaaa66558&ce=3
 #EXTINF:-1 tvg-name="KANAL D" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838833.png" group-title="Ulusal",KANAL D
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:D6&stream=196696&extension=ts&play_token=DYgtNp28Es
+https://demiroren.daioncdn.net/kanald/kanald.m3u8?app=kanald_web
 #EXTINF:-1 tvg-name="NOW" tvg-logo="https://itv224226.tmp.tivibu.com.tr:6430/images/poster/20250801838440.png" group-title="Ulusal",NOW
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:D6&stream=196694&extension=ts&play_token=lSQRFJi5TM
+https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8
 #EXTINF:-1 tvg-name="TV8" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801839104.png" group-title="Ulusal",TV8
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:D6&stream=196693&extension=ts&play_token=b5WpiwQiiH
+https://tv8.daioncdn.net/tv8/tv8.m3u8?app=7ddc255a-ef47-4e81-ab14-c0e5f2949788&ce=3
 #EXTINF:-1 tvg-name="TV8.5" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839204.png" group-title="Ulusal",TV8.5
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:D6&stream=196692&extension=ts&play_token=021Y7YSYE8
+https://tv8.daioncdn.net/tv8bucuk/tv8bucuk_1080p.m3u8?&sid=7p0y8eyjbgtu&app=bf58ab52-4865-4c81-b223-26b41009801e&ce=3
 #EXTINF:-1 tvg-name="BEYAZ" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838801.png" group-title="Ulusal",BEYAZ
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:D6&stream=196675&extension=ts&play_token=MB5iIE85Ro
+https://beyaztv-live.daioncdn.net/beyaztv/beyaztv_1080p.m3u8
 #EXTINF:-1 tvg-name="TV2" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20260101999689.png" group-title="Ulusal",TV2
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:D6&stream=196689&extension=ts&play_token=7u6BNeQHj0
+https://live.duhnet.tv/S2/HLS_LIVE/teve2np/track_4_1000/playlist.m3u8
 #EXTINF:-1 tvg-name="TLC" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839056.png" group-title="Ulusal",TLC
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:D6&stream=197429&extension=ts&play_token=K6dnYNtVcu
+http://176.65.153.66:6001/play/a01v/index.m3u8
 #EXTINF:-1 tvg-name="A2" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801837289.png" group-title="Ulusal",A2
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:D6&stream=196687&extension=ts&play_token=DGJnc2zcvx
+https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/a2tv/a2tv.m3u8
 #EXTINF:-1 tvg-name="KANAL 7" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838695.png" group-title="Ulusal",KANAL 7
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=196690&extension=ts&play_token=PndCKJQB2u
+https://kanal7-live.daioncdn.net/kanal7/kanal7_1080p.m3u8
 #EXTINF:-1 tvg-name="360" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838188.png" group-title="Ulusal",360
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=196686&extension=ts&play_token=bNDysiy4vA
+https://turkmedya-live.ercdn.net/tv360/tv360_1080p.m3u8
 #EXTINF:-1 tvg-name="TRT HABER" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801837609.png" group-title="Haber",TRT HABER
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197262&extension=ts&play_token=VItI33IyP6
+https://tv-trthaber.medya.trt.com.tr/master.m3u8
 #EXTINF:-1 tvg-name="HABERTÜRK" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838714.png" group-title="Haber",HABERTÜRK
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197264&extension=ts&play_token=Iw60S9KlXh
+https://tv.ensonhaber.com/haberturk/haberturk.m3u8
 #EXTINF:-1 tvg-name="CNN TÜRK" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838363.png" group-title="Haber",CNN TÜRK
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:D7&stream=197287&extension=ts&play_token=mqO3Ga5TwL
+http://izlego.minikirppis-com.workers.dev/ID=427315396743dfe9212c50
 #EXTINF:-1 tvg-name="A HABER" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838612.png" group-title="Haber",A HABER
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197259&extension=ts&play_token=lETzv88kvz
+https://trkvz-live.ercdn.net/ahaberhd/ahaberhd.m3u8
 #EXTINF:-1 tvg-name="HABER GLOBAL" tvg-logo="https://itv224226.tmp.tivibu.com.tr:6430/images/poster/20250801838040.png" group-title="Haber",HABER GLOBAL
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197268&extension=ts&play_token=tGkC8erhpz
+https://tv.ensonhaber.com/haberglobal/haberglobal.m3u8
 #EXTINF:-1 tvg-name="TV 100" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839195.png" group-title="Haber",TV 100
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197273&extension=ts&play_token=fIy9sX6ocp
+http://82.70.45.131/Uyan.php?ID=TV 100
 #EXTINF:-1 tvg-name="NTV" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838399.png" group-title="Haber",NTV
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197266&extension=ts&play_token=4Nw50op3di
+https://dogus.daioncdn.net/ntv/ntv.m3u8?app=7c4bb802-0c41-409e-8cd2-799984995694
 #EXTINF:-1 tvg-name="TGRT HABER" tvg-logo="https://itv224226.tmp.tivibu.com.tr:6430/images/poster/20250801839201.png" group-title="Haber",TGRT HABER
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197263&extension=ts&play_token=c53adoDCo6
+https://canli.tgrthaber.com/tgrt.m3u8
 #EXTINF:-1 tvg-name="ÜLKE" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801839331.png" group-title="Haber",ÜLKE
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197258&extension=ts&play_token=kT246ZR7mz
+https://livetv.radyotvonline.net/kanal7live/ulketv/chunklist.m3u8
 #EXTINF:-1 tvg-name="24" tvg-logo="https://itv224226.tmp.tivibu.com.tr:6430/images/poster/20250801838386.png" group-title="Haber",24
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197270&extension=ts&play_token=kbSCfqIRQ7
+https://turkmedya-live.ercdn.net/tv24/tv24_1080p.m3u8
 #EXTINF:-1 tvg-name="TVNET" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801839096.png" group-title="Haber",TVNET
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197257&extension=ts&play_token=hQlsXbvuXH
+https://tvnet-live.lg.mncdn.com/tvnet/tvnet/chunklist.m3u8
 #EXTINF:-1 tvg-name="CNBC-e" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20260323095389.png" group-title="Haber",CNBC-e
 
 
@@ -133,37 +133,37 @@ https://hnpsechtsc.turknet.ercdn.net/xpnvudnlsv/cnbc-e/cnbc-e.m3u8?tv=1
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197240&extension=ts&play_token=KJkY5hTnHv
+https://tv-trtturk.medya.trt.com.tr/master.m3u8
 #EXTINF:-1 tvg-name="HALK" tvg-logo="https://itv224226.tmp.tivibu.com.tr:6430/images/poster/20250801838585.png" group-title="Haber",HALK
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197274&extension=ts&play_token=hmqcrCTD7p
+https://halktv-live.daioncdn.net/halktv/halktv.m3u8
 #EXTINF:-1 tvg-name="SZC" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250809846143.png" group-title="Haber",SZC
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=540949&extension=ts&play_token=JOFxL2wUlR
+http://82.70.45.131/Uyan.php?ID=Sozcu TV
 #EXTINF:-1 tvg-name="KRT" tvg-logo="https://media.licdn.com/dms/image/v2/D4D22AQEW5TJZltwq_g/feedshare-image-high-res/feedshare-image-high-res/0/1708069310312?e=2147483647&v=beta&t=k1wpU_vqgstSWnliu5KKQO4P7_Knv0wI0ht3nrAov2s" group-title="Haber",KRT
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197276&extension=ts&play_token=cqRGvvpTWt
+http://umperisn.mywire.org/index.php?id=594231&token=DeaTHLesS
 #EXTINF:-1 tvg-name="ULUSAL KANAL" tvg-logo="https://s.ulusal.com.tr/assets/web/images/logo.png" group-title="Haber",ULUSAL KANAL
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197178&extension=ts&play_token=8qxzVqk0m2
+https://internettv.guventechnology.com/hls/ulusaltv/index.m3u8
 #EXTINF:-1 tvg-name="FLASH HABER" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838624.png" group-title="Haber",FLASH HABER
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197265&extension=ts&play_token=QkFNXps4SM
+https://b01c02nl.mediatriple.net/videoonlylive/mtyycglqauzjhlive/broadcast_67c053c48829f.smil/mt_0.m3u8
 #EXTINF:-1 tvg-name="BENGÜTÜRK" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838732.png" group-title="Haber",BENGÜTÜRK
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197227&extension=ts&play_token=BIkfp6yMim
+https://tv.ensonhaber.com/benguturk/benguturk_720p.m3u8
 #EXTINF:-1 tvg-name="TÜRKHABER" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250809846223.png" group-title="Haber",TÜRKHABER
 
 
@@ -173,47 +173,47 @@ https://edge1.socialsmart.tv/turkhaber/bant1/playlist.m3u8
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197269&extension=ts&play_token=jj4KLPIkkc
+https://ciner.daioncdn.net/bloomberght/bloomberght.m3u8
 #EXTINF:-1 tvg-name="A PARA" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838741.png" group-title="Haber",A PARA
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197272&extension=ts&play_token=YMedtQj0VQ
+http://c3921155.edmonst.net/iptv/AVNFCNQBEC9VQU/6909/index.m3u8
 #EXTINF:-1 tvg-name="EKOTÜRK" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838250.png" group-title="Haber",EKOTÜRK
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197215&extension=ts&play_token=bY3WHejOmN
+http://82.70.45.131/Uyan.php?ID=Ekoturk TV
 #EXTINF:-1 tvg-name="A NEWS" tvg-logo="https://itv224226.tmp.tivibu.com.tr:6430/images/poster/20250801838138.png" group-title="Haber",A NEWS
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197271&extension=ts&play_token=Nx8VX4UaJj
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch750
 #EXTINF:-1 tvg-name="TRT WORLD" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839162.png" group-title="Haber",TRT WORLD
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197261&extension=ts&play_token=cdx7DrYc71
+https://tv-trtworld.medya.trt.com.tr/master.m3u8
 #EXTINF:-1 tvg-name="TRT SPOR" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801839291.png" group-title="Spor",TRT SPOR
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=709&extension=ts&play_token=AN3cSmXfyI
+http://ios-byjj.onrender.com/TRiOS.php?ID=TRT Spor
 #EXTINF:-1 tvg-name="TRT SPOR YILDIZ" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838619.png" group-title="Spor",TRT SPOR YILDIZ
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=18644&extension=ts&play_token=6fextF0Ovq
+http://ios-byjj.onrender.com/TRiOS.php?ID=TRT Spor Yildiz
 #EXTINF:-1 tvg-name="A SPOR" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838287.png" group-title="Spor",A SPOR
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=710&extension=ts&play_token=oaWDTNLbEj
+https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/aspor/aspor.m3u8
 #EXTINF:-1 tvg-name="HT SPOR" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838378.png" group-title="Spor",HT SPOR
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=1245942&extension=ts&play_token=Zo53i3J9qC
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch954
 #EXTINF:-1 tvg-name="BEIN SPORTS HABER" tvg-logo="https://raw.githubusercontent.com/GitLatte/m3ueditor/refs/heads/site/images/kanal-gorselleri/turkiye/bein-sports-haber-tr.png" group-title="Spor",BEIN SPORTS HABER
 
 
@@ -243,12 +243,12 @@ https://square-leaf-d613.panorea1000.workers.dev/?xml=ch828
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=703&extension=ts&play_token=900Y3TbJxg
+http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/DEZWG4KWUAEXFK/6825/index.m3u8
 #EXTINF:-1 tvg-name="S SPORT 2" tvg-logo="https://r2.thesportsdb.com/images/media/channel/logo/nrrvxp1643201048.png" group-title="Spor",S SPORT 2
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=18638&extension=ts&play_token=Ww38qH3LB4
+https://andro.evrenesoglu99.click/checklist/androstreamlivess2.m3u8
 #EXTINF:-1 tvg-name="TİVİBU SPOR" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839221.png" group-title="Spor",TİVİBU SPOR
 
 
@@ -283,7 +283,7 @@ http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=879140&exte
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=15340&extension=ts&play_token=wNK4aVUruy
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch801
 #EXTINF:-1 tvg-name="EXXEN SPOR 2" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/db/Exxen.png" group-title="Spor",EXXEN SPOR 2
 
 
@@ -318,7 +318,7 @@ http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=18635&exten
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197441&extension=ts&play_token=2YxNaeWuvv
+http://82.70.45.131/Uyan.php?ID=TRT Belgesel
 #EXTINF:-1 tvg-name="TRT 2" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801839153.png" group-title="Belgesel",TRT 2
 
 
