@@ -294,11 +294,6 @@ https://andro.evrenesoglu99.click/checklist/androstreamlivetb1.m3u85
 
 
 https://andro.evrenesoglu99.click/checklist/androstreamlivetb2.m3u85
-#EXTINF:-1 tvg-name="SPORT SMART 2" tvg-logo="https://epg.iptvx.one/picons/spor-smart-2-tr.png" group-title="Spor",SPOR SMART 2
-
-
-
-https://square-leaf-d613.panorea1000.workers.dev/?xml=ch793
 #EXTINF:-1 tvg-name="EUROSPORT 1" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838605.png" group-title="Spor",EUROSPORT 1
 
 
@@ -324,6 +319,11 @@ http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=15341&exten
 
 
 https://square-leaf-d613.panorea1000.workers.dev/?xml=ch790
+#EXTINF:-1 tvg-name="SPORT SMART 2" tvg-logo="https://epg.iptvx.one/picons/spor-smart-2-tr.png" group-title="Spor",SPOR SMART 2
+
+
+
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch793
 #EXTINF:-1 tvg-name="TRT BELGESEL" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250328726039.png" group-title="Belgesel",TRT BELGESEL
 
 
