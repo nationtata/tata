@@ -84,7 +84,7 @@ https://tv.ensonhaber.com/haberturk/haberturk.m3u8
 
 
 
-http://188.138.9.246/S2/HLS_LIVE/cnn_turk/index.m3u8
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:BF&stream=197260&extension=ts&play_token=UJ6cx8th1N
 #EXTINF:-1 tvg-name="A HABER" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838612.png" group-title="Haber",A HABER
 
 
@@ -125,16 +125,6 @@ https://turkmedya-live.ercdn.net/tv24/tv24_1080p.m3u8
 
 
 https://tvnet-live.lg.mncdn.com/tvnet/tvnet/chunklist.m3u8
-#EXTINF:-1 tvg-name="CNBC-e" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20260323095389.png" group-title="Haber",CNBC-e
-
-
-
-https://hnpsechtsc.turknet.ercdn.net/xpnvudnlsv/cnbc-e/cnbc-e.m3u8?tv=1
-#EXTINF:-1 tvg-name="TRT TÜRK" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838728.png" group-title="Haber",TRT TÜRK
-
-
-
-https://tv-trtturk.medya.trt.com.tr/master.m3u8
 #EXTINF:-1 tvg-name="HALK" tvg-logo="https://itv224226.tmp.tivibu.com.tr:6430/images/poster/20250801838585.png" group-title="Haber",HALK
 
 
@@ -170,6 +160,16 @@ https://tv.ensonhaber.com/benguturk/benguturk_720p.m3u8
 
 
 https://edge1.socialsmart.tv/turkhaber/bant1/playlist.m3u8
+#EXTINF:-1 tvg-name="TRT TÜRK" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838728.png" group-title="Haber",TRT TÜRK
+
+
+
+https://tv-trtturk.medya.trt.com.tr/master.m3u8
+#EXTINF:-1 tvg-name="CNBC-e" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20260323095389.png" group-title="Haber",CNBC-e
+
+
+
+https://hnpsechtsc.turknet.ercdn.net/xpnvudnlsv/cnbc-e/cnbc-e.m3u8?tv=1
 #EXTINF:-1 tvg-name="BLOOMBERG HT" tvg-logo="https://itv224226.tmp.tivibu.com.tr:6430/images/poster/20250801837595.png" group-title="Haber",BLOOMBERG HT
 
 
@@ -195,6 +195,16 @@ https://trkvz-live.ercdn.net/anewshd/anewshd_720p.m3u8?st=B7QQ6q3oulPktw5euPKY5A
 
 
 https://tv-trtworld.medya.trt.com.tr/master.m3u8
+#EXTINF:-1 tvg-name="CNN INTERNATIONAL" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839162.png" group-title="Haber",CNN INTERNATIONAL
+
+
+
+https://d3bp6dwmpbdajl.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-ury0meh5m4nzm/index.m3u8
+#EXTINF:-1 tvg-name="BBC NEWS" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839162.png" group-title="Haber",BBC NEWS
+
+
+
+https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/pc_hd_abr_v2.m3u8
 #EXTINF:-1 tvg-name="TRT SPOR" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801839291.png" group-title="Spor",TRT SPOR
 
 
