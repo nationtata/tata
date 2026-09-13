@@ -129,7 +129,7 @@ https://tvnet-live.lg.mncdn.com/tvnet/tvnet/chunklist.m3u8
 
 
 https://hnpsechtsc.turknet.ercdn.net/xpnvudnlsv/cnbc-e/cnbc-e.m3u8?tv=1
-#EXTINF:-1 tvg-name="TRT TÜRK" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838728.png" group-title="Ulusal",TRT TÜRK
+#EXTINF:-1 tvg-name="TRT TÜRK" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838728.png" group-title="Haber",TRT TÜRK
 
 
 
@@ -178,7 +178,7 @@ https://ciner.daioncdn.net/bloomberght/bloomberght.m3u8
 
 
 
-http://c3921155.edmonst.net/iptv/AVNFCNQBEC9VQU/6909/index.m3u8
+https://trkvz-live.ercdn.net/aparahd/aparahd_480p.m3u8?st=_Hy9upDmfr4uTvP5-zTgiQ&e=1789381895
 #EXTINF:-1 tvg-name="EKOTÜRK" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838250.png" group-title="Haber",EKOTÜRK
 
 
@@ -188,7 +188,7 @@ http://82.70.45.131/Uyan.php?ID=Ekoturk TV
 
 
 
-https://square-leaf-d613.panorea1000.workers.dev/?xml=ch750
+https://trkvz-live.ercdn.net/anewshd/anewshd_720p.m3u8?st=B7QQ6q3oulPktw5euPKY5A&e=1789382083
 #EXTINF:-1 tvg-name="TRT WORLD" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839162.png" group-title="Haber",TRT WORLD
 
 
@@ -198,22 +198,22 @@ https://tv-trtworld.medya.trt.com.tr/master.m3u8
 
 
 
-http://ios-byjj.onrender.com/TRiOS.php?ID=TRT Spor
+https://trt.daioncdn.net/trtspor/master_1440p.m3u8?platform=trtspor&sid=8qzig5xw8m8y&app=9b65474e-8197-4899-aabb-321fcf6dd9eb&ce=2
 #EXTINF:-1 tvg-name="TRT SPOR YILDIZ" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838619.png" group-title="Spor",TRT SPOR YILDIZ
 
 
 
-http://ios-byjj.onrender.com/TRiOS.php?ID=TRT Spor Yildiz
+https://trt.daioncdn.net/trtspor-yildiz/master_1440p.m3u8?platform=trtspor&sid=8qzil64j27rz&app=6d14425d-4281-477b-8b74-49c40e4aa8b8&ce=2
 #EXTINF:-1 tvg-name="A SPOR" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838287.png" group-title="Spor",A SPOR
 
 
 
-https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/aspor/aspor.m3u8
+https://trkvz-live.daioncdn.net/aspor/aspor_1080p-1789337530000.ts?e=1789382704&st=Acy6IcHG5fnEt0EDdQEl-Q
 #EXTINF:-1 tvg-name="HT SPOR" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838378.png" group-title="Spor",HT SPOR
 
 
 
-https://square-leaf-d613.panorea1000.workers.dev/?xml=ch954
+https://ciner-live.daioncdn.net/ht-spor/ht-spor_1080p-1789337580000.ts?ex=0
 #EXTINF:-1 tvg-name="BEIN SPORTS HABER" tvg-logo="https://raw.githubusercontent.com/GitLatte/m3ueditor/refs/heads/site/images/kanal-gorselleri/turkiye/bein-sports-haber-tr.png" group-title="Spor",BEIN SPORTS HABER
 
 
@@ -249,11 +249,6 @@ http://tv.atomspor.workers.dev/?ID=bein-sports-3
 
 
 https://andro.evrenesoglu99.click/checklist/androstreamlivebs3.m3u8
-#EXTINF:-1 tvg-name="BEIN SPORTS XTRA" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/b/b5/XTRA_2.png/revision/latest?cb=20201108180658" group-title="Spor",BEIN SPORTS XTRA
-
-
-
-https://square-leaf-d613.panorea1000.workers.dev/?xml=ch828
 #EXTINF:-1 tvg-name="S SPORT" tvg-logo="https://ssport.tv/assets/images/icons/logo.svg" group-title="Spor",S SPORT
 
 
@@ -304,26 +299,6 @@ https://andro.evrenesoglu99.click/checklist/androstreamlivees1.m3u8
 
 
 https://andro.evrenesoglu99.click/checklist/androstreamlivees2.m3u8
-#EXTINF:-1 tvg-name="EXXEN SPOR 1" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/db/Exxen.png" group-title="Spor",EXXEN SPOR 1
-
-
-
-https://square-leaf-d613.panorea1000.workers.dev/?xml=ch801
-#EXTINF:-1 tvg-name="EXXEN SPOR 2" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/db/Exxen.png" group-title="Spor",EXXEN SPOR 2
-
-
-
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=15341&extension=ts&play_token=zSABQW7fDf
-#EXTINF:-1 tvg-name="SPORT SMART" tvg-logo="https://epg.iptvx.one/picons/spor-smart-tr.png" group-title="Spor",SPOR SMART
-
-
-
-https://square-leaf-d613.panorea1000.workers.dev/?xml=ch790
-#EXTINF:-1 tvg-name="SPORT SMART 2" tvg-logo="https://epg.iptvx.one/picons/spor-smart-2-tr.png" group-title="Spor",SPOR SMART 2
-
-
-
-https://square-leaf-d613.panorea1000.workers.dev/?xml=ch793
 #EXTINF:-1 tvg-name="TRT BELGESEL" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250328726039.png" group-title="Belgesel",TRT BELGESEL
 
 
@@ -348,32 +323,22 @@ http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/LVFGLXHUW45A8PBECGUURD6K
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197433&extension=ts&play_token=vIAFFKePWW
+https://tvsen3.aynaott.com/7mm4pwCy/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1 tvg-name="NAT GEO WILD" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838637.png" group-title="Belgesel",NAT GEO WILD
 
 
 
 https://aegis-cloudfront-1.tubi.video/bb1fc6ad-9948-42ea-aaf3-20acfcdeecac/playlist1080p.m3u8
-#EXTINF:-1 tvg-name="DISCOVERY CHANNEL" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838478.png" group-title="Belgesel",DISCOVERY CHANNEL
-
-
-
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197427&extension=ts&play_token=rXjLa9bDy7
-#EXTINF:-1 tvg-name="ID" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801836500.png" group-title="Belgesel",ID
-
-
-
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197430&extension=ts&play_token=Vs7iaw7Nui
 #EXTINF:-1 tvg-name="BBC EARTH" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838637.png" group-title="Belgesel",BBC EARTH
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197431&extension=ts&play_token=nCZocT8oj0
-#EXTINF:-1 tvg-name="VIASAT HISTORY" tvg-logo="https://viasathistory.eu/wp-content/themes/viasat-world/logos/viasat-history.png" group-title="Belgesel",VIASAT HISTORY
+https://amg00793-amg00793c6-xumo-us-2669.playouts.now.amagi.tv/BBCStudios-BBCEarthA-hls/playlist1080p.m3u8
+#EXTINF:-1 tvg-name="HISTORY CHANNEL" tvg-logo="https://viasathistory.eu/wp-content/themes/viasat-world/logos/viasat-history.png" group-title="Belgesel",HISTORY CHANNEL
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197420&extension=ts&play_token=mT2OGR6h9B
+https://tvsen3.aynaott.com/np3JstRE/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1 tvg-name="NATURE TIME" tvg-logo="https://naturetimetv.com/wp-content/uploads/2023/05/NatureTime_white_Primary.png" group-title="Belgesel",NATURE TIME
 
 
@@ -383,7 +348,7 @@ https://amg00090-blueantmedia-naturetime-samsungfr-yakbf.amagi.tv/ts-eu-w1-n2/pl
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197434&extension=ts&play_token=Ngkcs4n1xj
+https://aegis-cloudfront-1.tubi.video/6d6d0f24-8445-4b4c-bdf6-44f9e38beaa4/1080p-cc/index.m3u8
 #EXTINF:-1 tvg-name="DMAX" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801837556.png" group-title="Belgesel",DMAX
 
 
@@ -413,5 +378,5 @@ https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/minikago/minikago_720p.m3u8
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197412&extension=ts&play_token=d2rZJutNho
+https://stream8.cinerama.uz/1500/tracks-v1a1/mono.m3u8
 
