@@ -143,7 +143,7 @@ app.get("/meta/tv/:id.json", async (req, res) => {
     name: channel.name,
     logo: absolute(req, assets.logo),
     poster: absolute(req, assets.poster),
-    background: absolute(req, assets.poster),
+    background: "",
     genres: [channel.group]
   };
 
