@@ -110,7 +110,7 @@ app.get("/catalog/tv/:id.json", (req, res) => {
       name: channel.name,
       poster: absolute(req, assets.poster),
       logo: absolute(req, assets.logo),
-      posterShape: "landscape"
+      posterShape: "square"
     };
 
   });
