@@ -1,4 +1,3 @@
-
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -19,9 +18,9 @@ const app = express();
 const PORT = process.env.PORT || 7000;
 
 app.use(cors());
-
 app.use(express.static(path.join(__dirname, "public")));
 
+// JSON endpointleri cache'lenmesin
 app.use((req, res, next) => {
   if (req.path.endsWith(".json") || req.path.startsWith("/hub")) {
     res.setHeader("Cache-Control", "no-store");
@@ -31,14 +30,15 @@ app.use((req, res, next) => {
 
 loadM3U();
 
-/* ========================================================= */
+/* =========================================================
+   YARDIMCI FONKSİYONLAR
+========================================================= */
 
 function absolute(req, url) {
   return `${req.protocol}://${req.get("host")}${url}`;
 }
 
 function assetPaths(name) {
-
   const encoded = encodeURIComponent(name);
 
   const posterFile = path.join(
@@ -64,7 +64,6 @@ function assetPaths(name) {
       ? `/clearlogos/${encoded}.png`
       : `/logos/${encoded}.png`
   };
-
 }
 
 /* =========================================================
@@ -76,36 +75,63 @@ app.get("/manifest.json", (req, res) => {
   res.json({
 
     id: "tata.live",
-    version: "7.0.0",
+    version: "6.1.0",
     name: "TATA",
     description: "Premium Live TV",
 
     resources: ["catalog", "meta", "stream"],
 
-    // TV + Movie birlikte çalışacak
-    types: ["tv", "movie"],
+    types: ["tv"],
 
-    idPrefixes: ["tv-", "hub-"],
+    idPrefixes: ["tv-"],
 
     catalogs: [
-
-      // Mevcut TV katalogları
       { type: "tv", id: "ulusal", name: "Ulusal" },
       { type: "tv", id: "spor", name: "Spor" },
       { type: "tv", id: "haber", name: "Haber" },
       { type: "tv", id: "belgesel", name: "Belgesel" },
-      { type: "tv", id: "cocuk", name: "Çocuk" },
-
-      // Deneme kataloğu
-      {
-        type: "movie",
-        id: "channel-hubs",
-        name: "Kanal Hub (Beta)"
-      }
-
+      { type: "tv", id: "cocuk", name: "Çocuk" }
     ]
 
   });
+
+});
+
+/* =========================================================
+   CATALOG
+========================================================= */
+
+const catalogMap = {
+  ulusal: "Ulusal",
+  spor: "Spor",
+  haber: "Haber",
+  belgesel: "Belgesel",
+  cocuk: "Çocuk"
+};
+
+app.get("/catalog/tv/:id.json", (req, res) => {
+
+  const groups = getGroups();
+  const groupName = catalogMap[req.params.id];
+
+  const metas = (groups[groupName] || []).map(channel => {
+
+    const assets = assetPaths(channel.name);
+
+    return {
+      id: `tv-${channel.id}`,
+      type: "tv",
+      name: channel.name,
+
+      poster: absolute(req, assets.poster),
+      logo: absolute(req, assets.logo),
+
+      posterShape: "square"
+    };
+
+  });
+
+  res.json({ metas });
 
 });
 
@@ -127,15 +153,10 @@ app.get("/meta/tv/:id.json", (req, res) => {
   res.json({
 
     meta: {
-
       id: `tv-${channel.id}`,
-
       type: "tv",
-
       name: channel.name,
-
       logo: absolute(req, assets.logo)
-
     }
 
   });
@@ -149,7 +170,6 @@ app.get("/meta/tv/:id.json", (req, res) => {
 app.get("/stream/tv/:id.json", async (req, res) => {
 
   const id = req.params.id.replace(/^tv-/, "");
-
   const channel = getChannel(id);
 
   if (!channel)
@@ -163,24 +183,15 @@ app.get("/stream/tv/:id.json", async (req, res) => {
       return res.json({ streams: [] });
 
     res.json({
-
-      streams: [
-
-        {
-
-          ...result.stream,
-
-          title: `${channel.name} • ${result.source}`
-
-        }
-
-      ]
-
+      streams: [{
+        ...result.stream,
+        title: `${channel.name} • ${result.source}`
+      }]
     });
 
   } catch (err) {
 
-    console.error(err);
+    console.error(`[STREAM ERROR] ${channel.name}:`, err.message);
 
     res.json({ streams: [] });
 
@@ -192,11 +203,13 @@ app.get("/stream/tv/:id.json", async (req, res) => {
    TMDb
 ========================================================= */
 
-async function getTMDbShows(networkId, sortBy) {
+async function getTMDbShows(networkId, sortBy = "popularity.desc") {
 
   try {
 
     const apiKey = process.env.TMDB_API_KEY;
+
+    if (!apiKey) return [];
 
     const url =
       `https://api.themoviedb.org/3/discover/tv`
@@ -236,7 +249,7 @@ async function getTMDbShows(networkId, sortBy) {
 
   } catch (err) {
 
-    console.error(err);
+    console.error("TMDb Discover:", err.message);
 
     return [];
 
@@ -245,7 +258,7 @@ async function getTMDbShows(networkId, sortBy) {
 }
 
 /* =========================================================
-   HUB
+   HUB (WEB PANEL)
 ========================================================= */
 
 app.get("/hub/:channel.json", async (req, res) => {
@@ -308,8 +321,6 @@ app.get("/hub/:channel.json", async (req, res) => {
 /* =========================================================
    HUB ROUTES
 ========================================================= */
-
-// Önce sabit route'lar
 
 app.get("/hub/status.json", (req, res) => {
 
@@ -379,52 +390,6 @@ app.get("/hub/:channel/featured.json", async (req, res) => {
 
 });
 
-// En sona parametreli route geliyor
-
-app.get("/hub/:channel.json", async (req, res) => {
-
-  const channelName = decodeURIComponent(req.params.channel);
-
-  const hub = loadHub(channelName);
-
-  if (!hub)
-    return res.status(404).json({ hub: null });
-
-  const network = await getNetwork(channelName);
-
-  const popular = await getTMDbShows(
-    hub.networkId,
-    "popularity.desc"
-  );
-
-  const newest = await getTMDbShows(
-    hub.networkId,
-    "first_air_date.desc"
-  );
-
-  const assets = assetPaths(channelName);
-
-  res.json({
-    hub: {
-      name: hub.name,
-      group: hub.group,
-      networkId: hub.networkId,
-      logo: absolute(req, assets.logo),
-      poster: absolute(req, assets.poster),
-      backdrop:
-        popular[0]?.backdrop ||
-        absolute(req, assets.poster),
-      description:
-        network?.headquarters ||
-        `${channelName} televizyon kanalı`,
-      website: network?.homepage || "",
-      popular,
-      newest
-    }
-  });
-
-});
-
 /* =========================================================
    TMDb IMAGE PROXY
 ========================================================= */
@@ -453,154 +418,15 @@ app.get("/tmdb/image/*", async (req, res) => {
 
     res.send(buffer);
 
-  } catch {
+  } catch (err) {
+
+    console.error("TMDb Image:", err.message);
 
     res.sendStatus(500);
 
   }
 
 });
-
-/* =========================================================
-   MOVIE HUB (TRT 1 Beta)
-========================================================= */
-
-// Kanal Hub kataloğu
-app.get("/catalog/movie/channel-hubs.json", (req, res) => {
-
-  const assets = assetPaths("TRT 1");
-
-  res.json({
-    metas: [
-      {
-        id: "hub-trt1",
-        type: "movie",
-        name: "TRT 1",
-        poster: absolute(req, assets.poster),
-        logo: absolute(req, assets.logo),
-        posterShape: "square"
-      }
-    ]
-  });
-
-});
-
-// TRT 1 Hub Meta
-app.get("/meta/movie/:id.json", async (req, res) => {
-
-  if (req.params.id !== "hub-trt1") {
-    return res.status(404).json({ meta: null });
-  }
-
-  const assets = assetPaths("TRT 1");
-
-  const hub = loadHub("TRT 1");
-
-  if (!hub) {
-    return res.status(404).json({ meta: null });
-  }
-
-  const network = await getNetwork("TRT 1");
-
-  const popular = await getTMDbShows(
-    hub.networkId,
-    "popularity.desc"
-  );
-
-  const newest = await getTMDbShows(
-    hub.networkId,
-    "first_air_date.desc"
-  );
-
-  const videos = [];
-
-  // İlk video: Canlı yayın
-  videos.push({
-    id: "live-trt1",
-    title: "▶ Canlı Yayını İzle",
-    released: "Canlı",
-    thumbnail: absolute(req, assets.poster)
-  });
-
-  // Popüler Diziler
-  popular.slice(0, 8).forEach(item => {
-    videos.push({
-      id: `tmdb-${item.id}`,
-      title: item.name,
-      released: item.firstAirDate,
-      thumbnail: item.poster
-    });
-  });
-
-  // Yeni Diziler
-  newest.slice(0, 8).forEach(item => {
-    videos.push({
-      id: `new-${item.id}`,
-      title: item.name,
-      released: item.firstAirDate,
-      thumbnail: item.poster
-    });
-  });
-
-  res.json({
-    meta: {
-      id: "hub-trt1",
-      type: "movie",
-
-      name: "TRT 1",
-
-      poster: absolute(req, assets.poster),
-
-      background:
-        popular[0]?.backdrop ||
-        absolute(req, assets.poster),
-
-      logo: absolute(req, assets.logo),
-
-      description:
-        network?.headquarters ||
-        "Türkiye'nin ilk ulusal televizyon kanalı.",
-
-      genres: ["Ulusal"],
-
-      videos
-    }
-  });
-
-});
-
-// TRT 1 Hub Stream
-app.get("/stream/movie/:id.json", async (req, res) => {
-
-  if (req.params.id !== "hub-trt1") {
-    return res.json({ streams: [] });
-  }
-
-  try {
-
-    const result = await resolveChannel("trt1");
-
-    if (!result || !result.stream) {
-      return res.json({ streams: [] });
-    }
-
-    res.json({
-      streams: [
-        {
-          ...result.stream,
-          title: "TRT 1 • Canlı Yayın"
-        }
-      ]
-    });
-
-  } catch {
-
-    res.json({ streams: [] });
-
-  }
-
-});
-
 
 /* =========================================================
    HEALTH
@@ -624,13 +450,19 @@ app.get("/health", (req, res) => {
 
 });
 
-/* ========================================================= */
+/* =========================================================
+   HOME
+========================================================= */
 
 app.get("/", (req, res) => {
 
   res.redirect("/manifest.json");
 
 });
+
+/* =========================================================
+   START
+========================================================= */
 
 app.listen(PORT, () => {
 
