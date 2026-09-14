@@ -2,9 +2,8 @@ const channel =
   new URLSearchParams(location.search).get("channel") || "TRT 1";
 
 const hero = document.getElementById("hero");
-const title = document.getElementById("title");
-const description = document.getElementById("description");
 const logo = document.getElementById("logo");
+const description = document.getElementById("description");
 
 const category = document.getElementById("category");
 const nowPlaying = document.getElementById("nowPlaying");
@@ -15,74 +14,77 @@ const newestRow = document.getElementById("newest");
 
 const watchBtn = document.getElementById("watchBtn");
 
-/* =========================================
-   ID ÜRET (parse-m3u.js ile aynı mantık)
-========================================= */
+/* =========================================================
+   parse-m3u.js ile aynı ID üretimi
+========================================================= */
 
-function channelId(name){
+function channelId(name = "") {
 
   return name
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g,"")
-    .replace(/[Çç]/g,"c")
-    .replace(/[Ğğ]/g,"g")
-    .replace(/[İIı]/g,"i")
-    .replace(/[Öö]/g,"o")
-    .replace(/[Şş]/g,"s")
-    .replace(/[Üü]/g,"u")
-    .replace(/[^a-zA-Z0-9]+/g,"")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[Çç]/g, "c")
+    .replace(/[Ğğ]/g, "g")
+    .replace(/[İIı]/g, "i")
+    .replace(/[Öö]/g, "o")
+    .replace(/[Şş]/g, "s")
+    .replace(/[Üü]/g, "u")
+    .replace(/[^a-zA-Z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
     .toLowerCase();
 
 }
 
-/* =========================================
+/* =========================================================
    Skeleton
-========================================= */
+========================================================= */
 
-function skeleton(row,count=6){
+function skeleton(row, count = 6) {
 
-  row.innerHTML="";
+  row.innerHTML = "";
 
-  for(let i=0;i<count;i++){
+  for (let i = 0; i < count; i++) {
 
-    const card=document.createElement("div");
+    const div = document.createElement("div");
 
-    card.className="poster skeleton";
+    div.className = "poster skeleton";
 
-    row.appendChild(card);
+    row.appendChild(div);
 
   }
 
 }
 
-/* =========================================
-   Poster Satırı
-========================================= */
+/* =========================================================
+   Poster satırı
+========================================================= */
 
-function renderRow(row,list){
+function renderRow(row, list) {
 
-  row.innerHTML="";
+  row.innerHTML = "";
 
-  if(!list.length){
+  if (!list || !list.length) {
 
-    row.innerHTML="<p style='color:#888'>İçerik bulunamadı.</p>";
+    row.innerHTML =
+      "<div style='color:#888'>İçerik bulunamadı.</div>";
 
     return;
 
   }
 
-  list.forEach(item=>{
+  list.forEach(item => {
 
-    const card=document.createElement("div");
+    const card = document.createElement("div");
 
-    card.className="poster focusable";
+    card.className = "poster focusable";
 
-    card.tabIndex=0;
+    card.tabIndex = 0;
 
-    card.innerHTML=`
-      <img loading="lazy"
-           src="${item.poster || ""}"
-           alt="${item.name}">
+    card.innerHTML = `
+      <img
+        loading="lazy"
+        src="${item.poster || ""}"
+        alt="${item.name}">
       <div class="poster-title">
         ${item.name}
       </div>
@@ -94,107 +96,110 @@ function renderRow(row,list){
 
 }
 
-/* =========================================
-   Hub Verisi
-========================================= */
+/* =========================================================
+   Hub verisini yükle
+========================================================= */
 
-async function loadHub(){
+async function loadHub() {
 
   skeleton(popularRow);
   skeleton(newestRow);
 
-  try{
+  try {
 
-    const res=await fetch(
+    const res = await fetch(
       `/hub/${encodeURIComponent(channel)}.json`
     );
 
-    if(!res.ok) throw new Error();
+    if (!res.ok) throw new Error();
 
-    const data=await res.json();
+    const data = await res.json();
 
-    const hub=data.hub;
+    if (!data.hub) return;
 
-    title.textContent=hub.name;
+    const hub = data.hub;
 
-    description.textContent=hub.description;
+    logo.src = hub.logo;
 
-    category.textContent=hub.group;
+    description.textContent = hub.description || "";
 
-    logo.src=hub.logo;
+    category.textContent = hub.group || "-";
 
-    hero.style.backgroundImage=
+    hero.style.backgroundImage =
       `url(${hub.backdrop || hub.poster})`;
 
-    renderRow(popularRow,hub.popular || []);
+    renderRow(popularRow, hub.popular);
 
-    renderRow(newestRow,hub.newest || []);
+    renderRow(newestRow, hub.newest);
 
   }
 
-  catch(err){
+  catch (err) {
 
-    console.error("Hub:",err);
+    console.error("Hub:", err);
 
-    popularRow.innerHTML=
-      "<p style='color:#888'>Yüklenemedi.</p>";
+    description.textContent =
+      "Kanal bilgileri yüklenemedi.";
 
-    newestRow.innerHTML=
-      "<p style='color:#888'>Yüklenemedi.</p>";
+    popularRow.innerHTML =
+      "<div style='color:#888'>Yüklenemedi.</div>";
+
+    newestRow.innerHTML =
+      "<div style='color:#888'>Yüklenemedi.</div>";
 
   }
 
 }
 
-/* =========================================
+/* =========================================================
    EPG
-========================================= */
+========================================================= */
 
-async function loadEPG(){
+async function loadEPG() {
 
-  try{
+  try {
 
-    const res=await fetch(
+    const res = await fetch(
       `/epg/${encodeURIComponent(channel)}.json`
     );
 
-    if(!res.ok) throw new Error();
+    if (!res.ok) throw new Error();
 
-    const data=await res.json();
+    const data = await res.json();
 
-    nowPlaying.textContent=
+    nowPlaying.textContent =
       data.now?.title || "Canlı Yayın";
 
-    nextPlaying.textContent=
+    nextPlaying.textContent =
       data.next?.title || "Sıradaki Program";
 
   }
 
-  catch{
+  catch {
 
-    nowPlaying.textContent="Canlı Yayın";
+    nowPlaying.textContent = "Canlı Yayın";
 
-    nextPlaying.textContent="Sıradaki Program";
+    nextPlaying.textContent = "Sıradaki Program";
 
   }
 
 }
 
-/* =========================================
+/* =========================================================
    Canlı İzle
-========================================= */
+========================================================= */
 
-watchBtn.addEventListener("click",async()=>{
+watchBtn.addEventListener("click", async () => {
 
-  try{
+  try {
 
-    const res=await fetch(
+    const res = await fetch(
       `/stream/tv/${channelId(channel)}.json`
     );
 
-    const data=await res.json();
+    const data = await res.json();
 
-    if(!data.streams?.length){
+    if (!data.streams?.length) {
 
       alert("Yayın bulunamadı.");
 
@@ -202,13 +207,14 @@ watchBtn.addEventListener("click",async()=>{
 
     }
 
-    const stream=data.streams[0];
+    const stream = data.streams[0];
 
-    window.location.href=stream.url;
+    if (stream.url)
+      window.location.href = stream.url;
 
   }
 
-  catch(err){
+  catch (err) {
 
     console.error(err);
 
@@ -218,33 +224,31 @@ watchBtn.addEventListener("click",async()=>{
 
 });
 
-/* =========================================
+/* =========================================================
    Android TV Focus
-========================================= */
+========================================================= */
 
-document.addEventListener("keydown",e=>{
+document.addEventListener("keydown", e => {
 
-  const items=[
+  const items = [
     ...document.querySelectorAll(".focusable")
   ];
 
-  if(!items.length) return;
+  if (!items.length) return;
 
-  const current=document.activeElement;
+  let index = items.indexOf(document.activeElement);
 
-  let index=items.indexOf(current);
+  if (e.key === "ArrowRight") {
 
-  if(e.key==="ArrowRight"){
-
-    index=Math.min(items.length-1,index+1);
+    index = Math.min(items.length - 1, index + 1);
 
     items[index].focus();
 
   }
 
-  if(e.key==="ArrowLeft"){
+  if (e.key === "ArrowLeft") {
 
-    index=Math.max(0,index-1);
+    index = Math.max(0, index - 1);
 
     items[index].focus();
 
@@ -252,9 +256,9 @@ document.addEventListener("keydown",e=>{
 
 });
 
-/* =========================================
+/* =========================================================
    Başlat
-========================================= */
+========================================================= */
 
 loadHub();
 loadEPG();
