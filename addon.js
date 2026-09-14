@@ -45,11 +45,21 @@ function assetPaths(name) {
   const encoded = encodeURIComponent(name);
 
   const posterFile = path.join(__dirname, "public", "poster", `${name}.jpg`);
+  const heroFile = path.join(__dirname, "public", "hero", `${name}.jpg`);
 
   return {
-    poster: fs.existsSync(posterFile)
+    catalogPoster: fs.existsSync(posterFile)
       ? `/poster/${encoded}.jpg`
       : `/logos/${encoded}.png`,
+
+    heroPoster: fs.existsSync(heroFile)
+      ? `/hero/${encoded}.jpg`
+      : (
+          fs.existsSync(posterFile)
+            ? `/poster/${encoded}.jpg`
+            : `/logos/${encoded}.png`
+        ),
+
     logo: `/logos/${encoded}.png`
   };
 }
@@ -108,7 +118,7 @@ app.get("/catalog/tv/:id.json", (req, res) => {
       id: `tv-${channel.id}`,
       type: "tv",
       name: channel.name,
-      poster: absolute(req, assets.poster),
+      poster: absolute(req, assets.catalogPoster),
       logo: absolute(req, assets.logo),
       posterShape: "square"
     };
@@ -139,7 +149,7 @@ app.get("/meta/tv/:id.json", async (req, res) => {
     type: "tv",
     name: channel.name,
     logo: absolute(req, assets.logo),
-    poster: absolute(req, assets.poster),
+    poster: absolute(req, assets.heroPoster),
     background: "",
     genres: [channel.group]
   };
