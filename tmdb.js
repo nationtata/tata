@@ -12,6 +12,9 @@ const map = JSON.parse(
 
 // Cache
 const networkCache = new Map();
+const featuredCache = new Map();
+const popularCache = new Map();
+const newestCache = new Map();
 
 /* =========================================================
    TMDb İstek Yardımcısı
@@ -19,71 +22,49 @@ const networkCache = new Map();
 
 async function tmdb(endpoint, params = {}) {
 
+  if (!TMDB_API_KEY) return null;
+
   const url = new URL(
     `https://api.themoviedb.org/3/${endpoint}`
   );
 
   url.searchParams.set("api_key", TMDB_API_KEY);
 
-  Object.entries(params).forEach(([k, v]) => {
-    if (v !== undefined && v !== null)
-      url.searchParams.set(k, v);
+  Object.entries(params).forEach(([key, value]) => {
+
+    if (value !== undefined && value !== null)
+      url.searchParams.set(key, value);
+
   });
 
-  const res = await fetch(url);
+  const response = await fetch(url);
 
-  if (!res.ok) return null;
+  if (!response.ok) return null;
 
-  return res.json();
+  return response.json();
 
 }
 
 /* =========================================================
-   Network Bul
-========================================================= */
-
-async function searchNetwork(networkName) {
-
-  const data = await tmdb("search/company", {
-    query: networkName,
-    language: "tr-TR"
-  });
-
-  if (!data || !data.results) return null;
-
-  const exact =
-    data.results.find(
-      x =>
-        x.name.toLowerCase() ===
-        networkName.toLowerCase()
-    ) || data.results[0];
-
-  return exact || null;
-
-}
-
-/* =========================================================
-   Kanal -> Network
+   Network Bilgisi
 ========================================================= */
 
 async function getNetwork(channelName) {
-
-  if (!TMDB_API_KEY) return null;
 
   if (networkCache.has(channelName))
     return networkCache.get(channelName);
 
   const cfg = map[channelName];
 
-  if (!cfg) return null;
+  if (!cfg || !cfg.networkId)
+    return null;
 
-  const company = await searchNetwork(cfg.networkName);
-
-  if (!company) return null;
-
-  const network = await tmdb(`network/${company.id}`, {
-    language: "tr-TR"
-  });
+  const network = await tmdb(
+    `network/${cfg.networkId}`,
+    {
+      language: "tr-TR"
+    }
+  );
 
   if (!network) return null;
 
@@ -99,90 +80,171 @@ async function getNetwork(channelName) {
 
 async function getFeatured(channelName) {
 
+  if (featuredCache.has(channelName))
+    return featuredCache.get(channelName);
+
   const cfg = map[channelName];
 
-  if (!cfg) return null;
+  if (!cfg || !cfg.featuredQuery)
+    return null;
+
+  let result = null;
 
   const tv = await tmdb("search/tv", {
     query: cfg.featuredQuery,
     language: "tr-TR"
   });
 
-  if (tv?.results?.length)
-    return tv.results[0];
+  if (tv?.results?.length) {
 
-  const movie = await tmdb("search/movie", {
-    query: cfg.featuredQuery,
-    language: "tr-TR"
-  });
+    result = tv.results[0];
 
-  if (movie?.results?.length)
-    return movie.results[0];
+  } else {
 
-  return null;
+    const movie = await tmdb("search/movie", {
+      query: cfg.featuredQuery,
+      language: "tr-TR"
+    });
+
+    if (movie?.results?.length)
+      result = movie.results[0];
+
+  }
+
+  featuredCache.set(channelName, result);
+
+  return result;
 
 }
 
 /* =========================================================
-   Popüler
+   Popüler İçerikler
 ========================================================= */
 
 async function getPopular(channelName) {
 
-  const network = await getNetwork(channelName);
+  if (popularCache.has(channelName))
+    return popularCache.get(channelName);
 
-  if (!network) return [];
+  const cfg = map[channelName];
 
-  const data = await tmdb("discover/tv", {
+  if (!cfg) return [];
 
-    with_networks: network.id,
+  let results = [];
 
-    sort_by: "popularity.desc",
+  if (cfg.networkId) {
 
-    language: "tr-TR",
+    const data = await tmdb("discover/tv", {
+      with_networks: cfg.networkId,
+      sort_by: "popularity.desc",
+      language: "tr-TR",
+      page: 1
+    });
 
-    page: 1
+    results = data?.results || [];
 
-  });
+  }
 
-  return data?.results || [];
+  if (!results.length && cfg.featuredQuery) {
+
+    const data = await tmdb("search/tv", {
+      query: cfg.featuredQuery,
+      language: "tr-TR"
+    });
+
+    results = data?.results || [];
+
+  }
+
+  results = results.slice(0, 12);
+
+  popularCache.set(channelName, results);
+
+  return results;
 
 }
 
 /* =========================================================
-   Yeni
+   Yeni İçerikler
 ========================================================= */
 
 async function getNewest(channelName) {
 
-  const network = await getNetwork(channelName);
+  if (newestCache.has(channelName))
+    return newestCache.get(channelName);
 
-  if (!network) return [];
+  const cfg = map[channelName];
 
-  const data = await tmdb("discover/tv", {
+  if (!cfg) return [];
 
-    with_networks: network.id,
+  let results = [];
 
-    sort_by: "first_air_date.desc",
+  if (cfg.networkId) {
 
-    language: "tr-TR",
+    const data = await tmdb("discover/tv", {
+      with_networks: cfg.networkId,
+      sort_by: "first_air_date.desc",
+      language: "tr-TR",
+      page: 1
+    });
 
-    page: 1
+    results = data?.results || [];
 
-  });
+  }
 
-  return data?.results || [];
+  if (!results.length && cfg.featuredQuery) {
+
+    const data = await tmdb("search/tv", {
+      query: cfg.featuredQuery,
+      language: "tr-TR"
+    });
+
+    results = data?.results || [];
+
+  }
+
+  results = results.slice(0, 12);
+
+  newestCache.set(channelName, results);
+
+  return results;
 
 }
+
+/* =========================================================
+   Kanal Yapılandırması
+========================================================= */
+
+function getConfig(channelName) {
+
+  return map[channelName] || null;
+
+}
+
+/* =========================================================
+   Cache Temizleme
+========================================================= */
+
+function clearCache() {
+
+  networkCache.clear();
+  featuredCache.clear();
+  popularCache.clear();
+  newestCache.clear();
+
+}
+
+/* =========================================================
+   Export
+========================================================= */
 
 module.exports = {
 
   getNetwork,
-
   getFeatured,
-
   getPopular,
-
-  getNewest
+  getNewest,
+  getConfig,
+  clearCache
 
 };
