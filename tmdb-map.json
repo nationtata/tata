@@ -1,89 +1,326 @@
 {
-  "TRT 1": { "networkName": "TRT 1", "featuredQuery": "Teşkilat" },
-  "ATV": { "networkName": "ATV", "featuredQuery": "Kuruluş Osman" },
-  "STAR": { "networkName": "Star TV", "featuredQuery": "Yalı Çapkını" },
-  "SHOW": { "networkName": "Show TV", "featuredQuery": "Kızılcık Şerbeti" },
-  "KANAL D": { "networkName": "Kanal D", "featuredQuery": "Uzak Şehir" },
-  "NOW": { "networkName": "NOW TV", "featuredQuery": "Hudutsuz Sevda" },
-  "TV8": { "networkName": "TV8", "featuredQuery": "MasterChef Türkiye" },
-  "TV8.5": { "networkName": "TV8.5", "featuredQuery": "Survivor Ekstra" },
-  "BEYAZ": { "networkName": "Beyaz TV", "featuredQuery": "Beyaz Ana Haber" },
-  "TV2": { "networkName": "teve2", "featuredQuery": "Kelime Oyunu" },
-  "TLC": { "networkName": "TLC", "featuredQuery": "90 Day Fiancé" },
-  "A2": { "networkName": "a2", "featuredQuery": "Eski Diziler" },
-  "KANAL 7": { "networkName": "Kanal 7", "featuredQuery": "Emanet" },
-  "360": { "networkName": "360", "featuredQuery": "Yeşilçam" },
+  "TRT 1": {
+    "networkId": 869,
+    "featuredQuery": "Teşkilat"
+  },
+  "ATV": {
+    "networkId": 110,
+    "featuredQuery": "Kuruluş Osman"
+  },
+  "STAR": {
+    "networkId": 112,
+    "featuredQuery": "Yalı Çapkını"
+  },
+  "SHOW": {
+    "networkId": 111,
+    "featuredQuery": "Kızılcık Şerbeti"
+  },
+  "KANAL D": {
+    "networkId": 108,
+    "featuredQuery": "Uzak Şehir"
+  },
+  "NOW": {
+    "networkId": 113,
+    "featuredQuery": "Hudutsuz Sevda"
+  },
+  "TV8": {
+    "networkId": 374,
+    "featuredQuery": "MasterChef Türkiye"
+  },
+  "TV8.5": {
+    "networkId": 374,
+    "featuredQuery": "Survivor Panorama"
+  },
+  "BEYAZ": {
+    "networkId": 360,
+    "featuredQuery": "Beyaz Ana Haber"
+  },
+  "TV2": {
+    "networkId": 1264,
+    "featuredQuery": "Kelime Oyunu"
+  },
+  "TLC": {
+    "networkId": 64,
+    "featuredQuery": "90 Day Fiancé"
+  },
+  "A2": {
+    "networkId": 110,
+    "featuredQuery": "Eski Diziler"
+  },
+  "KANAL 7": {
+    "networkId": 437,
+    "featuredQuery": "Emanet"
+  },
+  "360": {
+    "networkId": 1265,
+    "featuredQuery": "Yeşilçam"
+  },
 
-  "TRT HABER": { "networkName": "TRT Haber", "featuredQuery": "Gündem" },
-  "HABERTÜRK": { "networkName": "Habertürk TV", "featuredQuery": "Açık ve Net" },
-  "CNN TÜRK": { "networkName": "CNN Türk", "featuredQuery": "Tarafsız Bölge" },
-  "A HABER": { "networkName": "A Haber", "featuredQuery": "Ajans" },
-  "HABER GLOBAL": { "networkName": "Haber Global", "featuredQuery": "Gündem" },
-  "TV 100": { "networkName": "TV100", "featuredQuery": "Canlı Yayın" },
-  "NTV": { "networkName": "NTV", "featuredQuery": "Ana Haber" },
-  "TGRT HABER": { "networkName": "TGRT Haber", "featuredQuery": "Medya Kritik" },
-  "ÜLKE": { "networkName": "Ülke TV", "featuredQuery": "Arafta Sorular" },
-  "24": { "networkName": "24 TV", "featuredQuery": "Moderatör" },
-  "TVNET": { "networkName": "TVNET", "featuredQuery": "Net Bakış" },
-  "HALK": { "networkName": "Halk TV", "featuredQuery": "Kayda Geçsin" },
-  "SZC": { "networkName": "Sözcü TV", "featuredQuery": "Para Politika" },
-  "KRT": { "networkName": "KRT TV", "featuredQuery": "Gündem" },
-  "ULUSAL KANAL": { "networkName": "Ulusal Kanal", "featuredQuery": "Ulusal Haber" },
-  "FLASH HABER": { "networkName": "Flash Haber", "featuredQuery": "Gündem" },
-  "BENGÜTÜRK": { "networkName": "Bengütürk", "featuredQuery": "Haber" },
-  "LİDER HABER": { "networkName": "Lider Haber", "featuredQuery": "Ana Haber" },
-  "TÜRKHABER": { "networkName": "Türk Haber", "featuredQuery": "Gündem" },
-  "TRT TÜRK": { "networkName": "TRT Türk", "featuredQuery": "Programlar" },
-  "CNBC-e": { "networkName": "CNBC-e", "featuredQuery": "The Office" },
-  "BLOOMBERG HT": { "networkName": "Bloomberg HT", "featuredQuery": "Piyasa Hattı" },
-  "A PARA": { "networkName": "A Para", "featuredQuery": "Ekonomi" },
-  "EKOTÜRK": { "networkName": "Ekotürk", "featuredQuery": "Ekonomi" },
-  "A NEWS": { "networkName": "A News", "featuredQuery": "News" },
-  "TRT WORLD": { "networkName": "TRT World", "featuredQuery": "News" },
-  "CNN INTERNATIONAL": { "networkName": "CNN International", "featuredQuery": "News" },
-  "BBC NEWS": { "networkName": "BBC News", "featuredQuery": "BBC News" },
+    "TRT HABER": {
+    "networkId": 871,
+    "featuredQuery": "Gündem"
+  },
+  "HABERTÜRK": {
+    "networkId": 438,
+    "featuredQuery": "Açık ve Net"
+  },
+  "CNN TÜRK": {
+    "networkId": 61,
+    "featuredQuery": "Tarafsız Bölge"
+  },
+  "A HABER": {
+    "networkId": 110,
+    "featuredQuery": "Ajans"
+  },
+  "HABER GLOBAL": {
+    "networkId": 1266,
+    "featuredQuery": "Gündem"
+  },
+  "TV 100": {
+    "networkId": 1267,
+    "featuredQuery": "Canlı Yayın"
+  },
+  "NTV": {
+    "networkId": 77,
+    "featuredQuery": "Ana Haber"
+  },
+  "TGRT HABER": {
+    "networkId": 1268,
+    "featuredQuery": "Medya Kritik"
+  },
+  "ÜLKE": {
+    "networkId": 1269,
+    "featuredQuery": "Arafta Sorular"
+  },
+  "24": {
+    "networkId": 1270,
+    "featuredQuery": "Moderatör"
+  },
+  "TVNET": {
+    "networkId": 1271,
+    "featuredQuery": "Net Bakış"
+  },
+  "HALK": {
+    "networkId": 1272,
+    "featuredQuery": "Kayda Geçsin"
+  },
+  "SZC": {
+    "networkId": 1273,
+    "featuredQuery": "Para Politika"
+  },
+  "KRT": {
+    "networkId": 1274,
+    "featuredQuery": "Gündem"
+  },
+  "ULUSAL KANAL": {
+    "networkId": 1275,
+    "featuredQuery": "Ulusal Haber"
+  },
+  "FLASH HABER": {
+    "networkId": 1276,
+    "featuredQuery": "Gündem"
+  },
+  "BENGÜTÜRK": {
+    "networkId": 1277,
+    "featuredQuery": "Haber"
+  },
+  "LİDER HABER": {
+    "networkId": 1278,
+    "featuredQuery": "Ana Haber"
+  },
+  "TÜRKHABER": {
+    "networkId": 1279,
+    "featuredQuery": "Gündem"
+  },
+  "TRT TÜRK": {
+    "networkId": 872,
+    "featuredQuery": "Programlar"
+  },
+  "CNBC-e": {
+    "networkId": 435,
+    "featuredQuery": "The Office"
+  },
+  "BLOOMBERG HT": {
+    "networkId": 1280,
+    "featuredQuery": "Piyasa Hattı"
+  },
+  "A PARA": {
+    "networkId": 1281,
+    "featuredQuery": "Ekonomi"
+  },
+  "EKOTÜRK": {
+    "networkId": 1282,
+    "featuredQuery": "Ekonomi"
+  },
+  "A NEWS": {
+    "networkId": 110,
+    "featuredQuery": "News"
+  },
+  "TRT WORLD": {
+    "networkId": 873,
+    "featuredQuery": "News"
+  },
+  "CNN INTERNATIONAL": {
+    "networkId": 61,
+    "featuredQuery": "News"
+  },
+  "BBC NEWS": {
+    "networkId": 4,
+    "featuredQuery": "BBC News"
+  },
 
-  "TRT SPOR": { "networkName": "TRT Spor", "featuredQuery": "Spor" },
-  "TRT SPOR YILDIZ": { "networkName": "TRT Spor Yıldız", "featuredQuery": "Spor" },
-  "A SPOR": { "networkName": "A Spor", "featuredQuery": "Futbol" },
-  "HT SPOR": { "networkName": "HT Spor", "featuredQuery": "Spor" },
-  "BEIN SPORTS HABER": { "networkName": "beIN SPORTS Haber", "featuredQuery": "Spor" },
-  "BEIN SPORTS 1": { "networkName": "beIN SPORTS 1", "featuredQuery": "Süper Lig" },
-  "BEIN SPORTS 2": { "networkName": "beIN SPORTS 2", "featuredQuery": "Futbol" },
-  "BEIN SPORTS 3": { "networkName": "beIN SPORTS 3", "featuredQuery": "Futbol" },
-  "S SPORT": { "networkName": "S Sport", "featuredQuery": "Premier League" },
-  "S SPORT 2": { "networkName": "S Sport 2", "featuredQuery": "NBA" },
-  "TİVİBU SPOR": { "networkName": "Tivibu Spor", "featuredQuery": "Spor" },
-  "TİVİBU SPOR 1": { "networkName": "Tivibu Spor 1", "featuredQuery": "Spor" },
-  "TİVİBU SPOR 2": { "networkName": "Tivibu Spor 2", "featuredQuery": "Spor" },
-  "TİVİBU SPOR 3": { "networkName": "Tivibu Spor 3", "featuredQuery": "Spor" },
-  "TABİİ SPOR 1": { "networkName": "Tabii Spor 1", "featuredQuery": "UEFA" },
-  "TABİİ SPOR 2": { "networkName": "Tabii Spor 2", "featuredQuery": "UEFA" },
-  "EUROSPORT 1": { "networkName": "Eurosport 1", "featuredQuery": "Cycling" },
-  "EUROSPORT 2": { "networkName": "Eurosport 2", "featuredQuery": "Tennis" },
-  "SPOR SMART": { "networkName": "Spor Smart", "featuredQuery": "Spor" },
-  "SPOR SMART 2": { "networkName": "Spor Smart 2", "featuredQuery": "Spor" },
+    "TRT SPOR": {
+    "networkId": 870,
+    "featuredQuery": "TRT Spor"
+  },
+  "TRT SPOR YILDIZ": {
+    "networkId": 870,
+    "featuredQuery": "TRT Spor Yıldız"
+  },
+  "A SPOR": {
+    "networkId": 110,
+    "featuredQuery": "A Spor"
+  },
+  "HT SPOR": {
+    "featuredQuery": "HT Spor"
+  },
+  "BEIN SPORTS HABER": {
+    "networkId": 1024,
+    "featuredQuery": "beIN SPORTS Haber"
+  },
+  "BEIN SPORTS 1": {
+    "networkId": 1024,
+    "featuredQuery": "Süper Lig"
+  },
+  "BEIN SPORTS 2": {
+    "networkId": 1024,
+    "featuredQuery": "beIN SPORTS"
+  },
+  "BEIN SPORTS 3": {
+    "networkId": 1024,
+    "featuredQuery": "beIN SPORTS"
+  },
+  "S SPORT": {
+    "networkId": 174,
+    "featuredQuery": "Premier League"
+  },
+  "S SPORT 2": {
+    "networkId": 174,
+    "featuredQuery": "NBA"
+  },
+  "TİVİBU SPOR": {
+    "featuredQuery": "Tivibu Spor"
+  },
+  "TİVİBU SPOR 1": {
+    "featuredQuery": "Tivibu Spor"
+  },
+  "TİVİBU SPOR 2": {
+    "featuredQuery": "Tivibu Spor"
+  },
+  "TİVİBU SPOR 3": {
+    "featuredQuery": "Tivibu Spor"
+  },
+  "TABİİ SPOR 1": {
+    "networkId": 870,
+    "featuredQuery": "UEFA Champions League"
+  },
+  "TABİİ SPOR 2": {
+    "networkId": 870,
+    "featuredQuery": "UEFA Europa League"
+  },
+  "EUROSPORT 1": {
+    "networkId": 71,
+    "featuredQuery": "Tour de France"
+  },
+  "EUROSPORT 2": {
+    "networkId": 71,
+    "featuredQuery": "Australian Open"
+  },
+  "SPOR SMART": {
+    "featuredQuery": "Spor Smart"
+  },
+  "SPOR SMART 2": {
+    "featuredQuery": "Spor Smart"
+  },
 
-  "TRT BELGESEL": { "networkName": "TRT Belgesel", "featuredQuery": "Belgesel" },
-  "TRT 2": { "networkName": "TRT 2", "featuredQuery": "Kültür Sanat" },
-  "TRT AVAZ": { "networkName": "TRT Avaz", "featuredQuery": "Türk Dünyası" },
-  "YABAN": { "networkName": "Yaban TV", "featuredQuery": "Doğa" },
-  "NATIONAL GEOGRAPHIC": { "networkName": "National Geographic", "featuredQuery": "Nat Geo" },
-  "NAT GEO WILD": { "networkName": "Nat Geo Wild", "featuredQuery": "Wild" },
-  "BBC EARTH": { "networkName": "BBC Earth", "featuredQuery": "Planet Earth" },
-  "LOVE NATURE": { "networkName": "Love Nature", "featuredQuery": "Nature" },
-  "NATURE TIME": { "networkName": "Nature Time", "featuredQuery": "Nature" },
-  "HISTORY CHANNEL": { "networkName": "History", "featuredQuery": "Ancient Aliens" },
-  "VIASAT HISTORY": { "networkName": "Viasat History", "featuredQuery": "History" },
-  "TARİH TV": { "networkName": "Tarih TV", "featuredQuery": "Tarih" },
-  "DISCOVERY CHANNEL": { "networkName": "Discovery", "featuredQuery": "Gold Rush" },
-  "ID": { "networkName": "Investigation Discovery", "featuredQuery": "ID" },
-  "DMAX": { "networkName": "DMAX", "featuredQuery": "Wheeler Dealers" },
-  "FX": { "networkName": "FX", "featuredQuery": "Shōgun" },
+    "TRT BELGESEL": {
+    "networkId": 874,
+    "featuredQuery": "TRT Belgesel"
+  },
+  "TRT 2": {
+    "networkId": 875,
+    "featuredQuery": "TRT 2"
+  },
+  "TRT AVAZ": {
+    "networkId": 876,
+    "featuredQuery": "TRT Avaz"
+  },
+  "YABAN": {
+    "featuredQuery": "Yaban TV"
+  },
+  "NATIONAL GEOGRAPHIC": {
+    "networkId": 43,
+    "featuredQuery": "National Geographic"
+  },
+  "NAT GEO WILD": {
+    "networkId": 1043,
+    "featuredQuery": "Nat Geo Wild"
+  },
+  "BBC EARTH": {
+    "networkId": 4,
+    "featuredQuery": "Planet Earth"
+  },
+  "LOVE NATURE": {
+    "networkId": 318,
+    "featuredQuery": "Love Nature"
+  },
+  "NATURE TIME": {
+    "featuredQuery": "Nature Time"
+  },
+  "HISTORY CHANNEL": {
+    "networkId": 65,
+    "featuredQuery": "History"
+  },
+  "VIASAT HISTORY": {
+    "networkId": 315,
+    "featuredQuery": "Viasat History"
+  },
+  "TARİH TV": {
+    "featuredQuery": "Tarih TV"
+  },
+  "DISCOVERY CHANNEL": {
+    "networkId": 10,
+    "featuredQuery": "Gold Rush"
+  },
+  "ID": {
+    "networkId": 135,
+    "featuredQuery": "Investigation Discovery"
+  },
+  "DMAX": {
+    "networkId": 64,
+    "featuredQuery": "Wheeler Dealers"
+  },
+  "FX": {
+    "networkId": 88,
+    "featuredQuery": "Shōgun"
+  },
 
-  "TRT ÇOCUK": { "networkName": "TRT Çocuk", "featuredQuery": "Rafadan Tayfa" },
-  "CARTOON NETWORK": { "networkName": "Cartoon Network", "featuredQuery": "Adventure Time" },
-  "CARTOONITO": { "networkName": "Cartoonito", "featuredQuery": "Batwheels" },
-  "MİNİKA GO": { "networkName": "Minika GO", "featuredQuery": "Çizgi Film" },
-  "MİNİKA ÇOCUK": { "networkName": "Minika Çocuk", "featuredQuery": "Çocuk" }
+    "TRT ÇOCUK": {
+    "networkId": 877,
+    "featuredQuery": "Rafadan Tayfa"
+  },
+  "CARTOON NETWORK": {
+    "networkId": 2,
+    "featuredQuery": "Adventure Time"
+  },
+  "CARTOONITO": {
+    "networkId": 2907,
+    "featuredQuery": "Batwheels"
+  },
+  "MİNİKA GO": {
+    "featuredQuery": "Minika GO"
+  },
+  "MİNİKA ÇOCUK": {
+    "featuredQuery": "Minika Çocuk"
+  }
 }
