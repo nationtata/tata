@@ -345,26 +345,15 @@ app.get("/hub/:channel.json", async (req, res) => {
    HUB ROUTES
 ========================================================= */
 
-app.get("/hub/page/:channel", (req, res) => {
-
-  const channel = encodeURIComponent(req.params.channel);
-
-  res.redirect(`/hub/index.html?channel=${channel}`);
-
-});
+// Önce sabit route'lar
 
 app.get("/hub/status.json", (req, res) => {
 
   res.json({
-
     status: "ok",
-
     version: "6.1.0",
-
     tmdb: !!process.env.TMDB_API_KEY,
-
     time: Date.now()
-
   });
 
 });
@@ -376,21 +365,24 @@ app.get("/hub/list.json", (req, res) => {
   const channels = Object.values(groups)
     .flat()
     .map(ch => ({
-
       name: ch.name,
-
       id: ch.id,
-
       group: ch.group,
-
       hub: absolute(
         req,
         `/hub/${encodeURIComponent(ch.name)}.json`
       )
-
     }));
 
   res.json({ channels });
+
+});
+
+app.get("/hub/page/:channel", (req, res) => {
+
+  const channel = encodeURIComponent(req.params.channel);
+
+  res.redirect(`/hub/index.html?channel=${channel}`);
 
 });
 
@@ -414,17 +406,57 @@ app.get("/hub/:channel/featured.json", async (req, res) => {
   );
 
   res.json({
-
     channel: channelName,
-
     featured: {
-
       popular,
-
       newest
-
     }
+  });
 
+});
+
+// En sona parametreli route geliyor
+
+app.get("/hub/:channel.json", async (req, res) => {
+
+  const channelName = decodeURIComponent(req.params.channel);
+
+  const hub = loadHub(channelName);
+
+  if (!hub)
+    return res.status(404).json({ hub: null });
+
+  const network = await getNetwork(channelName);
+
+  const popular = await getTMDbShows(
+    hub.networkId,
+    "popularity.desc"
+  );
+
+  const newest = await getTMDbShows(
+    hub.networkId,
+    "first_air_date.desc"
+  );
+
+  const assets = assetPaths(channelName);
+
+  res.json({
+    hub: {
+      name: hub.name,
+      group: hub.group,
+      networkId: hub.networkId,
+      logo: absolute(req, assets.logo),
+      poster: absolute(req, assets.poster),
+      backdrop:
+        popular[0]?.backdrop ||
+        absolute(req, assets.poster),
+      description:
+        network?.headquarters ||
+        `${channelName} televizyon kanalı`,
+      website: network?.homepage || "",
+      popular,
+      newest
+    }
   });
 
 });
