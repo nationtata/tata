@@ -2,7 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
+
 const { getNetwork } = require("./tmdb");
+const { loadHub } = require("./hub");
 
 const {
   getGroups,
@@ -27,8 +29,8 @@ function absolute(req, url) {
 function assetPaths(name) {
   const encoded = encodeURIComponent(name);
 
-  const posterFile = path.join(__dirname, "public/poster", `${name}.jpg`);
-  const clearFile = path.join(__dirname, "public/clearlogos", `${name}.png`);
+  const posterFile = path.join(__dirname, "public", "poster", `${name}.jpg`);
+  const clearFile = path.join(__dirname, "public", "clearlogos", `${name}.png`);
 
   return {
     poster: fs.existsSync(posterFile)
@@ -49,7 +51,7 @@ app.get("/manifest.json", (req, res) => {
 
   res.json({
     id: "tata.live",
-    version: "4.0.0",
+    version: "5.0.0",
     name: "TATA",
     description: "Premium Live TV",
 
@@ -115,40 +117,12 @@ app.get("/meta/tv/:id.json", async (req, res) => {
 
   const assets = assetPaths(channel.name);
 
-  // Varsayılan meta (diğer tüm kanallar için)
   const meta = {
     id: `tv-${channel.id}`,
     type: "tv",
     name: channel.name,
     logo: absolute(req, assets.logo)
   };
-
-  // Şimdilik sadece TRT 1'i TMDb ile zenginleştiriyoruz
-  if (channel.name === "TRT 1") {
-    try {
-      const network = await getNetwork("TRT 1");
-
-      if (network) {
-        meta.description =
-          network.headquarters ||
-          "Türkiye'nin ilk ulusal televizyon kanalı.";
-
-        meta.releaseInfo = "1968";
-
-        meta.genres = ["Ulusal"];
-
-        if (network.homepage) {
-          meta.website = network.homepage;
-        }
-
-        // Arka planı kendi hazırladığın premium posterden alıyoruz.
-        // Böylece detay sayfası siyah kalıyor ve mevcut görünüm bozulmuyor.
-        meta.background = absolute(req, "/poster/TRT 1.jpg");
-      }
-    } catch (err) {
-      console.error("TMDb error:", err);
-    }
-  }
 
   res.json({ meta });
 });
@@ -184,6 +158,36 @@ app.get("/stream/tv/:id.json", async (req, res) => {
 
     return res.json({ streams: [] });
   }
+});
+
+/* =========================================================
+   HUB API (Yeni)
+========================================================= */
+
+app.get("/hub/:channel.json", async (req, res) => {
+
+  const channelName = decodeURIComponent(req.params.channel);
+
+  const hub = loadHub(channelName);
+
+  if (!hub) {
+    return res.status(404).json({ hub: null });
+  }
+
+  const network = await getNetwork(channelName);
+
+  res.json({
+    hub: {
+      name: hub.name,
+      group: hub.group,
+      networkId: hub.networkId,
+      logo: absolute(req, `/logos/${hub.logo}`),
+      poster: absolute(req, `/poster/${hub.poster}`),
+      tmdb: network,
+      featured: hub.featured
+    }
+  });
+
 });
 
 /* =========================================================
