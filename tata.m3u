@@ -155,6 +155,11 @@ https://b01c02nl.mediatriple.net/videoonlylive/mtyycglqauzjhlive/broadcast_67c05
 
 
 https://tv.ensonhaber.com/benguturk/benguturk_720p.m3u8
+#EXTINF:-1 tvg-name="LİDER HABER" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838732.png" group-title="Haber",LİDER HABER
+
+
+
+http://82.70.45.131/Uyan.php?ID=Lider%20Haber
 #EXTINF:-1 tvg-name="TÜRKHABER" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250809846223.png" group-title="Haber",TÜRKHABER
 
 
@@ -295,6 +300,16 @@ https://andro.evrenesoglu99.click/checklist/androstreamlivees1.m3u8
 
 
 https://andro.evrenesoglu99.click/checklist/androstreamlivees2.m3u8
+#EXTINF:-1 tvg-name="SPORSMART" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801837058.png" group-title="Spor",SPORSMART
+
+
+
+http://82.70.45.131/Go.php?ID=246003
+#EXTINF:-1 tvg-name="SPORSMART 2" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801837058.png" group-title="Spor",SPORSMART 2
+
+
+
+http://82.70.45.131/Go.php?ID=246171
 #EXTINF:-1 tvg-name="TRT BELGESEL" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250328726039.png" group-title="Belgesel",TRT BELGESEL
 
 
@@ -330,16 +345,51 @@ https://aegis-cloudfront-1.tubi.video/bb1fc6ad-9948-42ea-aaf3-20acfcdeecac/playl
 
 
 https://amg00793-amg00793c6-xumo-us-2669.playouts.now.amagi.tv/BBCStudios-BBCEarthA-hls/playlist1080p.m3u8
-#EXTINF:-1 tvg-name="HISTORY CHANNEL" tvg-logo="https://viasathistory.eu/wp-content/themes/viasat-world/logos/viasat-history.png" group-title="Belgesel",HISTORY CHANNEL
+#EXTINF:-1 tvg-name="LOVE NATURE" tvg-logo="https://naturetimetv.com/wp-content/uploads/2023/05/NatureTime_white_Primary.png" group-title="Belgesel",NATURE TIME
 
 
 
-https://tvsen3.aynaott.com/np3JstRE/tracks-v1a1/mono.ts.m3u8
+http://82.70.45.131/Go.php?ID=246189
 #EXTINF:-1 tvg-name="NATURE TIME" tvg-logo="https://naturetimetv.com/wp-content/uploads/2023/05/NatureTime_white_Primary.png" group-title="Belgesel",NATURE TIME
 
 
 
 https://amg00090-blueantmedia-naturetime-samsungfr-yakbf.amagi.tv/ts-eu-w1-n2/playlist/amg00090-blueantmedia-naturetime-samsungfr/cb573f1f6573629098cf3a78d1f644826b371fde1d6988693eb5518975d1073edce2a59caa08ff16388f1ede7f0a66413a3e951fda77118fd87eb141453c5728cfffe729a2c05616b7db083429b56a062a866a68ac39437ed0e21f48a238b6720a5aa82a66443d80b846ac725adb80148b61299bce8c37683f03409a5e5afba358b381be1f018732beb018408b2f5be79c42dbc014ed87d50f9f46d36bf810c99bed8ad246839b986af850af320c5b277ccdd478c19b0de6e8780853e8199c82cc3496c2e99c6a19c4206459eaf2cab17c8d62a4eb00b410fb3f9dfa35e2159f79a519a29b3ec83f68112333508bc85f6429a2f0b28db9425b13d835c39bbf5d55e39a387750cc7f98112a209ff3d25ee3a970c4e072d7e73b5e5092e068087381971b9aad339b904dcdbf8e7d62040e21179452b29f22f92ccf74a1c029fe3d27a4ccb75ade8fd552312d1ac8d01e9c2412b7df8494cc4e15fe204a0aa630821b3265c2623827a535afce752ca8361a89300afe5a1e8956b3ed7fa2e988b346739ef6f36fd323afb903d9f3428e683f520dfab20f57574370d5a137596837930bb49d9aa1440806ede5c4b195006f496a41122284f0f37f95c1917d4558911d762e246262fc6ee160d10446173d894f83de6e5ab146707da8f7451e300ab1c7be868bd3b0349677c1c0f03c6f761954b43d012979c0f4ea7df82b406a754d8a6c3511eae73bce71127a83c4350994fa24e3d40fe9abde4e8315eb/127/1920x1080_4716800/index.m3u8
+#EXTINF:-1 tvg-name="HISTORY CHANNEL" tvg-logo="https://viasathistory.eu/wp-content/themes/viasat-world/logos/viasat-history.png" group-title="Belgesel",HISTORY CHANNEL
+
+
+
+https://tvsen3.aynaott.com/np3JstRE/tracks-v1a1/mono.ts.m3u8
+#EXTINF:-1 tvg-name="VIASAT HISTORY" tvg-logo="https://viasathistory.eu/wp-content/themes/viasat-world/logos/viasat-history.png" group-title="Belgesel",VIASAT HISTORY
+
+
+
+http://82.70.45.131/Go.php?ID=246054
+#EXTINF:-1 tvg-name="TARİH TV" tvg-logo="https://viasathistory.eu/wp-content/themes/viasat-world/logos/viasat-history.png" group-title="Belgesel",TARİH TV
+
+
+
+http://82.70.45.131/Go.php?ID=246246
+#EXTINF:-1 tvg-name="DISCOVERY CHANNEL" tvg-logo="https://viasathistory.eu/wp-content/themes/viasat-world/logos/viasat-history.png" group-title="Belgesel",DISCOVERY CHANNEL
+
+
+
+http://82.70.45.131/Go.php?ID=245964
+#EXTINF:-1 tvg-name="ID" tvg-logo="https://viasathistory.eu/wp-content/themes/viasat-world/logos/viasat-history.png" group-title="Belgesel",ID
+
+
+
+http://82.70.45.131/Go.php?ID=245955
+#EXTINF:-1 tvg-name="DMAX" tvg-logo="https://viasathistory.eu/wp-content/themes/viasat-world/logos/viasat-history.png" group-title="Belgesel",DMAX
+
+
+
+http://82.70.45.131/Go.php?ID=245961
+#EXTINF:-1 tvg-name="FX" tvg-logo="https://viasathistory.eu/wp-content/themes/viasat-world/logos/viasat-history.png" group-title="Belgesel",FX
+
+
+
+http://82.70.45.131/Go.php?ID=246186
 #EXTINF:-1 tvg-name="TRT ÇOCUK" tvg-logo="https://itv224226.tmp.tivibu.com.tr:6430/images/poster/20250801838766.png" group-title="Çocuk",TRT ÇOCUK
 
 
@@ -350,14 +400,22 @@ https://tv-trtcocuk.medya.trt.com.tr/master_1440.m3u8
 
 
 http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/LVFGLXHUW45A8PBECGUURD6K/6846/index.m3u8
-#EXTINF:-1 tvg-name="MİNİKA ÇOCUK" tvg-logo="https://itv224226.tmp.tivibu.com.tr:6430/images/poster/20250809846211.png" group-title="Çocuk",MİNİKA ÇOCUK
+#EXTINF:-1 tvg-name="CARTOONITO" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801837565.png" group-title="Çocuk",CARTOONITO
 
 
 
-https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/minikago_cocuk/minikago_cocuk_720p.m3u8
+http://82.70.45.131/Go.php?ID=246081
 #EXTINF:-1 tvg-name="MİNİKA GO" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838843.png" group-title="Çocuk",MİNİKA GO
 
 
 
 https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/minikago/minikago_720p.m3u8
+#EXTINF:-1 tvg-name="MİNİKA ÇOCUK" tvg-logo="https://itv224226.tmp.tivibu.com.tr:6430/images/poster/20250809846211.png" group-title="Çocuk",MİNİKA ÇOCUK
+
+
+
+https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/minikago_cocuk/minikago_cocuk_720p.m3u8
+
+
+
 
