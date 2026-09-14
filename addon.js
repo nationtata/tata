@@ -103,7 +103,9 @@ app.get("/catalog/tv/:id.json", (req, res) => {
    META
 ========================================================= */
 
-app.get("/meta/tv/:id.json", (req, res) => {
+app.get("/meta/tv/:id.json", async (req, res) => {
+  res.setHeader("Cache-Control", "no-store");
+
   const id = req.params.id.replace(/^tv-/, "");
   const channel = getChannel(id);
 
@@ -113,14 +115,42 @@ app.get("/meta/tv/:id.json", (req, res) => {
 
   const assets = assetPaths(channel.name);
 
-  res.json({
-    meta: {
-      id: `tv-${channel.id}`,
-      type: "tv",
-      name: channel.name,
-      logo: absolute(req, assets.logo)
+  // Varsayılan meta (diğer tüm kanallar için)
+  const meta = {
+    id: `tv-${channel.id}`,
+    type: "tv",
+    name: channel.name,
+    logo: absolute(req, assets.logo)
+  };
+
+  // Şimdilik sadece TRT 1'i TMDb ile zenginleştiriyoruz
+  if (channel.name === "TRT 1") {
+    try {
+      const network = await getNetwork("TRT 1");
+
+      if (network) {
+        meta.description =
+          network.headquarters ||
+          "Türkiye'nin ilk ulusal televizyon kanalı.";
+
+        meta.releaseInfo = "1968";
+
+        meta.genres = ["Ulusal"];
+
+        if (network.homepage) {
+          meta.website = network.homepage;
+        }
+
+        // Arka planı kendi hazırladığın premium posterden alıyoruz.
+        // Böylece detay sayfası siyah kalıyor ve mevcut görünüm bozulmuyor.
+        meta.background = absolute(req, "/poster/TRT 1.jpg");
+      }
+    } catch (err) {
+      console.error("TMDb error:", err);
     }
-  });
+  }
+
+  res.json({ meta });
 });
 
 /* =========================================================
