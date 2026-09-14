@@ -443,11 +443,11 @@ http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197132&exte
 http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197123&extension=ts&play_token=VLONELclwy
 #EXTINF:-1 tvg-logo="http://picon.tivi-ott.net:25461/picon/TURKEY/SINEMATV-GRI.png" group-title="┃TR┃ SINEMA YABANCI",┃TR┃ SINEMA TV YERLI 2 HD
 http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197122&extension=ts&play_token=vSSunWgA4j
-#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bein-sports-lig-tv2.png" channel-name="beIN Sports 1" group-title="SADECE CANLI",beIN Sports 1
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bein-sports-lig-tv2.png" channel-name="BEIN Sports 1" group-title="SADECE CANLI",BEIN Sports 1
 http://tv.atomspor.workers.dev/?ID=bein-sports-1
-#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bein-sports-lig-tv2.png" channel-name="beIN Sports 2" group-title="SADECE CANLI",beIN Sports 2
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bein-sports-lig-tv2.png" channel-name="BEIN Sports 2" group-title="SADECE CANLI",BEIN Sports 2
 http://tv.atomspor.workers.dev/?ID=bein-sports-2
-#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bein-sports-lig-tv2.png" channel-name="beIN Sports 3" group-title="SADECE CANLI",beIN Sports 3
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bein-sports-lig-tv2.png" channel-name="BEIN Sports 3" group-title="SADECE CANLI",BEIN Sports 3
 http://tv.atomspor.workers.dev/?ID=bein-sports-3
 #EXTINF:-1 tvg-logo="http://picon.tivi-ott.net:25461/picon/TURKEY/exxensports.png" group-title="┃TR┃ EXXEN SPORTS",┃TR┃ EXXEN SPORTS 1 4K
 http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=15340&extension=ts&play_token=wNK4aVUruy
