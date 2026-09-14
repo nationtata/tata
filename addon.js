@@ -148,7 +148,7 @@ app.get("/meta/tv/:id.json", async (req, res) => {
   };
 
   // TRT 1 Network denemesi
-if (channel.id === "trt-1") {
+if (channel.id === "TRT 1") {
   meta.links = [
     {
       name: "TRT 1 Yapımları",
