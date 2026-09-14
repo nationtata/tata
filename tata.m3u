@@ -99,7 +99,7 @@ https://tv.ensonhaber.com/haberglobal/haberglobal.m3u8
 
 
 
-http://82.70.45.131/Uyan.php?ID=TV 100
+http://82.70.45.131/Go.php?ID=246174
 #EXTINF:-1 tvg-name="NTV" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838399.png" group-title="Haber",NTV
 
 
@@ -134,7 +134,7 @@ https://halktv-live.daioncdn.net/halktv/halktv.m3u8
 
 
 
-http://82.70.45.131/Uyan.php?ID=Sozcu TV
+http://82.70.45.131/Go.php?ID=246240
 #EXTINF:-1 tvg-name="KRT" tvg-logo="https://media.licdn.com/dms/image/v2/D4D22AQEW5TJZltwq_g/feedshare-image-high-res/feedshare-image-high-res/0/1708069310312?e=2147483647&v=beta&t=k1wpU_vqgstSWnliu5KKQO4P7_Knv0wI0ht3nrAov2s" group-title="Haber",KRT
 
 
@@ -189,7 +189,7 @@ https://trkvz-live.ercdn.net/aparahd/aparahd_480p.m3u8?st=_Hy9upDmfr4uTvP5-zTgiQ
 
 
 
-http://82.70.45.131/Uyan.php?ID=Ekoturk TV
+http://82.70.45.131/Go.php?ID=246255
 #EXTINF:-1 tvg-name="A NEWS" tvg-logo="https://itv224226.tmp.tivibu.com.tr:6430/images/poster/20250801838138.png" group-title="Haber",A NEWS
 
 
@@ -314,7 +314,7 @@ http://82.70.45.131/Go.php?ID=246171
 
 
 
-http://82.70.45.131/Uyan.php?ID=TRT Belgesel
+http://82.70.45.131/Go.php?ID=246156
 #EXTINF:-1 tvg-name="TRT 2" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801839153.png" group-title="Belgesel",TRT 2
 
 
