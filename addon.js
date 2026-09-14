@@ -76,72 +76,36 @@ app.get("/manifest.json", (req, res) => {
   res.json({
 
     id: "tata.live",
-    version: "6.1.0",
+    version: "7.0.0",
     name: "TATA",
     description: "Premium Live TV",
 
     resources: ["catalog", "meta", "stream"],
 
-    types: ["tv"],
+    // TV + Movie birlikte çalışacak
+    types: ["tv", "movie"],
 
-    idPrefixes: ["tv-"],
+    idPrefixes: ["tv-", "hub-"],
 
     catalogs: [
 
+      // Mevcut TV katalogları
       { type: "tv", id: "ulusal", name: "Ulusal" },
       { type: "tv", id: "spor", name: "Spor" },
       { type: "tv", id: "haber", name: "Haber" },
       { type: "tv", id: "belgesel", name: "Belgesel" },
-      { type: "tv", id: "cocuk", name: "Çocuk" }
+      { type: "tv", id: "cocuk", name: "Çocuk" },
+
+      // Deneme kataloğu
+      {
+        type: "movie",
+        id: "channel-hubs",
+        name: "Kanal Hub (Beta)"
+      }
 
     ]
 
   });
-
-});
-
-/* =========================================================
-   CATALOG
-========================================================= */
-
-const catalogMap = {
-
-  ulusal: "Ulusal",
-  spor: "Spor",
-  haber: "Haber",
-  belgesel: "Belgesel",
-  cocuk: "Çocuk"
-
-};
-
-app.get("/catalog/tv/:id.json", (req, res) => {
-
-  const groups = getGroups();
-
-  const groupName = catalogMap[req.params.id];
-
-  const metas = (groups[groupName] || []).map(channel => {
-
-    const assets = assetPaths(channel.name);
-
-    return {
-
-      id: `tv-${channel.id}`,
-      type: "tv",
-
-      name: channel.name,
-
-      poster: absolute(req, assets.poster),
-
-      logo: absolute(req, assets.logo),
-
-      posterShape: "square"
-
-    };
-
-  });
-
-  res.json({ metas });
 
 });
 
