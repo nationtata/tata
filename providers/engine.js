@@ -1,77 +1,42 @@
-const { getChannel } = require("../parse-m3u");
-const { checkStream } = require("./health");
-const cache = require("./cache");
+const { resolveTata } = require("./tata");
+const { isHealthy } = require("./health");
+const healthStore = require("./healthStore");
 
-/* =========================================================
-   STREAM DOĞRULAMA
-========================================================= */
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-async function verify(stream) {
+async function tataTask(id) {
+  const url = await resolveTata(id);
 
-  const key = stream.url;
+  if (!url) throw new Error("No stream");
 
-  const cached = cache.get(key);
+  const healthy = await Promise.race([
+    isHealthy(url),
+    wait(3000).then(() => false)
+  ]);
+
+  if (!healthy) throw new Error("Unhealthy");
+
+  return {
+    stream: { url },
+    source: "Ana"
+  };
+}
+
+async function resolveChannel(id) {
+
+  const cached = healthStore.get(id);
 
   if (cached) {
     return cached;
   }
 
-  const ok = await checkStream(stream.url);
+  const result = await tataTask(id);
 
-  cache.set(key, ok);
+  healthStore.set(id, result);
 
-  return ok;
-
-}
-
-/* =========================================================
-   TÜM ALTERNATİFLERİ HAZIRLA
-========================================================= */
-
-async function resolveChannel(id) {
-
-  const channel = getChannel(id);
-
-  if (!channel) return null;
-
-  const alternatives = [];
-
-  for (const alt of channel.alternatives) {
-
-    const healthy = await verify(alt);
-
-    alternatives.push({
-
-      source: alt.source,
-
-      healthy,
-
-      stream: {
-        url: alt.url
-      }
-
-    });
-
-  }
-
-  return {
-
-    channel,
-
-    alternatives,
-
-    stream:
-      alternatives.find(a => a.healthy)?.stream ||
-      alternatives[0]?.stream ||
-      null,
-
-    source:
-      alternatives.find(a => a.healthy)?.source ||
-      alternatives[0]?.source ||
-      "Yayın"
-
-  };
-
+  return result;
 }
 
 module.exports = {
