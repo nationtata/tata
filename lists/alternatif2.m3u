@@ -1,1 +1,288 @@
+#EXTM3U
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/ssport-1.jpg" channel-name="S SPORT+" group-title="SADECE CANLI",S SPORT+
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch117
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/turk-muzik-birligi-tmb-tv.png" channel-name="Turk Muzik Birligi TV" group-title="SADECE CANLI",Turk Muzik Birligi TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch162
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/ilke-tv.jpg" channel-name="Ilke TV" group-title="SADECE CANLI",Ilke TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch365
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/kanal-avrupa.png" channel-name="Kanal Avrupa" group-title="SADECE CANLI",Kanal Avrupa
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch389
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/meltem-tv.jpg" channel-name="Meltem TV" group-title="SADECE CANLI",Meltem TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch623
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/cnn-international.jpg" channel-name="CNN International" group-title="SADECE CANLI",CNN International
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch714
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/now-tv-epg-.gif" channel-name="NOW TV" group-title="SADECE CANLI",NOW TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch718
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/star-tv-epg-.png" channel-name="Star TV" group-title="SADECE CANLI",Star TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch817
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/tv8.jpg" channel-name="TV8" group-title="SADECE CANLI",TV8
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch825
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/tytturk.jpg" channel-name="TYTTURK" group-title="SADECE CANLI",TYTTURK
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch732
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/tv8-5-epg-.jpg" channel-name="TV8.5" group-title="SADECE CANLI",TV8.5
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch733
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/kanal-d-epg-.jpg" channel-name="Kanal D" group-title="SADECE CANLI",Kanal D
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch734
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/show-tv-epg-.png" channel-name="Show TV" group-title="SADECE CANLI",Show TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch735
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/show-max-epg-.png" channel-name="Show Max" group-title="SADECE CANLI",Show Max
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch736
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/tv100-epg-.jpg" channel-name="TV100" group-title="SADECE CANLI",TV100
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch738
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/beyaz-tv-epg-.png" channel-name="Beyaz TV" group-title="SADECE CANLI",Beyaz TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch739
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/kanal-7-epg-.jpg" channel-name="Kanal 7" group-title="SADECE CANLI",Kanal 7
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch814
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/ulke-tv.png" channel-name="Ulke TV" group-title="SADECE CANLI",Ulke TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch815
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/sky-360-epg-.png" channel-name="Sky 360" group-title="SADECE CANLI",Sky 360
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch742
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/trt-turk.png" channel-name="TRT Turk" group-title="SADECE CANLI",TRT Turk
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch808
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/a2-epg-.png" channel-name="A2" group-title="SADECE CANLI",A2
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch744
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/tlc-turkiye-epg-.png" channel-name="TLC Turkiye" group-title="SADECE CANLI",TLC Turkiye
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch745
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/dmax-turkiye-epg-.png" channel-name="DMAX Turkiye" group-title="SADECE CANLI",DMAX Turkiye
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch746
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/trt-avaz-epg-.jpg" channel-name="TRT Avaz" group-title="SADECE CANLI",TRT Avaz
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch747
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/trt-spor-yildiz-epg-.png" channel-name="TRT Spor Yildiz" group-title="SADECE CANLI",TRT Spor Yildiz
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch749
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/a-news.jpg" channel-name="A News" group-title="SADECE CANLI",A News
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch750
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bein-sports-haber-epg-.jpg" channel-name="beIN Sports Haber" group-title="SADECE CANLI",beIN Sports Haber
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch751
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/fenerbahce-tv.png" channel-name="Fenerbahce TV" group-title="SADECE CANLI",Fenerbahce TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch752
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/ekol-tv.jpg" channel-name="Ekol TV" group-title="SADECE CANLI",Ekol TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch753
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/sports-tv-epg-.png" channel-name="Sports TV" group-title="SADECE CANLI",Sports TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch754
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bein-sports-lig-tv1.png" channel-name="beIN Sports Lig Tv1" group-title="SADECE CANLI",beIN Sports Lig Tv1
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch755
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bein-sports-lig-tv2.png" channel-name="beIN Sports Lig Tv2" group-title="SADECE CANLI",beIN Sports Lig Tv2
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch756
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bein-sports-lig-tv3.png" channel-name="beIN Sports Lig Tv3" group-title="SADECE CANLI",beIN Sports Lig Tv3
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch757
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/trt-muzik-epg-.jpg" channel-name="TRT Muzik." group-title="SADECE CANLI",TRT Muzik.
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch758
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/diyanet-tv-epg-.png" channel-name="Diyanet TV" group-title="SADECE CANLI",Diyanet TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch760
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/yaban-tv-epg-.png" channel-name="Yaban TV" group-title="SADECE CANLI",Yaban TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch761
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/trt-belgesel-epg-.png" channel-name="TRT Belgesel" group-title="SADECE CANLI",TRT Belgesel
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch762
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/minika-cocuk.png" channel-name="minika Cocuk" group-title="SADECE CANLI",minika Cocuk
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch765
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/minika-go-epg-.png" channel-name="minika GO" group-title="SADECE CANLI",minika GO
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch766
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/cartoon-network-tr-epg-.png" channel-name="Cartoon Network TR" group-title="SADECE CANLI",Cartoon Network TR
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch768
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/ntv-epg-.png" channel-name="NTV" group-title="SADECE CANLI",NTV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch813
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/cnn-turk-epg-.png" channel-name="CNN Turk" group-title="SADECE CANLI",CNN Turk
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch770
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/haber-turk-epg-.png" channel-name="Haber Turk" group-title="SADECE CANLI",Haber Turk
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch771
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/haber-global-epg-.jpg" channel-name="Haber Global" group-title="SADECE CANLI",Haber Global
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch772
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/krt-kultur-tv-epg-.jpg" channel-name="KRT Kultur TV" group-title="SADECE CANLI",KRT Kultur TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch773
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/ulusal-tv-epg-.png" channel-name="Ulusal TV" group-title="SADECE CANLI",Ulusal TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch774
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/a-haber.png" channel-name="A Haber -" group-title="SADECE CANLI",A Haber -
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch775
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/ekot-rk-epg-.png" channel-name="EkoTurk(EPG)" group-title="SADECE CANLI",EkoTurk(EPG)
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch776
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/kanal-24-epg-.png" channel-name="Kanal 24" group-title="SADECE CANLI",Kanal 24
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch777
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/trt-haber.png" channel-name="TRT Haber" group-title="SADECE CANLI",TRT Haber
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch819
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/trt-world-epg-.png" channel-name="TRT World" group-title="SADECE CANLI",TRT World
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch779
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/tvnet-epg-.png" channel-name="TVNET" group-title="SADECE CANLI",TVNET
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch780
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/idman-tv-epg-.png" channel-name="Idman TV" group-title="SADECE CANLI",Idman TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch781
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/cbs-sport-epg-.png" channel-name="CBC Sport Azerbaijan" group-title="SADECE CANLI",CBC Sport Azerbaijan
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch782
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/trt-spor-epg-.png" channel-name="TRT Spor" group-title="SADECE CANLI",TRT Spor
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch785
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/trt-4k.jpg" channel-name="TRT 4K" group-title="SADECE CANLI",TRT 4K
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch786
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/trt-1-.png" channel-name="TRT 1" group-title="SADECE CANLI",TRT 1
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch831
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/spor-smart-hd-epg-.jpg" channel-name="Spor Smart HD" group-title="SADECE CANLI",Spor Smart HD
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch790
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/s-sport.jpg" channel-name="S SPORT" group-title="SADECE CANLI",S SPORT
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch791
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/spor-smart-2-hd.jpg" channel-name="Spor Smart 2 HD" group-title="SADECE CANLI",Spor Smart 2 HD
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch793
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/tivibu-spor-1.png" channel-name="Tivibu Spor" group-title="SADECE CANLI",Tivibu Spor
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch797
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/.jpg" channel-name="Power Turk" group-title="SADECE CANLI",Power Turk
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch800
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/exxen-1.png" channel-name="Exxen 1" group-title="SADECE CANLI",Exxen 1
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch801
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/halk-tv-epg-.jpg" channel-name="Halk TV" group-title="SADECE CANLI",Halk TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch802
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/atv-avrupa.png" channel-name="ATV Avrupa" group-title="SADECE CANLI",ATV Avrupa
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch805
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/tv8-int-epg-.jpg" channel-name="TV8  Int" group-title="SADECE CANLI",TV8  Int
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch806
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/trt-1-tv-epg-.png" channel-name="TRT 1 TV" group-title="SADECE CANLI",TRT 1 TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch807
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/trt-spor-hd-.png" channel-name="TRT Spor HD" group-title="SADECE CANLI",TRT Spor HD
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch830
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/trt-muzik.jpg" channel-name="TRT Muzik" group-title="SADECE CANLI",TRT Muzik
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch811
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/trt-cocuk-epg-.jpg" channel-name="TRT Cocuk" group-title="SADECE CANLI",TRT Cocuk
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch812
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/atv-epg-.jpg" channel-name="ATV" group-title="SADECE CANLI",ATV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch816
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/a-spor-epg-.jpg" channel-name="A Spor" group-title="SADECE CANLI",A Spor
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch822
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/star-tv-.png" channel-name="StarTV" group-title="SADECE CANLI",StarTV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch826
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bein-sports-xtra.jpg" channel-name="Bein Sports Xtra" group-title="SADECE CANLI",Bein Sports Xtra
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch828
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/sozcu-tv-epg-.png" channel-name="Sozcu TV" group-title="SADECE CANLI",Sozcu TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch872
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/sat7-turk.gif" channel-name="Sat7 Turk" group-title="SADECE CANLI",Sat7 Turk
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch876
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/luys-tv.jpg" channel-name="LUYS TV" group-title="SADECE CANLI",LUYS TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch879
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/kentron-tv.gif" channel-name="Kentron TV" group-title="SADECE CANLI",Kentron TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch880
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/1tv-armenia-h1.gif" channel-name="1TV Armenia H1" group-title="SADECE CANLI",1TV Armenia H1
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch881
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/trt-2-epg-.gif" channel-name="TRT 2" group-title="SADECE CANLI",TRT 2
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch891
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/arb-24-tv.gif" channel-name="ARB 24 TV" group-title="SADECE CANLI",ARB 24 TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch904
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/arb-tv.gif" channel-name="ARB TV" group-title="SADECE CANLI",ARB TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch905
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/ictimai-tv.gif" channel-name="Ictimai TV" group-title="SADECE CANLI",Ictimai TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch906
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/medeniyyet-tv.gif" channel-name="Medeniyyet TV" group-title="SADECE CANLI",Medeniyyet TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch907
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/real-tv.png" channel-name="Real TV" group-title="SADECE CANLI",Real TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch908
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/zexer-xeber.png" channel-name="Zexer Xeber" group-title="SADECE CANLI",Zexer Xeber
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch909
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/kepez-tv.png" channel-name="Kepez TV" group-title="SADECE CANLI",Kepez TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch911
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/space-tv.jpg" channel-name="Space TV" group-title="SADECE CANLI",Space TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch912
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/start-tv.png" channel-name="Start TV" group-title="SADECE CANLI",Start TV
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch913
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/kibris-brt1-.png" channel-name="Kibris BRT1" group-title="SADECE CANLI",Kibris BRT1
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch915
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/tivi6.jpg" channel-name="TIVI6" group-title="SADECE CANLI",TIVI6
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch916
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/tv4.jpg" channel-name="TV4" group-title="SADECE CANLI",TV4
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch917
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/dream-turk.jpg" channel-name="Dream Turk" group-title="SADECE CANLI",Dream Turk
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch918
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bengu-turk.gif" channel-name="Bengu Turk" group-title="SADECE CANLI",Bengu Turk
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch919
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/kibris-brt2.jpg" channel-name="Kibris BRT2" group-title="SADECE CANLI",Kibris BRT2
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch920
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/a-para.jpg" channel-name="A Para" group-title="SADECE CANLI",A Para
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch921
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bloomberg-haber-turk.gif" channel-name="Bloomberg Haber Turk" group-title="SADECE CANLI",Bloomberg Haber Turk
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch922
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bosnia-hayat-1.png" channel-name="Bosnia Hayat" group-title="SADECE CANLI",Bosnia Hayat
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch924
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bosnia-bht1.gif" channel-name="Bosnia BHT1" group-title="SADECE CANLI",Bosnia BHT1
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch925
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bosnia-arena-sport1.gif" channel-name="Bosnia Arena Sport1" group-title="SADECE CANLI",Bosnia Arena Sport1
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch926
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/eurostar.png" channel-name="EuroStar" group-title="SADECE CANLI",EuroStar
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch945
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/ht-spor.jpg" channel-name="HT Spor" group-title="SADECE CANLI",HT Spor
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch954
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/cnbc-e-turk.gif" channel-name="CNBC-E Turk" group-title="SADECE CANLI",CNBC-E Turk
+https://square-leaf-d613.panorea1000.workers.dev/?xml=ch955
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/trt-4k.jpg" group-title="TRT4K",TRT 4K - Live (Canlı)
+https://trn03.tulix.tv/gt-trt-4k/index.m3u8?token=0631e8753bcdf25bb2a5015db22ec082
 
+#EXTINF:-1 group-title="XTRA",YEŞILÇAM
+https://sharelink.anonimltc.workers.dev/g/s43fdq.m3u8
+#EXTINF:-1 group-title="XTRA",SİNEMA YERLİ
+https://sharelink.anonimltc.workers.dev/g/ise9fx.m3u8
+#EXTINF:-1 group-title="XTRA",SİNEMA YERLİ2
+https://sharelink.anonimltc.workers.dev/g/087yat.m3u8
+#EXTINF:-1 group-title="XTRA",SİNEMA KOMEDİ
+https://sharelink.anonimltc.workers.dev/g/hy364t.m3u8
+#EXTINF:-1 group-title="XTRA",SİNEMA AKSIYON
+https://sharelink.anonimltc.workers.dev/g/tahkxy.m3u8
+#EXTINF:-1 group-title="XTRA",SİNEMA AILE
+https://sharelink.anonimltc.workers.dev/g/8m95e5.m3u8
+#EXTINF:-1 group-title="XTRA",SİNEMA1002
+https://sharelink.anonimltc.workers.dev/g/3pzp9h.mp4
+#EXTINF:-1 group-title="XTRA",SİNEMA1001
+https://sharelink.anonimltc.workers.dev/g/phcwm9.m3u8
+#EXTINF:-1 group-title="XTRA",MOVIESMARTTÜRK
+https://sharelink.anonimltc.workers.dev/g/mgsn7g.m3u8
+#EXTINF:-1 group-title="XTRA",FX | 2
+https://sharelink.anonimltc.workers.dev/g/l50e7p.m3u8
+#EXTINF:-1 group-title="XTRA",BSTÜRK
+https://sharelink.anonimltc.workers.dev/g/c58ok1.m3u8
+#EXTINF:-1 group-title="XTRA",BSSTARS
+https://sharelink.anonimltc.workers.dev/g/m62m42.m3u8
+#EXTINF:-1 group-title="XTRA",BSPREMIERE
+https://sharelink.anonimltc.workers.dev/g/9kxzmt.m3u8
+#EXTINF:-1 group-title="XTRA",BSFAMILY
+https://sharelink.anonimltc.workers.dev/g/2q05c3.m3u8
+#EXTINF:-1 group-title="XTRA",BOX3
+https://sharelink.anonimltc.workers.dev/g/dns1d0.m3u8
+#EXTINF:-1 group-title="XTRA",BOX2
+https://sharelink.anonimltc.workers.dev/g/h3ovd7.m3u8
+#EXTINF:-1 group-title="XTRA",BOX1
+https://sharelink.anonimltc.workers.dev/g/15iqf4.m3u8
+#EXTINF:-1 group-title="XTRA",BSAKSIYON
+https://sharelink.anonimltc.workers.dev/g/f635vl.m3u8
+#EXTINF:-1 group-title="XTRA",DA VINCI
+https://sharelink.anonimltc.workers.dev/g/s2rl5g.m3u8
+#EXTINF:-1 group-title="XTRA",DİSCOVERY SCIENCE
+https://sharelink.anonimltc.workers.dev/g/jgvhdv.m3u8
+#EXTINF:-1 group-title="XTRA",BABY TV
+https://sharelink.anonimltc.workers.dev/g/sg9bhw.m3u8
+#EXTINF:-1 group-title="XTRA",DISNEY JR
+https://sharelink.anonimltc.workers.dev/g/laaye1.m3u8
+#EXTINF:-1 group-title="XTRA",CARTOON NETWORK
+https://sharelink.anonimltc.workers.dev/g/99q1ud.m3u8
+#EXTINF:-1 group-title="XTRA",MİNİKA GO
+https://sharelink.anonimltc.workers.dev/g/3scz4y.m3u8
+#EXTINF:-1 group-title="XTRA",MİNİKA ÇOCUK
+https://sharelink.anonimltc.workers.dev/g/5dgiiz.m3u8
+#EXTINF:-1 group-title="XTRA",DİSCOVERY CHANNEL
+https://sharelink.anonimltc.workers.dev/g/d95uxx.m3u8
+#EXTINF:-1 group-title="XTRA",CNN TÜRK
+https://sharelink.anonimltc.workers.dev/g/gosk5x.m3u8
+#EXTINF:-1 group-title="XTRA",TV8BUCUK
+https://sharelink.anonimltc.workers.dev/g/xc2jii.m3u8
+#EXTINF:-1 group-title="XTRA",TRTSPOR
+https://sharelink.anonimltc.workers.dev/g/q8f347.m3u8
+#EXTINF:-1 group-title="XTRA",TV8
+https://sharelink.anonimltc.workers.dev/g/c8v8iv.m3u8
+#EXTINF:-1 group-title="XTRA",BBC EARTH
+https://sharelink.anonimltc.workers.dev/g/qpre09.m3u8
+#EXTINF:-1 group-title="XTRA",LOVE NATURE
+https://sharelink.anonimltc.workers.dev/g/5rr98o.m3u8
+#EXTINF:-1 group-title="XTRA",VİASAT HİSTORY
+https://sharelink.anonimltc.workers.dev/g/nukx6f.m3u8
+#EXTINF:-1 group-title="XTRA",TRT1
+https://sharelink.anonimltc.workers.dev/g/1a2jqc.m3u8
+#EXTINF:-1 group-title="XTRA",FX
+https://sharelink.anonimltc.workers.dev/g/6bx3qa.m3u8
+#EXTINF:-1 group-title="XTRA",SINEMATV2
+https://sharelink.anonimltc.workers.dev/g/g1fftu.m3u8
+#EXTINF:-1 group-title="XTRA",SINEMATV1
+https://sharelink.anonimltc.workers.dev/g/b6m3ex.m3u8
+#EXTINF:-1 group-title="XTRA",KANALD
+https://sharelink.anonimltc.workers.dev/g/auo3t5.m3u8
+#EXTINF:-1 group-title="XTRA",ATV
+https://sharelink.anonimltc.workers.dev/g/fxjb2w.m3u8
