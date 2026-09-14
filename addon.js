@@ -457,6 +457,21 @@ app.get("/tmdb/image/*", async (req, res) => {
 });
 
 /* =========================================================
+   EPG API
+========================================================= */
+
+app.get("/epg/:channel.json", (req, res) => {
+
+  const channel = decodeURIComponent(req.params.channel);
+
+  res.setHeader("Cache-Control", "no-store");
+
+  res.json(getCurrent(channel));
+
+});
+
+
+/* =========================================================
    HEALTH
 ========================================================= */
 
