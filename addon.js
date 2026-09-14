@@ -507,8 +507,7 @@ app.get("/", (req, res) => {
    START
 ========================================================= */
 
-app.listen(PORT, () => {
-
+const server = app.listen(PORT, "0.0.0.0", () => {
   console.log("");
   console.log("================================");
   console.log("      TATA Premium Live TV");
@@ -519,5 +518,8 @@ app.listen(PORT, () => {
   console.log("Providers  : Engine Active");
   console.log("================================");
   console.log("");
+});
 
+server.on("error", (err) => {
+  console.error("Server listen error:", err);
 });
