@@ -45,15 +45,12 @@ function assetPaths(name) {
   const encoded = encodeURIComponent(name);
 
   const posterFile = path.join(__dirname, "public", "poster", `${name}.jpg`);
-  const clearFile = path.join(__dirname, "public", "clearlogos", `${name}.png`);
 
   return {
     poster: fs.existsSync(posterFile)
       ? `/poster/${encoded}.jpg`
       : `/logos/${encoded}.png`,
-    logo: fs.existsSync(clearFile)
-      ? `/clearlogos/${encoded}.png`
-      : `/logos/${encoded}.png`
+    logo: `/logos/${encoded}.png`
   };
 }
 
@@ -162,9 +159,7 @@ app.get("/meta/tv/:id.json", async (req, res) => {
 
     }
 
-  }
-
-  catch (err) {
+  } catch (err) {
 
     console.error("TMDb:", err.message);
 
@@ -181,7 +176,6 @@ app.get("/meta/tv/:id.json", async (req, res) => {
 app.get("/stream/tv/:id.json", async (req, res) => {
 
   const id = req.params.id.replace(/^tv-/, "");
-
   const channel = getChannel(id);
 
   if (!channel) {
@@ -212,12 +206,9 @@ app.get("/stream/tv/:id.json", async (req, res) => {
 
     return res.json({ streams });
 
-  }
-
-  catch (err) {
+  } catch (err) {
 
     console.error(`[STREAM ERROR] ${channel.name}:`, err.message);
-
     return res.json({ streams: [] });
 
   }
@@ -248,12 +239,9 @@ app.get("/tmdb/image/*", async (req, res) => {
     );
 
     const buffer = Buffer.from(await response.arrayBuffer());
-
     res.send(buffer);
 
-  }
-
-  catch {
+  } catch {
 
     res.sendStatus(500);
 
