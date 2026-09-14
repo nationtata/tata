@@ -115,7 +115,7 @@ app.get("/catalog/tv/:id.json", (req, res) => {
     const assets = assetPaths(channel.name);
 
     return {
-      id: `tv-${channel.id}`,
+      id: channel.id === "bbc-news" ? "tv-bbc-news-v2" : `tv-${channel.id}`,
       type: "tv",
       name: channel.name,
       poster: absolute(req, assets.catalogPoster),
@@ -145,7 +145,7 @@ app.get("/meta/tv/:id.json", async (req, res) => {
   const assets = assetPaths(channel.name);
 
   const meta = {
-    id: `tv-${channel.id}`,
+    id: channel.id === "bbc-news" ? "tv-bbc-news-v2" : `tv-${channel.id}`,
     type: "tv",
     name: channel.name,
     logo: absolute(req, assets.logo),
