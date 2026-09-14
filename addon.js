@@ -222,51 +222,31 @@ app.get("/meta/tv/:id.json", async (req, res) => {
 });
 
 /* =========================================================
-   STREAM
+   STREAM (Multi-Source)
 ========================================================= */
 
 app.get("/stream/tv/:id.json", async (req, res) => {
 
   const id = req.params.id.replace(/^tv-/, "");
 
-  const channel = getChannel(id);
+  const result = await resolveChannel(id);
 
-  if (!channel) {
+  if (!result) {
     return res.json({ streams: [] });
   }
 
-  try {
+  const streams = result.alternatives.map((alt, index) => ({
 
-    const result = await resolveChannel(id);
+    ...alt.stream,
 
-    if (!result || !result.stream) {
-      return res.json({ streams: [] });
-    }
+    title:
+      index === 0
+        ? "▶ Ana"
+        : `▶ ${alt.source}`
 
-    return res.json({
+  }));
 
-      streams: [{
-
-        ...result.stream,
-
-        title: `${channel.name} • ${result.source}`
-
-      }]
-
-    });
-
-  }
-
-  catch (err) {
-
-    console.error(
-      `[STREAM ERROR] ${channel.name}:`,
-      err.message
-    );
-
-    return res.json({ streams: [] });
-
-  }
+  res.json({ streams });
 
 });
 
