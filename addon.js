@@ -3,31 +3,59 @@ const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
 
-const { getNetwork } = require("./tmdb");
-const { loadHub } = require("./hub");
+// TMDb
+const {
+  getNetwork,
+  getPopular,
+  getNewest
+} = require("./tmdb");
 
+// Hub
+const {
+  loadHub
+} = require("./hub");
+
+// EPG
+const {
+  getCurrent
+} = require("./epg");
+
+// M3U Parser
 const {
   getGroups,
   getChannel,
   loadM3U
 } = require("./parse-m3u");
 
-const { resolveChannel } = require("./providers/engine");
+// Yayın Motoru
+const {
+  resolveChannel
+} = require("./providers/engine");
 
 const app = express();
 const PORT = process.env.PORT || 7000;
 
+// Middleware
 app.use(cors());
+
 app.use(express.static(path.join(__dirname, "public")));
 
 // JSON endpointleri cache'lenmesin
 app.use((req, res, next) => {
-  if (req.path.endsWith(".json") || req.path.startsWith("/hub")) {
+
+  if (
+    req.path.endsWith(".json") ||
+    req.path.startsWith("/hub") ||
+    req.path.startsWith("/epg")
+  ) {
     res.setHeader("Cache-Control", "no-store");
   }
+
   next();
+
 });
 
+// M3U listesini başlat
 loadM3U();
 
 /* =========================================================
