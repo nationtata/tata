@@ -12,6 +12,7 @@ const {
 } = require("./parse-m3u");
 
 const { resolveChannel } = require("./providers/engine");
+const { getAlternatives } = require("./providers/tata");
 
 const app = express();
 const PORT = process.env.PORT || 7000;
@@ -21,7 +22,6 @@ const PORT = process.env.PORT || 7000;
 ========================================================= */
 
 app.use(cors());
-
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
@@ -30,10 +30,6 @@ app.use((req, res, next) => {
   }
   next();
 });
-
-/* =========================================================
-   INIT
-========================================================= */
 
 loadM3U();
 
@@ -46,35 +42,19 @@ function absolute(req, url) {
 }
 
 function assetPaths(name) {
-
   const encoded = encodeURIComponent(name);
 
-  const posterFile = path.join(
-    __dirname,
-    "public",
-    "poster",
-    `${name}.jpg`
-  );
-
-  const clearFile = path.join(
-    __dirname,
-    "public",
-    "clearlogos",
-    `${name}.png`
-  );
+  const posterFile = path.join(__dirname, "public", "poster", `${name}.jpg`);
+  const clearFile = path.join(__dirname, "public", "clearlogos", `${name}.png`);
 
   return {
-
     poster: fs.existsSync(posterFile)
       ? `/poster/${encoded}.jpg`
       : `/logos/${encoded}.png`,
-
     logo: fs.existsSync(clearFile)
       ? `/clearlogos/${encoded}.png`
       : `/logos/${encoded}.png`
-
   };
-
 }
 
 /* =========================================================
@@ -86,27 +66,20 @@ app.get("/manifest.json", (req, res) => {
   res.json({
 
     id: "tata.live",
-
-    version: "6.1.0",
-
+    version: "7.0.0",
     name: "TATA",
-
     description: "Premium Live TV",
 
     resources: ["catalog", "meta", "stream"],
-
     types: ["tv"],
-
     idPrefixes: ["tv-"],
 
     catalogs: [
-
       { type: "tv", id: "ulusal", name: "Ulusal" },
       { type: "tv", id: "haber", name: "Haber" },
       { type: "tv", id: "spor", name: "Spor" },
       { type: "tv", id: "belgesel", name: "Belgesel" },
       { type: "tv", id: "cocuk", name: "Çocuk" }
-
     ]
 
   });
@@ -118,19 +91,16 @@ app.get("/manifest.json", (req, res) => {
 ========================================================= */
 
 const catalogMap = {
-
   ulusal: "Ulusal",
   haber: "Haber",
   spor: "Spor",
   belgesel: "Belgesel",
   cocuk: "Çocuk"
-
 };
 
 app.get("/catalog/tv/:id.json", (req, res) => {
 
   const groupName = catalogMap[req.params.id];
-
   const groups = getGroups();
 
   const metas = (groups[groupName] || []).map(channel => {
@@ -138,19 +108,12 @@ app.get("/catalog/tv/:id.json", (req, res) => {
     const assets = assetPaths(channel.name);
 
     return {
-
       id: `tv-${channel.id}`,
-
       type: "tv",
-
       name: channel.name,
-
       poster: absolute(req, assets.poster),
-
       logo: absolute(req, assets.logo),
-
       posterShape: "square"
-
     };
 
   });
@@ -166,7 +129,6 @@ app.get("/catalog/tv/:id.json", (req, res) => {
 app.get("/meta/tv/:id.json", async (req, res) => {
 
   const id = req.params.id.replace(/^tv-/, "");
-
   const channel = getChannel(id);
 
   if (!channel) {
@@ -176,21 +138,13 @@ app.get("/meta/tv/:id.json", async (req, res) => {
   const assets = assetPaths(channel.name);
 
   const meta = {
-
     id: `tv-${channel.id}`,
-
     type: "tv",
-
     name: channel.name,
-
     logo: absolute(req, assets.logo),
-
     poster: absolute(req, assets.poster),
-
     background: absolute(req, assets.poster),
-
     genres: [channel.group]
-
   };
 
   try {
@@ -204,7 +158,6 @@ app.get("/meta/tv/:id.json", async (req, res) => {
         `${channel.name} televizyon kanalı`;
 
       meta.website = network.homepage || "";
-
       meta.releaseInfo = "Türkiye";
 
     }
@@ -222,31 +175,52 @@ app.get("/meta/tv/:id.json", async (req, res) => {
 });
 
 /* =========================================================
-   STREAM (Multi-Source)
+   STREAM (Multi-Stream)
 ========================================================= */
 
 app.get("/stream/tv/:id.json", async (req, res) => {
 
   const id = req.params.id.replace(/^tv-/, "");
 
-  const result = await resolveChannel(id);
+  const channel = getChannel(id);
 
-  if (!result) {
+  if (!channel) {
     return res.json({ streams: [] });
   }
 
-  const streams = result.alternatives.map((alt, index) => ({
+  try {
 
-    ...alt.stream,
+    // Engine ana yayını doğrulamaya devam ediyor.
+    await resolveChannel(id);
 
-    title:
-      index === 0
-        ? "▶ Ana"
-        : `▶ ${alt.source}`
+    const alternatives = getAlternatives(id);
 
-  }));
+    if (!alternatives.length) {
+      return res.json({ streams: [] });
+    }
 
-  res.json({ streams });
+    const streams = alternatives.map((alt, index) => ({
+
+      url: alt.url,
+
+      title:
+        index === 0
+          ? `${channel.name} • ▶ Ana`
+          : `${channel.name} • ▶ ${alt.title.replace("▶ ", "")}`
+
+    }));
+
+    return res.json({ streams });
+
+  }
+
+  catch (err) {
+
+    console.error(`[STREAM ERROR] ${channel.name}:`, err.message);
+
+    return res.json({ streams: [] });
+
+  }
 
 });
 
@@ -270,13 +244,10 @@ app.get("/tmdb/image/*", async (req, res) => {
 
     res.setHeader(
       "Content-Type",
-      response.headers.get("content-type") ||
-      "image/jpeg"
+      response.headers.get("content-type") || "image/jpeg"
     );
 
-    const buffer = Buffer.from(
-      await response.arrayBuffer()
-    );
+    const buffer = Buffer.from(await response.arrayBuffer());
 
     res.send(buffer);
 
@@ -299,13 +270,9 @@ app.get("/health", (req, res) => {
   res.json({
 
     status: "ok",
-
-    version: "6.1.0",
-
+    version: "7.0.0",
     port: PORT,
-
     tmdb: !!process.env.TMDB_API_KEY,
-
     uptime: Math.floor(process.uptime())
 
   });
@@ -340,7 +307,7 @@ const server = app.listen(PORT, "0.0.0.0", () => {
         : "Missing API Key"
     }`
   );
-  console.log("Providers  : Engine Active");
+  console.log("Providers  : Multi-Source Active");
   console.log("================================");
   console.log("");
 
@@ -348,6 +315,6 @@ const server = app.listen(PORT, "0.0.0.0", () => {
 
 server.on("error", err => {
 
-  console.error("Server listen error:", err); 
+  console.error("Server listen error:", err);
 
 });
