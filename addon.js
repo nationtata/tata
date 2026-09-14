@@ -113,7 +113,7 @@ app.get("/catalog/tv/:id.json", (req, res) => {
       name: channel.name,
       poster: absolute(req, assets.logo),
       logo: absolute(req, assets.logo),
-      posterShape: "rectangular"
+      posterShape: "square"
     };
 
   });
@@ -142,7 +142,7 @@ app.get("/meta/tv/:id.json", async (req, res) => {
     type: "tv",
     name: channel.name,
     logo: absolute(req, assets.logo),
-    poster: absolute(req, assets.logo),
+    poster: absolute(""),
     background: "",
     genres: [channel.group]
   };
