@@ -147,21 +147,6 @@ app.get("/meta/tv/:id.json", async (req, res) => {
     genres: [channel.group]
   };
 
-  // TRT 1 Network denemesi
-if (channel.id === "TRT 1") {
-  meta.links = [
-    {
-      name: "TRT 1 Yapımları",
-      category: "Network",
-      url: "stremio:///search?search=TRT%201"
-    }
-  ];
-
-  meta.behaviorHints = {
-    hasScheduledVideos: true
-  };
-}
-
   try {
 
     const network = await getNetwork(channel.name);
