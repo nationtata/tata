@@ -45,11 +45,21 @@ function assetPaths(name) {
   const encoded = encodeURIComponent(name);
 
   const posterFile = path.join(__dirname, "public", "poster", `${name}.jpg`);
+  const backgroundFile = path.join(__dirname, "public", "background", `${name}.jpg`);
 
   return {
     poster: fs.existsSync(posterFile)
       ? `/poster/${encoded}.jpg`
       : `/logos/${encoded}.png`,
+
+    background: fs.existsSync(backgroundFile)
+      ? `/background/${encoded}.jpg`
+      : (
+          fs.existsSync(posterFile)
+            ? `/poster/${encoded}.jpg`
+            : `/logos/${encoded}.png`
+        ),
+
     logo: `/logos/${encoded}.png`
   };
 }
@@ -139,8 +149,8 @@ app.get("/meta/tv/:id.json", async (req, res) => {
     type: "tv",
     name: channel.name,
     logo: absolute(req, assets.logo),
-    poster: "",
-    background: "",
+    poster: absolute(req, assets.poster),
+    background: absolute(req, assets.background),
     genres: [channel.group]
   };
 
@@ -209,6 +219,7 @@ app.get("/stream/tv/:id.json", async (req, res) => {
   } catch (err) {
 
     console.error(`[STREAM ERROR] ${channel.name}:`, err.message);
+
     return res.json({ streams: [] });
 
   }
@@ -239,6 +250,7 @@ app.get("/tmdb/image/*", async (req, res) => {
     );
 
     const buffer = Buffer.from(await response.arrayBuffer());
+
     res.send(buffer);
 
   } catch {
