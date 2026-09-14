@@ -462,6 +462,147 @@ app.get("/tmdb/image/*", async (req, res) => {
 });
 
 /* =========================================================
+   MOVIE HUB (TRT 1 Beta)
+========================================================= */
+
+// Kanal Hub kataloğu
+app.get("/catalog/movie/channel-hubs.json", (req, res) => {
+
+  const assets = assetPaths("TRT 1");
+
+  res.json({
+    metas: [
+      {
+        id: "hub-trt1",
+        type: "movie",
+        name: "TRT 1",
+        poster: absolute(req, assets.poster),
+        logo: absolute(req, assets.logo),
+        posterShape: "square"
+      }
+    ]
+  });
+
+});
+
+// TRT 1 Hub Meta
+app.get("/meta/movie/:id.json", async (req, res) => {
+
+  if (req.params.id !== "hub-trt1") {
+    return res.status(404).json({ meta: null });
+  }
+
+  const assets = assetPaths("TRT 1");
+
+  const hub = loadHub("TRT 1");
+
+  if (!hub) {
+    return res.status(404).json({ meta: null });
+  }
+
+  const network = await getNetwork("TRT 1");
+
+  const popular = await getTMDbShows(
+    hub.networkId,
+    "popularity.desc"
+  );
+
+  const newest = await getTMDbShows(
+    hub.networkId,
+    "first_air_date.desc"
+  );
+
+  const videos = [];
+
+  // İlk video: Canlı yayın
+  videos.push({
+    id: "live-trt1",
+    title: "▶ Canlı Yayını İzle",
+    released: "Canlı",
+    thumbnail: absolute(req, assets.poster)
+  });
+
+  // Popüler Diziler
+  popular.slice(0, 8).forEach(item => {
+    videos.push({
+      id: `tmdb-${item.id}`,
+      title: item.name,
+      released: item.firstAirDate,
+      thumbnail: item.poster
+    });
+  });
+
+  // Yeni Diziler
+  newest.slice(0, 8).forEach(item => {
+    videos.push({
+      id: `new-${item.id}`,
+      title: item.name,
+      released: item.firstAirDate,
+      thumbnail: item.poster
+    });
+  });
+
+  res.json({
+    meta: {
+      id: "hub-trt1",
+      type: "movie",
+
+      name: "TRT 1",
+
+      poster: absolute(req, assets.poster),
+
+      background:
+        popular[0]?.backdrop ||
+        absolute(req, assets.poster),
+
+      logo: absolute(req, assets.logo),
+
+      description:
+        network?.headquarters ||
+        "Türkiye'nin ilk ulusal televizyon kanalı.",
+
+      genres: ["Ulusal"],
+
+      videos
+    }
+  });
+
+});
+
+// TRT 1 Hub Stream
+app.get("/stream/movie/:id.json", async (req, res) => {
+
+  if (req.params.id !== "hub-trt1") {
+    return res.json({ streams: [] });
+  }
+
+  try {
+
+    const result = await resolveChannel("trt1");
+
+    if (!result || !result.stream) {
+      return res.json({ streams: [] });
+    }
+
+    res.json({
+      streams: [
+        {
+          ...result.stream,
+          title: "TRT 1 • Canlı Yayın"
+        }
+      ]
+    });
+
+  } catch {
+
+    res.json({ streams: [] });
+
+  }
+
+});
+
+
+/* =========================================================
    HEALTH
 ========================================================= */
 
