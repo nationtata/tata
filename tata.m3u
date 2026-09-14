@@ -84,7 +84,7 @@ https://tv.ensonhaber.com/haberturk/haberturk.m3u8
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:BF&stream=197260&extension=ts&play_token=UJ6cx8th1N
+http://82.70.45.131/Uyan.php?ID=CNN%20Turk
 #EXTINF:-1 tvg-name="A HABER" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838612.png" group-title="Haber",A HABER
 
 
@@ -360,9 +360,4 @@ https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/minikago_cocuk/minikago_cocuk_72
 
 
 https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/minikago/minikago_720p.m3u8
-#EXTINF:-1 tvg-name="NICKELODEON" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801837853.png" group-title="Çocuk",NICKELODEON
-
-
-
-https://stream8.cinerama.uz/1500/tracks-v1a1/mono.m3u8
 
