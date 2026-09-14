@@ -1,47 +1,77 @@
-const { resolveTata } = require("./tata");
-const { isHealthy } = require("./health");
-const healthStore = require("./healthStore");
+const { getChannel } = require("../parse-m3u");
+const { checkStream } = require("./health");
+const cache = require("./cache");
 
-function wait(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+/* =========================================================
+   STREAM DOĞRULAMA
+========================================================= */
 
-async function tataTask(id) {
-  const url = await resolveTata(id);
+async function verify(stream) {
 
-  if (!url) throw new Error("No stream");
+  const key = stream.url;
 
-  const healthy = await Promise.race([
-    isHealthy(url),
-    wait(3000).then(() => false)
-  ]);
+  const cached = cache.get(key);
 
-  if (!healthy) throw new Error("Unhealthy");
-
-  return {
-    source: "TATA",
-    stream: { url }
-  };
-}
-
-async function resolveChannel(id) {
-  const cached = healthStore.get(id);
-
-  if (cached && Date.now() - cached.updated < 300000) {
+  if (cached) {
     return cached;
   }
 
-  const result = await tataTask(id).catch(() => null);
+  const ok = await checkStream(stream.url);
 
-  if (!result) {
-    return {
-      source: "OFFLINE",
-      stream: null
-    };
+  cache.set(key, ok);
+
+  return ok;
+
+}
+
+/* =========================================================
+   TÜM ALTERNATİFLERİ HAZIRLA
+========================================================= */
+
+async function resolveChannel(id) {
+
+  const channel = getChannel(id);
+
+  if (!channel) return null;
+
+  const alternatives = [];
+
+  for (const alt of channel.alternatives) {
+
+    const healthy = await verify(alt);
+
+    alternatives.push({
+
+      source: alt.source,
+
+      healthy,
+
+      stream: {
+        url: alt.url
+      }
+
+    });
+
   }
 
-  healthStore.set(id, result);
-  return result;
+  return {
+
+    channel,
+
+    alternatives,
+
+    stream:
+      alternatives.find(a => a.healthy)?.stream ||
+      alternatives[0]?.stream ||
+      null,
+
+    source:
+      alternatives.find(a => a.healthy)?.source ||
+      alternatives[0]?.source ||
+      "Yayın"
+
+  };
+
 }
 
 module.exports = {
