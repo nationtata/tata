@@ -110,8 +110,7 @@ app.get("/catalog/tv/:id.json", (req, res) => {
     return {
       id: `tv-${channel.id}`,
       type: "tv",
-      name: channel.name,
-      poster: absolute(req, assets.poster),
+      name: channel.name, 
       logo: absolute(req, assets.logo),
       posterShape: "square"
     };
