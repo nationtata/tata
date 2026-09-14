@@ -8,6 +8,7 @@ const map = JSON.parse(
 const cache = new Map();
 
 async function getNetwork(channelName) {
+
   const item = map[channelName];
 
   if (!item) return null;
@@ -16,19 +17,15 @@ async function getNetwork(channelName) {
     return cache.get(channelName);
   }
 
-  const res = await fetch(
-    `https://api.themoviedb.org/3/network/${item.id}?language=tr-TR`,
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
-        accept: "application/json"
-      }
-    }
-  );
+  const apiKey = process.env.TMDB_API_KEY;
 
-  if (!res.ok) {
-    return null;
-  }
+  const url =
+    `https://api.themoviedb.org/3/network/${item.id}` +
+    `?api_key=${apiKey}&language=tr-TR`;
+
+  const res = await fetch(url);
+
+  if (!res.ok) return null;
 
   const data = await res.json();
 
