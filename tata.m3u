@@ -339,7 +339,7 @@ http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197433&exte
 
 
 
-https://aegis-cloudfront-1.tubi.video/bb1fc6ad-9948-42ea-aaf3-20acfcdeecac/playlist1080p.m3u8
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197432&extension=ts&play_token=EgZySyAGug
 #EXTINF:-1 tvg-name="BBC EARTH" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838637.png" group-title="Belgesel",BBC EARTH
 
 
@@ -349,7 +349,7 @@ https://amg00793-amg00793c6-xumo-us-2669.playouts.now.amagi.tv/BBCStudios-BBCEar
 
 
 
-http://82.70.45.131/Go.php?ID=246189
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197434&extension=ts&play_token=Ngkcs4n1xj
 #EXTINF:-1 tvg-name="NATURE TIME" tvg-logo="https://naturetimetv.com/wp-content/uploads/2023/05/NatureTime_white_Primary.png" group-title="Belgesel",NATURE TIME
 
 
@@ -359,7 +359,7 @@ https://amg00090-blueantmedia-naturetime-samsungfr-yakbf.amagi.tv/ts-eu-w1-n2/pl
 
 
 
-https://tvsen3.aynaott.com/np3JstRE/tracks-v1a1/mono.ts.m3u8
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197436&extension=ts&play_token=GDodh8XIch
 #EXTINF:-1 tvg-name="VIASAT HISTORY" tvg-logo="https://viasathistory.eu/wp-content/themes/viasat-world/logos/viasat-history.png" group-title="Belgesel",VIASAT HISTORY
 
 
@@ -374,22 +374,27 @@ http://82.70.45.131/Go.php?ID=246246
 
 
 
-http://82.70.45.131/Go.php?ID=245964
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197427&extension=ts&play_token=rXjLa9bDy7
 #EXTINF:-1 tvg-name="ID" tvg-logo="https://viasathistory.eu/wp-content/themes/viasat-world/logos/viasat-history.png" group-title="Belgesel",ID
 
 
 
-http://82.70.45.131/Go.php?ID=245955
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197430&extension=ts&play_token=Vs7iaw7Nui
 #EXTINF:-1 tvg-name="DMAX" tvg-logo="https://viasathistory.eu/wp-content/themes/viasat-world/logos/viasat-history.png" group-title="Belgesel",DMAX
 
 
 
-http://82.70.45.131/Go.php?ID=245961
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197428&extension=ts&play_token=AmK9aorYxN
+#EXTINF:-1 tvg-logo="http://picon.tivi-ott.net:25461/picon/TURKEY/24Kitchen.png" group-title="Belgesel",24KITCHEN
+
+
+
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197440&extension=ts&play_token=311ssjgBGm
 #EXTINF:-1 tvg-name="FX" tvg-logo="https://viasathistory.eu/wp-content/themes/viasat-world/logos/viasat-history.png" group-title="Belgesel",FX
 
 
 
-http://82.70.45.131/Go.php?ID=246186
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197420&extension=ts&play_token=mT2OGR6h9B
 #EXTINF:-1 tvg-name="TRT ÇOCUK" tvg-logo="https://itv224226.tmp.tivibu.com.tr:6430/images/poster/20250801838766.png" group-title="Çocuk",TRT ÇOCUK
 
 
@@ -415,7 +420,6 @@ https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/minikago/minikago_720p.m3u8
 
 
 https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/minikago_cocuk/minikago_cocuk_720p.m3u8
-
 
 
 
