@@ -8,12 +8,12 @@ http://176.65.153.66:6001/play/a01x/index.m3u8
 
 
 
-http://82.70.45.131/Giniko.php?ID=1125
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=196698&extension=ts&play_token=6k77AngOgl
 #EXTINF:-1 tvg-name="STAR" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838418.png" group-title="Ulusal",STAR
 
 
 
-https://dogus.daioncdn.net/startv/startv_720p.m3u8?&sid=88jhb6leqiih&app=a20ac41e-bdc3-4aa1-934d-26b484480ac9&ce=3
+https://dogus.daioncdn.net/startv/startv_1080p.m3u8?&sid=88jhb6leqiih&app=a20ac41e-bdc3-4aa1-934d-26b484480ac9&ce=3
 #EXTINF:-1 tvg-name="SHOW" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839061.png" group-title="Ulusal",SHOW
 
 
@@ -23,7 +23,7 @@ https://ciner.daioncdn.net/showtv/showtv_1080p.m3u8?ex=1664766175&st=RBzhSuGauna
 
 
 
-https://demiroren.daioncdn.net/kanald/kanald.m3u8?app=kanald_web
+https://demiroren-live.daioncdn.net/kanald/kanald_1080p-1789941930000.ts?
 #EXTINF:-1 tvg-name="NOW" tvg-logo="https://itv224226.tmp.tivibu.com.tr:6430/images/poster/20250801838440.png" group-title="Ulusal",NOW
 
 
@@ -194,7 +194,7 @@ http://82.70.45.131/Go.php?ID=246255
 
 
 
-https://trkvz-live.ercdn.net/anewshd/anewshd_720p.m3u8?st=B7QQ6q3oulPktw5euPKY5A&e=1789382083
+https://trkvz-live.ercdn.net/anewshd/anewshd_720p.m3u8?st=dgZXiEPSR5cbOWo0E55AhQ&e=1789987213
 #EXTINF:-1 tvg-name="TRT WORLD" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839162.png" group-title="Haber",TRT WORLD
 
 
@@ -414,12 +414,12 @@ http://82.70.45.131/Go.php?ID=246081
 
 
 
-https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/minikago/minikago_720p.m3u8
+https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/minikago/minikago_1080p.m3u8
 #EXTINF:-1 tvg-name="MİNİKA ÇOCUK" tvg-logo="https://itv224226.tmp.tivibu.com.tr:6430/images/poster/20250809846211.png" group-title="Çocuk",MİNİKA ÇOCUK
 
 
 
-https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/minikago_cocuk/minikago_cocuk_720p.m3u8
+https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/minikago_cocuk/minikago_cocuk_1080p.m3u8
 
 
 
