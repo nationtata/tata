@@ -51,7 +51,7 @@ https://square-leaf-d613.panorea1000.workers.dev/?xml=ch747
 https://square-leaf-d613.panorea1000.workers.dev/?xml=ch749
 #EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/a-news.jpg" channel-name="A News" group-title="SADECE CANLI",A News
 https://square-leaf-d613.panorea1000.workers.dev/?xml=ch750
-#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bein-sports-haber-epg-.jpg" channel-name="beIN Sports Haber" group-title="SADECE CANLI",beIN Sports Haber
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bein-sports-haber-epg-.jpg" channel-name="beIN Sports Haber" group-title="SADECE CANLI",BEIN Sports Haber
 https://square-leaf-d613.panorea1000.workers.dev/?xml=ch751
 #EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/fenerbahce-tv.png" channel-name="Fenerbahce TV" group-title="SADECE CANLI",Fenerbahce TV
 https://square-leaf-d613.panorea1000.workers.dev/?xml=ch752
@@ -59,11 +59,11 @@ https://square-leaf-d613.panorea1000.workers.dev/?xml=ch752
 https://square-leaf-d613.panorea1000.workers.dev/?xml=ch753
 #EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/sports-tv-epg-.png" channel-name="Sports TV" group-title="SADECE CANLI",Sports TV
 https://square-leaf-d613.panorea1000.workers.dev/?xml=ch754
-#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bein-sports-lig-tv1.png" channel-name="beIN Sports Lig Tv1" group-title="SADECE CANLI",beIN Sports 1
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bein-sports-lig-tv1.png" channel-name="beIN Sports Lig Tv1" group-title="SADECE CANLI",BEIN Sports 1
 https://square-leaf-d613.panorea1000.workers.dev/?xml=ch755
-#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bein-sports-lig-tv2.png" channel-name="beIN Sports 2" group-title="SADECE CANLI",beIN Sports 2
-https://square-leaf-d613.panorea1000.workers.dev/?xml=ch756
-#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bein-sports-lig-tv3.png" channel-name="beIN Sports 3" group-title="SADECE CANLI",beIN Sports 3
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bein-sports-lig-tv2.png" channel-name="beIN Sports 2" group-title="SADECE CANLI",BEIN Sports 2
+https://2i4.d72577a9dd0ec71.cfd/b2/mono.m3u8
+#EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/bein-sports-lig-tv3.png" channel-name="beIN Sports 3" group-title="SADECE CANLI",BEIN Sports 3
 https://square-leaf-d613.panorea1000.workers.dev/?xml=ch757
 #EXTINF:-1 tvg-logo="http://ginikoturkish.com/channels/logo/trt-muzik-epg-.jpg" channel-name="TRT Muzik." group-title="SADECE CANLI",TRT Muzik.
 https://square-leaf-d613.panorea1000.workers.dev/?xml=ch758
