@@ -84,7 +84,7 @@ https://tv.ensonhaber.com/haberturk/haberturk.m3u8
 
 
 
-http://82.70.45.131/CNNTurk.php
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197260&extension=ts&play_token=UJ6cx8th1N
 #EXTINF:-1 tvg-name="A HABER" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838612.png" group-title="Haber",A HABER
 
 
@@ -99,7 +99,7 @@ https://tv.ensonhaber.com/haberglobal/haberglobal.m3u8
 
 
 
-http://82.70.45.131/Go.php?ID=246174
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197273&extension=ts&play_token=fIy9sX6ocp
 #EXTINF:-1 tvg-name="NTV" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838399.png" group-title="Haber",NTV
 
 
@@ -134,12 +134,12 @@ https://halktv-live.daioncdn.net/halktv/halktv.m3u8
 
 
 
-http://82.70.45.131/Go.php?ID=246240
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=540949&extension=ts&play_token=JOFxL2wUlR
 #EXTINF:-1 tvg-name="KRT" tvg-logo="https://media.licdn.com/dms/image/v2/D4D22AQEW5TJZltwq_g/feedshare-image-high-res/feedshare-image-high-res/0/1708069310312?e=2147483647&v=beta&t=k1wpU_vqgstSWnliu5KKQO4P7_Knv0wI0ht3nrAov2s" group-title="Haber",KRT
 
 
 
-http://82.70.45.131/Giniko.php?ID=1112
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197276&extension=ts&play_token=cqRGvvpTWt
 #EXTINF:-1 tvg-name="ULUSAL KANAL" tvg-logo="https://s.ulusal.com.tr/assets/web/images/logo.png" group-title="Haber",ULUSAL KANAL
 
 
@@ -184,12 +184,12 @@ https://ciner.daioncdn.net/bloomberght/bloomberght.m3u8
 
 
 
-https://trkvz-live.ercdn.net/aparahd/aparahd_480p.m3u8?st=_Hy9upDmfr4uTvP5-zTgiQ&e=1789381895
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197272&extension=ts&play_token=YMedtQj0VQ
 #EXTINF:-1 tvg-name="EKOTÜRK" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838250.png" group-title="Haber",EKOTÜRK
 
 
 
-http://82.70.45.131/Go.php?ID=246255
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197215&extension=ts&play_token=bY3WHejOmN
 #EXTINF:-1 tvg-name="A NEWS" tvg-logo="https://itv224226.tmp.tivibu.com.tr:6430/images/poster/20250801838138.png" group-title="Haber",A NEWS
 
 
@@ -224,12 +224,12 @@ https://trt.daioncdn.net/trtspor-yildiz/master_1440p.m3u8?platform=trtspor&sid=8
 
 
 
-https://andro.evrenesoglu99.click/checklist/androstreamliveas.m3u8
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=710&extension=ts&play_token=oaWDTNLbEj
 #EXTINF:-1 tvg-name="HT SPOR" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838378.png" group-title="Spor",HT SPOR
 
 
 
-https://ciner-live.daioncdn.net/ht-spor/ht-spor_1080p-1789337580000.ts?ex=0
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=1245942&extension=ts&play_token=Zo53i3J9qC
 #EXTINF:-1 tvg-name="BEIN SPORTS HABER" tvg-logo="https://raw.githubusercontent.com/GitLatte/m3ueditor/refs/heads/site/images/kanal-gorselleri/turkiye/bein-sports-haber-tr.png" group-title="Spor",BEIN SPORTS HABER
 
 
@@ -239,82 +239,82 @@ http://umperisn.mywire.org/index.php?id=620421&token=DeaTHLesS
 
 
 
-https://andro.evrenesoglu99.click/checklist/androstreamlivebs1.m3u8
+http://tv.atomspor.workers.dev/?ID=bein-sports-1
 #EXTINF:-1 tvg-name="BEIN SPORTS 2" tvg-logo="https://raw.githubusercontent.com/GitLatte/m3ueditor/refs/heads/site/images/kanal-gorselleri/turkiye/bein-sport-1-hd.png" group-title="Spor",BEIN SPORTS 2
 
 
 
-https://andro.evrenesoglu99.click/checklist/androstreamlivebs2.m3u8
+http://tv.atomspor.workers.dev/?ID=bein-sports-2
 #EXTINF:-1 tvg-name="BEIN SPORTS 3" tvg-logo="https://raw.githubusercontent.com/GitLatte/m3ueditor/refs/heads/site/images/kanal-gorselleri/turkiye/bein-sport-1-hd.png" group-title="Spor",BEIN SPORTS 3
 
 
 
-https://andro.evrenesoglu99.click/checklist/androstreamlivebs3.m3u8
+http://tv.atomspor.workers.dev/?ID=bein-sports-3
 #EXTINF:-1 tvg-name="S SPORT" tvg-logo="https://ssport.tv/assets/images/icons/logo.svg" group-title="Spor",S SPORT
 
 
 
-https://andro.evrenesoglu99.click/checklist/androstreamlivess1.m3u8
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=712&extension=ts&play_token=7rAaz1UJiX
 #EXTINF:-1 tvg-name="S SPORT 2" tvg-logo="https://r2.thesportsdb.com/images/media/channel/logo/nrrvxp1643201048.png" group-title="Spor",S SPORT 2
 
 
 
-https://andro.evrenesoglu99.click/checklist/androstreamlivess2.m3u8
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=711&extension=ts&play_token=ROKTmEEyZj
 #EXTINF:-1 tvg-name="TİVİBU SPOR" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839221.png" group-title="Spor",TİVİBU SPOR
 
 
 
-https://andro.evrenesoglu99.click/checklist/androstreamlivets.m3u8
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=722&extension=ts&play_token=z6SDuvheVv
 #EXTINF:-1 tvg-name="TİVİBU SPOR 1" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839221.png" group-title="Spor",TİVİBU SPOR 1
 
 
 
-https://andro.evrenesoglu99.click/checklist/androstreamlivets1.m3u8
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=722&extension=ts&play_token=z6SDuvheVv
 #EXTINF:-1 tvg-name="TİVİBU SPOR 2" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839221.png" group-title="Spor",TİVİBU SPOR 2
 
 
 
-https://andro.evrenesoglu99.click/checklist/androstreamlivets2.m3u8
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=721&extension=ts&play_token=giniUtmJd5
 #EXTINF:-1 tvg-name="TİVİBU SPOR 3" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839221.png" group-title="Spor",TİVİBU SPOR 3
 
 
 
-https://andro.evrenesoglu99.click/checklist/androstreamlivets3.m3u8
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=720&extension=ts&play_token=8vfTcov1O4
 #EXTINF:-1 tvg-name="TABİİ Spor 1" tvg-logo="https://izmottvsc24.tvplus.com.tr:33207/CPS/images/universal/film/logo/202409/20240913/4/1036095069015eb88428_op.png" group-title="Spor",TABİİ SPOR 1
 
 
 
-https://andro.evrenesoglu99.click/checklist/androstreamlivetb1.m3u85
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=879139&extension=ts&play_token=yWPdgeW7z5
 #EXTINF:-1 tvg-name="TABİİ Spor 2" tvg-logo="https://izmottvsc24.tvplus.com.tr:33207/CPS/images/universal/film/logo/202409/20240913/4/1036095069015eb88428_op.png" group-title="Spor",TABİİ SPOR 2
 
 
 
-https://andro.evrenesoglu99.click/checklist/androstreamlivetb2.m3u85
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=879140&extension=ts&play_token=IgIwOzfgSp
 #EXTINF:-1 tvg-name="EUROSPORT 1" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838605.png" group-title="Spor",EUROSPORT 1
 
 
 
-https://andro.evrenesoglu99.click/checklist/androstreamlivees1.m3u8
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=700&extension=ts&play_token=9pWTxQiQVT
 #EXTINF:-1 tvg-name="EUROSPORT 2" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801837058.png" group-title="Spor",EUROSPORT 2
 
 
 
-https://andro.evrenesoglu99.click/checklist/androstreamlivees2.m3u8
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=699&extension=ts&play_token=iLrHXcmvEN
 #EXTINF:-1 tvg-name="SPOR SMART" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801837058.png" group-title="Spor",SPOR SMART
 
 
 
-http://82.70.45.131/Go.php?ID=246003
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=713&extension=ts&play_token=QWIXpgpYhS
 #EXTINF:-1 tvg-name="SPOR SMART 2" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801837058.png" group-title="Spor",SPOR SMART 2
 
 
 
-http://82.70.45.131/Go.php?ID=246171
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=18631&extension=ts&play_token=B2l3zE1IqA
 #EXTINF:-1 tvg-name="TRT BELGESEL" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250328726039.png" group-title="Belgesel",TRT BELGESEL
 
 
 
-http://82.70.45.131/Go.php?ID=246156
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197441&extension=ts&play_token=2YxNaeWuvv
 #EXTINF:-1 tvg-name="TRT 2" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801839153.png" group-title="Belgesel",TRT 2
 
 
@@ -369,7 +369,7 @@ http://82.70.45.131/Go.php?ID=246054
 
 
 
-http://82.70.45.131/Go.php?ID=246246
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197450&extension=ts&play_token=PwfkIVPsct
 #EXTINF:-1 tvg-name="DISCOVERY CHANNEL" tvg-logo="https://viasathistory.eu/wp-content/themes/viasat-world/logos/viasat-history.png" group-title="Belgesel",DISCOVERY CHANNEL
 
 
@@ -389,7 +389,7 @@ http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197428&exte
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197420&extension=ts&play_token=mT2OGR6h9B
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197158&extension=ts&play_token=qpYjn1XjAo
 #EXTINF:-1 tvg-name="TRT ÇOCUK" tvg-logo="https://itv224226.tmp.tivibu.com.tr:6430/images/poster/20250801838766.png" group-title="Çocuk",TRT ÇOCUK
 
 
@@ -400,11 +400,11 @@ https://tv-trtcocuk.medya.trt.com.tr/master_1440.m3u8
 
 
 http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/LVFGLXHUW45A8PBECGUURD6K/6846/index.m3u8
-#EXTINF:-1 tvg-name="CARTOONITO" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801837565.png" group-title="Çocuk",CARTOONITO
+#EXTINF:-1 tvg-name="NICKELODEON" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801837565.png" group-title="Çocuk",NICKELODEON
 
 
 
-http://82.70.45.131/Go.php?ID=246081
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197412&extension=ts&play_token=d2rZJutNho
 #EXTINF:-1 tvg-name="MİNİKA GO" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838843.png" group-title="Çocuk",MİNİKA GO
 
 
