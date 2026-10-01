@@ -1,0 +1,41 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="360.tr@HD" tvg-name="360 HD" group-title="TV" tvg-logo="https://www.turkmedya.com.tr/assets/img/logo/logo_360tv.png", 360 TV
+https://turkmedya-live.ercdn.net/tv360/tv360.m3u8
+#EXTINF:-1 tvg-id="NTV.tr@HD" tvg-name="NTV HD" group-title="TV" tvg-logo="https://i.pinimg.com/736x/98/01/d8/9801d86556e69801a8dd1a1bfc26f6f0.jpg", NTV HD (Tokenli)
+https://dogus.daioncdn.net/ntv/ntv_1080p.m3u8?token=e8c0dec16bf84c8cc187224d13811c0e705fd2c58b25d7ee&sid=8jjv7i9jp3dk&app=c68bddbe-3dbf-49f7-892a-93de5ae37f1f&ce=3
+#EXTINF:-1 tvg-id="TBMM.tr@HD" tvg-name="TBMM HD" group-title="TV" tvg-logo="https://images.seeklogo.com/logo-png/61/1/tbmm-tv-logo-png_seeklogo-612581.png", TBMM TV HD
+https://meclistv-live.ercdn.net/meclistv/meclistv.m3u8
+#EXTINF:-1 tvg-id="GunesARB.tr@SD" tvg-name="Gunəs ARB" group-title="TV" tvg-logo="https://upload.wikimedia.org/wikipedia/tr/f/fe/ARB_G%C3%BCn%C9%99%C5%9F_logo.png", ARB Günəs 
+https://yayin2.canlitv.fun/live/arbgunes.stream/playlist.m3u8?hash=bb54a2f4e9342864cc1346c11f20b2e9
+#EXTINF:-1 tvg-id="CGTNDocumentary.tr@HD" tvg-name="CGTN Documentary" group-title="TV" tvg-logo="https://images.seeklogo.com/logo-png/32/2/cgtn-logo-png_seeklogo-326602.png", CGTN Documentary 
+https://live-stream.cgtn.com/event-live/CGTN_1_1NAzByztAaY/index.m3u8
+#EXTINF:-1 tvg-id="ESTV.tr@SD" tvg-name="ES TV" group-title="TV" tvg-logo="https://www.canlitv.diy/kanal/logo/67/70.jpg", ES TV SD
+https://live.artidijitalmedya.com/artidijital_estv/estv/chunks.m3u8?hash=bb54a2f4e9342864cc1346c11f20b2e9
+#EXTINF:-1 tvg-id="AmasyaARTTV.tr@SD" tvg-name="Amasya ART TV (ATV)" group-title="TV" tvg-logo="https://www.canlitv.diy/kanal/logo/67/71.jpg", Amasya ART TV
+https://yayin1.canlitv.fun/canlitv/arttv.stream/playlist.m3u8?hash=bb54a2f4e9342864cc1346c11f20b2e9
+#EXTINF:-1 tvg-id="BeyazTV.tr@HD" tvg-name="Beyaz TV HD" group-title="TV" tvg-logo="https://haberhd.com/upload/tv/k_beyaz-tv-logo_20241115230154.png",Beyaz TV HD
+https://beyaztv-live.daioncdn.net/beyaztv/beyaztv_1080p.m3u8
+#EXTINF:-1 tvg-id="DisneyJr.@HD" tvg-name="Disney Jr." group-title="TV" tvg-logo="https://www.tivibu.com.tr/uploads/ChannelFiles/disneyjr_A457DDD2-0239-4CAC-BD5B-B1F5416F479F.png", Disney Jr. HD
+https://saran-live.ercdn.net/disneyjunior/index.m3u8
+#EXTINF:-1 tvg-id="FilmScreenİnternational.tr@HD" tvg-name="Film Screen İnternational" group-title="Sinema" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20260408111079.png", Film Screen İnternational 
+https://edge-e3.evrideo.tv/f2dcbecf-5af0-47db-a82e-032112050a23_1000027346_HLS/manifest.m3u8
+#EXTINF:-1 tvg-id=RadyoViva.tr@SD" tvg-name="Radyo Viva" group-title="Radyo" tvg-logo="https://www.canliradyodinle.fm/wp-content/uploads/radyo-viva.jpg", Radyo Viva!
+https://listen.radyotvonline.net/hls/play/adsonline_radyoviva.m3u8
+#EXTINF:-1 tvg-id="CNNTurkRadyo.tr@SD" tvg-name="CNN Türk Radyo" group-title="Radyo" tvg-logo="https://www.demiroren.com.tr/ProjectImages/companies-image-18.png", CNN Türk Radyo
+https://moondigitaledge2.radyotvonline.net/cnnturk/playlist.m3u8
+#EXTINF:-1 tvg-id="KralFM.tr@SD" tvg-name="Kral FM" group-title="Radyo" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/a/a3/Kral_FM.jpg", Kral FM
+https://dygedge2.radyotvonline.net/kralfm/playlist.m3u8
+#EXTINF:-1 tvg-id="SaglıkChannel.tr@HD" tvg-name="Sağlık Channel" group-title="TV"  tvg-logo="https://smabenimleyuru.org.tr/wp-content/uploads/2018/10/tc-saglik-bakanligi-logo-2.png", Sağlık Channel
+https://live.euromediacenter.com/saglikchannel/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-id="EuroD.tr@SD" tvg-name="Euro D" group-title="TV" tvg-logo="https://www.meinfernsehen.de/wp-content/uploads/2025/08/eurod.png", Euro D HD
+https://live.duhnet.tv/S2/HLS_LIVE/eurodnp/playlist.m3u8
+#EXTINF:-1 tvg-id="MinikaGO.tr@HD" tvg-name="Minika GO" group-title="TV" tvg-logo="https://www.tvyayinakisi.com/wp-content/uploads/2021/01/MinikaGO_Logo.png", Minika GO (Süreli)
+https://trkvz.daioncdn.net/minikago/minikago_720p.m3u8?e=1782936681&st=D2USB2pYnny-TSv3bHSTcg&sid=8jlb6d6lt9ih&app=1a0fa873-c3df-4874-8182-baec3fcf4814&ce=3
+#EXTINF:-1 tvg-id="MinikaCocuk.tr@HD" tvg-name="Minika Çocuk" group-title="TV" tvg-logo="https://www.tvyayinakisi.com/wp-content/uploads/2021/01/MinikaCocuklogo.png", Minika Çocuk (Süreli)
+https://trkvz.daioncdn.net/minikago_cocuk/minikago_cocuk_720p.m3u8?e=1782937062&st=PqL_VtgPBj3vW1jvEJn5Pg&sid=8jlbpfexkb9z&app=297aee61-13da-4585-b5a1-4f9c4c81f15a&ce=3
+#EXTINF:-1 tvg-id="CartoonNetworkTurkiye.tr@SD" tvg-name="Cartoon Network Türkiye" group-title="TV" tvg-logo="https://www.tvyayinakisi.com/wp-content/uploads/2020/05/cn-loho-300x224.png", Cartoon Network Türkiye 
+https://yayin2.canlitv.fun/live/cartoon-network.stream/playlist.m3u8?hash=bb54a2f4e9342864cc1346c11f20b2e9
+#EXTINF:-1 tvg-id="DMAXHD.tr@HD" tvg-name="DMAX HD" group-title="TV" tvg-logo="https://www.dmax.com.tr/img/logo.svg", DMAX HD  (Tokenli)
+https://dogus.daioncdn.net/dmax/dmax_720p.m3u8?token=dnRaM0l5SC9ZOVFQRXhrbU1uazNmRDlXcFRxWDZtcFk1emNGS2EwVVU2RT0=&sid=8jlcixu8evne&app=5a02c599-d17e-4982-9b04-090934d51af7&ce=3
+#EXTINF:-1 tvg-id="ARB.tr@HD" tvg-name="ARB TV" group-title="TV" tvg-logo="https://upload.wikimedia.org/wikipedia/en/f/f7/ARB_Azerbaijan_Logo.png", ARB TV
+https://raw.githubusercontent.com/UzunMuhalefet/streams/main/myvideo-az/arb.m3u8
