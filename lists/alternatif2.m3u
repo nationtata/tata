@@ -63,17 +63,18 @@ https://trkvz.daioncdn.net/a2tv/a2tv_1080p.m3u8?e=1791025851&st=4ss3Gi2234YMgBGB
 
 
 
-https://kanal7-live.daioncdn.net/kanal7/kanal7_1080p-1790980700000.ts
+
+https://kanal7-live.daioncdn.net/kanal7/kanal7_1080p.m3u8
 #EXTINF:-1 tvg-name="360" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838188.png" group-title="Ulusal",360
 
 
 
-https://turkmedya-live.ercdn.net/tv360/tv360_1080p-1790980741.ts
+https://turkmedya-live.ercdn.net/tv360/tv360_1080p.m3u8
 #EXTINF:-1 tvg-name="TRT HABER" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801837609.png" group-title="Haber",TRT HABER
 
 
 
-https://tv-trthaber.medya.trt.com.tr/master_1440p_backup_232122.ts
+https://tv-trthaber.medya.trt.com.tr/master_1440p.m3u8
 #EXTINF:-1 tvg-name="HABERTÜRK" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838714.png" group-title="Haber",HABERTÜRK
 
 
@@ -193,7 +194,7 @@ http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197271&exte
 
 
 
-https://tv-trtworld.medya.trt.com.tr/master_1440_primary_20261002_2169813.ts
+https://tv-trtworld.medya.trt.com.tr/master_1440.m3u8
 #EXTINF:-1 tvg-name="CNN INTERNATIONAL" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839162.png" group-title="Haber",CNN INTERNATIONAL
 
 
@@ -208,17 +209,17 @@ https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_ch
 
 
 
-https://tv-trtspor1.medya.trt.com.tr/master_1440_primary_20261002_1578595.ts
+https://tv-trtspor1.medya.trt.com.tr/master_1440.m3u8
 #EXTINF:-1 tvg-name="TRT SPOR YILDIZ" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838619.png" group-title="Spor",TRT SPOR YILDIZ
 
 
 
-https://tv-trtspor2.medya.trt.com.tr/master_1440p_primary_1579012.ts
+https://tv-trtspor2.medya.trt.com.tr/master_1440p.m3u8
 #EXTINF:-1 tvg-name="A SPOR" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838287.png" group-title="Spor",A SPOR
 
 
 
-https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/aspor/aspor_480p-1790981470000.ts
+https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/aspor/aspor_480p.m3u8
 #EXTINF:-1 tvg-name="HT SPOR" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838378.png" group-title="Spor",HT SPOR
 
 
@@ -308,17 +309,17 @@ http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=18631&exten
 
 
 
-https://tv-trtbelgesel.medya.trt.com.tr/master_1440_backup_2381428.ts
+https://tv-trtbelgesel.medya.trt.com.tr/master_1440.m3u8
 #EXTINF:-1 tvg-name="TRT 2" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801839153.png" group-title="Belgesel",TRT 2
 
 
 
-https://tv-trt2.medya.trt.com.tr/master_1440_primary_20261002_1578597.ts
+https://tv-trt2.medya.trt.com.tr/master_1440.m3u8
 #EXTINF:-1 tvg-name="TRT AVAZ" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838660.png" group-title="Belgesel",TRT AVAZ
 
 
 
-https://tv-trtavaz.medya.trt.com.tr/master_1440_primary_20261002_1578596.ts
+https://tv-trtavaz.medya.trt.com.tr/master_1440.m3u8
 #EXTINF:-1 tvg-name="YABAN" tvg-logo="https://epg.iptvx.one/picons/yaban-tr.png" group-title="Belgesel",YABAN
 
 
@@ -388,7 +389,7 @@ http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197450&exte
 
 
 
-https://tv-trtcocuk.medya.trt.com.tr/master_1440_primary_20261002_2742657.ts
+https://tv-trtcocuk.medya.trt.com.tr/master_1440.m3u8
 #EXTINF:-1 tvg-name="CARTOON NETWORK" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801837565.png" group-title="Çocuk",CARTOON NETWORK
 
 
