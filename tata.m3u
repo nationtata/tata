@@ -249,62 +249,62 @@ http://tv.atomspor.workers.dev/?ID=bein-sports-3
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=712&extension=ts&play_token=7rAaz1UJiX
+http://tv.atomspor.workers.dev/?ID=s-sport
 #EXTINF:-1 tvg-name="S SPORT 2" tvg-logo="https://r2.thesportsdb.com/images/media/channel/logo/nrrvxp1643201048.png" group-title="Spor",S SPORT 2
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=711&extension=ts&play_token=ROKTmEEyZj
+http://tv.atomspor.workers.dev/?ID=s-sport-2
 #EXTINF:-1 tvg-name="TİVİBU SPOR" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839221.png" group-title="Spor",TİVİBU SPOR
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=722&extension=ts&play_token=z6SDuvheVv
+http://tv.atomspor.workers.dev/?ID=tivibu-spor
 #EXTINF:-1 tvg-name="TİVİBU SPOR 1" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839221.png" group-title="Spor",TİVİBU SPOR 1
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=722&extension=ts&play_token=z6SDuvheVv
+http://tv.atomspor.workers.dev/?ID=tivibu-spor-1
 #EXTINF:-1 tvg-name="TİVİBU SPOR 2" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839221.png" group-title="Spor",TİVİBU SPOR 2
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=721&extension=ts&play_token=giniUtmJd5
+http://tv.atomspor.workers.dev/?ID=tivibu-spor-2
 #EXTINF:-1 tvg-name="TİVİBU SPOR 3" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839221.png" group-title="Spor",TİVİBU SPOR 3
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=720&extension=ts&play_token=8vfTcov1O4
+http://tv.atomspor.workers.dev/?ID=tivibu-spor-3
 #EXTINF:-1 tvg-name="TABİİ Spor 1" tvg-logo="https://izmottvsc24.tvplus.com.tr:33207/CPS/images/universal/film/logo/202409/20240913/4/1036095069015eb88428_op.png" group-title="Spor",TABİİ SPOR 1
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=879139&extension=ts&play_token=yWPdgeW7z5
+http://tv.atomspor.workers.dev/?ID=tabii-spor-1
 #EXTINF:-1 tvg-name="TABİİ Spor 2" tvg-logo="https://izmottvsc24.tvplus.com.tr:33207/CPS/images/universal/film/logo/202409/20240913/4/1036095069015eb88428_op.png" group-title="Spor",TABİİ SPOR 2
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=879140&extension=ts&play_token=IgIwOzfgSp
+http://tv.atomspor.workers.dev/?ID=tabii-spor-2
 #EXTINF:-1 tvg-name="EUROSPORT 1" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838605.png" group-title="Spor",EUROSPORT 1
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=700&extension=ts&play_token=9pWTxQiQVT
+http://tv.atomspor.workers.dev/?ID=euro-sport-1
 #EXTINF:-1 tvg-name="EUROSPORT 2" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801837058.png" group-title="Spor",EUROSPORT 2
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=699&extension=ts&play_token=iLrHXcmvEN
+http://tv.atomspor.workers.dev/?ID=euro-sport-2
 #EXTINF:-1 tvg-name="SPOR SMART" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801837058.png" group-title="Spor",SPOR SMART
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=713&extension=ts&play_token=QWIXpgpYhS
+http://tv.atomspor.workers.dev/?ID=spor-smart
 #EXTINF:-1 tvg-name="SPOR SMART 2" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801837058.png" group-title="Spor",SPOR SMART 2
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=18631&extension=ts&play_token=B2l3zE1IqA
+http://tv.atomspor.workers.dev/?ID=spor-smart-2
 #EXTINF:-1 tvg-name="TRT BELGESEL" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250328726039.png" group-title="Belgesel",TRT BELGESEL
 
 
