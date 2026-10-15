@@ -95,11 +95,6 @@ https://yayin2.canlitv.fun/live/ahaber.stream/chunklist_w286362729.m3u8?hash=8d8
 
 
 https://tv.ensonhaber.com/haberglobal/haberglobal.m3u8
-#EXTINF:-1 tvg-name="TV 100" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839195.png" group-title="Haber",TV 100
-
-
-
-https://yayin2.canlitv.fun/live/tv100.stream/media_w1295835571_27227.ts?hash=8d8b4049476800af06739864de8808d7
 #EXTINF:-1 tvg-name="NTV" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838399.png" group-title="Haber",NTV
 
 
@@ -130,11 +125,6 @@ https://tvnet-live.lg.mncdn.com/tvnet-live/tvnet/media-u1j2ziwcf_w767261213_3070
 
 
 https://halktv-live.daioncdn.net/halktv/halktv.m3u8
-#EXTINF:-1 tvg-name="SZC" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250809846143.png" group-title="Haber",SZC
-
-
-
-http://82.70.45.131/Uyan.php?ID=Sozcu TV
 #EXTINF:-1 tvg-name="KRT" tvg-logo="https://media.licdn.com/dms/image/v2/D4D22AQEW5TJZltwq_g/feedshare-image-high-res/feedshare-image-high-res/0/1708069310312?e=2147483647&v=beta&t=k1wpU_vqgstSWnliu5KKQO4P7_Knv0wI0ht3nrAov2s" group-title="Haber",KRT
 
 
@@ -145,11 +135,6 @@ http://umperisn.mywire.org/index.php?id=594231&token=DeaTHLesS
 
 
 https://internettv.guventechnology.com/hls/ulusaltv/index.m3u8
-#EXTINF:-1 tvg-name="FLASH HABER" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838624.png" group-title="Haber",FLASH HABER
-
-
-
-https://b01c02nl.mediatriple.net/videoonlylive/mtyycglqauzjhlive/broadcast_67c053c48829f.smil/mt_0.m3u8?hash=8d8b4049476800af06739864de8808d7
 #EXTINF:-1 tvg-name="BENGÜTÜRK" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838732.png" group-title="Haber",BENGÜTÜRK
 
 
@@ -175,16 +160,16 @@ https://cnbc-e.daioncdn.net/cnbc-e/cnbc-e_720p.m3u8?e=1791017280&st=0WExUhyI-xhj
 
 
 https://ciner.daioncdn.net/bloomberght/bloomberght.m3u8
-#EXTINF:-1 tvg-name="A PARA" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838741.png" group-title="Haber",A PARA
-
-
-
-http://c3921155.edmonst.net/iptv/AVNFCNQBEC9VQU/6909/index.m3u8
 #EXTINF:-1 tvg-name="EKOTÜRK" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838250.png" group-title="Haber",EKOTÜRK
 
 
 
 https://cdn.ekoturk.net/hls/720p.m3u8
+#EXTINF:-1 tvg-name="A PARA" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838741.png" group-title="Haber",A PARA
+
+
+
+http://c3921155.edmonst.net/iptv/AVNFCNQBEC9VQU/6909/index.m3u8
 #EXTINF:-1 tvg-name="A NEWS" tvg-logo="https://itv224226.tmp.tivibu.com.tr:6430/images/poster/20250801838138.png" group-title="Haber",A NEWS
 
 
@@ -195,11 +180,6 @@ http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197271&exte
 
 
 https://tv-trtworld.medya.trt.com.tr/master_1440.m3u8
-#EXTINF:-1 tvg-name="CNN INTERNATIONAL" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839162.png" group-title="Haber",CNN INTERNATIONAL
-
-
-
-https://d3bp6dwmpbdajl.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-ury0meh5m4nzm/ee0708c5-b822-44f8-8708-4ca2d4c14aa6/2.m3u8
 #EXTINF:-1 tvg-name="BBC NEWS" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839162.png" group-title="Haber",BBC NEWS
 
 
@@ -249,12 +229,12 @@ http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/DEZWG4KWUAEXFK/6821/inde
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=712&extension=ts&play_token=7rAaz1UJiX
+http://tv.atomspor.workers.dev/?ID=s-sport
 #EXTINF:-1 tvg-name="S SPORT 2" tvg-logo="https://r2.thesportsdb.com/images/media/channel/logo/nrrvxp1643201048.png" group-title="Spor",S SPORT 2
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=711&extension=ts&play_token=ROKTmEEyZj
+http://tv.atomspor.workers.dev/?ID=s-sport-2
 #EXTINF:-1 tvg-name="TİVİBU SPOR" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839221.png" group-title="Spor",TİVİBU SPOR
 
 
@@ -289,22 +269,12 @@ http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=879140&exte
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=700&extension=ts&play_token=9pWTxQiQVT
+http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/DEZWG4KWUAEXFK/6829/index.m3u8
 #EXTINF:-1 tvg-name="EUROSPORT 2" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801837058.png" group-title="Spor",EUROSPORT 2
 
 
 
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=699&extension=ts&play_token=iLrHXcmvEN
-#EXTINF:-1 tvg-name="SPOR SMART" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801837058.png" group-title="Spor",SPOR SMART
-
-
-
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=713&extension=ts&play_token=QWIXpgpYhS
-#EXTINF:-1 tvg-name="SPOR SMART 2" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801837058.png" group-title="Spor",SPOR SMART 2
-
-
-
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=18631&extension=ts&play_token=B2l3zE1IqA
+http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/DEZWG4KWUAEXFK/6830/index.m3u8
 #EXTINF:-1 tvg-name="TRT BELGESEL" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250328726039.png" group-title="Belgesel",TRT BELGESEL
 
 
@@ -375,16 +345,6 @@ http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197158&exte
 
 
 http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197436&extension=ts&play_token=GDodh8XIch
-#EXTINF:-1 tvg-name="VIASAT HISTORY" tvg-logo="https://viasathistory.eu/wp-content/themes/viasat-world/logos/viasat-history.png" group-title="Belgesel",VIASAT HISTORY
-
-
-
-http://82.70.45.131/Go.php?ID=246054
-#EXTINF:-1 tvg-name="TARİH TV" tvg-logo="https://viasathistory.eu/wp-content/themes/viasat-world/logos/viasat-history.png" group-title="Belgesel",TARİH TV
-
-
-
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=197450&extension=ts&play_token=PwfkIVPsct
 #EXTINF:-1 tvg-name="TRT ÇOCUK" tvg-logo="https://itv224226.tmp.tivibu.com.tr:6430/images/poster/20250801838766.png" group-title="Çocuk",TRT ÇOCUK
 
 
