@@ -229,11 +229,6 @@ http://tv.atomspor.workers.dev/?ID=s-sport
 
 
 http://tv.atomspor.workers.dev/?ID=s-sport-2
-#EXTINF:-1 tvg-name="TİVİBU SPOR" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839221.png" group-title="Spor",TİVİBU SPOR
-
-
-
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=722&extension=ts&play_token=z6SDuvheVv
 #EXTINF:-1 tvg-name="TİVİBU SPOR 1" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839221.png" group-title="Spor",TİVİBU SPOR 1
 
 
@@ -244,11 +239,6 @@ http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=722&extensi
 
 
 http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/DEZWG4KWUAEXFK/6816/index.m3u8
-#EXTINF:-1 tvg-name="TİVİBU SPOR 3" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839221.png" group-title="Spor",TİVİBU SPOR 3
-
-
-
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=720&extension=ts&play_token=8vfTcov1O4
 #EXTINF:-1 tvg-name="EUROSPORT 1" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838605.png" group-title="Spor",EUROSPORT 1
 
 
@@ -259,16 +249,6 @@ http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/DEZWG4KWUAEXFK/6829/inde
 
 
 http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/DEZWG4KWUAEXFK/6830/index.m3u8
-#EXTINF:-1 tvg-name="TABİİ SPOR 1" tvg-logo="https://izmottvsc24.tvplus.com.tr:33207/CPS/images/universal/film/logo/202409/20240913/4/1036095069015eb88428_op.png" group-title="Spor",TABİİ SPOR 1
-
-
-
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=879139&extension=ts&play_token=yWPdgeW7z5
-#EXTINF:-1 tvg-name="TABİİ SPOR 2" tvg-logo="https://izmottvsc24.tvplus.com.tr:33207/CPS/images/universal/film/logo/202409/20240913/4/1036095069015eb88428_op.png" group-title="Spor",TABİİ SPOR 2
-
-
-
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=879140&extension=ts&play_token=IgIwOzfgSp
 #EXTINF:-1 tvg-name="TRT BELGESEL" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250328726039.png" group-title="Belgesel",TRT BELGESEL
 
 
