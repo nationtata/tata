@@ -94,11 +94,6 @@ https://trkvz-live.ercdn.net/ahaberhd/ahaberhd.m3u8
 
 
 https://tv.ensonhaber.com/haberglobal/haberglobal.m3u8
-#EXTINF:-1 tvg-name="TV 100" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839195.png" group-title="Haber",TV 100
-
-
-
-http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/DEZWG4KWUAEXFK/2328/index.m3u8
 #EXTINF:-1 tvg-name="NTV" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838399.png" group-title="Haber",NTV
 
 
@@ -139,7 +134,7 @@ http://umperisn.mywire.org/index.php?id=594231&token=DeaTHLesS
 
 
 https://internettv.guventechnology.com/hls/ulusaltv/index.m3u8
-#EXTINF:-1 tvg-name="FLASH HABER" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838624.png" group-title="Haber",FLASH HABER
+#EXTINF:-1 tvg-name="FLASH" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838624.png" group-title="Haber",FLASH
 
 
 
@@ -164,16 +159,16 @@ https://hnpsechtsc.turknet.ercdn.net/xpnvudnlsv/cnbc-e/cnbc-e.m3u8?tv=1
 
 
 https://ciner.daioncdn.net/bloomberght/bloomberght.m3u8
-#EXTINF:-1 tvg-name="A PARA" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838741.png" group-title="Haber",A PARA
-
-
-
-http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/DEZWG4KWUAEXFK/6909/index.m3u8
 #EXTINF:-1 tvg-name="EKOTÜRK" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838250.png" group-title="Haber",EKOTÜRK
 
 
 
 https://cdn.ekoturk.net/hls/720p.m3u8
+#EXTINF:-1 tvg-name="A PARA" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838741.png" group-title="Haber",A PARA
+
+
+
+http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/DEZWG4KWUAEXFK/6909/index.m3u8
 #EXTINF:-1 tvg-name="A NEWS" tvg-logo="https://itv224226.tmp.tivibu.com.tr:6430/images/poster/20250801838138.png" group-title="Haber",A NEWS
 
 
@@ -259,16 +254,6 @@ http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/DEZWG4KWUAEXFK/6816/inde
 
 
 http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=720&extension=ts&play_token=8vfTcov1O4
-#EXTINF:-1 tvg-name="TABİİ Spor 1" tvg-logo="https://izmottvsc24.tvplus.com.tr:33207/CPS/images/universal/film/logo/202409/20240913/4/1036095069015eb88428_op.png" group-title="Spor",TABİİ SPOR 1
-
-
-
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=879139&extension=ts&play_token=yWPdgeW7z5
-#EXTINF:-1 tvg-name="TABİİ Spor 2" tvg-logo="https://izmottvsc24.tvplus.com.tr:33207/CPS/images/universal/film/logo/202409/20240913/4/1036095069015eb88428_op.png" group-title="Spor",TABİİ SPOR 2
-
-
-
-http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=879140&extension=ts&play_token=IgIwOzfgSp
 #EXTINF:-1 tvg-name="EUROSPORT 1" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801838605.png" group-title="Spor",EUROSPORT 1
 
 
@@ -279,6 +264,16 @@ http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/DEZWG4KWUAEXFK/6829/inde
 
 
 http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/DEZWG4KWUAEXFK/6830/index.m3u8
+#EXTINF:-1 tvg-name="TABİİ SPOR 1" tvg-logo="https://izmottvsc24.tvplus.com.tr:33207/CPS/images/universal/film/logo/202409/20240913/4/1036095069015eb88428_op.png" group-title="Spor",TABİİ SPOR 1
+
+
+
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=879139&extension=ts&play_token=yWPdgeW7z5
+#EXTINF:-1 tvg-name="TABİİ SPOR 2" tvg-logo="https://izmottvsc24.tvplus.com.tr:33207/CPS/images/universal/film/logo/202409/20240913/4/1036095069015eb88428_op.png" group-title="Spor",TABİİ SPOR 2
+
+
+
+http://me.mdmfista.com:80/play/live.php?mac=00:1A:79:F5:CE:CF&stream=879140&extension=ts&play_token=IgIwOzfgSp
 #EXTINF:-1 tvg-name="TRT BELGESEL" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250328726039.png" group-title="Belgesel",TRT BELGESEL
 
 
