@@ -1,3 +1,4 @@
+```javascript
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -69,18 +70,14 @@ function assetPaths(name) {
 ========================================================= */
 
 app.get("/manifest.json", (req, res) => {
-
   res.json({
-
     id: "tata.live",
     version: "7.0.0",
     name: "TATA",
     description: "Premium Live TV",
-
     resources: ["catalog", "meta", "stream"],
     types: ["tv"],
     idPrefixes: ["tv-"],
-
     catalogs: [
       { type: "tv", id: "ulusal", name: "Ulusal" },
       { type: "tv", id: "haber", name: "Haber" },
@@ -88,9 +85,7 @@ app.get("/manifest.json", (req, res) => {
       { type: "tv", id: "belgesel", name: "Belgesel" },
       { type: "tv", id: "cocuk", name: "Çocuk" }
     ]
-
   });
-
 });
 
 /* =========================================================
@@ -106,12 +101,10 @@ const catalogMap = {
 };
 
 app.get("/catalog/tv/:id.json", (req, res) => {
-
   const groupName = catalogMap[req.params.id];
   const groups = getGroups();
 
   const metas = (groups[groupName] || []).map(channel => {
-
     const assets = assetPaths(channel.name);
 
     return {
@@ -123,11 +116,9 @@ app.get("/catalog/tv/:id.json", (req, res) => {
       background: absolute(req, assets.background),
       posterShape: "square"
     };
-
   });
 
   res.json({ metas });
-
 });
 
 /* =========================================================
@@ -135,7 +126,6 @@ app.get("/catalog/tv/:id.json", (req, res) => {
 ========================================================= */
 
 app.get("/meta/tv/:id.json", async (req, res) => {
-
   const id = req.params.id.replace(/^tv-/, "");
   const channel = getChannel(id);
 
@@ -156,28 +146,21 @@ app.get("/meta/tv/:id.json", async (req, res) => {
   };
 
   try {
-
     const network = await getNetwork(channel.name);
 
     if (network) {
-
       meta.description =
         network.headquarters ||
         `${channel.name} televizyon kanalı`;
 
       meta.website = network.homepage || "";
       meta.releaseInfo = "Türkiye";
-
     }
-
   } catch (err) {
-
     console.error("TMDb:", err.message);
-
   }
 
   res.json({ meta });
-
 });
 
 /* =========================================================
@@ -185,7 +168,6 @@ app.get("/meta/tv/:id.json", async (req, res) => {
 ========================================================= */
 
 app.get("/stream/tv/:id.json", async (req, res) => {
-
   const id = req.params.id.replace(/^tv-/, "");
   const channel = getChannel(id);
 
@@ -193,38 +175,38 @@ app.get("/stream/tv/:id.json", async (req, res) => {
     return res.json({ streams: [] });
   }
 
+  /*
+   * Alternatifleri önce al.
+   * Ana yayın başarısız olsa bile alternatifleri kaybetme.
+   */
+  const alternatives = getAlternatives(id);
+
+  /*
+   * Ana yayını doğrulamayı dene.
+   * Başarısızlık alternatif yayınların dönmesini engellemez.
+   */
   try {
-
-    // Engine ana yayını doğrulamaya devam ediyor.
     await resolveChannel(id);
-
-    const alternatives = getAlternatives(id);
-
-    if (!alternatives.length) {
-      return res.json({ streams: [] });
-    }
-
-    const streams = alternatives.map((alt, index) => ({
-
-      url: alt.url,
-
-      title:
-        index === 0
-          ? `${channel.name} • ▶ Ana`
-          : `${channel.name} • ▶ ${alt.title.replace("▶ ", "")}`
-
-    }));
-
-    return res.json({ streams });
-
   } catch (err) {
-
-    console.error(`[STREAM ERROR] ${channel.name}:`, err.message);
-
-    return res.json({ streams: [] });
-
+    console.error(
+      `[PRIMARY STREAM ERROR] ${channel.name}:`,
+      err.message
+    );
   }
 
+  if (!alternatives.length) {
+    return res.json({ streams: [] });
+  }
+
+  const streams = alternatives.map((alt, index) => ({
+    url: alt.url,
+    title:
+      index === 0
+        ? `${channel.name} • ▶ Ana`
+        : `${channel.name} • ▶ ${alt.title.replace("▶ ", "")}`
+  }));
+
+  return res.json({ streams });
 });
 
 /* =========================================================
@@ -232,9 +214,7 @@ app.get("/stream/tv/:id.json", async (req, res) => {
 ========================================================= */
 
 app.get("/tmdb/image/*", async (req, res) => {
-
   try {
-
     const imgPath = req.params[0];
 
     const response = await fetch(
@@ -253,13 +233,9 @@ app.get("/tmdb/image/*", async (req, res) => {
     const buffer = Buffer.from(await response.arrayBuffer());
 
     res.send(buffer);
-
   } catch {
-
     res.sendStatus(500);
-
   }
-
 });
 
 /* =========================================================
@@ -267,17 +243,13 @@ app.get("/tmdb/image/*", async (req, res) => {
 ========================================================= */
 
 app.get("/health", (req, res) => {
-
   res.json({
-
     status: "ok",
     version: "7.0.0",
     port: PORT,
     tmdb: !!process.env.TMDB_API_KEY,
     uptime: Math.floor(process.uptime())
-
   });
-
 });
 
 /* =========================================================
@@ -285,9 +257,7 @@ app.get("/health", (req, res) => {
 ========================================================= */
 
 app.get("/", (req, res) => {
-
   res.redirect("/manifest.json");
-
 });
 
 /* =========================================================
@@ -295,7 +265,6 @@ app.get("/", (req, res) => {
 ========================================================= */
 
 const server = app.listen(PORT, "0.0.0.0", () => {
-
   console.log("");
   console.log("================================");
   console.log("      TATA Premium Live TV");
@@ -311,11 +280,9 @@ const server = app.listen(PORT, "0.0.0.0", () => {
   console.log("Providers  : Multi-Source Active");
   console.log("================================");
   console.log("");
-
 });
 
 server.on("error", err => {
-
   console.error("Server listen error:", err);
-
 });
+```
