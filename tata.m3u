@@ -174,11 +174,6 @@ https://tv-trtworld.medya.trt.com.tr/master.m3u8
 
 
 https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/pc_hd_abr_v2.m3u8
-#EXTINF:-1 tvg-name="CNN INTERNATIONAL" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839162.png" group-title="Haber",CNN INTERNATIONAL
-
-
-
-https://nuviosports.xyz/api/manifest?url=https%3A%2F%2F643t8a.7odxv0l067ka.net%3A8443%2Fhls%2Fr471dqr6l4uai.m3u8%3Fs%3DNwwkkUm8x_WjMJ45D38BYw%26e%3D1792116895&referer=https%3A%2F%2Fassetrage.net%2F&origin=https%3A%2F%2Fassetrage.net&rck=daddylive%3Adlv_ch_345_cnn-usa%3A345
 #EXTINF:-1 tvg-name="TRT SPOR" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801839291.png" group-title="Spor",TRT SPOR
 
 
@@ -254,11 +249,6 @@ http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/DEZWG4KWUAEXFK/6830/inde
 
 
 https://lord.mariuannastluisborg.autos/yayinnbatv/index.m3u8?expires=1792130400&sig=pjOpwAPkgfyoG4K2FQPniw
-#EXTINF:-1 tvg-name="WWE" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801837058.png" group-title="Spor",WWE
-
-
-
-https://cdnlivetv.tv/secure/api/v1/6a288d2881d8192bb76cb5f7/playlist.m3u8?token=NmEyODhkMjg4MWQ4MTkyYmI3NmNiNWY3OjE3OTIxMTAxMjk0MzM6Y2RubGl2ZXR2LnR2OmU3ZDYyMmRhZmVhMGRmNTkuMzZiNjM4NjU2ZjNlM2Q4MTMyM2M0NWUyMTRhZTRhMDNmM2E4MmFhMTNhNzJlMmJhOTg5M2JhNDI5YmQ5ZDhiNw
 #EXTINF:-1 tvg-name="SPOR SMART" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801839221.png" group-title="Spor",SPOR SMART
 
 
@@ -334,11 +324,6 @@ https://dogus.daioncdn.net/dmax/dmax_720p.m3u8?token=dnRaM0l5SC9ZOVFQRXhrbU1uazN
 
 
 http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/DEZWG4KWUAEXFK/6805/index.m3u8
-#EXTINF:-1 tvg-name="HISTORY CHANNEL" tvg-logo="https://viasathistory.eu/wp-content/themes/viasat-world/logos/viasat-history.png" group-title="Belgesel",HISTORY CHANNEL
-
-
-
-https://nuviosports.xyz/api/manifest?url=https%3A%2F%2F643t8a.7odxv0l067ka.net%3A8443%2Fhls%2Fr471dn26g8gce.m3u8%3Fs%3D7kRCAJ9bP3EIwtqFoPSyBw%26e%3D1792117076&referer=https%3A%2F%2Fassetrage.net%2F&origin=https%3A%2F%2Fassetrage.net&rck=daddylive%3Adlv_ch_322_history-usa%3A322
 #EXTINF:-1 tvg-name="TRT ÇOCUK" tvg-logo="https://itv224226.tmp.tivibu.com.tr:6430/images/poster/20250801838766.png" group-title="Çocuk",TRT ÇOCUK
 
 
