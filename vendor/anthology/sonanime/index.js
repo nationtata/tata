@@ -1,3 +1,4 @@
+const https = require("node:https");
 const { loadConfig, val, wrapAll } = require("../shared/config.js");
 
 var _cfgReady = null;
@@ -64,8 +65,45 @@ function cleanStr(str) {
 /**
  * JSON fetch yardımcısı
  */
+function fetchSonAnimeJson(url, timeoutMs, diagnostic) {
+  return new Promise(resolve => {
+    const request = https.get(url, {
+      family: 4,
+      headers: DEFAULT_HEADERS,
+      signal: timeoutSignal(timeoutMs)
+    }, response => {
+      if (response.statusCode !== 200) {
+        if (diagnostic) console.warn("[TATA VOD]", diagnostic, "HTTP", response.statusCode);
+        response.destroy();
+        resolve(null);
+        return;
+      }
+      let body = "";
+      response.setEncoding("utf8");
+      response.on("data", chunk => {
+        body += chunk;
+        if (body.length > 4 * 1024 * 1024) response.destroy(new Error("Catalog response too large"));
+      });
+      response.on("end", () => {
+        try { resolve(JSON.parse(body)); } catch { resolve(null); }
+      });
+      response.on("error", error => {
+        if (diagnostic) console.warn("[TATA VOD]", diagnostic, error.code ?? error.name);
+        resolve(null);
+      });
+    });
+    request.on("error", error => {
+      if (diagnostic) console.warn("[TATA VOD]", diagnostic, "IPv4", error.code ?? error.name);
+      resolve(null);
+    });
+  });
+}
+
 async function fetchJson(url, timeoutMs, diagnostic) {
   try {
+    if (new URL(url).hostname === "api.sonanime.com") {
+      return await fetchSonAnimeJson(url, timeoutMs || 8000, diagnostic);
+    }
     var res = await fetch(url, {
       headers: DEFAULT_HEADERS,
       signal: timeoutSignal(timeoutMs || 8000)
