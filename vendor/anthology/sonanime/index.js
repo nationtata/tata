@@ -69,7 +69,7 @@ function fetchSonAnimeJson(url, timeoutMs, diagnostic) {
   return new Promise(resolve => {
     const request = https.get(url, {
       family: 4,
-      headers: DEFAULT_HEADERS,
+      headers: { ...DEFAULT_HEADERS, Referer: new URL("/", url).href },
       signal: timeoutSignal(timeoutMs)
     }, response => {
       if (response.statusCode !== 200) {
