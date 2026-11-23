@@ -26,7 +26,7 @@ async function findTmdb(type, id) {
   return isImdb ? data[apiType + "_results"]?.[0] : data;
 }
 
-function streamLabels(stream) {
+function streamLabels(stream, provider) {
   const labels = [stream.quality, stream.resolution, stream.name, stream.title, stream.description];
   const quality = labels.map(value => String(value ?? "").match(
     /\b(2160p?|1080p?|720p?|480p?|360p?|4k)\b/i
@@ -42,18 +42,20 @@ function streamLabels(stream) {
   }
   if (/\b(?:dublaj(?:lı)?|dubbed|dub)\b/u.test(audio)) languages.push("Dublaj");
 
+  if (!languages.length && provider === "Vidlink") languages.push("Orijinal");
+
   return {
     name: quality === "4k" ? "4K" : quality ? quality.replace(/p?$/, "p") : "",
     title: languages.join(" · ")
   };
 }
 
-function cleanStream(stream) {
+function cleanStream(stream, provider) {
   if (!stream || typeof stream.url !== "string" || !/^https?:\/\//i.test(stream.url)) return null;
   const headers = stream.behaviorHints?.proxyHeaders?.request ?? stream.headers;
   const { notWebReady, bingeGroup, proxyHeaders } = stream.behaviorHints ?? {};
   return {
-    ...streamLabels(stream),
+    ...streamLabels(stream, provider),
     url: stream.url,
     ...(Array.isArray(stream.subtitles) && { subtitles: stream.subtitles }),
     behaviorHints: {
@@ -73,7 +75,7 @@ async function runProvider(provider, lookup, type) {
       timer = setTimeout(() => resolve([]), PROVIDER_TIMEOUT);
     });
     const result = await Promise.race([Promise.resolve().then(lookup), timeout]);
-    return Array.isArray(result) ? result.map(cleanStream).filter(Boolean) : [];
+    return Array.isArray(result) ? result.map(stream => cleanStream(stream, provider)).filter(Boolean) : [];
   } catch (error) {
     console.warn("[TATA VOD]", provider, type, error.name);
     return [];
