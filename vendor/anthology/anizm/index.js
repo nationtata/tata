@@ -23,7 +23,7 @@ function cfgReady() {
  * Anime serileri için AnizmPlayer (FirePlayer HLS), OK.ru ve Sibnet doğrudan akışları sağlar.
  */
 
-var BASE_URL = "https://anizm.net";
+var BASE_URL = "https://cdn.anizm.net";
 var PLAYER_API = "https://anizmplayer.com";
 var SITE_NAME = "Anizm";
 
@@ -220,7 +220,7 @@ async function fetchHtml(url, headers, ms) {
   try {
     var res = await fetch(url, { headers: headers || HEADERS, signal: timeoutSignal(ms || 10000) });
     var text = await res.text();
-    if (isCfBlocked(res.status, text)) return null;
+    if (!res.ok || isCfBlocked(res.status, text)) return null;
     return { status: res.status, text: text };
   } catch (e) { return null; }
 }
@@ -230,7 +230,7 @@ function parseEpisodeList(html) {
   var seen = {};
 
   // V3: <a ... href="https://anizm.net/slug-1-bolum-izle">
-  var v3matches = Array.from(html.matchAll(/href=["'](https:\/\/anizm\.net\/[^"']*-(\d+)-bolum(?:-[^"']*)?)["']/gi));
+  var v3matches = Array.from(html.matchAll(/href=["'](https:\/\/(?:cdn\.)?anizm\.net\/[^"']*-(\d+)-bolum(?:-[^"']*)?)["']/gi));
   for (var i = 0; i < v3matches.length; i++) {
     var u = v3matches[i][1];
     var ep = parseInt(v3matches[i][2], 10);
@@ -248,7 +248,7 @@ function parseEpisodeList(html) {
   var blocks = html.match(/<div class="[^"]*bolumKutucugu[^"]*">[\s\S]*?<\/a>\s*<\/div>/g) || [];
   for (var j = 0; j < blocks.length; j++) {
     var b = blocks[j];
-    var a = b.match(/href="(https:\/\/anizm\.net\/[^"]+)"/);
+    var a = b.match(/href="(https:\/\/(?:cdn\.)?anizm\.net\/[^"]+)"/);
     var num = b.match(/class="episodeBlock[\s\S]*?">\s*([\d\.]+)(?:\s*Bölüm)?/i);
     if (!a) continue;
     var epNum = -1;
@@ -270,9 +270,9 @@ function parseTranslators(html) {
   var seen = {};
 
   // V3: data-sources="https://anizm.net/bolum/.../cevirmen/..."
-  var v3m = html.match(/data-sources=["'](https:\/\/anizm\.net\/bolum\/\d+\/cevirmen\/\d+)["']/g) || [];
+  var v3m = html.match(/data-sources=["'](https:\/\/(?:cdn\.)?anizm\.net\/bolum\/\d+\/cevirmen\/\d+)["']/g) || [];
   for (var i = 0; i < v3m.length; i++) {
-    var uMatch = v3m[i].match(/https:\/\/anizm\.net\/bolum\/\d+\/cevirmen\/\d+/);
+    var uMatch = v3m[i].match(/https:\/\/(?:cdn\.)?anizm\.net\/bolum\/\d+\/cevirmen\/\d+/);
     if (uMatch) {
       var u = uMatch[0];
       if (!seen[u]) { seen[u] = true; out.push(u); }
@@ -280,7 +280,7 @@ function parseTranslators(html) {
   }
 
   // V2 fallback: translator="..."
-  var m = html.match(/translator=["'](https:\/\/anizm\.net\/episode\/\d+\/translator\/\d+)["']/g) || [];
+  var m = html.match(/translator=["'](https:\/\/(?:cdn\.)?anizm\.net\/episode\/\d+\/translator\/\d+)["']/g) || [];
   for (var j = 0; j < m.length; j++) {
     var u2 = m[j].replace(/^translator=["']/, "").replace(/["']$/, "");
     if (!seen[u2]) { seen[u2] = true; out.push(u2); }
@@ -313,7 +313,7 @@ async function fetchTranslatorVideos(translatorUrl) {
     // V2 fallback: video="..."
     var out = [];
     var seen = {};
-    var vm = text.match(/video=["'](https:\/\/anizm\.net\/video\/\d+)["']/g) || [];
+    var vm = text.match(/video=["'](https:\/\/(?:cdn\.)?anizm\.net\/video\/\d+)["']/g) || [];
     for (var i = 0; i < vm.length; i++) {
       var u = vm[i].replace(/^video=["']/, "").replace(/["']$/, "");
       if (!seen[u]) { seen[u] = true; out.push(u); }
@@ -520,7 +520,7 @@ async function buildEpisodeUrl(slug, season, episode) {
   ];
   for (var i = 0; i < urls.length; i++) {
     var r = await fetchHtml(urls[i], HEADERS, 9000);
-    if (r) return urls[i];
+    if (r && parseTranslators(r.text).length) return r;
   }
   return null;
 }
@@ -569,28 +569,13 @@ async function getStreams(tmdbId, mediaType, season, episode) {
     }
 
     if (slug) {
-      var epUrl = await buildEpisodeUrl(slug, finalSeason, finalEpisode);
-      if (epUrl) {
-        var page = await fetchHtml(epUrl, HEADERS, 10000);
-        if (page) {
-          var translators = parseTranslators(page.text);
-          var visited = {};
-          var consecutiveFails = 0;
-          for (var i = 0; i < translators.length && out.length < 6 && consecutiveFails < 2; i++) {
-            var videos = await fetchTranslatorVideos(translators[i]);
-            for (var j = 0; j < videos.length && out.length < 6 && consecutiveFails < 2; j++) {
-              if (visited[videos[j]]) continue;
-              visited[videos[j]] = true;
-              var s = await resolvePlayerPage(videos[j]);
-              if (s && s.length > 0) {
-                consecutiveFails = 0;
-                for (var k = 0; k < s.length; k++) out.push(s[k]);
-              } else {
-                consecutiveFails++;
-              }
-            }
-          }
-        }
+      var page = await buildEpisodeUrl(slug, finalSeason, finalEpisode);
+      if (page) {
+        var translators = parseTranslators(page.text).slice(0, 3);
+        var videoLists = await Promise.all(translators.map(fetchTranslatorVideos));
+        var videos = [...new Set(videoLists.flat())].slice(0, 8);
+        var streams = await Promise.all(videos.map(resolvePlayerPage));
+        out.push(...streams.flat().slice(0, 6));
       }
     }
 
@@ -716,7 +701,7 @@ async function getCatalog(args) {
       var seen = {};
 
       // 1) V3 Series Cards (<article class="v3-series-card">)
-      var seriesCards = Array.from(page.text.matchAll(/<article[^>]*class="[^"]*v3-series-card[^"]*"[^>]*>[\s\S]*?<a[^>]+href="https:\/\/anizm\.net\/([^"\/]+)"[\s\S]*?alt="([^"]*?)(?:\s+posteri)?"[\s\S]*?<\/article>/gi));
+      var seriesCards = Array.from(page.text.matchAll(/<article[^>]*class="[^"]*v3-series-card[^"]*"[^>]*>[\s\S]*?<a[^>]+href="https:\/\/(?:cdn\.)?anizm\.net\/([^"\/]+)"[\s\S]*?alt="([^"]*?)(?:\s+posteri)?"[\s\S]*?<\/article>/gi));
       for (var sc = 0; sc < seriesCards.length && metas.length < 30; sc++) {
         var m = seriesCards[sc];
         var slug = m[1];
@@ -733,7 +718,7 @@ async function getCatalog(args) {
 
       // 2) V3 Episode Cards (<article class="v3-episode-card">)
       if (metas.length < 15) {
-        var epCards = Array.from(page.text.matchAll(/<article[^>]*class="[^"]*v3-episode-card[^"]*"[^>]*>[\s\S]*?<a[^>]+href="https:\/\/anizm\.net\/([^"\/]+)"[\s\S]*?alt="([^"]*?)(?:\s+posteri)?"[\s\S]*?<\/article>/gi));
+        var epCards = Array.from(page.text.matchAll(/<article[^>]*class="[^"]*v3-episode-card[^"]*"[^>]*>[\s\S]*?<a[^>]+href="https:\/\/(?:cdn\.)?anizm\.net\/([^"\/]+)"[\s\S]*?alt="([^"]*?)(?:\s+posteri)?"[\s\S]*?<\/article>/gi));
         for (var ec = 0; ec < epCards.length && metas.length < 30; ec++) {
           var em = epCards[ec];
           var rawSlug = em[1] || "";

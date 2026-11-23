@@ -112,7 +112,7 @@
         "base": "https://animom.org"
       },
       "anizm": {
-        "base": "https://anizm.net",
+        "base": "https://cdn.anizm.net",
         "player_api": "https://anizmplayer.com"
       },
       "animeprax": {
