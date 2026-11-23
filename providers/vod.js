@@ -1,3 +1,4 @@
+const { getFilmPlaylistStreams } = require("./film-playlist");
 const { getPlaylistStreams } = require("./playlist");
 const { getMovieStreams } = require("./izlefilm");
 const registry = require("../vendor/anthology/providers.json");
@@ -18,6 +19,7 @@ async function findTmdb(type, id, language = "tr-TR", timeout = 3500) {
   const apiType = type === "series" ? "tv" : "movie";
   const isImdb = id.startsWith("tt");
   if (isImdb) query.set("external_source", "imdb_id");
+  else if (type === "movie" && process.env.TATA_FILM_M3U_KEY) query.set("append_to_response", "external_ids");
   const resource = isImdb ? "find/" + id : apiType + "/" + id.replace(/^tmdb:/, "");
   const response = await fetch("https://api.themoviedb.org/3/" + resource + "?" + query, {
     signal: AbortSignal.timeout(timeout)
@@ -135,6 +137,12 @@ async function search(type, request) {
   }
   if (type === "movie") {
     jobs.unshift(runProvider("İzlefilm", () => getMovieStreams(details), type));
+    if (process.env.TATA_FILM_M3U_KEY) {
+      jobs.unshift(
+        runProvider("TATA M3U · FullHD", () => getFilmPlaylistStreams("fullhdfi", details, request.id), type),
+        runProvider("TATA M3U · Vixolity", () => getFilmPlaylistStreams("vixolity", details, request.id), type)
+      );
+    }
   }
   const streams = (await Promise.all(jobs)).flat();
   const seen = new Set();

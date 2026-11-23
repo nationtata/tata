@@ -1,6 +1,6 @@
 // Adapted from F0Rextasy/bigbullapp-cs (MIT); see ../BIGBULL-LICENSE.
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
-const fetch = require("../shared/bigbull-fetch")(["www.fullhdfilmizlesene.now","query.wikidata.org","v3-cinemeta.strem.io","www.wikidata.org","api.themoviedb.org","v3.sg.media-imdb.com","api.tvmaze.com","ok.ru","vidmoly.net","vidmoly.biz","vidmoly.to","vidmoly.me","vidmoly.sx","vmnow.online","pilavyerplay.top"]);
+const fetch = require("../shared/bigbull-fetch")(["www.fullhdfilmizlesene.now","query.wikidata.org","v3-cinemeta.strem.io","www.wikidata.org","api.themoviedb.org","v3.sg.media-imdb.com","api.tvmaze.com","ok.ru","vidmoly.net","vidmoly.biz","vidmoly.to","vidmoly.me","vidmoly.sx","vmnow.online","pilavyerplay.top","rapidvid.org"]);
 // @provider {"id":"fullhdfilmizlesene", "name":"FullHDFilmizlesene", "types":["movie"], "domain":"fullhdfilmizlesene.now", "formats":["m3u8"], "sample":"tt0133093:movie:1:1", "description":"FullHDFilmizlesene - Turkce dublaj/altyazili filmler; scx kaynagi -> rapidvid atom HLS + altyazi.", "verified":true, "version":"1.0.15"}
 /**
  * fullhdfilmizlesene — Nuvio provider (bb-nuvio).
@@ -218,8 +218,8 @@ function subtitleLang(label) {
 }
 
 /** rapidvid embed -> atomCodecTelemetry, window._p8 (/vx/) or jwSetup.sources HLS master + captions. */
-function resolveAtom(embed, label) {
-  return text(embed, { referer: BASE + "/" }).then(function (html) {
+function resolveAtom(embed, label, playlistHeaders) {
+  return text(embed, { referer: BASE + "/", headers: playlistHeaders }).then(function (html) {
     var raw = first(/atomCodecTelemetry=(\{[\s\S]*?\});/, html);
     var telemetry = {};
     if (raw) {
@@ -270,6 +270,7 @@ function resolveAtom(embed, label) {
       }
     }
 
+    if (playlistHeaders) return [{ url: stream, subtitles: subs }];
     return bestQuality(stream, embed).then(function (quality) {
       return [{ url: stream, quality: quality, label: label, subtitles: subs }];
     });
@@ -385,7 +386,7 @@ function getStreams(tmdbId, mediaType) {
     });
 }
 
-module.exports = { getStreams };
+module.exports = { getStreams, resolveAtom };
 
 /* NuvioMobile always calls getStreams with args.tmdbId (JsBindings.kt); the
    value is a numeric TMDB id after TmdbService.ensureTmdbId. Resolve it to

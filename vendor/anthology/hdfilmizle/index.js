@@ -746,7 +746,7 @@ if (typeof getStreams === "function") {
 }
 
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = wrapAll({ getStreams, getMeta, getCatalog }, cfgReady);
+    module.exports = wrapAll({ getStreams, getMeta, getCatalog, resolveVidmoxy }, cfgReady);
 }
 if (typeof globalThis !== 'undefined') {
     globalThis.getStreams = getStreams;

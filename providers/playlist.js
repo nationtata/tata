@@ -5,7 +5,11 @@ const { join } = require("node:path");
 
 async function readPlaylist(path, key) {
   if (path) return readFile(path, "utf8");
-  const data = await readFile(join(__dirname, "..", "assets", "series.m3u.gz.enc"));
+  return readEncryptedPlaylist("series.m3u.gz.enc", key);
+}
+
+async function readEncryptedPlaylist(filename, key) {
+  const data = await readFile(join(__dirname, "..", "assets", filename));
   const decipher = createDecipheriv("aes-256-gcm", Buffer.from(key, "hex"), data.subarray(0, 12));
   decipher.setAuthTag(data.subarray(12, 28));
   return gunzipSync(Buffer.concat([decipher.update(data.subarray(28)), decipher.final()])).toString("utf8");
@@ -66,4 +70,4 @@ async function getPlaylistStreams(details, season, episode) {
   return [...new Set(titles)].flatMap(title => episodes.get([title, season, episode].join(":")) ?? []);
 }
 
-module.exports = { getPlaylistStreams };
+module.exports = { getPlaylistStreams, readEncryptedPlaylist, titleKey };
