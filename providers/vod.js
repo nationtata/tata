@@ -26,13 +26,34 @@ async function findTmdb(type, id) {
   return isImdb ? data[apiType + "_results"]?.[0] : data;
 }
 
-function cleanStream(stream, provider) {
+function streamLabels(stream) {
+  const labels = [stream.quality, stream.resolution, stream.name, stream.title, stream.description];
+  const quality = labels.map(value => String(value ?? "").match(
+    /\b(2160p?|1080p?|720p?|480p?|360p?|4k)\b/i
+  )?.[1]).find(Boolean)?.toLowerCase();
+
+  const audio = [stream.audio, stream.audioLabel, stream.language, ...labels.slice(2)]
+    .filter(value => typeof value === "string").join(" ").toLocaleLowerCase("tr");
+  const languages = [];
+  if (/\b(?:orijinal|original)\b/u.test(audio)) languages.push("Orijinal");
+  if (/(?<!\p{L})(?:altyazı(?:lı)?|alt yazı(?:lı)?|subbed|subtitled|subtitles?)(?!\p{L})/u.test(audio) ||
+      (Array.isArray(stream.subtitles) && stream.subtitles.some(subtitle => subtitle?.url))) {
+    languages.push("Altyazılı");
+  }
+  if (/\b(?:dublaj(?:lı)?|dubbed|dub)\b/u.test(audio)) languages.push("Dublaj");
+
+  return {
+    name: quality === "4k" ? "4K" : quality ? quality.replace(/p?$/, "p") : "",
+    title: languages.join(" · ")
+  };
+}
+
+function cleanStream(stream) {
   if (!stream || typeof stream.url !== "string" || !/^https?:\/\//i.test(stream.url)) return null;
   const headers = stream.behaviorHints?.proxyHeaders?.request ?? stream.headers;
   const { notWebReady, bingeGroup, proxyHeaders } = stream.behaviorHints ?? {};
   return {
-    name: "TATA · " + provider,
-    title: stream.title || stream.description || stream.name || provider,
+    ...streamLabels(stream),
     url: stream.url,
     ...(Array.isArray(stream.subtitles) && { subtitles: stream.subtitles }),
     behaviorHints: {
@@ -52,7 +73,7 @@ async function runProvider(provider, lookup, type) {
       timer = setTimeout(() => resolve([]), PROVIDER_TIMEOUT);
     });
     const result = await Promise.race([Promise.resolve().then(lookup), timeout]);
-    return Array.isArray(result) ? result.map(stream => cleanStream(stream, provider)).filter(Boolean) : [];
+    return Array.isArray(result) ? result.map(cleanStream).filter(Boolean) : [];
   } catch (error) {
     console.warn("[TATA VOD]", provider, type, error.name);
     return [];
