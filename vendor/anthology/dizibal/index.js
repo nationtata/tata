@@ -1,3 +1,4 @@
+const { playbackTracks } = require("../shared/playback-tracks");
 // Adapted from fmustafayaman/turkish-nuvio, Dizibal 1.4.0. See LICENSE.
 /**
  * dizibal - Built from src/dizibal/
@@ -596,6 +597,7 @@ function getStreams(tmdbId, mediaType = "movie", season = 1, episode = 1) {
       }
       const quality = detectHlsQuality(masterText) || qualityFromRelease(config.title) || "Auto";
       const audio = audioSummary(config.audios);
+      const tracks = playbackTracks(masterText, config.audios);
       return [{
         name: `Dizibal ${quality}`,
         title: audio ? `${mediaTitle}
@@ -605,7 +607,8 @@ ${audio}` : mediaTitle,
         provider: "dizibal",
         type: "m3u8",
         headers,
-        subtitles
+        subtitles,
+        ...tracks
       }];
     } catch (e) {
       return DEBUG ? debugStream(`HATA: ${e.message} | ${steps.join(" | ")}`) : [];

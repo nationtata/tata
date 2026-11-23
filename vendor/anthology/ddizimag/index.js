@@ -1,3 +1,4 @@
+const { playbackTracks } = require("../shared/playback-tracks");
 // Adapted from F0Rextasy/bigbullapp-cs (MIT); see ../BIGBULL-LICENSE.
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const fetch = require("../shared/bigbull-fetch")(["ddizimag2.icu","v3-cinemeta.strem.io","pilavyerplay.top","www.wikidata.org","api.themoviedb.org","v3.sg.media-imdb.com","api.tvmaze.com","ok.ru","vidmoly.net","vidmoly.biz","vidmoly.to","vidmoly.me","vidmoly.sx","vmnow.online"]);
@@ -117,7 +118,8 @@ function rowsOf(found) {
           url: hlsNoDownload(found.cfg.stream),
           quality: quality,
           headers: { Referer: found.playerBase + "/" },
-          subtitles: subs
+          subtitles: subs,
+          ...playbackTracks(master, found.cfg.audios)
         }
       ];
     });
