@@ -187,7 +187,19 @@ app.get("/meta/tv/:id.json", async (req, res) => {
    STREAM (Multi-Stream)
 ========================================================= */
 
-app.get("/stream/movie/:id.json", async (req, res) => {
+app.get("/film/manifest.json", (req, res) => {
+  res.json({
+    id: "tata.film",
+    version: "7.1.0",
+    name: "TATA Film",
+    description: "TATA film kaynakları",
+    resources: ["stream"],
+    types: ["movie"],
+    catalogs: []
+  });
+});
+
+app.get(["/stream/movie/:id.json", "/film/stream/movie/:id.json"], async (req, res) => {
   try {
     return res.json({ streams: await getMovieStreams(req.params.id) });
   } catch (err) {
