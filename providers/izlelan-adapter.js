@@ -5,7 +5,7 @@
 // Missing modules are skipped so existing TATA providers remain unaffected.
 const path = require("path");
 const fs = require("fs");
-const NAMES = ["ace", "clover", "dragon"];
+const NAMES = ["ace","clover","dragon","enel","gorosei","imu","joyboy","kalgara","katakuri","noland","rayleigh","roger","sengoku","shiki","smoker","teach","toki","urouge","xebec","turkdizi","doflamingo","fujitora","lili","sabo","law","kuma","beckman"];
 
 function getLocalIzlelanJobs() {
   const jobs = [];
@@ -29,4 +29,4 @@ function getLocalIzlelanJobs() {
   return jobs;
 }
 
-module.exports = { getLocalIzlelanJobs };
+module.exports = { getLocalIzlelanJobs, IZLELAN_NAMES: NAMES.map(name => name[0].toUpperCase() + name.slice(1)) };
