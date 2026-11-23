@@ -74,7 +74,7 @@ app.get("/manifest.json", (req, res) => {
     id: "tata.live",
     version: "7.0.0",
     name: "TATA",
-    description: "Premium Live TV",
+    description: "TATA",
 
     resources: ["catalog", "meta", "stream"],
     types: ["tv"],
@@ -294,7 +294,7 @@ const server = app.listen(PORT, "0.0.0.0", () => {
 
   console.log("");
   console.log("================================");
-  console.log("      TATA Premium Live TV");
+  console.log("      TATA");
   console.log("================================");
   console.log(`Port       : ${PORT}`);
   console.log(
