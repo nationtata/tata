@@ -99,12 +99,11 @@ async function anizmSearch(query) {
         var slug = String(it3.url || "").replace(/^https?:\/\/[^\/]+\//, "").replace(/\/+$/, "");
         if (!slug) continue;
         var title3 = decodeHtmlEntities(it3.title || "");
-        var isRecap = /\brecap\b|\bözet\b/i.test(title3);
         out.push({
           slug: slug,
           name: title3,
           original: title3,
-          english: isRecap ? "" : query,
+          english: it3.english_title || "",
           year: it3.year || "",
           poster: it3.poster || "",
           lastEpisode: ""
@@ -518,11 +517,12 @@ async function buildEpisodeUrl(slug, season, episode) {
     BASE_URL + "/" + slug + "-" + episode + "-bolum-final",
     BASE_URL + "/" + slug + "-" + episode + "-bolum"
   ];
-  for (var i = 0; i < urls.length; i++) {
-    var r = await fetchHtml(urls[i], HEADERS, 9000);
-    if (r && parseTranslators(r.text).length) return r;
-  }
-  return null;
+  var pages = await Promise.all(urls.map(function (url) {
+    return fetchHtml(url, HEADERS, 2500);
+  }));
+  return pages.find(function (page) {
+    return page && parseTranslators(page.text).length;
+  }) || null;
 }
 
 async function getStreams(tmdbId, mediaType, season, episode) {
