@@ -32,7 +32,7 @@ async function findTmdb(type, id, language = "tr-TR", timeout = 3500) {
 const providerKey = Symbol("provider");
 const resolutionLabels = new Map([[2160, "4K"], [1080, "1080p"], [720, "720p"], [480, "480p"]]);
 
-function streamDescription(stream, provider) {
+function streamName(stream, provider) {
   const tracks = Array.isArray(stream.audioTracks) ? stream.audioTracks.filter(Boolean) : [];
   const tags = [];
   if (tracks.some(track => track.original === true)) tags.push("Orijinal");
@@ -41,14 +41,15 @@ function streamDescription(stream, provider) {
       (!tracks.length && provider === "TATA M3U" && [stream.audio, stream.audioLabel].some(label =>
         typeof label === "string" && /^türkçe\s+dublaj$/iu.test(label.trim())))) {
     tags.push("Dublaj");
-  } else if (tracks.some(isTurkish)) {
-    tags.push("Türkçe Ses");
   }
   if (stream.embeddedSubtitles === true) tags.push("Altyazılı");
 
+  return tags.join(" · ") || "Ses / altyazı bilgisi yok";
+}
+
+function streamResolution(stream) {
   const heights = new Set(Array.isArray(stream.videoHeights) ? stream.videoHeights : []);
-  const resolutions = [...resolutionLabels].filter(([height]) => heights.has(height)).map(([, label]) => label);
-  return [tags.join(" · "), resolutions.join(" · ")].filter(Boolean).join("\n");
+  return [...resolutionLabels].filter(([height]) => heights.has(height)).map(([, label]) => label).join(" · ");
 }
 
 function cleanStream(stream, provider) {
@@ -67,9 +68,10 @@ function cleanStream(stream, provider) {
         lang: [subtitle.lang, subtitle.language, subtitle.label].find(value => typeof value === "string" && value.trim()) || "und"
       }))
     : undefined;
-  const description = streamDescription(stream, provider);
+  const description = streamResolution(stream);
   return {
     [providerKey]: provider,
+    name: streamName(stream, provider),
     ...(description && { description }),
     url: stream.url,
     ...(subtitles && { subtitles }),
