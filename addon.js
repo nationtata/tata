@@ -77,6 +77,7 @@ app.get("/manifest.json", (req, res) => {
     version,
     name: "TATA",
     description: "TATA",
+    logo: new URL("/tata-badge.png", process.env.RENDER_EXTERNAL_URL || absolute(req, "/")).href,
 
     resources: [
       { name: "catalog", types: ["tv"] },
@@ -194,6 +195,7 @@ app.get("/film/manifest.json", (req, res) => {
     version,
     name: "TATA",
     description: "TATA",
+    logo: new URL("/tata-badge.png", process.env.RENDER_EXTERNAL_URL || absolute(req, "/")).href,
     resources: ["stream"],
     types: ["movie", "series"],
     catalogs: []
