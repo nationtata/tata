@@ -9,6 +9,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.21.2",
-    "cheerio-without-node-native": "0.20.2"
+    "cheerio-without-node-native": "0.20.2",
+    "@ffprobe-installer/ffprobe": "2.1.2"
   }
 }

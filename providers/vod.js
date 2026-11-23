@@ -1,3 +1,4 @@
+const { inspectMedia } = require("./media-tracks");
 const { getFilmPlaylistStreams } = require("./film-playlist");
 const { getPlaylistStreams } = require("./playlist");
 const { getMovieStreams } = require("./izlefilm");
@@ -86,7 +87,7 @@ function cleanStream(stream, provider) {
   };
 }
 
-async function runProvider(provider, lookup, type) {
+async function runProvider(provider, lookup, type, originalLanguage) {
   let timer;
   try {
     const timeout = new Promise(resolve => {
@@ -97,7 +98,8 @@ async function runProvider(provider, lookup, type) {
     });
     const result = await Promise.race([Promise.resolve().then(lookup), timeout]);
     if (!Array.isArray(result)) return [];
-    const streams = result.map(stream => cleanStream(stream, provider)).filter(Boolean);
+    const inspected = await Promise.all(result.map(stream => inspectMedia(stream, originalLanguage)));
+    const streams = inspected.map(stream => cleanStream(stream, provider)).filter(Boolean);
     if (result.length && !streams.length) console.warn("[TATA VOD]", provider, type, "invalid-stream-url");
     return streams;
   } catch (error) {
@@ -127,25 +129,25 @@ async function search(type, request) {
       .then(metadata => getStreams({ details: metadata, type, season: request.season, episode: request.episode }));
     if (provider.objectArgs) return getStreams({ id, type, season: request.season, episode: request.episode });
     return getStreams(id, type === "series" ? "tv" : "movie", request.season, request.episode);
-  }, type));
+  }, type, details.original_language));
   if (type === "series" && (process.env.TATA_SERIES_M3U_PATH || process.env.TATA_SERIES_M3U_KEY)) {
     jobs.unshift(runProvider("TATA M3U", async () =>
-      getPlaylistStreams(await animeDetails, request.season, request.episode), type));
+      getPlaylistStreams(await animeDetails, request.season, request.episode), type, details.original_language));
   }
   if (type === "movie") {
-    jobs.unshift(runProvider("İzlefilm", () => getMovieStreams(details), type));
+    jobs.unshift(runProvider("İzlefilm", () => getMovieStreams(details), type, details.original_language));
     if (process.env.TATA_EXTRA_FILM_M3U_KEY) {
       jobs.unshift(
-        runProvider("TATA M3U · Filmler", () => getFilmPlaylistStreams("fullmovies", details, request.id), type),
-        runProvider("TATA M3U · RecTV", () => getFilmPlaylistStreams("rectv", details, request.id), type),
-        runProvider("TATA M3U · PixelDrain", () => getFilmPlaylistStreams("pixeldrain", details, request.id), type),
-        runProvider("TATA M3U · ImgsAPI", () => getFilmPlaylistStreams("imgsapi", details, request.id), type)
+        runProvider("TATA M3U · Filmler", () => getFilmPlaylistStreams("fullmovies", details, request.id), type, details.original_language),
+        runProvider("TATA M3U · RecTV", () => getFilmPlaylistStreams("rectv", details, request.id), type, details.original_language),
+        runProvider("TATA M3U · PixelDrain", () => getFilmPlaylistStreams("pixeldrain", details, request.id), type, details.original_language),
+        runProvider("TATA M3U · ImgsAPI", () => getFilmPlaylistStreams("imgsapi", details, request.id), type, details.original_language)
       );
     }
     if (process.env.TATA_FILM_M3U_KEY) {
       jobs.unshift(
-        runProvider("TATA M3U · FullHD", () => getFilmPlaylistStreams("fullhdfi", details, request.id), type),
-        runProvider("TATA M3U · Vixolity", () => getFilmPlaylistStreams("vixolity", details, request.id), type)
+        runProvider("TATA M3U · FullHD", () => getFilmPlaylistStreams("fullhdfi", details, request.id), type, details.original_language),
+        runProvider("TATA M3U · Vixolity", () => getFilmPlaylistStreams("vixolity", details, request.id), type, details.original_language)
       );
     }
   }
