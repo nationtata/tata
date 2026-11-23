@@ -1,3 +1,4 @@
+const { version } = require("./package.json");
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -73,7 +74,7 @@ app.get("/manifest.json", (req, res) => {
   res.json({
 
     id: "tata.live",
-    version: "7.2.0",
+    version,
     name: "TATA",
     description: "TATA",
 
@@ -190,7 +191,7 @@ app.get("/meta/tv/:id.json", async (req, res) => {
 app.get("/film/manifest.json", (req, res) => {
   res.json({
     id: "tata.film",
-    version: "7.2.0",
+    version,
     name: "TATA Film ve Dizi",
     description: "TATA film ve dizi kaynakları",
     resources: ["stream"],
@@ -292,7 +293,7 @@ app.get("/health", (req, res) => {
   res.json({
 
     status: "ok",
-    version: "7.2.0",
+    version,
     port: PORT,
     tmdb: !!process.env.TMDB_API_KEY,
     uptime: Math.floor(process.uptime())
