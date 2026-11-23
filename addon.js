@@ -12,6 +12,7 @@ const {
 } = require("./parse-m3u");
 
 const { getAlternatives } = require("./providers/tata");
+const { getMovieStreams } = require("./providers/izlefilm");
 
 const app = express();
 const PORT = process.env.PORT || 7000;
@@ -72,13 +73,16 @@ app.get("/manifest.json", (req, res) => {
   res.json({
 
     id: "tata.live",
-    version: "7.0.0",
+    version: "7.1.0",
     name: "TATA",
     description: "TATA",
 
-    resources: ["catalog", "meta", "stream"],
-    types: ["tv"],
-    idPrefixes: ["tv-"],
+    resources: [
+      { name: "catalog", types: ["tv"] },
+      { name: "meta", types: ["tv"], idPrefixes: ["tv-"] },
+      { name: "stream", types: ["tv", "movie"], idPrefixes: ["tv-", "tmdb:", "tt"] }
+    ],
+    types: ["tv", "movie"],
 
     catalogs: [
       { type: "tv", id: "ulusal", name: "Ulusal" },
@@ -183,6 +187,15 @@ app.get("/meta/tv/:id.json", async (req, res) => {
    STREAM (Multi-Stream)
 ========================================================= */
 
+app.get("/stream/movie/:id.json", async (req, res) => {
+  try {
+    return res.json({ streams: await getMovieStreams(req.params.id) });
+  } catch (err) {
+    console.error("[MOVIE STREAM ERROR]", err.message);
+    return res.json({ streams: [] });
+  }
+});
+
 app.get("/stream/tv/:id.json", (req, res) => {
 
   const id = req.params.id.replace(/^tv-/, "");
@@ -267,7 +280,7 @@ app.get("/health", (req, res) => {
   res.json({
 
     status: "ok",
-    version: "7.0.0",
+    version: "7.1.0",
     port: PORT,
     tmdb: !!process.env.TMDB_API_KEY,
     uptime: Math.floor(process.uptime())
