@@ -1,3 +1,4 @@
+const { playbackTracks } = require("../shared/playback-tracks");
 const { sortStreamsByQuality } = require("../shared/quality.js");
 const { loadConfig, val, wrapAll } = require("../shared/config.js");
 
@@ -127,6 +128,16 @@ function getQualityFromResolution(resolution) {
 }
 
 // Fetch and parse M3U8 playlist to extract quality variants
+function vidlinkTracks(playlist, originalLanguage) {
+    const tracks = playbackTracks(playlist);
+    tracks.audioTracks = tracks.audioTracks.map(track => ({
+        ...track,
+        original: Boolean(originalLanguage) && track.lang.split('-')[0] === originalLanguage,
+        dubbed: track.lang === 'tr' && (originalLanguage ? originalLanguage !== 'tr' : track.dubbed)
+    }));
+    return tracks;
+}
+
 function fetchAndParseM3U8(playlistUrl, mediaInfo) {
     console.log(`[Vidlink] Fetching M3U8 playlist: ${playlistUrl.substring(0, 80)}...`);
     
@@ -136,10 +147,12 @@ function fetchAndParseM3U8(playlistUrl, mediaInfo) {
             console.log(`[Vidlink] Parsing M3U8 content`);
             const parsedStreams = parseM3U8(m3u8Content, playlistUrl);
             
-            if (parsedStreams.length === 0) {
+            const tracks = vidlinkTracks(m3u8Content, mediaInfo.originalLanguage);
+            if (parsedStreams.length === 0 || tracks.audioTracks.length || tracks.embeddedSubtitles) {
                 console.log('[Vidlink] No quality variants found, returning master playlist');
                 // Fallback: return the master playlist as Auto quality
                 return [{
+                    ...tracks,
                     name: 'Vidlink - Auto',
                     title: mediaInfo.title,
                     url: playlistUrl,
@@ -472,7 +485,7 @@ function getStreams(tmdbId, mediaType = 'movie', seasonNum = null, episodeNum = 
             return makeRequest(vidlinkUrl, { headers: VIDLINK_HEADERS })
             .then(response => response.json())
             .then(data => {
-                const mediaInfo = { title, year, mediaType, season: seasonNum, episode: episodeNum };
+                const mediaInfo = { title, year, mediaType, season: seasonNum, episode: episodeNum, originalLanguage: tmdbInfo.data.original_language };
                 const streams = processVidlinkResponse(data, mediaInfo);
                 
                 if (streams.length === 0) return [];
@@ -514,6 +527,7 @@ function getStreams(tmdbId, mediaType = 'movie', seasonNum = null, episodeNum = 
                         return r.text().then(txt => {
                             if (!txt || !txt.includes('#EXTM3U')) return [];
                             return [{
+                                ...vidlinkTracks(txt, tmdbInfo.data.original_language),
                                 name: 'Vidlink',
                                 title: `${title} (${year || ''}) • 1080p [MULTI]`,
                                 url: vixUrl,
