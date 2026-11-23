@@ -316,6 +316,14 @@ function extractLanguage(data, url = "") {
 }
 
 // Process Vidlink API response
+function trackMetadata(source) {
+    return {
+        ...(Array.isArray(source.audioTracks) && { audioTracks: source.audioTracks }),
+        ...(Array.isArray(source.subtitles) && { subtitles: source.subtitles }),
+        ...(typeof source.audioLabel === 'string' && { audioLabel: source.audioLabel })
+    };
+}
+
 function processVidlinkResponse(data, mediaInfo) {
     const streams = [];
     const safeMediaInfo = mediaInfo || { title: 'Unknown' };
@@ -340,6 +348,7 @@ function processVidlinkResponse(data, mediaInfo) {
                         name: `Vidlink`,
                         title: streamTitle,
                         url: qualityData.url,
+                        ...trackMetadata(qualityData),
                         quality: `${quality} [${lang}]`, // KALİTE + DİL
                         size: 'ALTYAZILI',    //'Unknown',
                         headers: STREAM_HEADERS,
@@ -396,6 +405,7 @@ function processVidlinkResponse(data, mediaInfo) {
                 name: `Vidlink`,
                 title: streamTitle,
                 url: data.url,
+                ...trackMetadata(data),
                 quality: `${quality} [${lang}]`,
                 size: 'ALTYAZILI',    //'Unknown',
                 headers: STREAM_HEADERS,
@@ -422,6 +432,7 @@ function processVidlinkResponse(data, mediaInfo) {
                         name: `Vidlink Stream ${index + 1}`,
                         title: streamTitle,
                         url: stream.url,
+                        ...trackMetadata(stream),
                         quality: `${quality} [${lang}]`,
                         size: stream.size || 'ALTYAZILI',    //'Unknown',
                         headers: STREAM_HEADERS,
