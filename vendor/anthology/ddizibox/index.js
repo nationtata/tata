@@ -387,66 +387,51 @@ async function extractStreamsFromPlayer(pageUrl) {
     var cleanStreamUrl = baseStreamUrl.replace(/[?&]cdn=\d+/, '').replace(/#.*$/, '');
     var finalStreamUrl = cleanStreamUrl + (cleanStreamUrl.indexOf('?') !== -1 ? '&' : '?') + 'ext=.m3u8';
 
-    var streams = [];
-    var audios = Array.isArray(pData.audios) && pData.audios.length > 0 ? pData.audios : [{ label: 'Orijinal' }];
-
-    if (audios.length > 1) {
-      // Çoklu ses parçası barındıran HLS master playlist için net ve tekil yayın tanımı
-      var hasTr = audios.some(function(a) { return /türkçe|turkce|tr\b/i.test(a.label || a.name || ''); });
-      var titleLabel = hasTr ? 'Dual Ses (TR Dublaj & Orijinal)' : 'Çoklu Ses';
-      var sObj = {
-        name: PROVIDER_NAME,
-        title: PROVIDER_NAME + ' • ' + titleLabel + ' • 1080p FHD',
-        url: finalStreamUrl,
-        quality: '1080p',
-        resolution: '1080p',
-        type: 'hls',
-        format: 'hls',
-        isHls: true,
-        headers: streamHeaders,
-        behaviorHints: {
-          notWebReady: true,
-          proxyHeaders: {
-            request: streamHeaders
-          }
-        }
-      };
-      if (subtitles.length > 0) sObj.subtitles = subtitles;
-      streams.push(sObj);
-    } else {
-      var aud = audios[0];
-      var rawLabel = (aud.label || aud.name || 'Orijinal').trim();
-      var displayLabel = rawLabel;
-      if (/türkçe|turkce|tr\b/i.test(rawLabel)) {
-        displayLabel = 'Türkçe Dublaj';
-      } else if (/japonca|japanese|ja\b/i.test(rawLabel)) {
-        displayLabel = 'Japonca (Orijinal)';
-      } else if (/ingilizce|english|en\b/i.test(rawLabel)) {
-        displayLabel = 'İngilizce (Orijinal)';
-      } else if (/orijinal|original/i.test(rawLabel)) {
-        displayLabel = 'Orijinal (TR Altyazılı)';
+    const audioTracks = (Array.isArray(pData.audios) ? pData.audios : []).filter(Boolean).map(track => {
+      const label = String(track.label || track.name || '').trim();
+      const language = String(track.language || track.lang || '').trim().toLocaleLowerCase('tr');
+      const turkish = /^(?:tr(?:-tr)?|tur)$/.test(language) || /türkçe|turkce|turkish/i.test(label);
+      return { label, lang: turkish ? 'tr' : language, dubbed: turkish && /dublaj|dubbed/i.test(label) };
+    });
+    if (audioTracks.some(track => track.lang && track.lang !== 'tr' || /orijinal|original/i.test(track.label) && track.lang !== 'tr')) {
+      for (const track of audioTracks) {
+        if (track.lang === 'tr') track.dubbed = true;
       }
-
-      var sObj = {
-        name: PROVIDER_NAME,
-        title: PROVIDER_NAME + ' • ' + displayLabel + ' • 1080p FHD',
-        url: finalStreamUrl,
-        quality: '1080p',
-        resolution: '1080p',
-        type: 'hls',
-        format: 'hls',
-        isHls: true,
-        headers: streamHeaders,
-        behaviorHints: {
-          notWebReady: true,
-          proxyHeaders: {
-            request: streamHeaders
-          }
-        }
-      };
-      if (subtitles.length > 0) sObj.subtitles = subtitles;
-      streams.push(sObj);
     }
+
+    let embeddedSubtitles = false;
+    try {
+      const playlist = new URL(finalStreamUrl);
+      const host = playlist.hostname;
+      if (playlist.protocol === 'https:' && !playlist.username && !playlist.password && !playlist.port &&
+          /^(?:[a-z0-9-]+\.)?pilavyerplay\.(?:top|com)$/.test(host)) {
+        const response = await safeFetch(playlist.href, {
+          headers: streamHeaders, redirect: 'error', signal: timeoutSignal(2000)
+        });
+        if (response.ok) {
+          embeddedSubtitles = /^#EXT-X-MEDIA:[^\r\n]*\bTYPE=SUBTITLES(?:,|$)/im.test(await response.text());
+        }
+      }
+    } catch {}
+
+    const streams = [{
+      name: PROVIDER_NAME,
+      title: audioTracks.some(track => /orijinal|original/i.test(track.label)) ? 'Orijinal' : PROVIDER_NAME,
+      url: finalStreamUrl,
+      quality: '1080p',
+      resolution: '1080p',
+      type: 'hls',
+      format: 'hls',
+      isHls: true,
+      headers: streamHeaders,
+      behaviorHints: {
+        notWebReady: true,
+        proxyHeaders: { request: streamHeaders }
+      },
+      audioTracks,
+      embeddedSubtitles,
+      ...(subtitles.length && { subtitles })
+    }];
 
     return streams;
   } catch (e) {

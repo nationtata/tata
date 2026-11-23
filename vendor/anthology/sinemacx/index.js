@@ -203,13 +203,13 @@ async function getStreams(tmdbId, mediaType, seasonNum, episodeNum) {
               src = decodeBase64Safe(src);
             }
             if (src.toLowerCase().includes('filmizle.in')) {
-              iframeUrl = src.split('?')[0];
+              iframeUrl = new URL(src, result.url).href;
               return false;
             }
           });
 
           if (iframeUrl) {
-            const videoId = iframeUrl.split('/').pop().split('?')[0];
+            const videoId = new URL(iframeUrl).pathname.split('/').pop();
             const apiURL = 'https://player.filmizle.in/player/index.php?data=' + videoId + '&do=getVideo';
 
             const params = new URLSearchParams();
@@ -221,7 +221,7 @@ async function getStreams(tmdbId, mediaType, seasonNum, episodeNum) {
               headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
                 'X-Requested-With': 'XMLHttpRequest',
-                'Referer': iframeUrl.toLowerCase(),
+                'Referer': iframeUrl,
                 'User-Agent': WORKING_HEADERS['User-Agent']
               },
               body: params.toString(),

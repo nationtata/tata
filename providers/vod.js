@@ -32,7 +32,7 @@ function streamLabels(stream, provider) {
   const languages = [];
   if (/\b(?:orijinal|original)\b/u.test(audio)) languages.push("Orijinal");
   if (/(?<!\p{L})(?:altyazı(?:lı)?|alt yazı(?:lı)?|subbed|subtitled|subtitles?)(?!\p{L})/u.test(audio) ||
-      (Array.isArray(stream.subtitles) && stream.subtitles.some(subtitle => subtitle?.url))) {
+      (stream.embeddedSubtitles ?? (Array.isArray(stream.subtitles) && stream.subtitles.some(subtitle => subtitle?.url)))) {
     languages.push("Altyazılı");
   }
   const audioTracks = Array.isArray(stream.audioTracks) ? stream.audioTracks : [];
