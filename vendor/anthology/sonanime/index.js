@@ -73,7 +73,12 @@ function fetchSonAnimeJson(url, timeoutMs, diagnostic) {
       signal: timeoutSignal(timeoutMs)
     }, response => {
       if (response.statusCode !== 200) {
-        if (diagnostic) console.warn("[TATA VOD]", diagnostic, "HTTP", response.statusCode);
+        if (diagnostic) {
+          const { server, "content-type": contentType, "cf-mitigated": mitigation, "cf-ray": ray } = response.headers;
+          console.warn("[TATA VOD]", diagnostic, "HTTP", response.statusCode, JSON.stringify({
+            server, contentType, mitigation, ray
+          }));
+        }
         response.destroy();
         resolve(null);
         return;
