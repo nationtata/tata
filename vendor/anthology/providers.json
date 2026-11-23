@@ -146,6 +146,14 @@
     "metadataArgs": true
   },
   {
+    "id": "beckman",
+    "name": "Beckman",
+    "movie": true,
+    "series": true,
+    "anime": true,
+    "metadataArgs": true
+  },
+  {
     "id": "diziboxizle",
     "name": "DiziBoxİzle",
     "movie": false,
