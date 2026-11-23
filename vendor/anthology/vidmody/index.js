@@ -56,7 +56,7 @@ function parseVixolityTracks(playlist, playlistUrl, originalLanguage) {
             });
         }
     }
-    return { subtitles, audioTracks };
+    return { subtitles, audioTracks, embeddedSubtitles: subtitles.length > 0 };
 }
 
 async function getStreams(tmdbId, mediaType, season, episode) {
