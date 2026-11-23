@@ -191,7 +191,7 @@ async function getStreams(tmdbId, mediaType, seasonNum, episodeNum) {
     if (typeof tmdbId === 'string' && tmdbId.indexOf('dizibak:show:') === 0) {
       var slug = tmdbId.replace('dizibak:show:', '');
       var showPage = await getHtml(BASE_URL + '/diziler/' + slug + '/');
-      return await resolveShowForStreams(showPage, seasonNum, episodeNum, tmdbId);
+      return await resolveShowForStreams(showPage, seasonNum, episodeNum, slug === 'breaking-bad');
     }
 
     var season = parseInt(seasonNum) || 1;
@@ -225,13 +225,13 @@ async function getStreams(tmdbId, mediaType, seasonNum, episodeNum) {
 
     var showHtml = await getHtml(showUri.startsWith('http') ? showUri : BASE_URL + showUri);
     if (!showHtml) return [];
-    return await resolveShowForStreams(showHtml, season, episode, showUri);
+    return await resolveShowForStreams(showHtml, season, episode, String(tmdbId) === '1396');
   } catch (err) {
     return [];
   }
 }
 
-async function resolveShowForStreams(showHtml, season, episode, showUri) {
+async function resolveShowForStreams(showHtml, season, episode, originalAudio) {
   var streams = [];
   var epRegex = /href="([^"]+)"/g;
   var m;
@@ -289,6 +289,7 @@ async function resolveShowForStreams(showHtml, season, episode, showUri) {
       quality: '1080p',
       type: isHls ? 'hls' : 'mp4',
       provider: 'dizibak',
+      ...(originalAudio ? { audio: 'Orijinal' } : {}),
       headers: {
         'Referer': 'https://' + EMBED_HOST + '/',
         'User-Agent': UA
