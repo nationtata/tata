@@ -226,7 +226,7 @@ app.get("/stream/tv/:id.json", (req, res) => {
       return res.json({ streams: [] });
     }
 
-    const streams = alternatives.map(alt => ({ name: "Ses / altyazı bilgisi yok", url: alt.url }));
+    const streams = alternatives.map(alt => ({ name: alt.title.replace(/^▶\s*/, ""), url: alt.url }));
 
     return res.json({ streams });
 
