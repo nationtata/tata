@@ -1,0 +1,253 @@
+[
+  {
+    "id": "anthology_m3u",
+    "name": "Anthology M3U",
+    "movie": true,
+    "series": true,
+    "anime": false
+  },
+  {
+    "id": "liderfilmizle",
+    "name": "LiderFilm",
+    "movie": true,
+    "series": true,
+    "anime": false
+  },
+  {
+    "id": "youtube_dizifilm",
+    "name": "YouTube Dizi & Film",
+    "movie": true,
+    "series": true,
+    "anime": false,
+    "credentials": [
+      "YOUTUBE_INNERTUBE_KEY"
+    ]
+  },
+  {
+    "id": "vidlink",
+    "name": "Vidlink",
+    "movie": true,
+    "series": true,
+    "anime": false
+  },
+  {
+    "id": "dizibak",
+    "name": "DiziBak",
+    "movie": false,
+    "series": true,
+    "anime": false
+  },
+  {
+    "id": "filmmodu",
+    "name": "FilmModu",
+    "movie": true,
+    "series": false,
+    "anime": false
+  },
+  {
+    "id": "hdfilmcehennemi",
+    "name": "HDFilmCehennemi",
+    "movie": true,
+    "series": false,
+    "anime": false
+  },
+  {
+    "id": "diziyou",
+    "name": "DiziYou",
+    "movie": false,
+    "series": true,
+    "anime": false
+  },
+  {
+    "id": "dizipod",
+    "name": "DiziPod",
+    "movie": true,
+    "series": true,
+    "anime": false
+  },
+  {
+    "id": "sinemacx",
+    "name": "SinemaCX",
+    "movie": true,
+    "series": false,
+    "anime": false
+  },
+  {
+    "id": "animecix",
+    "name": "AnimeciX",
+    "movie": true,
+    "series": true,
+    "anime": true,
+    "credentials": [
+      "ANIMECIX_XEH_KEY"
+    ]
+  },
+  {
+    "id": "anizm",
+    "name": "Anizm",
+    "movie": true,
+    "series": true,
+    "anime": true
+  },
+  {
+    "id": "animom",
+    "name": "AniMOM",
+    "movie": true,
+    "series": true,
+    "anime": true
+  },
+  {
+    "id": "animeprax",
+    "name": "AnimePraX",
+    "movie": true,
+    "series": true,
+    "anime": true
+  },
+  {
+    "id": "anizium",
+    "name": "Anizium",
+    "movie": true,
+    "series": true,
+    "anime": true,
+    "credentials": [
+      "ANIZIUM_TOKEN_KEY",
+      "ANIZIUM_CLIENT_KEY"
+    ]
+  },
+  {
+    "id": "asyaanimeleri",
+    "name": "AsyaAnimeleri",
+    "movie": true,
+    "series": true,
+    "anime": true
+  },
+  {
+    "id": "sonanime",
+    "name": "SonAnime",
+    "movie": true,
+    "series": true,
+    "anime": true
+  },
+  {
+    "id": "diziboxizle",
+    "name": "DiziBoxİzle",
+    "movie": false,
+    "series": true,
+    "anime": false
+  },
+  {
+    "id": "ddizi",
+    "name": "DDizi",
+    "movie": false,
+    "series": true,
+    "anime": false
+  },
+  {
+    "id": "ddizibox",
+    "name": "DDiziBox",
+    "movie": true,
+    "series": true,
+    "anime": false
+  },
+  {
+    "id": "dizimom",
+    "name": "DiziMom",
+    "movie": false,
+    "series": true,
+    "anime": false
+  },
+  {
+    "id": "vidmody",
+    "name": "Vidmody",
+    "movie": true,
+    "series": true,
+    "anime": false
+  },
+  {
+    "id": "webteizle",
+    "name": "Webteİzle",
+    "movie": true,
+    "series": false,
+    "anime": false
+  },
+  {
+    "id": "yabancidizi",
+    "name": "YabancıDizi",
+    "movie": false,
+    "series": true,
+    "anime": false
+  },
+  {
+    "id": "tvdiziler",
+    "name": "TvDiziler",
+    "movie": false,
+    "series": true,
+    "anime": false
+  },
+  {
+    "id": "setfilmizle",
+    "name": "SetFilmIzle",
+    "movie": true,
+    "series": true,
+    "anime": false
+  },
+  {
+    "id": "kultfilmler",
+    "name": "KultFilmler",
+    "movie": true,
+    "series": false,
+    "anime": false
+  },
+  {
+    "id": "hdfilmdelisi",
+    "name": "HDFilmDelisi",
+    "movie": true,
+    "series": false,
+    "anime": false
+  },
+  {
+    "id": "hdfilmizle",
+    "name": "HDFilmIzle",
+    "movie": true,
+    "series": false,
+    "anime": false
+  },
+  {
+    "id": "diziwatch",
+    "name": "DiziWatch",
+    "movie": false,
+    "series": true,
+    "anime": false
+  },
+  {
+    "id": "seicode",
+    "name": "SeiCode",
+    "movie": true,
+    "series": true,
+    "anime": true
+  },
+  {
+    "id": "anthology_diziler",
+    "name": "Anthology Dizi",
+    "movie": false,
+    "series": true,
+    "anime": false,
+    "objectArgs": true
+  },
+  {
+    "id": "puhutv",
+    "name": "PuhuTV",
+    "movie": false,
+    "series": true,
+    "anime": false,
+    "objectArgs": true
+  },
+  {
+    "id": "trdiziizle",
+    "name": "TR Dizi İzle",
+    "movie": false,
+    "series": true,
+    "anime": false,
+    "objectArgs": true
+  }
+]

@@ -1,0 +1,145 @@
+{
+  "urls": {
+    "vod": {
+      "anthology_live_api": "https://anthology-live.duckdns.org/api/vod/streams",
+      "vixolity_base": "https://ha.vixolity.com"
+    },
+    "movies": {
+      "filmmodu": {
+        "base": "https://www.filmmodu.one",
+        "live": "https://filmmodu.live",
+        "player": "https://play2.pilavyerplay.top"
+      },
+      "hdfilmcehennemi": {
+        "base": "https://www.hdfilmcehennemi.nl"
+      },
+      "hdfilmdelisi": {
+        "base": "https://hdfilmdelisi.one",
+        "vidmody_player": "https://ha.vixolity.com"
+      },
+      "hdfilmizle": {
+        "base": "https://www.hdfilmizle.ink",
+        "bases": [
+          "https://www.hdfilmizle.ink",
+          "https://www.hdfilmizle.vip"
+        ]
+      },
+      "kultfilmler": {
+        "base": "https://kultfilmler.net",
+        "player": "https://vidpapi.xyz/player/index.php"
+      },
+      "setfilmizle": {
+        "base": "https://www.setfilmizle.ltd"
+      },
+      "sinemacx": {
+        "base": "https://sinemacc.com",
+        "player": "https://player.filmizle.in"
+      },
+      "sinewix": {
+        "api_base": "https://ydfvfdizipanel.ru/public/api",
+        "panel_base": "https://ydfvfdizipanel.ru"
+      },
+      "vidmody": {
+        "base": "https://ha.vixolity.com"
+      },
+      "webteizle": {
+        "base": "https://webteizle.info"
+      },
+      "liderfilmizle": {
+        "base": "https://liderfilmizle.vip",
+        "play_base": "https://play.liderfilm.cc"
+      },
+      "youtube_dizifilm": {
+        "base": "https://www.youtube.com"
+      }
+    },
+    "series": {
+      "ddizi": {
+        "base": "https://www.ddizi.tel"
+      },
+      "ddizibox": {
+        "base": "https://ddizibox.com"
+      },
+      "dizibak": {
+        "base": "https://dizibak.net",
+        "player": "https://player.dizibak.net"
+      },
+      "dizimom": {
+        "base": "https://ddizimom.net"
+      },
+      "diziyou": {
+        "base": "https://www.diziyou.one",
+        "storage": "https://storage.diziyou.one"
+      },
+      "diziboxizle": {
+        "base": "https://diziboxizle.com"
+      },
+      "dizipod": {
+        "base": "https://dizipod.com"
+      },
+      "diziwatch": {
+        "base": "https://diziwatch.org"
+      },
+      "yabancidizi": {
+        "base": "https://yabancidizi.news"
+      },
+      "tvdiziler": {
+        "base": "https://tvdiziler.tv"
+      },
+      "anthology_diziler": {
+        "now": "https://www.nowtv.com.tr",
+        "show": "https://www.showtv.com.tr",
+        "kanald": "https://kanald.com.tr",
+        "atv": "https://www.atv.com.tr",
+        "star": "https://www.startv.com.tr",
+        "trt1": "https://www.trt1.com.tr"
+      },
+      "puhutv": {
+        "base": "https://puhutv.com"
+      },
+      "trdiziizle": {
+        "base": "https://www.trdiziizle.tv/tr2"
+      },
+      "youtube_dizifilm": {
+        "base": "https://www.youtube.com"
+      }
+    },
+    "anime": {
+      "animecix": {
+        "base": "https://animecix.tv"
+      },
+      "animom": {
+        "base": "https://animom.org"
+      },
+      "anizm": {
+        "base": "https://anizm.net",
+        "player_api": "https://anizmplayer.com"
+      },
+      "animeprax": {
+        "base": "https://animeprax.com"
+      },
+      "asyaanimeleri": {
+        "base": "https://asyaanimeleri.top"
+      },
+      "sonanime": {
+        "base": "https://sonanime.com",
+        "api_base": "https://api.sonanime.com"
+      },
+      "seicode": {
+        "base": "https://seicode.net",
+        "api_base": "https://next.seicode.net"
+      },
+      "anizium": {
+        "base": "https://api.anizium.co",
+        "site": "https://anizium.co"
+      }
+    },
+    "meta_resolvers": {
+      "vidlink": {
+        "api": "https://vidlink.pro/api/b",
+        "enc_dec": "https://enc-dec.app/api",
+        "base": "https://vidlink.pro"
+      }
+    }
+  }
+}

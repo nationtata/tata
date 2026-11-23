@@ -1,0 +1,318 @@
+const { sortStreamsByQuality } = require("../shared/quality.js");
+const { loadConfig, val, wrapAll } = require("../shared/config.js");
+
+var _cfgReady = null;
+function cfgReady() {
+    if (!_cfgReady) {
+        _cfgReady = loadConfig().then(function () {
+            var v;
+            v = val('urls.movies.sinemacx.base');
+            if (v && String(v).indexOf('sinema.gg') === -1) BASE_URL = String(v).replace(/\/+$/, '');
+            if (WORKING_HEADERS) WORKING_HEADERS.Referer = BASE_URL + '/';
+        });
+    }
+    return _cfgReady;
+}
+
+/**
+ * Anthology - SinemaCX Provider
+ * Sinemacc.com (eski Sinema.gg) arşivi, player.filmizle.in ve Vixolity API üzerinden
+ * doğrudan master.m3u8 HLS akışları sunar.
+ */
+
+var cheerio = require('cheerio-without-node-native');
+const { timeoutSignal } = require("../shared/http.js");
+
+const PROVIDER_NAME = 'SinemaCX';
+var BASE_URL = 'https://sinemacc.com';
+const TMDB_API_KEY = (process.env.TMDB_API_KEY || "");
+
+const WORKING_HEADERS = {
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML like Gecko) Chrome/120.0.0.0 Safari/537.36',
+  'Referer': BASE_URL + '/'
+};
+
+function decodeBase64Safe(str) {
+  try {
+    if (typeof atob === 'function') return atob(str);
+    if (typeof Buffer !== 'undefined') return Buffer.from(str, 'base64').toString('utf8');
+  } catch (e) {}
+  return str;
+}
+
+async function resolveTmdbInfo(id, mediaType) {
+  try {
+    let cleanId = String(id || '').trim();
+    if (cleanId.includes(':')) cleanId = cleanId.split(':')[0];
+
+    let numericId = null;
+    let imdbId = cleanId.startsWith('tt') ? cleanId : '';
+    let title = '';
+    let origTitle = '';
+    let year = '';
+
+    if (cleanId.startsWith('tt')) {
+      const findRes = await fetch(`https://api.themoviedb.org/3/find/${cleanId}?api_key=${TMDB_API_KEY}&external_source=imdb_id`);
+      if (findRes.ok) {
+        const fData = await findRes.json();
+        const item = (mediaType === 'tv' || mediaType === 'series')
+          ? (fData.tv_results && fData.tv_results[0])
+          : (fData.movie_results && fData.movie_results[0]);
+        if (item) {
+          numericId = item.id;
+          title = item.name || item.title || '';
+          origTitle = item.original_name || item.original_title || '';
+          year = (item.first_air_date || item.release_date || '').slice(0, 4);
+        }
+      }
+    } else {
+      numericId = cleanId;
+    }
+
+    if (numericId && (!title || !origTitle || !imdbId)) {
+      const type = (mediaType === 'tv' || mediaType === 'series') ? 'tv' : 'movie';
+      const tRes = await fetch(`https://api.themoviedb.org/3/${type}/${numericId}?api_key=${TMDB_API_KEY}&language=tr-TR&append_to_response=external_ids`);
+      if (tRes.ok) {
+        const tData = await tRes.json();
+        title = tData.name || tData.title || title;
+        origTitle = tData.original_name || tData.original_title || origTitle;
+        year = (tData.first_air_date || tData.release_date || '').slice(0, 4);
+        imdbId = imdbId || tData.imdb_id || (tData.external_ids && tData.external_ids.imdb_id) || '';
+      }
+    }
+
+    return { title, origTitle, year, numericId, imdbId };
+  } catch (e) {
+    return { title: '', origTitle: '', year: '', numericId: id, imdbId: '' };
+  }
+}
+
+async function searchOnSite(query, year) {
+  if (!query || query.length < 2) return null;
+  const cleanQuery = query.toLowerCase().trim();
+  const searchUrl = `${BASE_URL}/?s=` + encodeURIComponent(cleanQuery);
+
+  try {
+    const res = await fetch(searchUrl, { headers: WORKING_HEADERS });
+    if (!res.ok) return null;
+    const html = await res.text();
+    const $ = cheerio.load(html);
+    const results = [];
+
+    const stopWords = new Set(['the', 'a', 'an', 've', 'ile', 'der', 'die', 'das', 'le', 'la']);
+    const significantWords = cleanQuery.split(/\s+/).filter(w => w.length > 1 && !stopWords.has(w));
+
+    $('a.baslik, a.resim').each(function() {
+      const url = $(this).attr('href') || '';
+      const rawTitle = $(this).attr('title') || $(this).find('span').first().text().trim() || $(this).text().trim();
+      const titleLower = rawTitle.toLowerCase();
+      if (!url.includes('/film/') || url.includes('/category/') || url.includes('/search/') || url.includes('/tag/') || rawTitle.length < 2) return;
+
+      let score = 0;
+      let matchedWordCount = 0;
+      significantWords.forEach(w => {
+        if (titleLower.includes(w) || url.includes(w)) {
+          score += 10;
+          matchedWordCount++;
+        }
+      });
+
+      if (matchedWordCount === significantWords.length && significantWords.length > 0) {
+        score += 15;
+      }
+
+      if (year && (titleLower.includes(year) || url.includes(year))) score += 10;
+      if (url.includes(cleanQuery.replace(/\s+/g, '-'))) score += 8;
+
+      // Penalize sequels/extra words if we didn't search for them
+      const extraWords = titleLower.split(/\s+/).filter(w => !stopWords.has(w) && !significantWords.includes(w));
+      // Sequel numbers like 2, 3, 4 when we didn't search them
+      const hasSequel = /[\s\-_]([2-9]|ii|iii|iv|v)($|[\s\-_])/i.test(titleLower) || /[\s\-_]([2-9]|ii|iii|iv|v)($|[\s\-_])/i.test(url);
+      if (hasSequel && !/[\s\-_]([2-9]|ii|iii|iv|v)/i.test(cleanQuery)) {
+        score -= 25;
+      }
+      score -= extraWords.length * 2;
+
+      if (score > 5) {
+        results.push({ url: url, siteTitle: rawTitle, score: score });
+      }
+    });
+
+    if (results.length > 0) {
+      results.sort((a, b) => b.score - a.score);
+      return results[0];
+    }
+    return null;
+  } catch (err) {
+    return null;
+  }
+}
+
+async function getStreams(tmdbId, mediaType, seasonNum, episodeNum) {
+  try {
+    const info = await resolveTmdbInfo(tmdbId, mediaType);
+    const trTitle = (info.title || '').trim();
+    const orgTitle = (info.origTitle || '').trim();
+    const displayTitle = trTitle || orgTitle || 'Film';
+    const releaseYear = info.year;
+
+    let result = null;
+    const searchCandidates = [];
+    if (orgTitle) {
+      searchCandidates.push(orgTitle);
+      const withoutThe = orgTitle.replace(/^the\s+/i, '').trim();
+      if (withoutThe && withoutThe !== orgTitle) searchCandidates.push(withoutThe);
+    }
+    if (trTitle && trTitle !== orgTitle) {
+      searchCandidates.push(trTitle);
+      const withoutTheTr = trTitle.replace(/^the\s+/i, '').trim();
+      if (withoutTheTr && withoutTheTr !== trTitle) searchCandidates.push(withoutTheTr);
+    }
+
+    for (const cand of searchCandidates) {
+      result = await searchOnSite(cand, releaseYear);
+      if (result && result.score >= 10) break;
+    }
+
+    let langInfo = '🇹🇷 TR Dublaj & 🌐 Altyazı';
+    if (!result || !result.url) {
+      const slugCand = (orgTitle || trTitle || '').toLowerCase().replace(/^the\s+/i, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+      if (slugCand) {
+        result = { url: `${BASE_URL}/film/${slugCand}/`, siteTitle: displayTitle, score: 10 };
+      }
+    }
+
+    if (result && result.url) {
+      try {
+        const pageRes = await fetch(result.url, { headers: WORKING_HEADERS, signal: timeoutSignal(5000) });
+        if (pageRes.ok) {
+          const html = await pageRes.text();
+          const $page = cheerio.load(html);
+
+          const pageText = $page('body').text().toLowerCase();
+          if (pageText.includes('dublaj')) {
+            langInfo = '🇹🇷 TR Dublaj';
+          } else if (pageText.includes('altyazı')) {
+            langInfo = '🌐 TR Altyazı';
+          }
+
+          let iframeUrl = '';
+          $page('iframe').each(function() {
+            let src = $page(this).attr('data-vsrc') || $page(this).attr('src') || '';
+            if (src && !/^https?:\/\//i.test(src) && !src.startsWith('//')) {
+              src = decodeBase64Safe(src);
+            }
+            if (src.toLowerCase().includes('filmizle.in')) {
+              iframeUrl = src.split('?')[0];
+              return false;
+            }
+          });
+
+          if (iframeUrl) {
+            const videoId = iframeUrl.split('/').pop().split('?')[0];
+            const apiURL = 'https://player.filmizle.in/player/index.php?data=' + videoId + '&do=getVideo';
+
+            const params = new URLSearchParams();
+            params.append('hash', videoId);
+            params.append('r', result.url);
+
+            const r = await fetch(apiURL, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Referer': iframeUrl.toLowerCase(),
+                'User-Agent': WORKING_HEADERS['User-Agent']
+              },
+              body: params.toString(),
+              signal: timeoutSignal(4000)
+            });
+
+            if (r.ok) {
+              const json = await r.json();
+              if (json && json.securedLink) {
+                return [{
+                  name: displayTitle,
+                  title: `⌜ SinemaCX ⌟ | ${langInfo}`,
+                  url: json.securedLink,
+                  quality: '1080p',
+                  type: 'hls',
+                  format: 'hls',
+                  isHls: true,
+                  provider: 'sinemacx',
+                  headers: {
+                    'Referer': 'https://player.filmizle.in/',
+                    'User-Agent': WORKING_HEADERS['User-Agent']
+                  }
+                }];
+              }
+            }
+          }
+        }
+      } catch (e) {}
+    }
+
+    // Fallback: Vixolity 1080p HLS mirror when player.filmizle.in is unreachable
+    if (info.imdbId) {
+      const vixUrl = `https://ha.vixolity.com/vs/${info.imdbId}`;
+      const vRes = await fetch(vixUrl, {
+        headers: {
+          'User-Agent': WORKING_HEADERS['User-Agent'],
+          'Referer': 'https://ha.vixolity.com/',
+          'Origin': 'https://ha.vixolity.com'
+        },
+        signal: timeoutSignal(6000)
+      });
+      if (vRes.ok) {
+        const vTxt = await vRes.text();
+        if (vTxt && vTxt.includes('#EXTM3U')) {
+          return [{
+            name: displayTitle,
+            title: `⌜ SinemaCX ⌟ | ${langInfo} • 1080p [FHD]`,
+            url: vixUrl,
+            quality: '1080p',
+            type: 'hls',
+            format: 'hls',
+            isHls: true,
+            provider: 'sinemacx',
+            headers: {
+              'User-Agent': WORKING_HEADERS['User-Agent'],
+              'Referer': 'https://ha.vixolity.com/',
+              'Origin': 'https://ha.vixolity.com'
+            },
+            behaviorHints: {
+              notWebReady: true,
+              proxyHeaders: {
+                request: {
+                  'User-Agent': WORKING_HEADERS['User-Agent'],
+                  'Referer': 'https://ha.vixolity.com/',
+                  'Origin': 'https://ha.vixolity.com'
+                }
+              }
+            }
+          }];
+        }
+      }
+    }
+
+    return [];
+  } catch (err) {
+    return [];
+  }
+}
+
+// ── Universal Quality Sorter ──────────────────────────────────────────
+if (typeof getStreams === "function") {
+    var _origGetStreams = getStreams;
+    getStreams = async function() {
+        var res = await _origGetStreams.apply(this, arguments);
+        return sortStreamsByQuality(res);
+    };
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = wrapAll({ getStreams: getStreams }, cfgReady);
+}
+if (typeof globalThis !== 'undefined') {
+  globalThis.getStreams = getStreams;
+}

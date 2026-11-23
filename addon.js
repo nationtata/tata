@@ -12,7 +12,7 @@ const {
 } = require("./parse-m3u");
 
 const { getAlternatives } = require("./providers/tata");
-const { getMovieStreams } = require("./providers/izlefilm");
+const { getVodStreams } = require("./providers/vod");
 
 const app = express();
 const PORT = process.env.PORT || 7000;
@@ -73,16 +73,16 @@ app.get("/manifest.json", (req, res) => {
   res.json({
 
     id: "tata.live",
-    version: "7.1.0",
+    version: "7.2.0",
     name: "TATA",
     description: "TATA",
 
     resources: [
       { name: "catalog", types: ["tv"] },
       { name: "meta", types: ["tv"], idPrefixes: ["tv-"] },
-      { name: "stream", types: ["tv", "movie"], idPrefixes: ["tv-", "tmdb:", "tt"] }
+      { name: "stream", types: ["tv", "movie", "series"], idPrefixes: ["tv-", "tmdb:", "tt"] }
     ],
-    types: ["tv", "movie"],
+    types: ["tv", "movie", "series"],
 
     catalogs: [
       { type: "tv", id: "ulusal", name: "Ulusal" },
@@ -190,20 +190,20 @@ app.get("/meta/tv/:id.json", async (req, res) => {
 app.get("/film/manifest.json", (req, res) => {
   res.json({
     id: "tata.film",
-    version: "7.1.0",
-    name: "TATA Film",
-    description: "TATA film kaynakları",
+    version: "7.2.0",
+    name: "TATA Film ve Dizi",
+    description: "TATA film ve dizi kaynakları",
     resources: ["stream"],
-    types: ["movie"],
+    types: ["movie", "series"],
     catalogs: []
   });
 });
 
-app.get(["/stream/movie/:id.json", "/film/stream/movie/:id.json"], async (req, res) => {
+app.get(["/stream/:type(movie|series)/:id.json", "/film/stream/:type(movie|series)/:id.json"], async (req, res) => {
   try {
-    return res.json({ streams: await getMovieStreams(req.params.id) });
+    return res.json({ streams: await getVodStreams(req.params.type, req.params.id) });
   } catch (err) {
-    console.error("[MOVIE STREAM ERROR]", err.message);
+    console.error("[VOD STREAM ERROR]", err.message);
     return res.json({ streams: [] });
   }
 });
@@ -292,7 +292,7 @@ app.get("/health", (req, res) => {
   res.json({
 
     status: "ok",
-    version: "7.1.0",
+    version: "7.2.0",
     port: PORT,
     tmdb: !!process.env.TMDB_API_KEY,
     uptime: Math.floor(process.uptime())
