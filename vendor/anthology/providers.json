@@ -249,5 +249,12 @@
     "series": true,
     "anime": false,
     "objectArgs": true
+  },
+  {
+    "id": "dizibal",
+    "name": "Dizibal",
+    "movie": true,
+    "series": true,
+    "anime": false
   }
 ]
