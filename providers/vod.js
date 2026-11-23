@@ -2,6 +2,7 @@ const { getFilmPlaylistStreams } = require("./film-playlist");
 const { getPlaylistStreams } = require("./playlist");
 const { getMovieStreams } = require("./izlefilm");
 const registry = require("../vendor/anthology/providers.json");
+const { getLocalIzlelanJobs } = require("./izlelan-adapter");
 
 const PROVIDER_TIMEOUT = 9000;
 const MAX_ACTIVE_SEARCHES = 8;
@@ -48,8 +49,8 @@ function cleanStream(stream, provider) {
     : undefined;
   return {
     [providerKey]: provider,
-    name: provider === "Beckman" ? "Beckman" : "TATA",
-    ...(provider === "Beckman" && stream.quality && { description: stream.quality }),
+    name: ["Beckman", "Ace", "Clover", "Dragon"].includes(provider) ? provider : "TATA",
+    ...(["Beckman", "Ace", "Clover", "Dragon"].includes(provider) && stream.quality && { description: stream.quality }),
     url: stream.url,
     ...(subtitles && { subtitles }),
     behaviorHints: {
@@ -125,6 +126,9 @@ async function search(type, request) {
         runProvider("TATA M3U · Vixolity", () => getFilmPlaylistStreams("vixolity", details, request.id), type)
       );
     }
+  }
+  for (const source of getLocalIzlelanJobs()) {
+    jobs.push(runProvider(source.name, () => source.getStreams(String(details.id), type === "series" ? "tv" : "movie", request.season, request.episode), type));
   }
   const streams = (await Promise.all(jobs)).flat();
   const seen = new Set();
