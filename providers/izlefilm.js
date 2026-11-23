@@ -76,6 +76,7 @@ async function readPlayer(url, title) {
       name: "TATA · İzlefilm",
       title,
       url: stream.href,
+      isHls: true,
       headers: { Referer: url, Origin: "https://ok.ru" }
     };
   } catch {
