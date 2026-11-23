@@ -1,0 +1,31 @@
+{
+  "name": "TATA",
+  "version": "1.0.0",
+  "scrapers": [
+    {
+      "id": "tata-vod",
+      "name": "TATA",
+      "version": "1.0.0",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/tata.js",
+      "enabled": true,
+      "logo": "https://tata-d692.onrender.com/tata-badge.png"
+    },
+    {
+      "id": "beckman",
+      "name": "Beckman",
+      "description": "Anime",
+      "version": "1.14.641",
+      "author": "izlelan",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "https://izlelan.com/providers/beckman.js",
+      "enabled": true
+    }
+  ]
+}
