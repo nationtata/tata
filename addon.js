@@ -11,7 +11,6 @@ const {
   loadM3U
 } = require("./parse-m3u");
 
-const { resolveChannel } = require("./providers/engine");
 const { getAlternatives } = require("./providers/tata");
 
 const app = express();
@@ -184,7 +183,7 @@ app.get("/meta/tv/:id.json", async (req, res) => {
    STREAM (Multi-Stream)
 ========================================================= */
 
-app.get("/stream/tv/:id.json", async (req, res) => {
+app.get("/stream/tv/:id.json", (req, res) => {
 
   const id = req.params.id.replace(/^tv-/, "");
   const channel = getChannel(id);
@@ -194,9 +193,6 @@ app.get("/stream/tv/:id.json", async (req, res) => {
   }
 
   try {
-
-    // Engine ana yayını doğrulamaya devam ediyor.
-    await resolveChannel(id);
 
     const alternatives = getAlternatives(id);
 
