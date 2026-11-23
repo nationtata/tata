@@ -270,5 +270,12 @@
     "movie": false,
     "series": true,
     "anime": false
+  },
+  {
+    "id": "asyawatch",
+    "name": "AsyaWatch",
+    "movie": true,
+    "series": true,
+    "anime": false
   }
 ]
