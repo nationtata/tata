@@ -370,6 +370,8 @@ function getStreams(tmdbId, mediaType) {
           seen[row.url] = 1;
           out.push({
             name: "FullHDFilmizlesene",
+            sourceLanguageLabel: row.label,
+            sourceVideoLabel: row.label,
             title: "FullHDFilmizlesene - " + row.quality + " [" + (row.label || "Atom") + "]",
             url: hlsNoDownload(row.url),
             quality: row.quality,

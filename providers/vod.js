@@ -33,22 +33,42 @@ async function findTmdb(type, id, language = "tr-TR", timeout = 3500) {
 const providerKey = Symbol("provider");
 const resolutionLabels = new Map([[2160, "4K"], [1080, "1080p"], [720, "720p"], [480, "480p"]]);
 
+function isOriginalOnlyProvider(stream, provider) {
+  if (/^vidmoly$/i.test(provider) || /^vidmody$/i.test(provider) ||
+      /\bvidmoly\b/i.test([stream.provider, stream.name, stream.title].filter(Boolean).join(" "))) return true;
+  const headers = stream.behaviorHints?.proxyHeaders?.request ?? stream.headers ?? {};
+  const referrer = Object.entries(headers).find(([key]) => /^referer$/i.test(key))?.[1];
+  return [stream.url, referrer].some(value => {
+    try { return /^(?:[\w-]+\.)*vidmoly\.(?:net|to|me|biz|sx)$/i.test(new URL(value).hostname); }
+    catch { return false; }
+  });
+}
+
 function streamName(stream, provider) {
+  if (isOriginalOnlyProvider(stream, provider)) return "Orijinal";
+  const sourceLabel = String(stream.sourceLanguageLabel ?? "").toLocaleLowerCase("tr").replace(/ı/g, "i")
+    .normalize("NFKD").replace(/\p{M}/gu, "");
   const tracks = Array.isArray(stream.audioTracks) ? stream.audioTracks.filter(Boolean) : [];
   const tags = [];
-  if (tracks.some(track => track.original === true)) tags.push("Orijinal");
+  if (/\b(?:orijinal|original)\b/.test(sourceLabel) || tracks.some(track => track.original === true)) tags.push("Orijinal");
   const isTurkish = track => /^(?:tr(?:-tr)?|tur|türkçe|turkish)$/i.test(String(track.lang ?? track.language ?? ""));
-  if (tracks.some(track => isTurkish(track) && track.dubbed === true) ||
+  if (/\b(?:dublaj(?:li)?|dub(?:bed)?)\b/.test(sourceLabel) || tracks.some(track => isTurkish(track) && track.dubbed === true) ||
       (!tracks.length && provider === "TATA M3U" && [stream.audio, stream.audioLabel].some(label =>
         typeof label === "string" && /^türkçe\s+dublaj$/iu.test(label.trim())))) {
     tags.push("Dublaj");
   }
-  if (stream.embeddedSubtitles === true) tags.push("Altyazılı");
+  if (/\b(?:alt\s*yazi(?:li)?|subbed|subtitled)\b/.test(sourceLabel) || stream.embeddedSubtitles === true) tags.push("Altyazılı");
 
   return tags.join(" · ") || "Ses / altyazı bilgisi yok";
 }
 
 function streamResolution(stream) {
+  const sourceLabel = String(stream.sourceVideoLabel ?? "").trim();
+  const explicit = sourceLabel.match(/\b(2160|1080|720|480)\s*p\b/i);
+  if (explicit) return resolutionLabels.get(Number(explicit[1]));
+  if (/\b(?:4k|uhd)\b/i.test(sourceLabel)) return "4K";
+  if (/\b(?:full[\s-]*hd|fhd)\b/i.test(sourceLabel)) return "1080p";
+  if (/\bhd\b/i.test(sourceLabel)) return "480p";
   const heights = new Set(Array.isArray(stream.videoHeights) ? stream.videoHeights : []);
   return [...resolutionLabels].filter(([height]) => heights.has(height)).map(([, label]) => label).join(" · ");
 }

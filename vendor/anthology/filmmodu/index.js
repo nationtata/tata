@@ -387,6 +387,8 @@ function fetchStreamsFromAlt(altLink, filmUrl) {
                 audios.push({ lang: 'tr', label: altLink.name });
               }
               var streamObj = {
+                sourceLanguageLabel: altLink.name,
+                sourceVideoLabel: Number.isFinite(Number(source.res)) && Number(source.res) > 0 ? source.res + 'p' : source.label,
                 ...playbackTracks(playlist, audios),
                 name:    'FilmModu',
                 title:   'FilmModu',

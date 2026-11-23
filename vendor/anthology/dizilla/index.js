@@ -235,6 +235,8 @@ function getStreams(tmdbId, mediaType, season, episode) {
                 }
                 rows.push({
                   name: "dizilla",
+                  sourceLanguageLabel: player.lang,
+                  sourceVideoLabel: player.quality,
                   title: name + (height ? " - " + height + "p" : " - HLS"),
                   url: hlsNoDownload(stream),
                   quality: height ? height + "p" : "auto",

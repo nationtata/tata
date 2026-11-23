@@ -98,7 +98,7 @@ function flightText(html) {
 function flightSources(html) {
   const text = flightText(html);
   return [...text.matchAll(/"src":"(https:\/\/(?:four\.)?pichive\.online\/iframe\.php\?v=[a-z0-9_-]+)"/gi)]
-    .map(([, url]) => ({ source_content: url, quality_name: "Türkçe altyazılı kaynak" }));
+    .map(([, url]) => ({ source_content: url }));
 }
 
 async function modernEpisode(titles, season, episode) {
@@ -171,15 +171,17 @@ async function resolveSource(source) {
   const value = source.source_content ?? source.sourceContent ?? "";
   if (typeof value !== "string") return null;
   const raw = (value.match(/\bsrc=["']([^"']+)["']/i)?.[1] ?? value).replace(/&amp;/g, "&");
-  const title = "AsyaWatch · " + (source.quality_name ?? source.qualityName ?? "Türkçe");
+  const sourceLanguageLabel = source.quality_name ?? source.qualityName;
+  const title = "AsyaWatch · " + (sourceLanguageLabel ?? "Türkçe");
   const direct = mediaUrl(raw);
-  if (direct) return { url: direct, title, headers: { Referer: SITE + "/" } };
+  if (direct) return { url: direct, title, sourceLanguageLabel, sourceVideoLabel: sourceLanguageLabel, headers: { Referer: SITE + "/" } };
 
   let embed;
   try { embed = new URL(raw, SITE); } catch { return null; }
   if (embed.protocol !== "https:" || embed.username || embed.password || embed.port) return null;
   if (/^(?:four\.)?pichive\.online$/.test(embed.hostname) && embed.pathname === "/iframe.php") {
-    return readPichive(embed, title);
+    const stream = await readPichive(embed, title);
+    return stream && { ...stream, sourceLanguageLabel, sourceVideoLabel: sourceLanguageLabel };
   }
   if (embed.hostname === "ok.ru" && /^\/videoembed\/\d+$/.test(embed.pathname)) {
     const html = await read(embed, "text");
@@ -189,13 +191,13 @@ async function resolveSource(source) {
       let meta = JSON.parse(options.replace(/&quot;/g, '"').replace(/&amp;/g, "&")).flashvars?.metadata;
       if (typeof meta === "string") meta = JSON.parse(meta);
       const hls = new URL(meta?.hlsManifestUrl);
-      if (hls.protocol === "https:" && hls.hostname.endsWith(".okcdn.ru")) return { url: hls.href, title };
+      if (hls.protocol === "https:" && hls.hostname.endsWith(".okcdn.ru")) return { url: hls.href, title, sourceLanguageLabel, sourceVideoLabel: sourceLanguageLabel };
     } catch { return null; }
   }
   if (/^(?:www\.)?vidmoly\.(?:net|to|me|biz|sx)$/.test(embed.hostname)) {
     const html = (await read(embed, "text"))?.replace(/\\\//g, "/") ?? "";
     const url = mediaUrl(html.match(/https:\/\/[^"' <>\r\n\\]+\.m3u8(?:\?[^"' <>\r\n\\]+)?/i)?.[0]);
-    if (url) return { url, title, headers: { Referer: embed.origin + "/" } };
+    if (url) return { url, title, sourceLanguageLabel, sourceVideoLabel: sourceLanguageLabel, provider: "Vidmoly", headers: { Referer: embed.origin + "/" } };
   }
   return null;
 }
