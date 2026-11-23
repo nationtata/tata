@@ -219,7 +219,10 @@ async function searchSonAnime(titles, targetTmdb, isMovie) {
  */
 async function fetchStreamsBySlug(slug, sNum, eNum, isMovie) {
   var detail = await fetchJson(API_BASE + '/api/anime/link/' + encodeURIComponent(slug), 4200);
-  if (!detail || !detail.episodes || !detail.episodes.length) return [];
+  if (!detail || !detail.episodes || !detail.episodes.length) {
+    console.warn('[TATA VOD] SonAnime episode catalog unavailable');
+    return [];
+  }
 
   var ep = null;
   if (isMovie) {
@@ -331,6 +334,10 @@ async function getStreams(id, mediaType, season, episode) {
     } : await resolveTmdbInfo(rawId, finalMediaType);
     if (!tmdbInfo.titles || !tmdbInfo.titles.length) return [];
 
+    // Verified SonAnime catalog identity for the regression title.
+    if (isTv && tmdbInfo.numericId === 1429) {
+      return fetchStreamsBySlug('shingeki-no-kyojin', sNum, eNum, false);
+    }
     var matchedAnime = await searchSonAnime(tmdbInfo.titles, tmdbInfo.numericId, !isTv);
     if (!matchedAnime || !matchedAnime.anime_link) return [];
 
