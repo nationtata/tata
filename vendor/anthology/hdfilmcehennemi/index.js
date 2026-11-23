@@ -429,8 +429,9 @@ async function resolveCloseLoadStreams(pageUrl) {
 
     var ifrMatch = html.match(/data-src="([^"]*video\/embed[^"]*)"/i) || html.match(/<iframe[^>]+src="([^"]*video\/embed[^"]*)"/i);
     if (!ifrMatch) return null;
-    var embedUrl = ifrMatch[1];
-    if (embedUrl.startsWith('//')) embedUrl = 'https:' + embedUrl;
+    var embed = new URL(ifrMatch[1].replace(/&amp;/gi, '&'), res.url || pageUrl);
+    if (!/^https?:$/.test(embed.protocol) || embed.username || embed.password) return null;
+    var embedUrl = embed.href;
 
     var embedHost = "hdfilmcehennemi.mobi";
     try { embedHost = new URL(embedUrl).hostname; } catch (e) {}
@@ -442,7 +443,7 @@ async function resolveCloseLoadStreams(pageUrl) {
       var eRes = await fetchWithTimeout(embedUrl, {
         headers: {
           'User-Agent': embedUa,
-          'Referer': BASE_URL + '/'
+          'Referer': res.url || pageUrl
         }
       }, 10000);
       if (!eRes.ok) continue;
@@ -543,6 +544,7 @@ async function resolveCloseLoadStreams(pageUrl) {
 
     return {
       streamUrl: streamUrl,
+      headers: { ...CLOSELOAD_HEADERS, Referer: embedUrl, Origin: embed.origin },
       subtitles: subtitles
     };
   } catch (e) {
@@ -584,9 +586,9 @@ async function getStreams(tmdbIdOrArgs, mediaType, seasonNum, episodeNum) {
       isHls: true,
       contentLanguage: ['tr', 'en'],
       behaviorHints: {
-        headers: CLOSELOAD_HEADERS
+        headers: resolved.headers
       },
-      headers: CLOSELOAD_HEADERS,
+      headers: resolved.headers,
       subtitles: resolved.subtitles
     });
 

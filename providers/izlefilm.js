@@ -72,14 +72,19 @@ async function readPlayer(url, title) {
     if (typeof metadata === "string") metadata = JSON.parse(metadata);
     const stream = new URL(metadata.hlsManifestUrl);
     if (stream.protocol !== "https:" || !stream.hostname.endsWith(".okcdn.ru") || stream.username || stream.password) return null;
-    return { name: "TATA · İzlefilm", title, url: stream.href };
+    return {
+      name: "TATA · İzlefilm",
+      title,
+      url: stream.href,
+      headers: { Referer: url, Origin: "https://ok.ru" }
+    };
   } catch {
     return null;
   }
 }
 
 async function getMovieStreams(id) {
-  const movie = await movieDetails(id);
+  const movie = typeof id === "object" ? id : await movieDetails(id);
   if (!movie) return [];
   const titles = [...new Set([movie.title, movie.original_title].filter(Boolean))];
   const names = new Set(titles.map(normalize).filter(Boolean));

@@ -109,7 +109,7 @@ async function search(type, request) {
     return getStreams(id, type === "series" ? "tv" : "movie", request.season, request.episode);
   }, type));
   if (type === "movie") {
-    jobs.unshift(runProvider("İzlefilm", () => getMovieStreams("tmdb:" + details.id), type));
+    jobs.unshift(runProvider("İzlefilm", () => getMovieStreams(details), type));
   }
   const streams = (await Promise.all(jobs)).flat();
   const seen = new Set();

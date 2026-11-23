@@ -93,7 +93,7 @@ async function searchOnSite(query, year) {
   const searchUrl = `${BASE_URL}/?s=` + encodeURIComponent(cleanQuery);
 
   try {
-    const res = await fetch(searchUrl, { headers: WORKING_HEADERS });
+    const res = await fetch(searchUrl, { headers: WORKING_HEADERS, signal: timeoutSignal(2500) });
     if (!res.ok) return null;
     const html = await res.text();
     const $ = cheerio.load(html);
@@ -209,7 +209,8 @@ async function getStreams(tmdbId, mediaType, seasonNum, episodeNum) {
           });
 
           if (iframeUrl) {
-            const videoId = new URL(iframeUrl).pathname.split('/').pop();
+            const frame = new URL(iframeUrl);
+            const videoId = frame.pathname.split('/').filter(Boolean).pop();
             const apiURL = 'https://player.filmizle.in/player/index.php?data=' + videoId + '&do=getVideo';
 
             const params = new URLSearchParams();
@@ -241,7 +242,8 @@ async function getStreams(tmdbId, mediaType, seasonNum, episodeNum) {
                   isHls: true,
                   provider: 'sinemacx',
                   headers: {
-                    'Referer': 'https://player.filmizle.in/',
+                    'Referer': iframeUrl,
+                    'Origin': frame.origin,
                     'User-Agent': WORKING_HEADERS['User-Agent']
                   }
                 }];
