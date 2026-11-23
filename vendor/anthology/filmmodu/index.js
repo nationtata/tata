@@ -1,3 +1,4 @@
+const { playbackTracks } = require("../shared/playback-tracks.js");
 const { sortStreamsByQuality } = require("../shared/quality.js");
 const { loadConfig, val, wrapAll } = require("../shared/config.js");
 
@@ -267,43 +268,42 @@ function fetchAlternateLinks(filmUrl) {
 
 // ── Yardımcı: M3U8 Segment Canlılık Doğrulayıcı ─────────────
 // Ölü/503 veren CDN düğümlerini (canvopics.life, ytconvertor.click vb.) tespit edip eler.
-function verifySegmentPlayable(m3u8Url, headers) {
+function readPlaylist(m3u8Url, headers) {
   var sig = timeoutSignal(3500);
   var opts = { headers: headers };
   if (sig) opts.signal = sig;
 
   return fetch(m3u8Url, opts)
     .then(function(res) {
-      if (!res.ok) return false;
-      return res.text().then(function(text) {
-        var lines = text.split('\n');
-        var firstSeg = null;
-        for (var i = 0; i < lines.length; i++) {
-          var line = lines[i].trim();
-          if (line && line.indexOf('#') !== 0 && line.indexOf('http') === 0) {
-            firstSeg = line;
-            break;
-          }
-        }
-        if (!firstSeg) return false;
+      return res.ok ? res.text() : '';
+    })
+    .catch(function() { return ''; });
+}
 
-        var segSig = timeoutSignal(3500);
-        var segHdrs = Object.assign({}, headers, { 'Range': 'bytes=0-1024' });
-        var segOpts = { method: 'GET', headers: segHdrs };
-        if (segSig) segOpts.signal = segSig;
+function verifySegmentPlayable(text, headers) {
+  var lines = text.split('\n');
+  var firstSeg = null;
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i].trim();
+    if (line && line.indexOf('#') !== 0 && line.indexOf('http') === 0) {
+      firstSeg = line;
+      break;
+    }
+  }
+  if (!firstSeg) return false;
 
-        return fetch(firstSeg, segOpts)
-          .then(function(segRes) {
-            var ok = segRes.ok || segRes.status === 206;
-            if (!ok) {
-              console.log('[FilmModu] Segment oynatılamaz (HTTP ' + segRes.status + '): ' + firstSeg.slice(0, 60));
-            }
-            return ok;
-          })
-          .catch(function() {
-            return false;
-          });
-      });
+  var segSig = timeoutSignal(3500);
+  var segHdrs = Object.assign({}, headers, { 'Range': 'bytes=0-1024' });
+  var segOpts = { method: 'GET', headers: segHdrs };
+  if (segSig) segOpts.signal = segSig;
+
+  return fetch(firstSeg, segOpts)
+    .then(function(segRes) {
+      var ok = segRes.ok || segRes.status === 206;
+      if (!ok) {
+        console.log('[FilmModu] Segment oynatılamaz (HTTP ' + segRes.status + '): ' + firstSeg.slice(0, 60));
+      }
+      return ok;
     })
     .catch(function() {
       return false;
@@ -367,22 +367,29 @@ function fetchStreamsFromAlt(altLink, filmUrl) {
           var probeSrc = data.sources[0].src;
           if (probeSrc.indexOf('.m3u8') === -1) probeSrc = probeSrc + '.m3u8';
 
-          return verifySegmentPlayable(probeSrc, fmHeaders).then(function(isPlayable) {
+          return readPlaylist(probeSrc, fmHeaders).then(async function(probePlaylist) {
+            var isPlayable = await verifySegmentPlayable(probePlaylist, fmHeaders);
             if (!isPlayable) {
               console.log('[FilmModu] ❌ Ölü CDN depolama filtresi: ' + altLink.name + ' akışları elendi.');
               return [];
             }
 
-            var streams = [];
-            data.sources.forEach(function(source) {
-              if (!source.src) return;
+            return Promise.all(data.sources.filter(function(source) { return source.src; }).map(async function(source) {
               var qualityLabel = source.label || source.res ? (source.res + 'p') : 'HD';
               var srcUrl = source.src;
               if (srcUrl.indexOf('.m3u8') === -1) srcUrl = srcUrl + '.m3u8';
 
+              var playlist = srcUrl === probeSrc ? probePlaylist : await readPlaylist(srcUrl, fmHeaders);
+              var audios = [data.audios, source.audios].flatMap(function(tracks) {
+                return Array.isArray(tracks) ? tracks : [];
+              });
+              if (/dublaj/i.test(altLink.name) && /türkçe|turkce/i.test(altLink.name)) {
+                audios.push({ lang: 'tr', label: altLink.name });
+              }
               var streamObj = {
+                ...playbackTracks(playlist, audios),
                 name:    'FilmModu',
-                title:   altLink.name + ' • ' + qualityLabel,
+                title:   'FilmModu',
                 url:     srcUrl,
                 quality: qualityLabel,
                 type:    'hls',
@@ -405,9 +412,8 @@ function fetchStreamsFromAlt(altLink, filmUrl) {
                   type:     'text/vtt'
                 }];
               }
-              streams.push(streamObj);
-            });
-            return streams;
+              return streamObj;
+            }));
           });
         })
         .catch(function(err) {
@@ -561,20 +567,16 @@ function fetchStreamsFromLive(rawTitle, year) {
                 });
               }
 
-              var liveStreams = [];
               var streamHeaders = {
                 'Referer':    PLAYER_HOST + '/',
                 'User-Agent': HEADERS['User-Agent']
               };
 
-              var audios = Array.isArray(pData.audios) && pData.audios.length > 0
-                ? pData.audios
-                : [{ label: 'Türkçe Dublaj' }];
-
-              audios.forEach(function(aud) {
+              return readPlaylist(pData.stream, streamHeaders).then(function(playlist) {
                 var sObj = {
+                  ...playbackTracks(playlist, pData.audios),
                   name:    'FilmModu',
-                  title:   (aud.label || 'Türkçe Dublaj') + ' • 1080p FHD',
+                  title:   'FilmModu',
                   url:     pData.stream,
                   quality: '1080p',
                   type:    'hls',
@@ -589,11 +591,8 @@ function fetchStreamsFromLive(rawTitle, year) {
                 if (subtitles.length > 0) {
                   sObj.subtitles = subtitles;
                 }
-                liveStreams.push(sObj);
+                return [sObj];
               });
-
-              console.log('[FilmModu.live] Çözülen akış sayısı: ' + liveStreams.length);
-              return liveStreams;
             });
         });
     })
