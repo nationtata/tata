@@ -107,6 +107,20 @@ async function searchYabanciDizi(query) {
     }
 }
 
+async function searchArchive(titles) {
+    const response = await safeFetch(BASE_URL + "/dizi-izle-hd", { headers: HEADERS });
+    if (!response.ok) return [];
+    const html = await response.text();
+    const keys = new Set(titles.map(ultraClean));
+    const matches = [];
+    for (const [tag] of html.matchAll(/<a\b[^>]*>/gi)) {
+        const slug = tag.match(/\bhref=["'](?:https:\/\/yabancidizi\.news\/)?\/?dizi\/([a-z0-9-]+)\/?["']/i)?.[1];
+        const title = tag.match(/\btitle=["']([^"']+)["']/i)?.[1]?.replace(/\s+izle$/i, "").replace(/&amp;/g, "&");
+        if (slug && title && keys.has(ultraClean(title))) matches.push({ s_name: title, s_link: slug });
+    }
+    return matches;
+}
+
 async function getCatalog(args) {
     try {
         var query = (args && args.search) || (args && args.extra && args.extra.search) || (args && args.query) || '';
@@ -402,6 +416,10 @@ async function getStreams(tmdbIdOrArgs, mediaType, seasonNum, episodeNum) {
         var info = await resolveTmdbInfo(tmdbIdOrArgs, mediaType);
         var searchTitles = [...new Set([info.origTitle, info.title].filter(Boolean))];
         var searches = await Promise.all(searchTitles.map(searchYabanciDizi));
+        if (searches.every(results => results.length === 0)) {
+            const archiveMatches = await searchArchive(searchTitles).catch(() => []);
+            searches = searchTitles.map(title => archiveMatches.filter(item => ultraClean(item.s_name) === ultraClean(title)));
+        }
         if (searchTitles.length === 0) return [];
 
         for (var searchIndex = 0; searchIndex < searchTitles.length; searchIndex++) {
