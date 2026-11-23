@@ -1,0 +1,21 @@
+{
+  "name": "Beckman",
+  "version": "1.14.641",
+  "description": "Anime",
+  "author": "izlelan",
+  "scrapers": [
+    {
+      "id": "beckman",
+      "name": "Beckman",
+      "description": "Anime",
+      "version": "1.14.641",
+      "author": "izlelan",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "https://izlelan.com/providers/beckman.js",
+      "enabled": true
+    }
+  ]
+}
