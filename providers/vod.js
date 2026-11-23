@@ -68,7 +68,7 @@ function streamResolution(stream) {
   if (explicit) return resolutionLabels.get(Number(explicit[1]));
   if (/\b(?:4k|uhd)\b/i.test(sourceLabel)) return "4K";
   if (/\b(?:full[\s-]*hd|fhd)\b/i.test(sourceLabel)) return "1080p";
-  if (/\bhd\b/i.test(sourceLabel)) return "480p";
+  if (/\bhd\b/i.test(sourceLabel)) return "720p";
   const heights = new Set(Array.isArray(stream.videoHeights) ? stream.videoHeights : []);
   return [...resolutionLabels].filter(([height]) => heights.has(height)).map(([, label]) => label).join(" · ");
 }
