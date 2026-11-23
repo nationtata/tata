@@ -29,44 +29,8 @@ var HEADERS = {
     'Referer': BASE_URL + '/'
 };
 
-function safeFetch(url, options) {
-    options = options || {};
-    // Node.js environment fallback for Cloudflare HTTP/1.1 compatibility
-    if (typeof process !== 'undefined' && process.versions && process.versions.node) {
-        try {
-            var https = require('https');
-            var http = require('http');
-            var u = new URL(url);
-            var mod = u.protocol === 'http:' ? http : https;
-            return new Promise(function(resolve, reject) {
-                var req = mod.request({
-                    hostname: u.hostname,
-                    port: u.port || (u.protocol === 'http:' ? 80 : 443),
-                    path: u.pathname + u.search,
-                    method: options.method || 'GET',
-                    headers: options.headers || {}
-                }, function(res) {
-                    var data = '';
-                    res.on('data', function(chunk) { data += chunk; });
-                    res.on('end', function() {
-                        resolve({
-                            ok: res.statusCode >= 200 && res.statusCode < 300,
-                            status: res.statusCode,
-                            headers: res.headers,
-                            text: async function() { return data; },
-                            json: async function() { return JSON.parse(data); }
-                        });
-                    });
-                });
-                req.on('error', reject);
-                if (options.body) req.write(options.body);
-                req.end();
-            });
-        } catch (e) {}
-    }
-
-    // QuickJS / Nuvio native fetch
-    return fetch(url, options);
+function safeFetch(url, options = {}) {
+    return fetch(url, { ...options, signal: options.signal ?? AbortSignal.timeout(3000) });
 }
 
 function ultraClean(str) {
@@ -258,6 +222,41 @@ async function getMeta(args) {
     }
 }
 
+async function findAjaxEmbeds(html, epUrl) {
+    const tags = html.match(/<a\b[^>]*data-eid=["'][^"']+["'][^>]*>/gi) ?? [];
+    const tabs = new Map();
+    for (const tag of tags) {
+        const episode = tag.match(/\bdata-eid=["'](\d+)["']/i)?.[1];
+        const lang = tag.match(/\bdata-type=["'](\d+)["']/i)?.[1];
+        if (episode && lang) tabs.set(lang, episode);
+    }
+    const responses = await Promise.allSettled([...tabs].slice(0, 4).map(async ([lang, episode]) => {
+        const result = await safeFetch(BASE_URL + "/ajax/service", {
+            method: "POST",
+            headers: {
+                ...HEADERS, Referer: epUrl, "X-Requested-With": "XMLHttpRequest",
+                "Content-Type": "application/x-www-form-urlencoded",
+                Accept: "application/json"
+            },
+            body: new URLSearchParams({ lang, episode, type: "langTab" })
+        });
+        if (!result.ok) return "";
+        const { data } = await result.json();
+        if (typeof data !== "string") return "";
+        const items = [...data.matchAll(/<div\b[^>]*data-link=["']([^\s"']+)["'][^>]*>([^<]*)/gi)];
+        const candidates = items.filter(([, token, name]) =>
+            /^[A-Za-z0-9+/_=-]{1,512}$/.test(token) && /vidmoly/i.test(name)
+        ).slice(0, 3);
+        const pages = await Promise.allSettled(candidates.map(async ([, token]) => {
+            const endpoint = BASE_URL + "/api/moly/" + encodeURIComponent(token.replace(/\//g, "_").replace(/\+/g, "-"));
+            const response = await safeFetch(endpoint, { headers: HEADERS });
+            return response.ok ? await response.text() : "";
+        }));
+        return data + "\n" + pages.map(page => page.status === "fulfilled" ? page.value : "").join("\n");
+    }));
+    return responses.map(result => result.status === "fulfilled" ? result.value : "").join("\n");
+}
+
 async function extractStreamsFromEpisodePage(epUrl) {
     try {
         var epRes = await safeFetch(epUrl, {
@@ -268,6 +267,9 @@ async function extractStreamsFromEpisodePage(epUrl) {
         });
         if (!epRes.ok) return [];
         var html = await epRes.text();
+        if (!/vidmoly\.[a-z0-9]+\/(?:dl\/|embed-)/i.test(html)) {
+            html += "\n" + await findAjaxEmbeds(html, epUrl);
+        }
 
         // 1. VidMoly download & embed links directly in page HTML
         var dlRegex = /<a[^>]+href=["'](https?:\/\/vidmoly\.[a-z0-9]+\/dl\/([a-zA-Z0-9_-]+))["'][^>]*>([\s\S]*?)<\/a>/gi;
@@ -288,7 +290,7 @@ async function extractStreamsFromEpisodePage(epUrl) {
             if (/dublaj/i.test(label)) langText = 'Türkçe Dublaj';
             else if (/ingilizce/i.test(label)) langText = 'İngilizce Altyazılı';
 
-            var embedUrl = 'https://vidmoly.biz/embed-' + vidId + '.html';
+            var embedUrl = 'https://vidmoly.net/embed-' + vidId + '.html';
             try {
                 var vmRes = await safeFetch(embedUrl, {
                     headers: {
@@ -303,7 +305,7 @@ async function extractStreamsFromEpisodePage(epUrl) {
                         seenUrls.add(m3u8Match[1]);
                         var vmHeaders = {
                             'User-Agent': HEADERS['User-Agent'],
-                            'Referer': 'https://vidmoly.biz/'
+                            'Referer': 'https://vidmoly.net/'
                         };
                         streams.push({
                             name: 'YabancıDizi',
@@ -330,7 +332,7 @@ async function extractStreamsFromEpisodePage(epUrl) {
             var vidId2 = m[1];
             if (seenIds.has(vidId2)) continue;
             seenIds.add(vidId2);
-            var embedUrl2 = 'https://vidmoly.biz/embed-' + vidId2 + '.html';
+            var embedUrl2 = 'https://vidmoly.net/embed-' + vidId2 + '.html';
             try {
                 var vmRes2 = await safeFetch(embedUrl2, {
                     headers: {
@@ -345,7 +347,7 @@ async function extractStreamsFromEpisodePage(epUrl) {
                         seenUrls.add(m3u8Match2[1]);
                         var vmHeaders2 = {
                             'User-Agent': HEADERS['User-Agent'],
-                            'Referer': 'https://vidmoly.biz/'
+                            'Referer': 'https://vidmoly.net/'
                         };
                         streams.push({
                             name: 'YabancıDizi',
@@ -398,22 +400,13 @@ async function getStreams(tmdbIdOrArgs, mediaType, seasonNum, episodeNum) {
         var episode = parseInt(episodeNum) || 1;
 
         var info = await resolveTmdbInfo(tmdbIdOrArgs, mediaType);
-        var searchTitles = [info.origTitle, info.title].filter(Boolean);
+        var searchTitles = [...new Set([info.origTitle, info.title].filter(Boolean))];
+        var searches = await Promise.all(searchTitles.map(searchYabanciDizi));
         if (searchTitles.length === 0) return [];
 
-        for (var title of searchTitles) {
-            var results = await searchYabanciDizi(title);
-            if (results.length === 0) {
-                var cat = await getCatalog({ query: title });
-                if (cat && cat.metas && cat.metas.length > 0) {
-                    results = cat.metas.map(function(m) {
-                        return {
-                            s_name: m.name,
-                            s_link: m.id.replace('yabancidizi:show:', '')
-                        };
-                    });
-                }
-            }
+        for (var searchIndex = 0; searchIndex < searchTitles.length; searchIndex++) {
+            var title = searchTitles[searchIndex];
+            var results = searches[searchIndex];
             if (results.length === 0) continue;
 
             var cleanTarget = ultraClean(title);

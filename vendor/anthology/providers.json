@@ -277,5 +277,12 @@
     "movie": true,
     "series": true,
     "anime": false
+  },
+  {
+    "id": "dizibox",
+    "name": "DiziBox",
+    "movie": false,
+    "series": true,
+    "anime": false
   }
 ]
