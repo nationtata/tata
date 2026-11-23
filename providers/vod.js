@@ -1,3 +1,4 @@
+const { getPlaylistStreams } = require("./playlist");
 const { getMovieStreams } = require("./izlefilm");
 const registry = require("../vendor/anthology/providers.json");
 
@@ -128,6 +129,10 @@ async function search(type, request) {
     if (provider.objectArgs) return getStreams({ id, type, season: request.season, episode: request.episode });
     return getStreams(id, type === "series" ? "tv" : "movie", request.season, request.episode);
   }, type));
+  if (type === "series" && process.env.TATA_SERIES_M3U_PATH) {
+    jobs.unshift(runProvider("TATA M3U", async () =>
+      getPlaylistStreams(await animeDetails, request.season, request.episode), type));
+  }
   if (type === "movie") {
     jobs.unshift(runProvider("İzlefilm", () => getMovieStreams(details), type));
   }
