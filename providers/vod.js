@@ -35,7 +35,18 @@ function streamLabels(stream, provider) {
       (Array.isArray(stream.subtitles) && stream.subtitles.some(subtitle => subtitle?.url))) {
     languages.push("Altyazılı");
   }
-  if (/(?<!\p{L})(?:dublaj(?:lı)?|dubbed|dub)(?!\p{L})/u.test(audio)) languages.push("Dublaj");
+  const audioTracks = Array.isArray(stream.audioTracks) ? stream.audioTracks : [];
+  const hasTurkishDub = audioTracks.length
+    ? audioTracks.some(track => {
+      const language = String(track?.language ?? track?.lang ?? "").toLocaleLowerCase("tr");
+      const label = String(track?.label ?? track?.name ?? "").toLocaleLowerCase("tr");
+      const isTurkish = /^(?:tr(?:-tr)?|tur|türkçe|turkish)$/.test(language) ||
+        /(?:türkçe|turkish)\s+(?:dublaj|dub)/.test(label);
+      return isTurkish && (track?.dubbed === true || /(?:dublaj|dubbed|\bdub\b)/.test(label));
+    })
+    : [stream.audio, stream.audioLabel].some(value => typeof value === "string" &&
+      /^(?:türkçe|turkish)\s+(?:dublaj(?:lı)?|dub(?:bed)?)$/u.test(value.trim().toLocaleLowerCase("tr")));
+  if (hasTurkishDub) languages.push("Dublaj");
 
   if (!languages.length && provider === "Vidlink") languages.push("Orijinal");
 
