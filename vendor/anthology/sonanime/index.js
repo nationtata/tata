@@ -64,15 +64,19 @@ function cleanStr(str) {
 /**
  * JSON fetch yardımcısı
  */
-async function fetchJson(url, timeoutMs) {
+async function fetchJson(url, timeoutMs, diagnostic) {
   try {
     var res = await fetch(url, {
       headers: DEFAULT_HEADERS,
       signal: timeoutSignal(timeoutMs || 8000)
     });
-    if (!res.ok) return null;
+    if (!res.ok) {
+      if (diagnostic) console.warn("[TATA VOD]", diagnostic, "HTTP", res.status);
+      return null;
+    }
     return await res.json();
   } catch (e) {
+    if (diagnostic) console.warn("[TATA VOD]", diagnostic, e.name, e.cause?.code ?? "");
     return null;
   }
 }
@@ -218,7 +222,7 @@ async function searchSonAnime(titles, targetTmdb, isMovie) {
  * Slug üzerinden bölüm akışlarını çeker
  */
 async function fetchStreamsBySlug(slug, sNum, eNum, isMovie) {
-  var detail = await fetchJson(API_BASE + '/api/anime/link/' + encodeURIComponent(slug), 4200);
+  var detail = await fetchJson(API_BASE + '/api/anime/link/' + encodeURIComponent(slug), 7000, "SonAnime / Beckman episode catalog");
   if (!detail || !detail.episodes || !detail.episodes.length) {
     console.warn('[TATA VOD] SonAnime episode catalog unavailable');
     return [];
