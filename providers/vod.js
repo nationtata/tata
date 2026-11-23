@@ -129,7 +129,7 @@ async function search(type, request) {
     if (provider.objectArgs) return getStreams({ id, type, season: request.season, episode: request.episode });
     return getStreams(id, type === "series" ? "tv" : "movie", request.season, request.episode);
   }, type));
-  if (type === "series" && process.env.TATA_SERIES_M3U_PATH) {
+  if (type === "series" && (process.env.TATA_SERIES_M3U_PATH || process.env.TATA_SERIES_M3U_KEY)) {
     jobs.unshift(runProvider("TATA M3U", async () =>
       getPlaylistStreams(await animeDetails, request.season, request.episode), type));
   }

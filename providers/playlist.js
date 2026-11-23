@@ -1,4 +1,16 @@
 const { readFile } = require("node:fs/promises");
+const { createDecipheriv } = require("node:crypto");
+const { gunzipSync } = require("node:zlib");
+const { join } = require("node:path");
+
+async function readPlaylist(path, key) {
+  if (path) return readFile(path, "utf8");
+  const data = await readFile(join(__dirname, "..", "assets", "series.m3u.gz.enc"));
+  const decipher = createDecipheriv("aes-256-gcm", Buffer.from(key, "hex"), data.subarray(0, 12));
+  decipher.setAuthTag(data.subarray(12, 28));
+  return gunzipSync(Buffer.concat([decipher.update(data.subarray(28)), decipher.final()])).toString("utf8");
+}
+
 const titleKey = value => String(value ?? "").normalize("NFKD").toLowerCase()
   .replace(/ı/g, "i").replace(/\p{M}/gu, "").replace(/[^\p{L}\p{N}]/gu, "");
 
@@ -43,8 +55,9 @@ function indexPlaylist(text) {
 let indexed;
 async function getPlaylistStreams(details, season, episode) {
   const path = process.env.TATA_SERIES_M3U_PATH;
-  if (!path) return [];
-  indexed ??= readFile(path, "utf8").then(indexPlaylist).catch(error => {
+  const key = process.env.TATA_SERIES_M3U_KEY;
+  if (!path && !key) return [];
+  indexed ??= readPlaylist(path, key).then(indexPlaylist).catch(error => {
     indexed = undefined;
     throw error;
   });
