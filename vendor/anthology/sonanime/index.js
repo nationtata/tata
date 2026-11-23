@@ -327,7 +327,7 @@ async function getStreams(id, mediaType, season, episode) {
     var details = typeof id === 'object' ? id?.details : null;
     var tmdbInfo = details ? {
       numericId: Number(details.id),
-      titles: [...new Set([details.name, details.original_name, details.title, details.original_title].filter(Boolean))]
+      titles: [...new Set([details.englishTitle, details.name, details.original_name, details.title, details.original_title].filter(Boolean))]
     } : await resolveTmdbInfo(rawId, finalMediaType);
     if (!tmdbInfo.titles || !tmdbInfo.titles.length) return [];
 

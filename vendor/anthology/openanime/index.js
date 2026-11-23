@@ -12,7 +12,7 @@ async function read(url) {
 }
 
 async function getStreams({ details, season, episode }) {
-  const titles = [...new Set([details.name, details.original_name].filter(Boolean))];
+  const titles = [...new Set([details.englishTitle, details.name, details.original_name].filter(Boolean))];
   const expected = new Set(titles.map(key));
   const results = await Promise.all(titles.map(title => read("https://api.openani.me/anime/search?q=" + encodeURIComponent(title))));
   const slugs = new Set(results.flatMap(result => Array.isArray(result) ? result : [])

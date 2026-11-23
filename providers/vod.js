@@ -12,14 +12,14 @@ function parseRequest(type, id) {
   return { id: match[1].toLowerCase(), season: Number(match[2]), episode: Number(match[3]) };
 }
 
-async function findTmdb(type, id) {
-  const query = new URLSearchParams({ api_key: process.env.TMDB_API_KEY, language: "tr-TR" });
+async function findTmdb(type, id, language = "tr-TR", timeout = 3500) {
+  const query = new URLSearchParams({ api_key: process.env.TMDB_API_KEY, language });
   const apiType = type === "series" ? "tv" : "movie";
   const isImdb = id.startsWith("tt");
   if (isImdb) query.set("external_source", "imdb_id");
   const resource = isImdb ? "find/" + id : apiType + "/" + id.replace(/^tmdb:/, "");
   const response = await fetch("https://api.themoviedb.org/3/" + resource + "?" + query, {
-    signal: AbortSignal.timeout(3500)
+    signal: AbortSignal.timeout(timeout)
   });
   if (!response.ok) return null;
   const data = await response.json();
@@ -115,10 +115,16 @@ async function search(type, request) {
   const isAnimation = genres.includes(16);
   const providers = registry.filter(provider => provider[type] && (!provider.anime || isAnimation) &&
     (provider.credentials ?? []).every(key => process.env[key]));
+  const animeDetails = isAnimation
+    ? findTmdb(type, String(details.id), "en-US", 1800)
+      .then(english => ({ ...details, englishTitle: english?.name ?? english?.title }))
+      .catch(() => details)
+    : Promise.resolve(details);
   const jobs = providers.map(provider => runProvider(provider.name, () => {
     const { getStreams } = require("../vendor/anthology/" + provider.id + "/index.js");
     const id = String(details.id);
-    if (provider.metadataArgs) return getStreams({ details, type, season: request.season, episode: request.episode });
+    if (provider.metadataArgs) return (provider.anime ? animeDetails : Promise.resolve(details))
+      .then(metadata => getStreams({ details: metadata, type, season: request.season, episode: request.episode }));
     if (provider.objectArgs) return getStreams({ id, type, season: request.season, episode: request.episode });
     return getStreams(id, type === "series" ? "tv" : "movie", request.season, request.episode);
   }, type));

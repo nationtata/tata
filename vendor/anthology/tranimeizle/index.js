@@ -23,7 +23,7 @@ const key = value => String(value || "").normalize("NFKC").toLowerCase().replace
 const segment = value => typeof value === "string" && /^[\w-]+$/.test(value);
 
 async function getStreams({ details, season, episode }) {
-  const titles = [...new Set([details.name, details.original_name].filter(Boolean))];
+  const titles = [...new Set([details.englishTitle, details.name, details.original_name].filter(Boolean))];
   const keys = new Set(titles.map(key));
   const results = await Promise.all(titles.map(query => json("/api/search/catalog", {
     method: "POST", headers: { "Content-Type": "application/json" },

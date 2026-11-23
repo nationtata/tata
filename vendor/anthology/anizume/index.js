@@ -16,7 +16,7 @@ const key = value => String(value || "").normalize("NFKC").toLowerCase().replace
 async function getStreams({ details, type, season, episode }) {
   const series = type === "series";
   const kind = series ? "anime" : "film";
-  const titles = [...new Set([details.name, details.original_name, details.title, details.original_title].filter(Boolean))];
+  const titles = [...new Set([details.englishTitle, details.name, details.original_name, details.title, details.original_title].filter(Boolean))];
   const keys = new Set(titles.map(key));
   const results = await Promise.all(titles.map(title => read(site + "/api/search?q=" + encodeURIComponent(title), "json")));
   const matches = results.flatMap(result => (series ? result?.animes : result?.films) ?? [])
