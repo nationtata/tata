@@ -123,6 +123,11 @@ function normalizeGoVodStream(item) {
         isHls: isHls
     };
     if (typeof item.score === 'number') out.score = item.score;
+    for (const field of ['audio', 'audioLabel', 'language']) {
+        if (typeof item[field] === 'string') out[field] = item[field];
+    }
+    if (Array.isArray(item.audioTracks)) out.audioTracks = item.audioTracks;
+    if (Array.isArray(item.subtitles)) out.subtitles = item.subtitles;
     if (item.headers) out.headers = item.headers;
     if (item.behaviorHints) out.behaviorHints = item.behaviorHints;
     if (isVixolity && !out.headers) {
