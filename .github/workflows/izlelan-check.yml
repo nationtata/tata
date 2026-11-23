@@ -1,7 +1,7 @@
 name: İzlelan integration checks
 on:
   push:
-    branches: [feature/izlelan-ace-clover-dragon]
+    branches: [feature/izlelan-ace-clover-dragon, feature/izlelan-all-providers]
   workflow_dispatch:
 jobs:
   smoke:
