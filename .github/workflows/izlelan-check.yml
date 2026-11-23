@@ -15,3 +15,7 @@ jobs:
       - run: node --check providers/vod.js
       - run: node --check providers/izlelan-adapter.js
       - run: node tests/izlelan-adapter.test.js
+        env:
+          REQUIRE_IZLELAN_PROVIDERS: '1'
+      - run: node tests/izlelan-live-probe.js
+        timeout-minutes: 2
