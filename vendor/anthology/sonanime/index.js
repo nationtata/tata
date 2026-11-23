@@ -73,12 +73,26 @@ function fetchSonAnimeJson(url, timeoutMs, diagnostic) {
       signal: timeoutSignal(timeoutMs)
     }, response => {
       if (response.statusCode !== 200) {
-        if (diagnostic) {
-          const { server, "content-type": contentType, "cf-mitigated": mitigation, "cf-ray": ray } = response.headers;
-          console.warn("[TATA VOD]", diagnostic, "HTTP", response.statusCode, JSON.stringify({
-            server, contentType, mitigation, ray
-          }));
+        if (diagnostic && response.statusCode === 403) {
+          const { server, "cf-mitigated": mitigation, "cf-ray": ray } = response.headers;
+          let preview = "";
+          const report = () => {
+            const code = preview.match(/(?:error[- ]?code|error(?:\s|<[^>]+>)+)[\s:<>/a-z="'-]*(10\d{2})\b/i)?.[1];
+            const reason = /sorry, you have been blocked|cf-error|cloudflare ray id/i.test(preview)
+              ? "cloudflare-block-page" : /access denied|forbidden/i.test(preview) ? "access-denied" : undefined;
+            console.warn("[TATA VOD]", diagnostic, "HTTP 403", JSON.stringify({ server, mitigation, ray, code, reason }));
+            resolve(null);
+          };
+          response.setEncoding("utf8");
+          response.on("data", chunk => {
+            preview += chunk.slice(0, 16384 - preview.length);
+            if (preview.length >= 16384) response.destroy();
+          });
+          response.once("close", report);
+          response.on("error", () => {});
+          return;
         }
+        if (diagnostic) console.warn("[TATA VOD]", diagnostic, "HTTP", response.statusCode);
         response.destroy();
         resolve(null);
         return;
