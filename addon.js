@@ -192,8 +192,8 @@ app.get("/film/manifest.json", (req, res) => {
   res.json({
     id: "tata.film",
     version,
-    name: "TATA Film ve Dizi",
-    description: "TATA film ve dizi kaynakları",
+    name: "TATA",
+    description: "TATA",
     resources: ["stream"],
     types: ["movie", "series"],
     catalogs: []
@@ -226,7 +226,7 @@ app.get("/stream/tv/:id.json", (req, res) => {
       return res.json({ streams: [] });
     }
 
-    const streams = alternatives.map(alt => ({ name: alt.title.replace(/^▶\s*/, ""), url: alt.url }));
+    const streams = alternatives.map(alt => ({ name: "TATA", url: alt.url }));
 
     return res.json({ streams });
 
