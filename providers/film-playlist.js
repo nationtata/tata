@@ -1,4 +1,5 @@
 const { readEncryptedPlaylist, titleKey } = require("./playlist");
+const { playbackTracks } = require("../vendor/anthology/shared/playback-tracks");
 
 const sources = {
   fullhdfi: "fullhdfi.m3u.gz.enc",
@@ -87,6 +88,43 @@ async function resolveFilm(row) {
   return result && { ...result, isHls: true, headers };
 }
 
+const manifestHosts = new Set(["ha.vixolity.com", "load.prectv63.lol", "imgsapi.pro"]);
+
+async function inspectManifest(stream, originalLanguage) {
+  if (!stream?.isHls) return stream;
+  const url = new URL(stream.url);
+  if (url.protocol !== "https:" || url.username || url.password || url.port || !manifestHosts.has(url.hostname)) return stream;
+  try {
+    const response = await fetch(url, { headers: stream.headers, redirect: "error", signal: AbortSignal.timeout(1800) });
+    if (!response.ok || !response.body) return stream;
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let manifest = "";
+    let bytes = 0;
+    try {
+      while (bytes < 65536) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        manifest += decoder.decode(value.subarray(0, 65536 - bytes), { stream: true });
+        bytes += value.byteLength;
+        if (!"#EXTM3U".startsWith(manifest.trimStart()) && !manifest.trimStart().startsWith("#EXTM3U")) return stream;
+      }
+    } finally {
+      reader.cancel().catch(() => {});
+    }
+    if (!manifest.trimStart().startsWith("#EXTM3U")) return stream;
+    const tracks = playbackTracks(manifest);
+    tracks.audioTracks = tracks.audioTracks.map(track => ({
+      ...track,
+      original: track.original || Boolean(originalLanguage && track.lang.split("-")[0] === originalLanguage),
+      dubbed: track.dubbed || Boolean(originalLanguage && originalLanguage !== "tr" && track.lang === "tr")
+    }));
+    return { ...stream, ...tracks };
+  } catch {
+    return stream;
+  }
+}
+
 async function getFilmPlaylistStreams(source, details, requestId) {
   const key = directSources.has(source)
     ? process.env.TATA_EXTRA_FILM_M3U_KEY : process.env.TATA_FILM_M3U_KEY;
@@ -112,7 +150,7 @@ async function getFilmPlaylistStreams(source, details, requestId) {
     if (new Set(matches.map(row => row.title)).size > 1) return [];
   }
   const distinct = [...new Map(matches.map(row => [row.url, row])).values()].slice(0, 5);
-  const resolved = await Promise.allSettled(distinct.map(resolveFilm));
+  const resolved = await Promise.allSettled(distinct.map(async row => inspectManifest(await resolveFilm(row), details.original_language)));
   return resolved.flatMap(result => result.status === "fulfilled" && result.value ? [result.value] : []);
 }
 
