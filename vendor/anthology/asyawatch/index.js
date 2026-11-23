@@ -1,4 +1,5 @@
 // AsyaWatch site schema documented by nikyokki's GPL-3.0 CloudStream provider.
+const { unpackDeanEdwards } = require("../shared/unpacker");
 const SITE = "https://asyawatch.com";
 const HEADERS = {
   "User-Agent": "Mozilla/5.0",
@@ -86,6 +87,65 @@ function mediaUrl(value) {
   }
 }
 
+function flightText(html) {
+  return [...(html ?? "").matchAll(/self\.__next_f\.push\(\[1,("(?:[^"\\]|\\.)*")\]\)/g)]
+    .map(([, value]) => {
+      try { return JSON.parse(value); } catch { return ""; }
+    }).join("");
+}
+
+function flightSources(html) {
+  const text = flightText(html);
+  return [...text.matchAll(/"src":"(https:\/\/(?:four\.)?pichive\.online\/iframe\.php\?v=[a-z0-9_-]+)"/gi)]
+    .map(([, url]) => ({ source_content: url, quality_name: "Türkçe altyazılı kaynak" }));
+}
+
+async function modernEpisode(titles, season, episode) {
+  if (!Number.isInteger(season) || !Number.isInteger(episode) || season < 1 || episode < 1) return [];
+  const titleKeys = new Set(titles.map(title => titleKey(title.replace(/^the\s+/i, ""))));
+  const slugs = new Set();
+  for (const title of titles) {
+    const slug = title.toLowerCase().normalize("NFKD").replace(/\p{M}/gu, "")
+      .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    if (!slug) continue;
+    slugs.add(slug);
+    if (!slug.startsWith("the-")) slugs.add("the-" + slug);
+  }
+
+  const suffix = "/sezon-" + season + "/bolum-" + episode;
+  const pages = await Promise.all([...slugs].slice(0, 6).map(slug =>
+    read(onSite("/dizi/" + slug + suffix), "text")
+  ));
+  const matches = pages.flatMap(html => {
+    const page = html?.match(/<title>\s*(.+?)\s+(\d+)\.\s*Sezon\s+(\d+)\.\s*Bölüm\b/i);
+    if (!page || Number(page[2]) !== season || Number(page[3]) !== episode ||
+        !titleKeys.has(titleKey(page[1].replace(/^the\s+/i, "")))) return [];
+    return flightSources(html);
+  });
+  const distinct = [...new Map(matches.map(source => [source.source_content, source])).values()];
+  return (await Promise.all(distinct.slice(0, 4).map(resolveSource))).filter(Boolean);
+}
+
+async function readPichive(embed, title) {
+  const html = await read(embed, "text");
+  if (!html) return null;
+  const script = (unpackDeanEdwards(html) ?? html).replace(/\\\//g, "/").replace(/&amp;/g, "&");
+  const url = mediaUrl(script.match(/https:\/\/[^"' <>\r\n\\]+\.(?:m3u8|mp4)(?:\?[^"' <>\r\n\\]+)?/i)?.[0]);
+  if (!url) return null;
+  const subtitles = [];
+  for (const tag of html.match(/<track\b[^>]*>/gi) ?? []) {
+    if (!/\bsrclang=["'](?:tr|tur)["']/i.test(tag)) continue;
+    const track = tag.match(/\bsrc=["']([^"']+)["']/i)?.[1];
+    if (track) {
+      const sub = new URL(track.replace(/&amp;/g, "&"), embed);
+      if (sub.protocol === "https:" && /\.vtt$/i.test(sub.pathname)) {
+        subtitles.push({ id: "tr-" + subtitles.length, lang: "tur", url: sub.href });
+      }
+    }
+  }
+  return { url, title, headers: { Referer: embed.origin + "/" }, ...(subtitles.length && { subtitles }) };
+}
+
 async function resolveSource(source) {
   const value = source.source_content ?? source.sourceContent ?? "";
   if (typeof value !== "string") return null;
@@ -97,6 +157,9 @@ async function resolveSource(source) {
   let embed;
   try { embed = new URL(raw, SITE); } catch { return null; }
   if (embed.protocol !== "https:" || embed.username || embed.password || embed.port) return null;
+  if (/^(?:four\.)?pichive\.online$/.test(embed.hostname) && embed.pathname === "/iframe.php") {
+    return readPichive(embed, title);
+  }
   if (embed.hostname === "ok.ru" && /^\/videoembed\/\d+$/.test(embed.pathname)) {
     const html = await read(embed, "text");
     try {
@@ -132,6 +195,7 @@ async function getStreams(id, mediaType, season, episode) {
     ...translations.filter(t => t.iso_639_1 === "tr" || t.iso_639_1 === "en")
       .map(t => t.data?.title ?? t.data?.name)
   ].filter(Boolean))].slice(0, 5);
+  const modern = movie ? Promise.resolve([]) : modernEpisode(titles, season, episode);
   const keys = new Set(titles.map(titleKey));
   const results = (await Promise.all(titles.map(findTitle))).flat();
   const paths = [...new Set(results.filter(item => keys.has(titleKey(item.title)))
@@ -149,10 +213,11 @@ async function getStreams(id, mediaType, season, episode) {
       [item.originalTitle, item.original_title, item.cultureTitle, item.culture_title]
         .some(title => keys.has(titleKey(title)));
   });
-  if (!match) return [];
+  if (!match) return modern;
 
   const episodeData = movie ? match : pageData(await read(onSite(episodePath(match, season, episode)), "text"));
-  return (await Promise.all(sources(episodeData, movie).slice(0, 8).map(resolveSource))).filter(Boolean);
+  const legacy = await Promise.all(sources(episodeData, movie).slice(0, 8).map(resolveSource));
+  return [...await modern, ...legacy.filter(Boolean)];
 }
 
 module.exports = { getStreams };
