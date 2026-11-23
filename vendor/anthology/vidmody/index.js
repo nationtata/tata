@@ -31,31 +31,32 @@ var VIXOLITY_HEADERS = {
 };
 var STREAM_HEADERS = VIXOLITY_HEADERS;
 
-function parseVixolitySubtitles(playlistText) {
-    var subs = [];
-    var subRe = /#EXT-X-MEDIA:TYPE=SUBTITLES.*?NAME="([^"]+)".*?LANGUAGE="([^"]+)".*?URI="([^"]+)"/gi;
-    var sm;
-    var seen = new Set();
-    while ((sm = subRe.exec(playlistText)) !== null) {
-        var name = sm[1];
-        var lang = sm[2].toLowerCase();
-        var uri = sm[3];
-        if (seen.has(uri)) continue;
-        seen.add(uri);
-        subs.push({
-            id: lang,
-            lang: lang === 'tr' ? 'tur' : lang === 'en' ? 'eng' : lang,
-            language: lang,
-            label: name,
-            name: name,
-            title: name,
-            url: uri,
-            format: 'vtt',
-            type: 'text/vtt',
-            headers: VIXOLITY_HEADERS
-        });
+function parseVixolityTracks(playlist, playlistUrl, originalLanguage) {
+    const subtitles = [];
+    const audioTracks = [];
+    for (const [, attributes] of playlist.matchAll(/^#EXT-X-MEDIA:([^\r\n]+)/gm)) {
+        const fields = Object.fromEntries([...attributes.matchAll(/([A-Z0-9-]+)=(?:"([^"]*)"|([^,]*))/g)]
+            .map(([, key, quoted, bare]) => [key, quoted ?? bare]));
+        const lang = (fields.LANGUAGE || '').toLowerCase();
+        const name = fields.NAME || lang;
+        if (fields.TYPE === 'AUDIO') {
+            const turkish = /^(?:tr(?:-tr)?|tur)$/.test(lang) || /^(?:türkçe|turkish)(?:\s|$)/iu.test(name);
+            const original = Boolean(originalLanguage) && lang.split('-')[0] === originalLanguage;
+            const dubbed = turkish && Boolean(originalLanguage) && originalLanguage !== 'tr';
+            audioTracks.push({ lang: turkish ? 'tr' : lang, label: name, original, dubbed });
+        }
+        if (fields.TYPE === 'SUBTITLES' && fields.URI) {
+            let url;
+            try { url = new URL(fields.URI, playlistUrl); } catch { continue; }
+            if (url.protocol !== 'https:' || url.username || url.password || subtitles.some(track => track.url === url.href)) continue;
+            subtitles.push({
+                id: lang, lang: lang === 'tr' ? 'tur' : lang === 'en' ? 'eng' : lang,
+                language: lang, label: name, name, title: name, url: url.href,
+                format: 'vtt', type: 'text/vtt', headers: VIXOLITY_HEADERS
+            });
+        }
     }
-    return subs;
+    return { subtitles, audioTracks };
 }
 
 async function getStreams(tmdbId, mediaType, season, episode) {
@@ -82,6 +83,7 @@ async function getStreams(tmdbId, mediaType, season, episode) {
         var imdbId = null;
         var displayTitle = 'İçerik';
         var releaseYear = '';
+        var originalLanguage = '';
 
         if (isImdb) {
             imdbId = cleanId;
@@ -91,6 +93,7 @@ async function getStreams(tmdbId, mediaType, season, episode) {
                 var fData = await fRes.json();
                 var match = isTV ? (fData.tv_results && fData.tv_results[0]) : (fData.movie_results && fData.movie_results[0]);
                 if (match) {
+                    originalLanguage = match.original_language || '';
                     displayTitle = match.title || match.name || displayTitle;
                     releaseYear = (match.release_date || match.first_air_date || '').slice(0, 4);
                 }
@@ -101,6 +104,7 @@ async function getStreams(tmdbId, mediaType, season, episode) {
             if (!tmdbRes.ok) return [];
             var d = await tmdbRes.json();
             imdbId = d.external_ids ? d.external_ids.imdb_id : (d.imdb_id || null);
+            originalLanguage = d.original_language || '';
             displayTitle = d.title || d.name || displayTitle;
             releaseYear = (d.release_date || d.first_air_date || '').slice(0, 4);
         }
@@ -108,8 +112,6 @@ async function getStreams(tmdbId, mediaType, season, episode) {
         if (!imdbId || !imdbId.startsWith('tt')) return [];
 
         var targetUrl = '';
-        var tag = isTV ? ('S' + sNum + 'E' + eNum + ' • [TR Dublaj & Altyazılı]') : '[TR Dublaj & Altyazılı]';
-        var streamTitle = '⌜ Vidmody ⌟ | Vixolity • ' + tag + ' (1080p HLS)';
 
         if (!isTV) {
             targetUrl = 'https://ha.vixolity.com/vs/' + imdbId;
@@ -129,10 +131,11 @@ async function getStreams(tmdbId, mediaType, season, episode) {
             if (checkRes.ok) {
                 var text = await checkRes.text();
                 if (text.includes('#EXTM3U')) {
-                    var subs = parseVixolitySubtitles(text);
+                    var tracks = parseVixolityTracks(text, targetUrl, originalLanguage);
                     return [{
                         name: 'Vidmody',
-                        title: streamTitle,
+                        title: displayTitle,
+                        ...(tracks.audioTracks.some(track => track.original) && { audioLabel: 'Orijinal' }),
                         url: targetUrl,
                         quality: '1080p',
                         headers: VIXOLITY_HEADERS,
@@ -143,7 +146,7 @@ async function getStreams(tmdbId, mediaType, season, episode) {
                             proxyHeaders: { request: VIXOLITY_HEADERS }
                         },
                         provider: 'vidmody',
-                        subtitles: subs
+                        ...tracks
                     }];
                 }
             }
