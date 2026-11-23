@@ -49,8 +49,8 @@ function cleanStream(stream, provider) {
     : undefined;
   return {
     [providerKey]: provider,
-    name: provider === "Beckman" ? "Beckman" : "TATA",
-    ...(provider === "Beckman" && stream.quality && { description: stream.quality }),
+    name: ["Beckman", "Ace", "Clover", "Dragon"].includes(provider) ? provider : "TATA",
+    ...(["Beckman", "Ace", "Clover", "Dragon"].includes(provider) && stream.quality && { description: stream.quality }),
     url: stream.url,
     ...(subtitles && { subtitles }),
     behaviorHints: {
