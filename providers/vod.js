@@ -58,13 +58,26 @@ function streamLabels(stream, provider) {
 function cleanStream(stream, provider) {
   if (!stream || typeof stream.url !== "string" || !/^https?:\/\//i.test(stream.url)) return null;
   const headers = stream.behaviorHints?.proxyHeaders?.request ?? stream.behaviorHints?.headers ?? stream.headers;
-  const { notWebReady, bingeGroup, proxyHeaders } = stream.behaviorHints ?? {};
+  const { notWebReady, bingeGroup, proxyHeaders, filename } = stream.behaviorHints ?? {};
+  const format = String(stream.format ?? stream.type ?? "").toLowerCase();
+  const adaptiveFilename = stream.isHls === true || /^(?:hls|m3u8)$/.test(format) || /#\.m3u8$/i.test(stream.url)
+    ? "stream.m3u8"
+    : /^(?:dash|mpd)$/.test(format) ? "stream.mpd" : undefined;
+  const playbackFilename = filename || adaptiveFilename;
+  const subtitles = Array.isArray(stream.subtitles)
+    ? stream.subtitles.filter(subtitle => typeof subtitle?.url === "string" && /^https?:\/\//i.test(subtitle.url))
+      .map(subtitle => ({
+        ...subtitle,
+        lang: [subtitle.lang, subtitle.language, subtitle.label].find(value => typeof value === "string" && value.trim()) || "und"
+      }))
+    : undefined;
   return {
     ...streamLabels(stream, provider),
     url: stream.url,
-    ...(Array.isArray(stream.subtitles) && { subtitles: stream.subtitles }),
+    ...(subtitles && { subtitles }),
     behaviorHints: {
       notWebReady: notWebReady ?? true,
+      ...(playbackFilename && { filename: playbackFilename }),
       ...(bingeGroup && { bingeGroup }),
       ...((headers || proxyHeaders?.response) && {
         proxyHeaders: { ...(headers && { request: headers }), ...(proxyHeaders?.response && { response: proxyHeaders.response }) }
