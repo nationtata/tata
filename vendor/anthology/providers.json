@@ -363,5 +363,13 @@
     "movie": true,
     "series": false,
     "anime": false
+  },
+  {
+    "id": "openanime",
+    "name": "OpenAnime",
+    "movie": false,
+    "series": true,
+    "anime": true,
+    "metadataArgs": true
   }
 ]
