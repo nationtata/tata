@@ -1,3 +1,4 @@
+const { jsonAfter, pichiveSign } = require("../shared/pichive");
 // AsyaWatch site schema documented by nikyokki's GPL-3.0 CloudStream provider.
 const { unpackDeanEdwards } = require("../shared/unpacker");
 const SITE = "https://asyawatch.com";
@@ -130,6 +131,26 @@ async function readPichive(embed, title) {
   const html = await read(embed, "text");
   if (!html) return null;
   const script = (unpackDeanEdwards(html) ?? html).replace(/\\\//g, "/").replace(/&amp;/g, "&");
+  const config = jsonAfter(html, "NP_CONFIG") ?? jsonAfter(script, "NP_CONFIG");
+  const playerUrl = (value, path) => {
+    try {
+      const url = new URL(value, embed);
+      return url.origin === embed.origin && url.pathname === path && url.searchParams.has("v")
+        ? pichiveSign(html, url.href) : null;
+    } catch { return null; }
+  };
+  const stream = (Array.isArray(config?.sources) ? config.sources : [])
+    .map(source => playerUrl(source?.master, "/nm.php") ?? mediaUrl(source?.master))
+    .find(Boolean);
+  if (stream) {
+    const headers = { Referer: embed.href, "User-Agent": HEADERS["User-Agent"] };
+    const subtitles = (Array.isArray(config.subtitles) ? config.subtitles : []).filter(track =>
+      /^(?:tr|tur|tr-tr|türkçe|turkce|turkish)\b/i.test(String(track?.lang || track?.label || "")) ||
+      /türkçe/i.test(String(track?.label || "")))
+      .map((track, index) => ({ id: "tr-" + index, lang: "tur", url: playerUrl(track.url, "/nsub.php"), headers }))
+      .filter(track => track.url);
+    return { url: stream, title, isHls: true, headers, subtitles };
+  }
   const url = mediaUrl(script.match(/https:\/\/[^"' <>\r\n\\]+\.(?:m3u8|mp4)(?:\?[^"' <>\r\n\\]+)?/i)?.[0]);
   if (!url) return null;
   const subtitles = [];
