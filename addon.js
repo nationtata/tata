@@ -226,16 +226,7 @@ app.get("/stream/tv/:id.json", (req, res) => {
       return res.json({ streams: [] });
     }
 
-    const streams = alternatives.map((alt, index) => ({
-
-      url: alt.url,
-
-      title:
-        index === 0
-          ? `${channel.name} • ▶ Ana`
-          : `${channel.name} • ▶ ${alt.title.replace("▶ ", "")}`
-
-    }));
+    const streams = alternatives.map(alt => ({ url: alt.url }));
 
     return res.json({ streams });
 

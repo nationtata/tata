@@ -176,6 +176,7 @@ function fetchAndParseM3U8(playlistUrl, mediaInfo) {
                     name: `Vidlink - ${quality}`,
                     title: mediaInfo.title,
                     url: stream.url,
+                    videoHeights: [Number(String(stream.resolution ?? '').split('x')[1])],
                     quality: quality,
                     size: 'ALTYAZILI',    //'Unknown',
                     headers: STREAM_HEADERS,

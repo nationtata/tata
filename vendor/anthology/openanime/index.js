@@ -28,15 +28,16 @@ async function getStreams({ details, season, episode }) {
     /^https:\/\/[a-z0-9-]+\.(?:yeshi|zyapbot)\.eu\.org(?:\/animes)?\/?$/i.test(value));
   if (!cdn) return [];
   const origin = new URL(cdn).origin;
-  const files = new Set();
+  const files = new Map();
   for (const table of tables) {
     for (const entry of table) {
       if (!Number.isInteger(entry?.file) || !Number.isInteger(entry?.resolution)) continue;
       const file = table[entry.file];
-      if (typeof file === "string" && /^[a-z0-9_-]+\.mp4$/i.test(file)) files.add(file);
+      if (typeof file === "string" && /^[a-z0-9_-]+\.mp4$/i.test(file)) files.set(file, Number(table[entry.resolution]));
     }
   }
-  return [...files].slice(0, 6).map(file => ({
+  return [...files].slice(0, 6).map(([file, height]) => ({
+    videoHeights: [height],
     url: origin + "/animes/" + slug + "/" + season + "/" + file,
     headers: { Referer: site + "/", Origin: site }
   }));

@@ -29,33 +29,26 @@ async function findTmdb(type, id, language = "tr-TR", timeout = 3500) {
   return isImdb ? data[apiType + "_results"]?.[0] : data;
 }
 
-function streamLabels(stream, provider) {
-  const audio = [stream.audio, stream.audioLabel, stream.language, stream.name, stream.title, stream.description]
-    .filter(value => typeof value === "string").join(" ").toLocaleLowerCase("tr");
-  const languages = [];
-  const audioTracks = Array.isArray(stream.audioTracks) ? stream.audioTracks : [];
-  if (audioTracks.some(track => track?.original === true ||
-      /\b(?:orijinal|original)\b/i.test(String(track?.label ?? track?.name ?? ""))) ||
-      /\b(?:orijinal|original)\b/u.test(audio)) {
-    languages.push("Orijinal");
-  }
-  if (stream.embeddedSubtitles === true) languages.push("Altyazılı");
-  const hasTurkishDub = audioTracks.length
-    ? audioTracks.some(track => {
-      const language = String(track?.language ?? track?.lang ?? "").toLocaleLowerCase("tr");
-      const label = String(track?.label ?? track?.name ?? "").toLocaleLowerCase("tr");
-      const isTurkish = /^(?:tr(?:-tr)?|tur|türkçe|turkish)$/.test(language) ||
-        /(?:türkçe|turkish)\s+(?:dublaj|dub)/.test(label);
-      return isTurkish && (track?.dubbed === true || /(?:dublaj|dubbed|\bdub\b)/.test(label));
-    })
-    : [stream.audio, stream.audioLabel].some(value => typeof value === "string" &&
-      /^(?:türkçe|turkish)\s+(?:dublaj(?:lı)?|dub(?:bed)?)$/u.test(value.trim().toLocaleLowerCase("tr")));
-  if (hasTurkishDub) languages.push("Dublaj");
+const providerKey = Symbol("provider");
+const resolutionLabels = new Map([[2160, "4K"], [1080, "1080p"], [720, "720p"], [480, "480p"]]);
 
-  return {
-    name: provider,
-    title: languages.join(" · ")
-  };
+function streamDescription(stream, provider) {
+  const tracks = Array.isArray(stream.audioTracks) ? stream.audioTracks.filter(Boolean) : [];
+  const tags = [];
+  if (tracks.some(track => track.original === true)) tags.push("Orijinal");
+  const isTurkish = track => /^(?:tr(?:-tr)?|tur|türkçe|turkish)$/i.test(String(track.lang ?? track.language ?? ""));
+  if (tracks.some(track => isTurkish(track) && track.dubbed === true) ||
+      (!tracks.length && provider === "TATA M3U" && [stream.audio, stream.audioLabel].some(label =>
+        typeof label === "string" && /^türkçe\s+dublaj$/iu.test(label.trim())))) {
+    tags.push("Dublaj");
+  } else if (tracks.some(isTurkish)) {
+    tags.push("Türkçe Ses");
+  }
+  if (stream.embeddedSubtitles === true) tags.push("Altyazılı");
+
+  const heights = new Set(Array.isArray(stream.videoHeights) ? stream.videoHeights : []);
+  const resolutions = [...resolutionLabels].filter(([height]) => heights.has(height)).map(([, label]) => label);
+  return [tags.join(" · "), resolutions.join(" · ")].filter(Boolean).join("\n");
 }
 
 function cleanStream(stream, provider) {
@@ -74,8 +67,10 @@ function cleanStream(stream, provider) {
         lang: [subtitle.lang, subtitle.language, subtitle.label].find(value => typeof value === "string" && value.trim()) || "und"
       }))
     : undefined;
+  const description = streamDescription(stream, provider);
   return {
-    ...streamLabels(stream, provider),
+    [providerKey]: provider,
+    ...(description && { description }),
     url: stream.url,
     ...(subtitles && { subtitles }),
     behaviorHints: {
@@ -147,7 +142,7 @@ async function search(type, request) {
   const streams = (await Promise.all(jobs)).flat();
   const seen = new Set();
   return streams.filter(stream => {
-    const key = JSON.stringify([stream.name, stream.url, stream.behaviorHints?.proxyHeaders?.request ?? {}]);
+    const key = JSON.stringify([stream[providerKey], stream.url, stream.behaviorHints?.proxyHeaders?.request ?? {}]);
     if (seen.has(key)) return false;
     seen.add(key);
     return true;

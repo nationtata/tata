@@ -1,3 +1,4 @@
+const { manifestVideoHeights } = require("../shared/playback-tracks");
 const { sortStreamsByQuality } = require("../shared/quality.js");
 const { loadConfig, val, wrapAll } = require("../shared/config.js");
 
@@ -56,7 +57,7 @@ function parseVixolityTracks(playlist, playlistUrl, originalLanguage) {
             });
         }
     }
-    return { subtitles, audioTracks, embeddedSubtitles: subtitles.length > 0 };
+    return { subtitles, audioTracks, embeddedSubtitles: subtitles.length > 0, videoHeights: manifestVideoHeights(playlist) };
 }
 
 async function getStreams(tmdbId, mediaType, season, episode) {
