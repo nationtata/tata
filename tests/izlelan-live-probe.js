@@ -1,8 +1,10 @@
 "use strict";
 const { getLocalIzlelanJobs } = require("../providers/izlelan-adapter");
 (async () => {
-  const jobs = getLocalIzlelanJobs();
-  if (jobs.length !== 3) throw new Error("Expected all three providers");
+  const all = getLocalIzlelanJobs();
+  if (all.length !== 27) throw new Error("Expected all 27 providers");
+  const jobs = all.filter(job => ["Ace", "Clover", "Dragon"].includes(job.name));
+  if (jobs.length !== 3) throw new Error("Missing baseline providers");
   const results = await Promise.all(jobs.map(async ({name,getStreams}) => {
     try {
       const streams = await Promise.race([

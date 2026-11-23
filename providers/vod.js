@@ -2,7 +2,8 @@ const { getFilmPlaylistStreams } = require("./film-playlist");
 const { getPlaylistStreams } = require("./playlist");
 const { getMovieStreams } = require("./izlefilm");
 const registry = require("../vendor/anthology/providers.json");
-const { getLocalIzlelanJobs } = require("./izlelan-adapter");
+const { getLocalIzlelanJobs, IZLELAN_NAMES } = require("./izlelan-adapter");
+const izProviderNames = new Set(IZLELAN_NAMES);
 
 const PROVIDER_TIMEOUT = 9000;
 const MAX_ACTIVE_SEARCHES = 8;
@@ -49,8 +50,8 @@ function cleanStream(stream, provider) {
     : undefined;
   return {
     [providerKey]: provider,
-    name: ["Beckman", "Ace", "Clover", "Dragon"].includes(provider) ? provider : "TATA",
-    ...(["Beckman", "Ace", "Clover", "Dragon"].includes(provider) && stream.quality && { description: stream.quality }),
+    name: izProviderNames.has(provider) ? provider : "TATA",
+    ...(izProviderNames.has(provider) && stream.quality && { description: stream.quality }),
     url: stream.url,
     ...(subtitles && { subtitles }),
     behaviorHints: {
