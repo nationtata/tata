@@ -132,6 +132,14 @@ async function search(type, request) {
   }
   if (type === "movie") {
     jobs.unshift(runProvider("İzlefilm", () => getMovieStreams(details), type));
+    if (process.env.TATA_EXTRA_FILM_M3U_KEY) {
+      jobs.unshift(
+        runProvider("TATA M3U · Filmler", () => getFilmPlaylistStreams("fullmovies", details, request.id), type),
+        runProvider("TATA M3U · RecTV", () => getFilmPlaylistStreams("rectv", details, request.id), type),
+        runProvider("TATA M3U · PixelDrain", () => getFilmPlaylistStreams("pixeldrain", details, request.id), type),
+        runProvider("TATA M3U · ImgsAPI", () => getFilmPlaylistStreams("imgsapi", details, request.id), type)
+      );
+    }
     if (process.env.TATA_FILM_M3U_KEY) {
       jobs.unshift(
         runProvider("TATA M3U · FullHD", () => getFilmPlaylistStreams("fullhdfi", details, request.id), type),

@@ -2,9 +2,14 @@ const { readEncryptedPlaylist, titleKey } = require("./playlist");
 
 const sources = {
   fullhdfi: "fullhdfi.m3u.gz.enc",
-  vixolity: "vixolity.m3u.gz.enc"
+  vixolity: "vixolity.m3u.gz.enc",
+  fullmovies: "fullmovies.m3u.gz.enc",
+  rectv: "rectv.m3u.gz.enc",
+  pixeldrain: "pixeldrain.m3u.gz.enc",
+  imgsapi: "imgsapi.m3u.gz.enc"
 };
 const indexes = new Map();
+const directSources = new Set(["fullmovies", "rectv", "pixeldrain", "imgsapi"]);
 
 function add(index, key, row) {
   if (!key) return;
@@ -14,15 +19,22 @@ function add(index, key, row) {
 }
 
 function indexFilms(text, source) {
+  const direct = directSources.has(source);
   const imdb = new Map();
   const titles = new Map();
   let pending;
   for (const raw of text.split(/\r?\n/)) {
     const line = raw.trim();
     if (line.startsWith("#EXTINF:")) {
-      const name = line.replace(/^#EXTINF:(?:"[^"]*"|[^,])*,/, "").trim();
+      let name = line.replace(/^#EXTINF:(?:"[^"]*"|[^,])*,/, "").trim();
+      if (direct) name = name.replace(/\s*\[(?:Türkçe\s+)?(?:Dublaj(?:\s*&\s*Altyazı)?|Altyazı(?:lı)?|Orijinal)\]/giu, "")
+        .replace(/\s+-\s+(?:Dublaj|Altyazı(?:lı)?|Orijinal)$/iu, "")
+        .replace(/\s+\((?:PixelDrain|(?:Türkçe\s+)?(?:Dublaj|Altyazı(?:lı)?|Orijinal)\s+-\s+(?:\d{3,4}p|4K))\)$/iu, "")
+        .trim();
       const year = name.match(/\s*\(((?:19|20)\d{2})\)/);
-      pending = { title: titleKey(year ? name.slice(0, year.index) : name), year: year?.[1], headers: {} };
+      const baseTitle = year ? name.slice(0, year.index) : name;
+      const aliases = direct ? baseTitle.split(/\s+-\s+/).map(titleKey).filter(Boolean) : [];
+      pending = { title: titleKey(baseTitle), aliases, year: year?.[1], headers: {} };
       continue;
     }
     if (!pending) continue;
@@ -38,7 +50,13 @@ function indexFilms(text, source) {
     try { url = new URL(line); } catch { continue; }
     if (url.protocol !== "https:" || url.username || url.password || url.port) continue;
     const row = { ...record, url: url.href, host: url.hostname };
-    if (source === "vixolity") {
+    if (direct) {
+      const pixel = source === "pixeldrain" && url.hostname === "pixeldrain.com" && /^\/api\/file\/[\w-]+\/?$/.test(url.pathname);
+      const imageHls = source === "imgsapi" && url.hostname === "imgsapi.pro" && /^\/[\w.-]+\/?$/.test(url.pathname);
+      if (!pixel && !imageHls && !/\.(?:m3u8|mp4)$/i.test(url.pathname)) continue;
+      row.direct = true;
+      row.isHls = imageHls || /\.m3u8$/i.test(url.pathname);
+    } else if (source === "vixolity") {
       const id = url.hostname === "ha.vixolity.com" && url.pathname.match(/^\/(?:vs|mm)\/+(tt\d+)\/{0,2}$/i)?.[1];
       if (!id) continue;
       row.imdbId = id.toLowerCase();
@@ -46,12 +64,13 @@ function indexFilms(text, source) {
     } else if (!["rapidvid.org", "s.rapidvid.org", "vidmoxy.net"].includes(url.hostname)) {
       continue;
     }
-    add(titles, row.title, row);
+    for (const title of new Set([row.title, ...row.aliases])) add(titles, title, row);
   }
   return { imdb, titles };
 }
 
 async function resolveFilm(row) {
+  if (row.direct) return { url: row.url, isHls: row.isHls, headers: row.headers };
   if (row.host === "ha.vixolity.com") return {
     url: row.url,
     isHls: true,
@@ -69,7 +88,8 @@ async function resolveFilm(row) {
 }
 
 async function getFilmPlaylistStreams(source, details, requestId) {
-  const key = process.env.TATA_FILM_M3U_KEY;
+  const key = directSources.has(source)
+    ? process.env.TATA_EXTRA_FILM_M3U_KEY : process.env.TATA_FILM_M3U_KEY;
   if (!key) return [];
   if (!indexes.has(source)) {
     indexes.set(source, readEncryptedPlaylist(sources[source], key).then(text => indexFilms(text, source)).catch(error => {
@@ -81,11 +101,16 @@ async function getFilmPlaylistStreams(source, details, requestId) {
   const id = requestId.startsWith("tt") ? requestId : details.external_ids?.imdb_id ?? details.imdb_id;
   const year = details.release_date?.slice(0, 4);
   const names = [...new Set([details.title, details.original_title, details.englishTitle].map(titleKey).filter(Boolean))];
-  const matches = source === "vixolity" && id
+  let matches = source === "vixolity" && id
     ? imdb.get(id) ?? []
     : names.flatMap(name => titles.get(name) ?? []).filter(row =>
       source === "vixolity" ? Boolean(year && row.year === year) : !row.year || row.year === year);
   if (source === "vixolity" && new Set(matches.map(row => row.imdbId)).size > 1) return [];
+  if (directSources.has(source)) {
+    const exact = matches.filter(row => names.includes(row.title));
+    if (exact.length) matches = exact;
+    if (new Set(matches.map(row => row.title)).size > 1) return [];
+  }
   const distinct = [...new Map(matches.map(row => [row.url, row])).values()].slice(0, 5);
   const resolved = await Promise.allSettled(distinct.map(resolveFilm));
   return resolved.flatMap(result => result.status === "fulfilled" && result.value ? [result.value] : []);
