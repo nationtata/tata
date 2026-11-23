@@ -90,6 +90,22 @@
     "anime": true
   },
   {
+    "id": "anizume",
+    "name": "Anizume",
+    "movie": true,
+    "series": true,
+    "anime": true,
+    "metadataArgs": true
+  },
+  {
+    "id": "tranimeizle",
+    "name": "TRAnimeİzle",
+    "movie": false,
+    "series": true,
+    "anime": true,
+    "metadataArgs": true
+  },
+  {
     "id": "animom",
     "name": "AniMOM",
     "movie": true,

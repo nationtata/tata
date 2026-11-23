@@ -105,6 +105,7 @@ async function search(type, request) {
   const jobs = providers.map(provider => runProvider(provider.name, () => {
     const { getStreams } = require("../vendor/anthology/" + provider.id + "/index.js");
     const id = String(details.id);
+    if (provider.metadataArgs) return getStreams({ details, type, season: request.season, episode: request.episode });
     if (provider.objectArgs) return getStreams({ id, type, season: request.season, episode: request.episode });
     return getStreams(id, type === "series" ? "tv" : "movie", request.season, request.episode);
   }, type));
