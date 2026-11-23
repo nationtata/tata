@@ -1,0 +1,17 @@
+name: İzlelan integration checks
+on:
+  push:
+    branches: [feature/izlelan-ace-clover-dragon]
+  workflow_dispatch:
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts
+      - run: node --check providers/vod.js
+      - run: node --check providers/izlelan-adapter.js
+      - run: node tests/izlelan-adapter.test.js
