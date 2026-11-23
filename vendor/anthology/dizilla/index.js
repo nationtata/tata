@@ -1,6 +1,6 @@
 // Adapted from F0Rextasy/bigbullapp-cs (MIT); see ../BIGBULL-LICENSE.
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
-const fetch = require("../shared/bigbull-fetch")(["dizilla.la","dizilla.now","v3-cinemeta.strem.io","www.wikidata.org","api.themoviedb.org","v3.sg.media-imdb.com","api.tvmaze.com","ok.ru","vidmoly.net","vidmoly.biz","vidmoly.to","vidmoly.me","vidmoly.sx","vmnow.online","pilavyerplay.top"]);
+const fetch = require("../shared/bigbull-fetch")(["dizilla.la","dizilla.now","v3-cinemeta.strem.io","www.wikidata.org","api.themoviedb.org","v3.sg.media-imdb.com","api.tvmaze.com","ok.ru","vidmoly.net","vidmoly.biz","vidmoly.to","vidmoly.me","vidmoly.sx","vmnow.online","pilavyerplay.top","four.pichive.online","four.dplayer82.site"]);
 // @provider {"id":"dizilla", "name":"Dizilla", "types":["tv"], "domain":"dizilla.la", "formats":["m3u8"], "sample":"tt27497448:tv:1:1", "description":"Dizilla yabanci dizi arsivi (HLS + Turkce altyazi).", "version":"1.0.20"}
 /**
  * dizilla — Nuvio provider (bb-nuvio).
