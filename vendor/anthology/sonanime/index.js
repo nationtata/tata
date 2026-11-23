@@ -158,13 +158,17 @@ async function searchSonAnime(titles, targetTmdb, isMovie) {
   var seenSlugs = {};
   var candidateList = [];
 
-  for (var i = 0; i < titles.length; i++) {
-    var q = titles[i];
-    var searchRes = await fetchJson(API_BASE + '/api/anime/search?q=' + encodeURIComponent(q), 6000);
+  var queries = titles.slice(0, 8);
+  var results = await Promise.all(queries.map(function(q) {
+    return fetchJson(API_BASE + '/api/anime/search?q=' + encodeURIComponent(q), 3200);
+  }));
+  for (var i = 0; i < queries.length; i++) {
+    var q = queries[i];
+    var searchRes = results[i];
     if (searchRes && Array.isArray(searchRes) && searchRes.length > 0) {
       for (var k = 0; k < searchRes.length; k++) {
         var item = searchRes[k];
-        if (!item || !item.anime_link) continue;
+        if (!item || !item.anime_link || (item.anime_type === 'movie') !== isMovie) continue;
 
         // Birebir TMDB ID eşleşmesi bulunduysa derhal döndür
         if (targetTmdb && item.tmdb_id && parseInt(item.tmdb_id) === targetTmdb) {
@@ -194,27 +198,27 @@ async function searchSonAnime(titles, targetTmdb, isMovie) {
 
     var score = 0;
     if (name1 === cleanTarget || name2 === cleanTarget) score += 100;
-    else if (name1.indexOf(cleanTarget) !== -1 || cleanTarget.indexOf(name1) !== -1) score += 50;
+    else if (name1 && (name1.indexOf(cleanTarget) !== -1 || cleanTarget.indexOf(name1) !== -1)) score += 50;
     else if (name2 && (name2.indexOf(cleanTarget) !== -1 || cleanTarget.indexOf(name2) !== -1)) score += 40;
 
     var itemIsMovie = a.anime_type === 'movie';
     if (isMovie && itemIsMovie) score += 20;
     else if (!isMovie && !itemIsMovie) score += 20;
 
-    if (score > bestScore) {
+    if (score >= 60 && score > bestScore) {
       bestScore = score;
       bestItem = a;
     }
   }
 
-  return bestItem || candidateList[0].item;
+  return bestItem;
 }
 
 /**
  * Slug üzerinden bölüm akışlarını çeker
  */
 async function fetchStreamsBySlug(slug, sNum, eNum, isMovie) {
-  var detail = await fetchJson(API_BASE + '/api/anime/link/' + encodeURIComponent(slug), 8000);
+  var detail = await fetchJson(API_BASE + '/api/anime/link/' + encodeURIComponent(slug), 4200);
   if (!detail || !detail.episodes || !detail.episodes.length) return [];
 
   var ep = null;
@@ -226,7 +230,7 @@ async function fetchStreamsBySlug(slug, sNum, eNum, isMovie) {
       return parseInt(e.anime_season) === sNum && parseInt(e.episode_number) === eNum;
     });
     // 2. Bulunamazsa sadece bölüm numarası ile ara (uzun soluklu diziler tek sezonda tutulabiliyor)
-    if (!ep) {
+    if (!ep && sNum === 1) {
       ep = detail.episodes.find(function(e) {
         return parseInt(e.episode_number) === eNum;
       });
@@ -284,7 +288,7 @@ async function getStreams(id, mediaType, season, episode) {
       finalMediaType = id.type || id.mediaType || finalMediaType;
       finalSeason = id.season !== undefined ? id.season : finalSeason;
       finalEpisode = id.episode !== undefined ? id.episode : finalEpisode;
-      rawId = id.id;
+      rawId = id.id ?? id.details?.id;
     }
 
     if (!rawId) return [];
@@ -320,7 +324,11 @@ async function getStreams(id, mediaType, season, episode) {
     var eNum = parseInt(finalEpisode) || 1;
 
     // TMDB / IMDb ID çözümleme
-    var tmdbInfo = await resolveTmdbInfo(rawId, finalMediaType);
+    var details = typeof id === 'object' ? id?.details : null;
+    var tmdbInfo = details ? {
+      numericId: Number(details.id),
+      titles: [...new Set([details.name, details.original_name, details.title, details.original_title].filter(Boolean))]
+    } : await resolveTmdbInfo(rawId, finalMediaType);
     if (!tmdbInfo.titles || !tmdbInfo.titles.length) return [];
 
     var matchedAnime = await searchSonAnime(tmdbInfo.titles, tmdbInfo.numericId, !isTv);
