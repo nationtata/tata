@@ -9,4 +9,11 @@ for (const p of providers) {
   assert.ok(["Ace", "Clover", "Dragon"].includes(p.name));
   assert.equal(typeof p.getStreams, "function");
 }
-console.log("İzlelan adapter smoke test passed; installed modules:", providers.map(p => p.name).join(", ") || "none");
+const expected = ["Ace", "Clover", "Dragon"];
+const missing = expected.filter(name => !providers.some(p => p.name === name));
+if (process.env.REQUIRE_IZLELAN_PROVIDERS === "1") {
+  assert.deepEqual(missing, [], "Missing provider modules: " + missing.join(", "));
+}
+console.log("Adapter structural check passed.");
+console.log("Installed:", providers.map(p => p.name).join(", ") || "none");
+console.log("Missing:", missing.join(", ") || "none");
