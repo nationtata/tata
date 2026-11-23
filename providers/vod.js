@@ -27,12 +27,7 @@ async function findTmdb(type, id) {
 }
 
 function streamLabels(stream, provider) {
-  const labels = [stream.quality, stream.resolution, stream.name, stream.title, stream.description];
-  const quality = labels.map(value => String(value ?? "").match(
-    /\b(2160p?|1080p?|720p?|480p?|360p?|4k)\b/i
-  )?.[1]).find(Boolean)?.toLowerCase();
-
-  const audio = [stream.audio, stream.audioLabel, stream.language, ...labels.slice(2)]
+  const audio = [stream.audio, stream.audioLabel, stream.language, stream.name, stream.title, stream.description]
     .filter(value => typeof value === "string").join(" ").toLocaleLowerCase("tr");
   const languages = [];
   if (/\b(?:orijinal|original)\b/u.test(audio)) languages.push("Orijinal");
@@ -40,12 +35,12 @@ function streamLabels(stream, provider) {
       (Array.isArray(stream.subtitles) && stream.subtitles.some(subtitle => subtitle?.url))) {
     languages.push("Altyazılı");
   }
-  if (/\b(?:dublaj(?:lı)?|dubbed|dub)\b/u.test(audio)) languages.push("Dublaj");
+  if (/(?<!\p{L})(?:dublaj(?:lı)?|dubbed|dub)(?!\p{L})/u.test(audio)) languages.push("Dublaj");
 
   if (!languages.length && provider === "Vidlink") languages.push("Orijinal");
 
   return {
-    name: quality === "4k" ? "4K" : quality ? quality.replace(/p?$/, "p") : "",
+    name: provider,
     title: languages.join(" · ")
   };
 }
