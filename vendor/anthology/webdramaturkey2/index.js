@@ -1,0 +1,394 @@
+// Adapted from F0Rextasy/bigbullapp-cs, MIT. See ../BIGBULL-LICENSE.
+const TMDB_API_KEY = process.env.TMDB_API_KEY;
+const ALLOWED_HOSTS = ["webdramaturkey2.com","api.themoviedb.org","www.wikidata.org","v3.sg.media-imdb.com","api.tvmaze.com","v3-cinemeta.strem.io","playerdkorea.xyz","playerkorea.xyz","vidmoly.net","vidmoly.biz","vidmoly.to","vidmoly.me","vidmoly.sx","vmnow.online"];
+async function fetch(input, options = {}) {
+  const url = new URL(input);
+  if (url.protocol !== "https:" || url.username || url.password || url.port ||
+      !ALLOWED_HOSTS.some(host => url.hostname === host || url.hostname.endsWith("." + host))) {
+    throw new Error("Unsupported provider URL");
+  }
+  return globalThis.fetch(url, { ...options, redirect: "error", signal: AbortSignal.timeout(4500) });
+}
+// @provider {"id":"webdramaturkey2", "name":"WebdramaTurkey2", "types":["movie", "tv"], "domain":"webdramaturkey2.com", "formats":["m3u8"], "sample":"tt29569035:tv:1:1", "description":"WebdramaTurkey2 Kore/Cin/Japon dizileri, filmleri ve animeleri (Turkce altyazili).", "version":"1.0.13"}
+/**
+ * webdramaturkey2 — Nuvio provider (bb-nuvio).
+ * Flow: Cinemeta title -> /arama/<q> -> dizi|film page -> episode -> /ajax/embed -> video.php
+ *       -> #main-iframe (FirePlayer) -> getVideo -> HLS variants.
+ */
+
+var UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36";
+var BASE = "https://webdramaturkey2.com";
+var ID = "webdramaturkey2";
+
+function text(url, opts) {
+  var o = opts || {};
+  var headers = { "User-Agent": UA, "Accept-Language": "tr-TR,tr;q=0.9" };
+  if (o.referer) headers.Referer = o.referer;
+  if (o.method === "POST") headers["Content-Type"] = "application/x-www-form-urlencoded; charset=UTF-8";
+  if (o.headers) for (var k in o.headers) headers[k] = o.headers[k];
+  return fetch(url, { method: o.method || "GET", headers: headers, body: o.body })
+    .then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status + " " + url);
+      return r.text();
+    });
+}
+
+function first(pattern, body) {
+  var m = pattern.exec(String(body || ""));
+  return m ? m[1] : null;
+}
+
+function abs(base, href) {
+  if (!href) return null;
+  if (/^https?:/i.test(href)) return href;
+  var origin = /^(https?:\/\/[^/]+)/.exec(base);
+  if (href.charAt(0) === "/") return origin ? origin[1] + href : href;
+  return base.replace(/[^/]*$/, "") + href;
+}
+
+function norm(value) {
+  return String(value || "")
+    .replace(/ı/g, "i").replace(/ş/g, "s").replace(/ğ/g, "g")
+    .replace(/ü/g, "u").replace(/ö/g, "o").replace(/ç/g, "c")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "");
+}
+
+function titleOf(id, mediaType) {
+  if (/^__alt__:/.test(String(id))) return Promise.resolve(decodeURIComponent(String(id).slice(8)));
+  var kind = mediaType === "tv" ? "series" : "movie";
+  return text("https://v3-cinemeta.strem.io/meta/" + kind + "/" + id + ".json")
+    .then(function (body) {
+      var meta = JSON.parse(body).meta || {};
+      return String(meta.name || "").trim();
+    })
+    .catch(function () {
+      return "";
+    });
+}
+
+function rowsFromPlaylist(masterUrl, playlist, referer) {
+  var list = [], lines = /TYPE=AUDIO|AUDIO=/i.test(String(playlist || "")) ? [] : String(playlist || "").split(/\r?\n/);
+  for (var i = 0; i < lines.length; i++) {
+    if (lines[i].indexOf("#EXT-X-STREAM-INF") !== 0) continue;
+    var height = first(/RESOLUTION=\d+x(\d+)/, lines[i]);
+    var j = i + 1;
+    while (j < lines.length && (!lines[j].trim() || lines[j].charAt(0) === "#")) j++;
+    if (j >= lines.length) continue;
+    list.push({ url: abs(masterUrl, lines[j].trim()), quality: height ? height + "p" : "" });
+  }
+  if (!list.length) list = [{ url: masterUrl, quality: "" }];
+  return list.map(function (variant) {
+    return {
+      name: ID,
+      title: ID + " - " + (variant.quality || "auto") + " [HLS]",
+      url: hlsNoDownload(variant.url),
+      quality: variant.quality || "auto",
+      headers: { Referer: referer },
+      subtitles: []
+    };
+  });
+}
+
+/** video.php wrapper -> the real player iframe (#main-iframe). */
+function resolveTarget(wrapper, referer) {
+  return text(wrapper, { referer: referer }).then(function (body) {
+    return first(/id=["']main-iframe["'][^>]*\ssrc=["']([^"']+)["']/, body);
+  });
+}
+
+/** FirePlayer: POST /player/index.php?data=<id>&do=getVideo -> signed HLS link. */
+function firePlayer(target, referer) {
+  var m = /^(https?:\/\/[^/]+)\/(?:video|embed|e)\/([0-9a-zA-Z]{16,})/.exec(target);
+  if (!m) return Promise.resolve([]);
+  var origin = m[1], videoId = m[2];
+  return text(origin + "/player/index.php?data=" + videoId + "&do=getVideo", {
+    method: "POST",
+    referer: target,
+    headers: { "X-Requested-With": "XMLHttpRequest", Origin: origin },
+    body: "hash=" + encodeURIComponent(videoId) + "&r=" + encodeURIComponent(referer)
+  }).then(function (body) {
+    var panel = JSON.parse(body);
+    var stream = String(panel.securedLink || panel.videoSource || "").trim();
+    if (!/^https?:/.test(stream)) return [];
+    if (!panel.hls && stream.indexOf(".m3u8") === -1) {
+      return [{ name: ID, title: ID + " - auto [MP4]", url: stream, quality: "auto", headers: { Referer: origin + "/" }, subtitles: [] }];
+    }
+    return text(stream, { referer: target }).then(function (playlist) {
+      return rowsFromPlaylist(stream, playlist, target);
+    });
+  });
+}
+
+function attempt(source, referer) {
+  return text(BASE + "/ajax/embed", {
+    method: "POST",
+    referer: referer,
+    headers: { "X-Requested-With": "XMLHttpRequest" },
+    body: "id=" + encodeURIComponent(source.id)
+  }).then(function (body) {
+    var wrapper = first(/<iframe[^>]*\ssrc=["']([^"']+)["']/, body);
+    if (!wrapper) return [];
+    wrapper = abs(BASE, wrapper);
+    var target = wrapper.indexOf("/video.php") !== -1 ? resolveTarget(wrapper, referer) : Promise.resolve(wrapper);
+    return target.then(function (player) {
+      if (!player) return [];
+      if (/\.(?:mp4|m3u8)(?:[?#]|$)/i.test(player)) return rowsFromPlaylist(player, "", player);
+      return firePlayer(player, referer);
+    });
+  });
+}
+
+/** Sources are tried in order; Cloudflare rate-limits /ajax/embed, so stop at the first hit. */
+function trySources(sources, index, referer) {
+  if (index >= sources.length) return Promise.resolve([]);
+  return attempt(sources[index], referer)
+    .catch(function () {
+      return [];
+    })
+    .then(function (rows) {
+      return rows.length ? rows : trySources(sources, index + 1, referer);
+    });
+}
+
+/** Nuvio yalnız progressive indirir; HLS'yi işaretle ki sahte dosya inmesin (fragment HTTP'de gönderilmez). */
+function hlsNoDownload(url) {
+  var u = String(url || "");
+  if (/\.m3u8(\?|$)/i.test(u) || u.indexOf("#") !== -1) return u;
+  return u + "#.m3u8";
+}
+
+function getStreams(tmdbId, mediaType, season, episode) {
+  var wantSeason = parseInt(season, 10) || 1;
+  var wantEpisode = parseInt(episode, 10) || 1;
+  var wanted = "";
+  var entry = null;
+  var pageUrl = null;
+
+  return titleOf(tmdbId, mediaType)
+    .then(function (title) {
+      wanted = title;
+      if (!title) return null;
+      return text(BASE + "/arama/" + encodeURIComponent(title));
+    })
+    .then(function (search) {
+      if (!search) return null;
+      var re = /<a[^>]+href="([^"]+)"[^>]*class="list-title"[^>]*>([\s\S]{0,200}?)<\/a>/g, m;
+      var key = norm(wanted), best = null;
+      while ((m = re.exec(search)) !== null) {
+        var href = abs(BASE, m[1]);
+        var name = norm(m[2].replace(/<[^>]+>/g, " "));
+        if (!href || !name || !/\/(?:dizi|film|anime)\//.test(href)) continue;
+        var score = name === key ? 3 : name.indexOf(key + " ") === 0 ? 2 : 0;
+        if (score && (!best || score > best.score)) best = { url: href, score: score };
+      }
+      if (!best) return null;
+      entry = best.url;
+      pageUrl = entry;
+      return text(entry);
+    })
+    .then(function (page) {
+      if (!page) return null;
+      if (entry.indexOf("/film/") !== -1) return page;
+      var re = /href="([^"]*\/(\d+)-sezon\/(\d+)-bolum)"/g, m, target = null;
+      while ((m = re.exec(page)) !== null) {
+        if (parseInt(m[2], 10) === wantSeason && parseInt(m[3], 10) === wantEpisode) target = abs(BASE, m[1]);
+      }
+      var episodeUrl = target || entry.replace(/\/$/, "") + "/" + wantSeason + "-sezon/" + wantEpisode + "-bolum";
+      return text(episodeUrl, { referer: entry }).then(function (episodePage) {
+        pageUrl = episodeUrl;
+        return episodePage;
+      });
+    })
+    .then(function (page) {
+      if (!page) return [];
+      var sources = [], re = /data-embed="([^"]+)"/g, m;
+      while ((m = re.exec(page)) !== null) {
+        var id = m[1].trim();
+        if (id && sources.length < 6) {
+          var seen = false;
+          for (var i = 0; i < sources.length; i++) if (sources[i].id === id) seen = true;
+          if (!seen) sources.push({ id: id });
+        }
+      }
+      return trySources(sources, 0, pageUrl);
+    })
+    .catch(function (e) {
+      console.log("[bb-nuvio][" + ID + "] " + (e && e.message));
+      return [];
+    });
+}
+
+module.exports = { getStreams };
+
+/* NuvioMobile always calls getStreams with args.tmdbId (JsBindings.kt); the
+   value is a numeric TMDB id after TmdbService.ensureTmdbId. Resolve it to
+   IMDb so the existing Cinemeta/title flow keeps working. */
+var __origGetStreams = module.exports.getStreams;
+module.exports.getStreams = function (id, mediaType, season, episode) {
+  var raw = String(id || "");
+  var mt = mediaType === "series" ? "tv" : mediaType;
+  if (!/^\d+$/.test(raw)) {
+    try {
+      return Promise.resolve(__origGetStreams(raw, mt, season, episode)).catch(function () { return []; });
+    } catch (e) {
+      return Promise.resolve([]);
+    }
+  }
+  var tv = mt !== "movie";
+  var headers = { "User-Agent": "BigBullNuvio/1.0 (https://github.com/F0Rextasy/bigbullapp-cs)", "Accept": "application/json" };
+  var key = typeof TMDB_API_KEY !== "undefined" ? TMDB_API_KEY : "";
+  var api = "https://www.wikidata.org/w/api.php?format=json";
+  var prop = tv ? "P4983" : "P4947";
+  function fromTmdb() {
+    if (!key) return Promise.resolve("");
+    return fetch("https://api.themoviedb.org/3/" + (tv ? "tv" : "movie") + "/" + raw + "/external_ids?api_key=" + encodeURIComponent(key), { headers: headers })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (json) { return String((json && json.imdb_id) || ""); })
+      .catch(function () { return ""; });
+  }
+  function fromWikidata() {
+    return fetch(api + "&action=query&list=search&srlimit=1&srsearch=" + encodeURIComponent("haswbstatement:" + prop + "=" + raw), { headers: headers })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (json) {
+        var hits = (json && json.query && json.query.search) || [];
+        if (!hits.length) return "";
+        return fetch(api + "&action=wbgetentities&props=claims&ids=" + hits[0].title, { headers: headers });
+      })
+      .then(function (r) { return r && r.ok ? r.json() : null; })
+      .then(function (json) {
+        var entities = (json && json.entities) || {};
+        for (var entity in entities) {
+          var rows = ((entities[entity] || {}).claims || {}).P345 || [];
+          for (var i = 0; i < rows.length; i++) {
+            var value = rows[i] && rows[i].mainsnak && rows[i].mainsnak.datavalue && rows[i].mainsnak.datavalue.value;
+            if (/^tt\d+$/.test(String(value || ""))) return value;
+          }
+        }
+        return "";
+      })
+      .catch(function () { return ""; });
+  }
+  function fromTmdbTitle() {
+    if (!key) return Promise.resolve("");
+    return fetch("https://api.themoviedb.org/3/" + (tv ? "tv" : "movie") + "/" + raw + "?api_key=" + encodeURIComponent(key) + "&language=tr-TR", { headers: headers })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (json) {
+        var t = (json && (json.original_name || json.name || json.original_title || json.title)) || "";
+        return t ? "__alt__:" + encodeURIComponent(t) : "";
+      })
+      .catch(function () { return ""; });
+  }
+  return fromTmdb().then(function (imdb) { return imdb || fromWikidata(); }).then(function (imdb) { return imdb || fromTmdbTitle(); }).then(function (imdb) {
+    try {
+      return Promise.resolve(__origGetStreams(imdb || raw, mt, season, episode)).catch(function () { return []; });
+    } catch (e) {
+      return [];
+    }
+  }).catch(function () { return []; });
+};
+
+/* Cinemeta basligi yerellestirir ("Gibi" -> "As If"); sonuc bossa Wikidata TR/EN basliklariyla yeniden dene. */
+function __altTitles(raw, mediaType) {
+  var wdHeaders = { "User-Agent": "BigBullNuvio/1.0 (https://github.com/F0Rextasy/bigbullapp-cs)", "Accept": "application/json" };
+  var h = { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36", "Accept": "application/json" };
+  var api = "https://www.wikidata.org/w/api.php?format=json";
+  var stmt = /^tt\d+$/.test(raw) ? "P345=" + raw : (mediaType === "movie" ? "P4947=" : "P4983=") + raw;
+  var wd = fetch(api + "&action=query&list=search&srlimit=1&srsearch=" + encodeURIComponent("haswbstatement:" + stmt), { headers: wdHeaders })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (j) {
+      var hits = (j && j.query && j.query.search) || [];
+      if (!hits.length) return null;
+      return fetch(api + "&action=wbgetentities&props=labels|aliases&languages=tr|en&ids=" + hits[0].title, { headers: wdHeaders }).then(function (r) { return r.ok ? r.json() : null; });
+    })
+    .then(function (j) {
+      var res = [], ents = (j && j.entities) || {}, k, l, a, i;
+      for (k in ents) {
+        l = ents[k].labels || {}; a = ents[k].aliases || {};
+        if (l.tr && l.tr.value) res.push(l.tr.value);
+        if (l.en && l.en.value) res.push(l.en.value);
+        for (i = 0; i < (a.tr || []).length && i < 2; i++) res.push(a.tr[i].value);
+      }
+      return res;
+    }).catch(function () { return []; });
+  var imdb = /^tt\d+$/.test(raw)
+    ? fetch("https://v3.sg.media-imdb.com/suggestion/t/" + raw + ".json", { headers: h })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) { return (j && j.d && j.d[0] && j.d[0].l) ? [j.d[0].l] : []; })
+        .catch(function () { return []; })
+    : Promise.resolve([]);
+  var tvm = /^tt\d+$/.test(raw) && mediaType !== "movie"
+    ? fetch("https://api.tvmaze.com/lookup/shows?imdb=" + raw, { headers: h })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) { return (j && j.name) ? [j.name] : []; })
+        .catch(function () { return []; })
+    : Promise.resolve([]);
+  return Promise.all([wd, imdb, tvm]).then(function (lists) {
+    var out = [], seen = {};
+    for (var i = 0; i < lists.length; i++) {
+      for (var j = 0; j < lists[i].length; j++) {
+        var v = String(lists[i][j] || "").replace(/\s*\([^)]*\)\s*$/, "").trim();
+        if (v && !seen[v.toLowerCase()]) { seen[v.toLowerCase()] = 1; out.push(v); }
+      }
+    }
+    return out;
+  });
+}
+var __cinemetaGetStreams = module.exports.getStreams;
+module.exports.getStreams = function (id, mediaType, season, episode) {
+  var raw = String(id || "");
+  try {
+    if (/^__alt__:/.test(raw)) return Promise.resolve(__cinemetaGetStreams(raw, mediaType, season, episode)).catch(function () { return []; });
+    function tryPrimary() {
+      if (!/^tt\d+$/.test(raw)) return Promise.resolve(__cinemetaGetStreams(raw, mediaType, season, episode)).catch(function () { return []; });
+      var h = { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36", "Accept": "application/json" };
+      return fetch("https://v3.sg.media-imdb.com/suggestion/t/" + raw + ".json", { headers: h })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) {
+          var t = j && j.d && j.d[0] && j.d[0].l ? String(j.d[0].l).replace(/\s*\([^)]*\)\s*$/, "").trim() : "";
+          return t ? __cinemetaGetStreams("__alt__:" + encodeURIComponent(t), mediaType, season, episode) : [];
+        })
+        .catch(function () { return []; })
+        .then(function (streams) {
+          return (streams && streams.length) ? streams : __cinemetaGetStreams(raw, mediaType, season, episode);
+        });
+    }
+    return tryPrimary().then(function (streams) {
+      if (streams && streams.length) return streams;
+      return __altTitles(raw, mediaType).then(function (titles) {
+        var chain = Promise.resolve([]);
+        titles.forEach(function (t) {
+          chain = chain.then(function (out) {
+            return out.length ? out : __cinemetaGetStreams("__alt__:" + encodeURIComponent(t), mediaType, season, episode);
+          });
+        });
+        return chain;
+      });
+    }).catch(function () { return []; });
+  } catch (e) {
+    return Promise.resolve([]);
+  }
+};
+
+/* Dil etiketi (AGENTS.md): Nuvio karti "quality \u2022 ..." satirini gosterir; dil etiketi kalitenin yanina yazilir. */
+var __subOnly = true;
+var __langLabeled = module.exports.getStreams;
+module.exports.getStreams = function (id, mediaType, season, episode) {
+  try {
+    return Promise.resolve(__langLabeled.apply(this, arguments)).then(function (streams) {
+      return (streams || []).map(function (s) {
+        if (!s) return s;
+        var hay = String(s.title || "") + " " + String(s.name || "");
+        var tags = [];
+        if (/dublaj/i.test(hay)) tags.push("TR Dublaj");
+        if (/altyaz/i.test(hay) || (s.subtitles && s.subtitles.length) || (!tags.length && __subOnly)) tags.push("Altyaz\u0131l\u0131");
+        if (!tags.length) return s;
+        var q = String(s.quality || "").replace(/\s*\u2022.*$/, "") || "auto";
+        s.quality = q + " \u2022 " + tags.join(" \u2022 ");
+        return s;
+      });
+    }).catch(function () { return []; });
+  } catch (e) {
+    return Promise.resolve([]);
+  }
+};

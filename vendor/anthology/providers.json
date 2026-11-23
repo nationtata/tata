@@ -256,5 +256,19 @@
     "movie": true,
     "series": true,
     "anime": false
+  },
+  {
+    "id": "dizikorea3",
+    "name": "DiziKorea3",
+    "movie": false,
+    "series": true,
+    "anime": false
+  },
+  {
+    "id": "webdramaturkey2",
+    "name": "WebDramaTurkey2",
+    "movie": false,
+    "series": true,
+    "anime": false
   }
 ]
