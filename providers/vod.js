@@ -2,6 +2,7 @@ const { getFilmPlaylistStreams } = require("./film-playlist");
 const { getPlaylistStreams } = require("./playlist");
 const { getMovieStreams } = require("./izlefilm");
 const registry = require("../vendor/anthology/providers.json");
+const { getIzlelanStreams } = require("./izlelan");
 
 const PROVIDER_TIMEOUT = 9000;
 const MAX_ACTIVE_SEARCHES = 8;
@@ -126,6 +127,7 @@ async function search(type, request) {
       );
     }
   }
+  jobs.push(runProvider("İzlelan", () => getIzlelanStreams(type, request.id, request.season, request.episode), type));
   const streams = (await Promise.all(jobs)).flat();
   const seen = new Set();
   return streams.filter(stream => {
