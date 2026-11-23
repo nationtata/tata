@@ -30,12 +30,13 @@ function streamLabels(stream, provider) {
   const audio = [stream.audio, stream.audioLabel, stream.language, stream.name, stream.title, stream.description]
     .filter(value => typeof value === "string").join(" ").toLocaleLowerCase("tr");
   const languages = [];
-  if (/\b(?:orijinal|original)\b/u.test(audio)) languages.push("Orijinal");
-  if (/(?<!\p{L})(?:altyazı(?:lı)?|alt yazı(?:lı)?|subbed|subtitled|subtitles?)(?!\p{L})/u.test(audio) ||
-      (stream.embeddedSubtitles ?? (Array.isArray(stream.subtitles) && stream.subtitles.some(subtitle => subtitle?.url)))) {
-    languages.push("Altyazılı");
-  }
   const audioTracks = Array.isArray(stream.audioTracks) ? stream.audioTracks : [];
+  if (audioTracks.some(track => track?.original === true ||
+      /\b(?:orijinal|original)\b/i.test(String(track?.label ?? track?.name ?? ""))) ||
+      /\b(?:orijinal|original)\b/u.test(audio)) {
+    languages.push("Orijinal");
+  }
+  if (stream.embeddedSubtitles === true) languages.push("Altyazılı");
   const hasTurkishDub = audioTracks.length
     ? audioTracks.some(track => {
       const language = String(track?.language ?? track?.lang ?? "").toLocaleLowerCase("tr");
@@ -48,8 +49,6 @@ function streamLabels(stream, provider) {
       /^(?:türkçe|turkish)\s+(?:dublaj(?:lı)?|dub(?:bed)?)$/u.test(value.trim().toLocaleLowerCase("tr")));
   if (hasTurkishDub) languages.push("Dublaj");
 
-  if (!languages.length && provider === "Vidlink") languages.push("Orijinal");
-
   return {
     name: provider,
     title: languages.join(" · ")
@@ -58,7 +57,7 @@ function streamLabels(stream, provider) {
 
 function cleanStream(stream, provider) {
   if (!stream || typeof stream.url !== "string" || !/^https?:\/\//i.test(stream.url)) return null;
-  const headers = stream.behaviorHints?.proxyHeaders?.request ?? stream.headers;
+  const headers = stream.behaviorHints?.proxyHeaders?.request ?? stream.behaviorHints?.headers ?? stream.headers;
   const { notWebReady, bingeGroup, proxyHeaders } = stream.behaviorHints ?? {};
   return {
     ...streamLabels(stream, provider),
@@ -78,10 +77,16 @@ async function runProvider(provider, lookup, type) {
   let timer;
   try {
     const timeout = new Promise(resolve => {
-      timer = setTimeout(() => resolve([]), PROVIDER_TIMEOUT);
+      timer = setTimeout(() => {
+        console.warn("[TATA VOD]", provider, type, "timeout");
+        resolve([]);
+      }, PROVIDER_TIMEOUT);
     });
     const result = await Promise.race([Promise.resolve().then(lookup), timeout]);
-    return Array.isArray(result) ? result.map(stream => cleanStream(stream, provider)).filter(Boolean) : [];
+    if (!Array.isArray(result)) return [];
+    const streams = result.map(stream => cleanStream(stream, provider)).filter(Boolean);
+    if (result.length && !streams.length) console.warn("[TATA VOD]", provider, type, "invalid-stream-url");
+    return streams;
   } catch (error) {
     console.warn("[TATA VOD]", provider, type, error.name);
     return [];
@@ -109,7 +114,7 @@ async function search(type, request) {
   const streams = (await Promise.all(jobs)).flat();
   const seen = new Set();
   return streams.filter(stream => {
-    const key = JSON.stringify([stream.url, stream.behaviorHints?.proxyHeaders?.request ?? {}]);
+    const key = JSON.stringify([stream.name, stream.url, stream.behaviorHints?.proxyHeaders?.request ?? {}]);
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
