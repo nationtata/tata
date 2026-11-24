@@ -10,7 +10,8 @@ const MAX_ACTIVE_SEARCHES = 16;
 const INITIAL_WAIT_MIN_MS = 6500;
 const INITIAL_WAIT_MAX_MS = 11000;
 const BACKGROUND_TIMEOUT_MS = 40000;
-const CACHE_TTL_MS = 10 * 60 * 1000;
+// Signed video URLs can expire quickly; keep only metadata long-lived.
+const CACHE_TTL_MS = 120000;
 const MAX_CACHE_ENTRIES = 256;
 const TMDB_CACHE_TTL_MS = 30 * 60 * 1000;
 const PREFETCH_DELAY_MS = 2500;
