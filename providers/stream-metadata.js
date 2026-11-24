@@ -155,26 +155,6 @@ function probeBuffer(buffer, timeout) {
   } catch { return Promise.resolve({}); }
 }
 
-// MP4 metadata frequently sits outside the first bytes. A full file probe via HTTP
-// range requests allows ffprobe to discover all audio tracks without fetching a movie.
-function probeRemote(url, headers, deadline) {
-  const remaining=deadline-Date.now();
-  if(remaining<1800)return Promise.resolve({});
-  return new Promise(resolve=>{
-    try {
-      const {execFile}=require("node:child_process");
-      const binary=require("@ffprobe-installer/ffprobe").path;
-      const opts=["-v","error","-show_streams","-of","json","-probesize","8388608","-analyzeduration","5000000"];
-      const safe=safeHeaders(headers);
-      const headerText=Object.entries(safe).map(([k,v])=>k+": "+v+"\r\n").join("");
-      if(headerText)opts.push("-headers",headerText);
-      opts.push("-i",url);
-      execFile(binary,opts,{timeout:Math.min(10000,remaining-200),maxBuffer:524288},(error,out)=>{
-        try {resolve(error?{}:parseProbe(JSON.parse(out)))}catch{resolve({})}
-      });
-    }catch{resolve({})}
-  });
-}
 function mp4Metadata(buffer) {
   // A moov atom may be located at the file tail. Feed the self-contained atom to ffprobe.
   for (let i=4;i+4<=buffer.length;i++) {
