@@ -79,7 +79,7 @@ async function inspect(stream) {
   }).finally(()=>{active--;pending.delete(key);});
   pending.set(key,task);return task;
 }
-function describe(stream,media={}) {
+function describe(stream,media={},originalLanguage="") {
   let path="";try{path=decodeURIComponent(new URL(stream.url).pathname)}catch{}
   const existing=unique([stream.description,stream.quality,stream.title].filter(x=>typeof x==="string"&&x!==stream.name)).join("\n");
   const sourceText=[existing,path].join(" ");
@@ -92,8 +92,8 @@ function describe(stream,media={}) {
   const parseLangs=t=>unique([...Object.entries(flagCodes).filter(([f])=>t.includes(f)).map(([,k])=>k),...t.split(/[\s/,\[\]&]+/).map(language)]);
   const audioLine=existing.match(/Ses:\s*([^\n•]+)/i)?.[1]||"";
   const subLine=existing.match(/Altyazı:\s*([^\n•]+)/i)?.[1]||"";
-  const tagged=[...existing.matchAll(/\[(EN|TR|JA|JP|KO|DE|FR|ES|RU|AR)\]/gi)].map(m=>m[1].toLowerCase()==="jp"?"ja":language(m[1]));
-  const audio=unique([...(media.audio||[]),...(Array.isArray(stream.audioLangs)?stream.audioLangs.map(language):[]),...parseLangs(audioLine),...tagged, /(?:TR|Türkçe)\s*(?:Dublaj|Dub)/i.test(existing)?"tr":""]);
+  const audio=unique([...(media.audio||[]),...(!(media.audio||[]).length?(Array.isArray(stream.audioLangs)?stream.audioLangs.map(language):[]).concat(parseLangs(audioLine)):[]), /(?:TR|Türkçe)\s*(?:Dublaj|Dub)/i.test(existing)?"tr":""]);
+  if(!audio.length && /Ses:\s*Orijinal|\b(?:original|orijinal)\b/i.test(existing) && language(originalLanguage))audio.push(language(originalLanguage));
   const subs=unique([...(media.subs||[]),...(Array.isArray(stream.subtitles)?stream.subtitles.map(s=>language(s.lang||s.language)||language(s.label)):[]),...parseLangs(subLine),/(?:TR|Türkçe)\s*(?:Dublaj\s*&\s*)?Altyazılı/i.test(existing)?"tr":""]);
   const display=xs=>xs.map(x=>flags[x]||x.toUpperCase()).join(" / ");
   const langLine=[audio.length?"Ses: "+display(audio):/Ses:\s*Orijinal/i.test(existing)?"Ses: Orijinal":"",subs.length?"Altyazı: "+display(subs):""].filter(Boolean).join(" • ");
@@ -111,7 +111,7 @@ function describe(stream,media={}) {
   if(description){result.description=description;result.quality=description;}
   return result;
 }
-async function enrichStreams(streams) {
-  return Promise.all(streams.map(async s=>{try{return describe(s,await inspect(s));}catch{return s;}}));
+async function enrichStreams(streams,originalLanguage="") {
+  return Promise.all(streams.map(async s=>{try{return describe(s,await inspect(s),originalLanguage);}catch{return s;}}));
 }
 module.exports={parseHls,describe,enrichStreams,publicIPv4};
