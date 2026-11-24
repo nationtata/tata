@@ -8,7 +8,10 @@ const { findYouTubeStreams } = require("./youtube");
 
 const MAX_ACTIVE_SEARCHES = 8;
 const LOAD_TIMEOUT_MS = 3000;
-const MEDIA_INSPECTION_MS = 300;
+const BACKGROUND_TIMEOUT_MS = 45000;
+const CACHE_TTL_MS = 120000;
+const MAX_CACHE_ENTRIES = 128;
+const cache = new Map();
 const ongoing = new Map();
 
 function parseRequest(type, id) {
@@ -134,20 +137,22 @@ async function finishYouTube(lookup, deadline) {
   }
 }
 
-async function search(type, request) {
-  const deadline = Date.now() + LOAD_TIMEOUT_MS;
+async function search(type, request, publish) {
+  const deadline = Date.now() + BACKGROUND_TIMEOUT_MS;
   const knownYouTubeStreams = getYouTubeStreams(type, request);
+  publish(knownYouTubeStreams);
   const knownShow = type === "series" && youtubeSeries.find(item => item.ids.includes(request.id.replace(/^tmdb:/, "")));
   const earlyYouTube = !knownYouTubeStreams.length && knownShow && process.env.YOUTUBE_DATA_API_KEY
     ? findYouTubeStreams(type, { id: knownShow.ids[0], name: knownShow.title, youtubeChannel: knownShow.youtubeChannel }, request)
     : undefined;
-  const details = await findTmdb(type, request.id, "tr-TR", Math.max(1, Math.min(1800, deadline - Date.now()))).catch(error => {
+  const details = await findTmdb(type, request.id, "tr-TR", 3500).catch(error => {
     if (!knownYouTubeStreams.length && !earlyYouTube) throw error;
     console.warn("[TATA VOD] YouTube series metadata", error.name);
     return null;
   });
-  if (!details?.id) return earlyYouTube ? finishYouTube(earlyYouTube, deadline) : knownYouTubeStreams;
+  if (!details?.id) { if (earlyYouTube) publish(await finishYouTube(earlyYouTube, deadline)); return; }
   const youtubeStreams = knownYouTubeStreams.length ? knownYouTubeStreams : getYouTubeStreams(type, request, details);
+  publish(youtubeStreams);
   const genres = details.genre_ids ?? details.genres?.map(genre => genre.id) ?? [];
   const isAnimation = genres.includes(16);
   const providers = registry.filter(provider => provider[type] && (!provider.anime || isAnimation) &&
@@ -197,46 +202,65 @@ async function search(type, request) {
   }
   const discoveredYouTube = finishYouTube(earlyYouTube ?? (!youtubeStreams.length && process.env.YOUTUBE_DATA_API_KEY
     ? findYouTubeStreams(type, details, request) : undefined), deadline);
-  const streams = [];
-  let accepting = true;
-  let timer;
-  try {
-    await Promise.race([
-      Promise.allSettled(jobs.map(job => job.then(result => {
-        if (accepting) streams.push(...result);
-      }))),
-      new Promise(resolve => { timer = setTimeout(resolve, Math.max(0, deadline - MEDIA_INSPECTION_MS - Date.now())); })
-    ]);
-  } finally {
-    accepting = false;
-    clearTimeout(timer);
-  }
-  const seen = new Set();
-  const unique = streams.filter(stream => {
-    const identity = streamIdentity(stream);
-    const key = JSON.stringify([stream[providerKey], identity]);
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  });
-  let inspectionTimer;
-  const enriched = await Promise.race([
-    enrichStreams(unique, details.original_language).catch(() => unique),
-    new Promise(resolve => { inspectionTimer = setTimeout(() => resolve(unique), Math.max(0, deadline - Date.now())); })
-  ]).finally(() => clearTimeout(inspectionTimer));
-  return [...youtubeStreams, ...await discoveredYouTube, ...enriched];
+  await Promise.allSettled([
+    discoveredYouTube.then(publish),
+    ...jobs.map(async job => {
+      const result = await job;
+      publish(result);
+      if (result.length) {
+        const enriched = await enrichStreams(result, details.original_language).catch(() => result);
+        publish(enriched);
+      }
+    })
+  ]);
 }
 
 async function getVodStreams(type, id) {
-  if (!process.env.TMDB_API_KEY || !["movie", "series"].includes(type)) return [];
+  if (!["movie", "series"].includes(type)) return [];
   const request = parseRequest(type, id);
   if (!request) return [];
   const key = type + ":" + id;
-  if (ongoing.has(key)) return ongoing.get(key);
-  if (ongoing.size >= MAX_ACTIVE_SEARCHES) return [];
-  const job = search(type, request).finally(() => ongoing.delete(key));
-  ongoing.set(key, job);
-  return job;
+  let entry = cache.get(key);
+  if (entry && !ongoing.has(key) && Date.now() - entry.updated > CACHE_TTL_MS) {
+    cache.delete(key);
+    entry = undefined;
+  }
+  if (!entry) {
+    if (ongoing.size >= MAX_ACTIVE_SEARCHES) return getYouTubeStreams(type, request);
+    for (const k of cache.keys()) {
+      if (cache.size < MAX_CACHE_ENTRIES) break;
+      if (!ongoing.has(k)) cache.delete(k);
+    }
+    entry = { streams: new Map(), updated: Date.now(), accepting: true };
+    cache.set(key, entry);
+    const publish = results => {
+      if (!entry.accepting || !Array.isArray(results)) return;
+      for (const stream of results) {
+        const identity = stream.url ? "url:" + stream.url : stream.ytId ? "yt:" + stream.ytId : null;
+        if (identity) entry.streams.set(identity, stream);
+      }
+      entry.updated = Date.now();
+    };
+    let backgroundTimer;
+    const job = Promise.race([
+      Promise.resolve().then(() => search(type, request, publish)).catch(error => console.warn("[TATA VOD]", error.name)),
+      new Promise(resolve => { backgroundTimer = setTimeout(resolve, BACKGROUND_TIMEOUT_MS); })
+    ]).finally(() => {
+      clearTimeout(backgroundTimer);
+      entry.accepting = false;
+      entry.updated = Date.now();
+      ongoing.delete(key);
+    });
+    ongoing.set(key, job);
+  }
+  if (!entry.streams.size && ongoing.has(key)) {
+    let timer;
+    await Promise.race([
+      ongoing.get(key),
+      new Promise(resolve => { timer = setTimeout(resolve, LOAD_TIMEOUT_MS); })
+    ]).finally(() => clearTimeout(timer));
+  }
+  return Array.from(entry.streams.values());
 }
 
 module.exports = { getVodStreams };
