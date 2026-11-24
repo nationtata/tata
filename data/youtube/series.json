@@ -6,46 +6,52 @@
       "key": "tr-001",
       "title": "Şahsiyet",
       "year": 2018,
-      "imdbId": null,
+      "imdbId": "tt7920978",
       "tmdbId": null,
       "language": "tr",
       "status": "pending_verification",
       "youtubeEligible": false,
       "source": [
         "imdb_screenshot"
-      ]
+      ],
+      "imdbSource": "https://www.imdb.com/title/tt7920978/",
+      "imdbVerified": true
     },
     {
       "key": "tr-002",
       "title": "Leyla ile Mecnun",
       "year": 2011,
-      "imdbId": null,
+      "imdbId": "tt1831164",
       "tmdbId": null,
       "language": "tr",
       "status": "pending_verification",
       "youtubeEligible": false,
       "source": [
         "imdb_screenshot"
-      ]
+      ],
+      "imdbSource": "https://www.imdb.com/title/tt1831164/",
+      "imdbVerified": true
     },
     {
       "key": "tr-003",
       "title": "İkinci Bahar",
       "year": 1998,
-      "imdbId": null,
+      "imdbId": "tt0264700",
       "tmdbId": null,
       "language": "tr",
       "status": "pending_verification",
       "youtubeEligible": false,
       "source": [
         "imdb_screenshot"
-      ]
+      ],
+      "imdbSource": "https://www.imdb.com/title/tt0264700/",
+      "imdbVerified": true
     },
     {
       "key": "tr-004",
       "title": "Ezel",
       "year": 2009,
-      "imdbId": null,
+      "imdbId": "tt1534360",
       "tmdbId": null,
       "language": "tr",
       "status": "pending_verification",
@@ -53,26 +59,30 @@
       "source": [
         "imdb_screenshot",
         "nuvio_screenshot"
-      ]
+      ],
+      "imdbSource": "https://www.imdb.com/title/tt1534360/",
+      "imdbVerified": true
     },
     {
       "key": "tr-005",
       "title": "Tatlı Hayat",
       "year": 2001,
-      "imdbId": null,
+      "imdbId": "tt0302199",
       "tmdbId": null,
       "language": "tr",
       "status": "pending_verification",
       "youtubeEligible": false,
       "source": [
         "imdb_screenshot"
-      ]
+      ],
+      "imdbSource": "https://www.imdb.com/title/tt0302199/",
+      "imdbVerified": true
     },
     {
       "key": "tr-006",
       "title": "Masum",
       "year": 2017,
-      "imdbId": null,
+      "imdbId": "tt6478318",
       "tmdbId": null,
       "language": "tr",
       "status": "pending_verification",
@@ -80,13 +90,15 @@
       "source": [
         "imdb_screenshot",
         "nuvio_screenshot"
-      ]
+      ],
+      "imdbSource": "https://www.imdb.com/title/tt6478318/",
+      "imdbVerified": true
     },
     {
       "key": "tr-007",
       "title": "Muhteşem Yüzyıl",
       "year": 2011,
-      "imdbId": null,
+      "imdbId": "tt1848220",
       "tmdbId": null,
       "language": "tr",
       "status": "pending_verification",
@@ -94,7 +106,9 @@
       "source": [
         "imdb_screenshot",
         "nuvio_screenshot"
-      ]
+      ],
+      "imdbSource": "https://www.imdb.com/title/tt1848220/",
+      "imdbVerified": true
     },
     {
       "key": "tr-008",
