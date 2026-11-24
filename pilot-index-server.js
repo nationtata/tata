@@ -1,1 +1,10 @@
-const express=require("express");const {execFile}=require("node:child_process");const fs=require("node:fs/promises");const app=express();let state={status:"running"};app.get("/",(_,res)=>res.json(state));app.get("/index",async(_,res)=>{if(state.status!=="complete")return res.status(503).json(state);res.json(JSON.parse(await fs.readFile("data/youtube/ezel-index.json","utf8")));});app.listen(process.env.PORT||10000,()=>{execFile(process.execPath,["scripts/index-ezel.js"],{timeout:180000},(err,stdout,stderr)=>{state=err?{status:"failed",error:stderr.trim().slice(0,300)}:{status:"complete",summary:stdout.trim()};console.log(JSON.stringify(state));});});
+const express=require("express");
+const cors=require("cors");
+const {execFile}=require("node:child_process");
+const fs=require("node:fs/promises");
+const app=express();app.use(cors());let state={status:"running"},index=null;
+app.get("/",(_,res)=>res.json(state));
+app.get("/index",(_,res)=>index?res.json(index):res.status(503).json(state));
+app.get("/manifest.json",(_,res)=>res.json({id:"com.tata.youtube.pilot",version:"0.1.0",name:"TATA YouTube Pilot",description:"Ezel pilot - verified public YouTube uploads",resources:["stream"],types:["series"],catalogs:[],idPrefixes:["tt1534360"]}));
+app.get("/stream/series/:id.json",(req,res)=>{const m=req.params.id.match(/^tt1534360:1:(\d+)$/);const streams=m&&index?index.episodes.filter(e=>e.absoluteEpisode===Number(m[1])&&e.absoluteEpisode>=1&&e.absoluteEpisode<=33).map(e=>({name:"Yayın",ytId:e.ytId})):[];res.json({streams});});
+app.listen(process.env.PORT||10000,()=>{execFile(process.execPath,["scripts/index-ezel.js"],{timeout:180000},async(err,stdout,stderr)=>{try{if(err)throw new Error(stderr.trim().slice(0,300)||err.message);index=JSON.parse(await fs.readFile("data/youtube/ezel-index.json","utf8"));state={status:"complete",summary:stdout.trim(),pilotSeason:1,maxPilotEpisode:33};}catch(e){state={status:"failed",error:e.message};}console.log(JSON.stringify(state));});});
