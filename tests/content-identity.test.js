@@ -1,0 +1,10 @@
+const assert = require("node:assert/strict");
+const { matchesIdentity } = require("../providers/content-identity");
+const expected = {type:"series",tmdbId:123,imdbId:"tt1234567",titles:["Teşkilat"],year:2021,countries:["TR"],originalLanguage:"tr",season:1,episode:1};
+const candidate = {type:"series",titles:["Teskilat"],year:2021,countries:["TR"],originalLanguage:"tr",season:1,episode:1};
+assert.equal(matchesIdentity(expected,candidate),true);
+for(const patch of [{countries:["KR"]},{countries:["RU"]},{year:2022},{titles:["Other"]},{episode:2},{season:2},{type:"movie"},{countries:[]},{year:undefined},{originalLanguage:"ko"},{tmdbId:456}]) assert.equal(matchesIdentity(expected,{...candidate,...patch}),false,JSON.stringify(patch));
+assert.equal(matchesIdentity(expected,{type:"series",tmdbId:123,season:1,episode:1}),true);
+assert.equal(matchesIdentity(expected,{type:"series",tmdbId:123,imdbId:"tt7654321",season:1,episode:1}),false);
+assert.equal(matchesIdentity(expected,{type:"series",titles:["Teşkilat"],season:1,episode:1}),false);
+console.log("Identity tests passed");
