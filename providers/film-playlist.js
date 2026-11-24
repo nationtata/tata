@@ -9,6 +9,31 @@ const sources = {
   imgsapi: "imgsapi.m3u.gz.enc"
 };
 const indexes = new Map();
+const powerCinemaUrl = "https://raw.githubusercontent.com/GitLatte/patr0n/refs/heads/site/lists/power-sinema.m3u";
+const powerCinemaRefreshMs = 30 * 60 * 1000;
+let powerCinemaIndex;
+let powerCinemaRefresh;
+let powerCinemaExpiresAt = 0;
+
+async function getPowerCinemaIndex() {
+  if (powerCinemaIndex && Date.now() < powerCinemaExpiresAt) return powerCinemaIndex;
+  if (!powerCinemaRefresh) {
+    powerCinemaRefresh = (async () => {
+      const response = await fetch(powerCinemaUrl, { signal: AbortSignal.timeout(6000) });
+      if (!response.ok) throw new Error("Power Sinema HTTP " + response.status);
+      const index = indexFilms(await response.text(), "powerCinema");
+      if (!index.imdb.size) throw new Error("Power Sinema playlist has no IMDb entries");
+      powerCinemaIndex = index;
+      powerCinemaExpiresAt = Date.now() + powerCinemaRefreshMs;
+      return index;
+    })().catch(error => {
+      powerCinemaExpiresAt = Date.now() + 60000;
+      if (!powerCinemaIndex) throw error;
+      return powerCinemaIndex;
+    }).finally(() => { powerCinemaRefresh = undefined; });
+  }
+  return powerCinemaRefresh;
+}
 const directSources = new Set(["fullmovies", "rectv", "pixeldrain", "imgsapi"]);
 
 function add(index, key, row) {
@@ -56,11 +81,12 @@ function indexFilms(text, source) {
       if (!pixel && !imageHls && !/\.(?:m3u8|mp4)$/i.test(url.pathname)) continue;
       row.direct = true;
       row.isHls = imageHls || /\.m3u8$/i.test(url.pathname);
-    } else if (source === "vixolity") {
+    } else if ((source === "vixolity" || source === "powerCinema")) {
       const id = url.hostname === "ha.vixolity.com" && url.pathname.match(/^\/(?:vs|mm)\/+(tt\d+)\/{0,2}$/i)?.[1];
       if (!id) continue;
       row.imdbId = id.toLowerCase();
       add(imdb, row.imdbId, row);
+      if (source === "powerCinema") continue;
     } else if (!["rapidvid.org", "s.rapidvid.org", "vidmoxy.net"].includes(url.hostname)) {
       continue;
     }
@@ -88,6 +114,13 @@ async function resolveFilm(row) {
 }
 
 async function getFilmPlaylistStreams(source, details, requestId) {
+  if (source === "powerCinema") {
+    const id = requestId.startsWith("tt") ? requestId : details.external_ids?.imdb_id ?? details.imdb_id;
+    if (!id) return [];
+    const { imdb } = await getPowerCinemaIndex();
+    const matches = [...new Map((imdb.get(id) ?? []).map(row => [row.url, row])).values()];
+    return Promise.all(matches.slice(0, 5).map(resolveFilm));
+  }
   const key = directSources.has(source)
     ? process.env.TATA_EXTRA_FILM_M3U_KEY : process.env.TATA_FILM_M3U_KEY;
   if (!key) return [];
