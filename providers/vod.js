@@ -77,9 +77,10 @@ function cleanStream(stream, provider) {
       sourceTitle: stream.sourceTitle || stream.name
     }),
     ...(stream.format && { format: stream.format }),
+    ...(headers && { headers }),
     ...(Array.isArray(stream.audioLangs) && { audioLangs: stream.audioLangs }),
     url: stream.url,
-    ...(subtitles.length && { subtitles }),
+    ...(subtitles.length && { subtitles: subtitles.map((sub, index) => ({...sub, id:String(index)})) }),
     behaviorHints: {
       notWebReady: notWebReady ?? true,
       ...(playbackFilename && { filename: playbackFilename }),
