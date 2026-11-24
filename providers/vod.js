@@ -3,7 +3,7 @@ const { getPlaylistStreams, getMetvSeriesStreams, titleKey } = require("./playli
 const { getMovieStreams } = require("./izlefilm");
 const registry = require("../vendor/anthology/providers.json");
 const { getLocalIzlelanJobs } = require("./izlelan-adapter");
-const { enrichStreams, describe, inspect } = require("./stream-metadata");
+const { mergeStreams, enrichStreams, describe, inspect } = require("./stream-metadata");
 const { findYouTubeStreams } = require("./youtube");
 
 const MAX_ACTIVE_SEARCHES = 8;
@@ -2318,10 +2318,7 @@ async function getVodStreams(type, id) {
         const identity = stream.url ? "url:" + stream.url : stream.ytId ? "yt:" + stream.ytId : null;
         if (!identity || entry.rejected.has(identity)) continue;
         const previous=entry.streams.get(identity);
-        // A late provider's provisional TMDB label must not replace an inspected result.
-        const inspected=!!stream.__verifiedAudio;
-        if(previous?.__verifiedAudio && !inspected)continue;
-        entry.streams.set(identity,stream);
+        entry.streams.set(identity, mergeStreams(previous, stream));
       }
       entry.updated = Date.now();
     };
