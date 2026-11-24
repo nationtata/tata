@@ -102,7 +102,7 @@ async function inspect(stream) {
   const key=JSON.stringify([stream.url,headers]);
   const hit=cache.get(key);if(hit&&hit.until>Date.now())return hit.data;
   if(pending.has(key))return pending.get(key);
-  if(active>=6)return {};
+  if(active>=6){for(let i=0;i<30&&active>=6;i++)await new Promise(resolve=>setTimeout(resolve,100));if(active>=6)return {};}
   active++;
   const task=readMedia(stream.url,headers,isHls).catch(()=>({})).then(data=>{
     if(cache.size>=512)cache.delete(cache.keys().next().value);
@@ -134,12 +134,12 @@ function describe(stream,media={},originalLanguage="") {
   const fps=media.fps?media.fps+" FPS":existing.match(/\b\d+(?:[.,]\d+)?\s*FPS\b/i)?.[0];
   const size=existing.match(/\b\d+(?:[.,]\d+)?\s*(?:GB|MB)\b/i)?.[0];
   const tech=unique([q,source,media.videoCodec||vc,depth,hdr,sound,rate,fps,size]).join(" • ");
-  const description=[langLine,tech].filter(Boolean).join("\n")||"Yayın bilgisi tespit edilemedi";
+  const description=[langLine||"Ses: Tespit edilemedi",tech||"Teknik bilgi tespit edilemedi"].filter(Boolean).join("\n");
   const result={...stream};
   delete result.title;
   delete result.quality;
   delete result.description;
-  if(description){result.description=description;result.quality=description;}
+  if(description){result.description=description;if(q)result.quality=description;}
   return result;
 }
 async function enrichStreams(streams,originalLanguage="") {
