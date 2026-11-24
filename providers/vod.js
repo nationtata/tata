@@ -34,7 +34,7 @@ async function findTmdb(type, id, language = "tr-TR", timeout = 3500) {
 }
 
 const providerKey = Symbol("provider");
-const visibleProviderNames = new Set(["ME TV Medya", "Power Sinema"]);
+
 
 function streamIdentity(stream) {
   return JSON.stringify([stream.url, stream.behaviorHints?.proxyHeaders?.request ?? {}]);
@@ -58,7 +58,7 @@ function cleanStream(stream, provider) {
   return {
     [providerKey]: provider,
     ...(provider === "ME TV Medya" && stream.metvVariant && { metvVariant: stream.metvVariant }),
-    name: visibleProviderNames.has(provider) ? provider : "Yayın",
+    name: "Yayın",
     ...(stream.description || stream.quality ? { description: stream.description || stream.quality } : {}),
     ...(stream.quality && { quality: stream.quality }),
     ...(stream.title && stream.title !== provider && { title: stream.title }),
