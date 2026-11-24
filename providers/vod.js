@@ -7,8 +7,8 @@ const { enrichStreams } = require("./stream-metadata");
 const { findYouTubeStreams } = require("./youtube");
 
 const MAX_ACTIVE_SEARCHES = 8;
-const LOAD_TIMEOUT_MS = 9000;
-const MEDIA_INSPECTION_MS = 2500;
+const LOAD_TIMEOUT_MS = 3000;
+const MEDIA_INSPECTION_MS = 300;
 const ongoing = new Map();
 
 function parseRequest(type, id) {
@@ -141,7 +141,7 @@ async function search(type, request) {
   const earlyYouTube = !knownYouTubeStreams.length && knownShow && process.env.YOUTUBE_DATA_API_KEY
     ? findYouTubeStreams(type, { id: knownShow.ids[0], name: knownShow.title, youtubeChannel: knownShow.youtubeChannel }, request)
     : undefined;
-  const details = await findTmdb(type, request.id).catch(error => {
+  const details = await findTmdb(type, request.id, "tr-TR", Math.max(1, Math.min(1800, deadline - Date.now()))).catch(error => {
     if (!knownYouTubeStreams.length && !earlyYouTube) throw error;
     console.warn("[TATA VOD] YouTube series metadata", error.name);
     return null;
@@ -212,13 +212,18 @@ async function search(type, request) {
     clearTimeout(timer);
   }
   const seen = new Set();
-  const enriched = await enrichStreams(streams.filter(stream => {
+  const unique = streams.filter(stream => {
     const identity = streamIdentity(stream);
     const key = JSON.stringify([stream[providerKey], identity]);
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
-  }), details.original_language);
+  });
+  let inspectionTimer;
+  const enriched = await Promise.race([
+    enrichStreams(unique, details.original_language).catch(() => unique),
+    new Promise(resolve => { inspectionTimer = setTimeout(() => resolve(unique), Math.max(0, deadline - Date.now())); })
+  ]).finally(() => clearTimeout(inspectionTimer));
   return [...youtubeStreams, ...await discoveredYouTube, ...enriched];
 }
 
