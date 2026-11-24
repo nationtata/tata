@@ -143,7 +143,7 @@ async function search(type, request) {
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
-  }));
+  }), details.original_language);
 }
 
 async function getVodStreams(type, id) {
