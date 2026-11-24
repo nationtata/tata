@@ -5,7 +5,7 @@
 // Missing modules are skipped so existing TATA providers remain unaffected.
 const path = require("path");
 const fs = require("fs");
-const NAMES = ["ace","clover","enel","imu","joyboy","kalgara","katakuri","noland","roger","sengoku","shiki","smoker","teach","toki","urouge","xebec","turkdizi","doflamingo","lili","sabo","law","kuma","beckman"];
+const NAMES = ["ace","clover","enel","imu","joyboy","kalgara","katakuri","noland","roger","sengoku","shiki","smoker","teach","toki","xebec","turkdizi","doflamingo","lili","sabo","law","kuma","beckman"];
 
 function getLocalIzlelanJobs() {
   const jobs = [];
