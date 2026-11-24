@@ -80,7 +80,7 @@ function cleanStream(stream, provider) {
     ...(headers && { headers }),
     ...(Array.isArray(stream.audioLangs) && { audioLangs: stream.audioLangs }),
     url: stream.url,
-    ...(subtitles.length && { subtitles: subtitles.map((sub, index) => ({...sub, id:String(index)})) }),
+    ...(provider === "Law" ? (Array.isArray(stream.subtitles) && {subtitles:stream.subtitles}) : (subtitles.length && { subtitles: subtitles.map((sub, index) => ({...sub, id:String(index)})) })),
     behaviorHints: {
       notWebReady: notWebReady ?? true,
       ...(playbackFilename && { filename: playbackFilename }),
@@ -2348,7 +2348,7 @@ async function search(type, request, publish, remove) {
     const args=[String(details.id), type === "series" ? "tv" : "movie", request.season, request.episode];
     jobs.push({
       streams: runProvider(source.name, () => source.getStreams(...args), type),
-      ...(typeof source.getSubtitles === "function" && {subtitles:()=>source.getSubtitles(...args)}),
+      ...(source.name !== "Law" && typeof source.getSubtitles === "function" && {subtitles:()=>source.getSubtitles(...args)}),
       name: source.name
     });
   }
