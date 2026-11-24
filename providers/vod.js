@@ -133,7 +133,7 @@ async function search(type, request) {
       Promise.allSettled(jobs.map(job => job.then(result => {
         if (accepting) streams.push(...result);
       }))),
-      new Promise(resolve => { timer = setTimeout(resolve, 7000); })
+      new Promise(resolve => { timer = setTimeout(resolve, 5000); })
     ]);
   } finally {
     accepting = false;
