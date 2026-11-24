@@ -54,7 +54,7 @@ async function callYouTube(resource, params, apiKey, signal) {
 }
 
 async function lookUp(type, details, request, apiKey, channels) {
-  const signal = AbortSignal.timeout(8500);
+  const signal = AbortSignal.timeout(35000);
   const title = details.name || details.title;
   const suffix = type === "movie" ? details.release_date?.slice(0, 4)
     : request.season + ". Sezon " + request.episode + ". Bölüm";
@@ -85,7 +85,7 @@ async function findYouTubeStreams(type, details, request) {
   const key = JSON.stringify([type, details.id, request.season, request.episode]);
   const existing = cache.get(key);
   if (existing && existing.expires > Date.now()) return existing.streams;
-  if (pending.has(key)) return pending.get(key);
+  if (pending.has(key)) return waitForResults(pending.get(key));
   const job = lookUp(type, details, request, apiKey, channels).then(streams => {
     if (cache.size >= 512) cache.delete(cache.keys().next().value);
     cache.set(key, { streams, expires: Date.now() + (streams.length ? 21600000 : 900000) });
@@ -96,7 +96,18 @@ async function findYouTubeStreams(type, details, request) {
     return [];
   }).finally(() => pending.delete(key));
   pending.set(key, job);
-  return job;
+  return waitForResults(job);
+}
+
+async function waitForResults(job) {
+  let timer;
+  try {
+    return await Promise.race([job, new Promise(resolve => {
+      timer = setTimeout(() => resolve([]), 8500);
+    })]);
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 module.exports = { findYouTubeStreams };
