@@ -314,7 +314,15 @@ async function enrichStreams(streams, originalLanguage="", options={}) {
       return null;
     }
     try {
-      const withSubtitles={...stream,subtitles:normalizeSubtitles([...(stream.subtitles||[]),...(media.subtitleTracks||[])])};
+      // HLS renditions can need the same allowed request headers as their parent playlist.
+      // Do not forward headers to a different origin without an explicit provider instruction.
+      const requestHeaders=safeHeaders(stream.behaviorHints?.proxyHeaders?.request||stream.headers);
+      const hlsSubtitles=(media.subtitleTracks||[]).map(sub=>{
+        let sameOrigin=false;
+        try {sameOrigin=new URL(sub.url).origin===new URL(stream.url).origin;}catch{}
+        return {...sub,...(sameOrigin&&Object.keys(requestHeaders).length&&{headers:requestHeaders})};
+      });
+      const withSubtitles={...stream,subtitles:normalizeSubtitles([...(stream.subtitles||[]),...hlsSubtitles])};
       const result=describe(withSubtitles,media,originalLanguage);
       // Callers can distinguish measured from fallback metadata when merging updates.
       Object.defineProperty(result,"__verifiedAudio",{value:!!media.audio?.length,enumerable:false});
