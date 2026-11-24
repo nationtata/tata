@@ -13,7 +13,7 @@ const {
 } = require("./parse-m3u");
 
 const { getAlternatives } = require("./providers/tata");
-const { getVodStreams } = require("./providers/vod");
+const { getVodStreams, getVodSubtitles } = require("./providers/vod");
 
 const app = express();
 const PORT = process.env.PORT || 7000;
@@ -106,7 +106,8 @@ app.get("/manifest.json", (req, res) => {
     resources: [
       { name: "catalog", types: ["tv"] },
       { name: "meta", types: ["tv"], idPrefixes: ["tv-"] },
-      { name: "stream", types: ["tv", "movie", "series"], idPrefixes: ["tv-", "tmdb:", "tt"] }
+      { name: "stream", types: ["tv", "movie", "series"], idPrefixes: ["tv-", "tmdb:", "tt"] },
+      { name: "subtitles", types: ["movie", "series"], idPrefixes: ["tmdb:", "tt"] }
     ],
     types: ["tv", "movie", "series"],
 
@@ -220,7 +221,7 @@ app.get("/film/manifest.json", (req, res) => {
     name: "TATA",
     description: "TATA",
     logo: new URL("/tata-badge.png", process.env.RENDER_EXTERNAL_URL || absolute(req, "/")).href,
-    resources: ["stream"],
+    resources: ["stream", "subtitles"],
     types: ["movie", "series"],
     catalogs: []
   });
@@ -243,6 +244,18 @@ app.get(["/stream/:type(movie|series)/:id.json", "/film/stream/:type(movie|serie
   } catch (err) {
     console.error("[VOD STREAM ERROR]", err.message);
     return res.json({ streams: [] });
+  }
+});
+
+// Separate Stremio subtitle resource. The existing stream response and TV routes
+// remain unchanged. Subtitle entries retain their original URL and headers.
+app.get(["/subtitles/:type(movie|series)/:id.json", "/film/subtitles/:type(movie|series)/:id.json"], async (req, res) => {
+  try {
+    const subtitles = await getVodSubtitles(req.params.type, req.params.id);
+    return res.json({ subtitles });
+  } catch (err) {
+    console.error("[VOD SUBTITLES ERROR]", err.message);
+    return res.json({ subtitles: [] });
   }
 });
 
