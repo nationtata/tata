@@ -7,3 +7,10 @@ const output=describe(input,media);assert.match(output.description,/🇯🇵/);a
 assert.equal(describe({url:"https://example.com/video"}).quality,undefined);
 assert.equal(publicIPv4("127.0.0.1"),false);assert.equal(publicIPv4("169.254.169.254"),false);assert.equal(publicIPv4("10.0.0.1"),false);assert.equal(publicIPv4("8.8.8.8"),true);
 console.log("metadata tests passed");
+
+const cropped=parseHls('#EXTM3U\n#EXT-X-STREAM-INF:RESOLUTION=1920x800,CODECS="avc1,mp4a"\nv.m3u8');
+assert.equal(cropped.quality,"1080p");
+const formatted=describe({name:"TATA",url:"https://example.com/video",description:"1080p [EN]\nExample Movie",title:"Example Movie"},cropped);
+assert.equal(formatted.description,"Ses: 🇬🇧\n1080p • H.264 • AAC");
+assert.equal(formatted.quality,formatted.description);
+assert.equal(formatted.title,undefined);
