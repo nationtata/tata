@@ -6,10 +6,10 @@ const cache = new Map();
 const pending = new Map();
 let active = 0;
 const unique = xs => [...new Set(xs.filter(Boolean))];
-const flags = {tr:"🇹🇷",en:"🇬🇧",ja:"🇯🇵",ko:"🇰🇷",de:"🇩🇪",fr:"🇫🇷",es:"🇪🇸",ar:"🇸🇦",ru:"🇷🇺",zh:"🇨🇳",it:"🇮🇹",pt:"🇵🇹",id:"🇮🇩",st:"🇱🇸",hi:"🇮🇳",nl:"🇳🇱",pl:"🇵🇱",th:"🇹🇭",vi:"🇻🇳",uk:"🇺🇦",sv:"🇸🇪",fa:"🇮🇷",he:"🇮🇱"};
+const flags = {tr:"🇹🇷",en:"🇬🇧",ja:"🇯🇵",ko:"🇰🇷",de:"🇩🇪",fr:"🇫🇷",es:"🇪🇸",ar:"🇸🇦",ru:"🇷🇺",zh:"🇨🇳",it:"🇮🇹",pt:"🇵🇹",id:"🇮🇩",st:"🇱🇸",hi:"🇮🇳",nl:"🇳🇱",pl:"🇵🇱",th:"🇹🇭",vi:"🇻🇳",uk:"🇺🇦",sv:"🇸🇪",fa:"🇮🇷",he:"🇮🇱",cs:"🇨🇿",da:"🇩🇰",tl:"🇵🇭",fil:"🇵🇭",fi:"🇫🇮",hr:"🇭🇷",hu:"🇭🇺",el:"🇬🇷",no:"🇳🇴",nb:"🇳🇴",nn:"🇳🇴",ro:"🇷🇴",bg:"🇧🇬",sk:"🇸🇰",sl:"🇸🇮",sr:"🇷🇸",bs:"🇧🇦",mk:"🇲🇰",sq:"🇦🇱",et:"🇪🇪",lv:"🇱🇻",lt:"🇱🇹",ms:"🇲🇾",bn:"🇧🇩",ta:"🇮🇳",te:"🇮🇳",ml:"🇮🇳",ur:"🇵🇰",pa:"🇮🇳",gu:"🇮🇳",mr:"🇮🇳",kn:"🇮🇳",sw:"🇰🇪",af:"🇿🇦",is:"🇮🇸",ca:"🇪🇸",eu:"🇪🇸",gl:"🇪🇸",ka:"🇬🇪",hy:"🇦🇲",az:"🇦🇿",kk:"🇰🇿",uz:"🇺🇿",mn:"🇲🇳",ne:"🇳🇵",si:"🇱🇰",km:"🇰🇭",lo:"🇱🇦",my:"🇲🇲",be:"🇧🇾",am:"🇪🇹",so:"🇸🇴",cy:"🏴",ga:"🇮🇪",mt:"🇲🇹"};
 function language(value) {
   const s = String(value || "").trim().toLowerCase();
-  const aliases = {tur:"tr",turkish:"tr","türkçe":"tr",turkce:"tr",eng:"en",english:"en","ingilizce":"en",jpn:"ja",japanese:"ja",japonca:"ja",kor:"ko",korean:"ko",deu:"de",ger:"de",fra:"fr",fre:"fr",spa:"es",ara:"ar",rus:"ru",zho:"zh",chi:"zh",ita:"it",por:"pt",ind:"id",indonesian:"id",sot:"st",sotho:"st",hin:"hi",nld:"nl",dut:"nl",pol:"pl",tha:"th",vie:"vi",ukr:"uk",swe:"sv",fas:"fa",per:"fa",heb:"he"};
+  const aliases = {ces:"cs",cze:"cs",dan:"da",tgl:"tl",fil:"tl",fin:"fi",hrv:"hr",hun:"hu",ell:"el",gre:"el",nor:"no",nob:"nb",nno:"nn",ron:"ro",rum:"ro",bul:"bg",slk:"sk",slo:"sk",slv:"sl",srp:"sr",bos:"bs",msa:"ms",may:"ms",ben:"bn",tam:"ta",tel:"te",urd:"ur",est:"et",lav:"lv",lit:"lt",tur:"tr",turkish:"tr","türkçe":"tr",turkce:"tr",eng:"en",english:"en","ingilizce":"en",jpn:"ja",japanese:"ja",japonca:"ja",kor:"ko",korean:"ko",deu:"de",ger:"de",fra:"fr",fre:"fr",spa:"es",ara:"ar",rus:"ru",zho:"zh",chi:"zh",ita:"it",por:"pt",ind:"id",indonesian:"id",sot:"st",sotho:"st",hin:"hi",nld:"nl",dut:"nl",pol:"pl",tha:"th",vie:"vi",ukr:"uk",swe:"sv",fas:"fa",per:"fa",heb:"he"};
   return aliases[s] || (/^[a-z]{2}(?:-[a-z]{2})?$/.test(s) ? s.split("-")[0] : "");
 }
 function trackLanguage(value) {
@@ -141,16 +141,16 @@ function describe(stream,media={},originalLanguage="") {
   const parseLangs=t=>unique([...Object.entries(flagCodes).filter(([f])=>t.includes(f)).map(([,k])=>k),...t.split(/[\s/,\[\]&]+/).map(language)]);
   const audioLine=existing.match(/Ses:\s*([^\n•]+)/i)?.[1]||"";
   const subLine=existing.match(/Altyazı:\s*([^\n•]+)/i)?.[1]||"";
-  const audio=unique([...(media.audio||[]),...(!(media.audio||[]).length?(Array.isArray(stream.audioLangs)?stream.audioLangs.map(language):[]).concat(parseLangs(audioLine),...Array.from(existing.matchAll(/\[([A-Z]{2,3})\]/g),m=>language(m[1]))):[]), /(?:TR|Türkçe)\s*(?:Dublaj|Dub)/i.test(existing)?"tr":""]).filter(code => code !== "st");
+  const audio=unique([...(media.audio||[]),...(!(media.audio||[]).length?(Array.isArray(stream.audioLangs)?stream.audioLangs.map(language):[]).concat(parseLangs(audioLine),...Array.from(existing.matchAll(/\[([A-Z]{2,3})\]/g),m=>language(m[1]))):[]), /(?:TR|Türkçe)\s*(?:Dublaj|Dub)/i.test(existing)?"tr":""]).filter(code => code !== "st" && flags[code]);
   const original = language(originalLanguage);
-  const estimatedAudio = !audio.length && /Ses:\s*Orijinal/i.test(existing) && original !== "st" && original;
-  const subs=unique([...(media.subs||[]),...(Array.isArray(stream.subtitles)?stream.subtitles.map(s=>language(s.lang||s.language)||language(s.label)):[]),...parseLangs(subLine),/(?:TR|Türkçe)\s*(?:Dublaj\s*&\s*)?Altyazılı/i.test(existing)?"tr":""]).filter(code => code !== "st");
-  const display=xs=>xs.map(x=>flags[x]||x.toUpperCase()).join(" / ");
+  const estimatedAudio = !audio.length && /Ses:\s*Orijinal/i.test(existing) && original !== "st" && flags[original] && original;
+  const subs=unique([...(media.subs||[]),...(Array.isArray(stream.subtitles)?stream.subtitles.map(s=>language(s.lang||s.language)||language(s.label)):[]),...parseLangs(subLine),/(?:TR|Türkçe)\s*(?:Dublaj\s*&\s*)?Altyazılı/i.test(existing)?"tr":""]).filter(code => code !== "st" && flags[code]);
+  const display=xs=>unique(xs.map(x=>flags[x])).join(" / ");
   let langLine=[audio.length?"Ses: "+display(audio):estimatedAudio?"Ses: "+display([estimatedAudio]):/Ses:\s*Orijinal/i.test(existing)?"Ses: Tespit edilemedi":"",subs.length?"Altyazı: "+display(subs):""].filter(Boolean).join(" • ");
   if (stream.metvVariant === "dubbed") {
     langLine = ["Ses: " + display(["tr"]), subs.length && "Altyazı: " + display(subs)].filter(Boolean).join(" • ");
   } else if (stream.metvVariant === "subtitled") {
-    const originalLabel = original && original !== "st" ? display([original]) : "Tespit edilemedi";
+    const originalLabel = original && original !== "st" && flags[original] ? display([original]) : "Tespit edilemedi";
     langLine = "Ses: " + originalLabel + " • Altyazı: " + display(unique(["tr", ...subs]));
   }
   const channels=media.channels||existing.match(/\b(?:2\.0|5\.1|7\.1)\b/)?.[0];
