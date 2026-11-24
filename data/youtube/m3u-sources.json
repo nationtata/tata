@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "title": "Taşacak Bu Deniz",
+      "handle": "tasacakbudeniztrt",
+      "type": "dizi",
+      "source": "user_supplied_forum_example",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=tasacakbudeniztrt&type=dizi",
+      "status": "pending_endpoint_and_rights_verification"
+    },
+    {
+      "title": "Uzman Filmcilik",
+      "handle": "UzmanFilmcilik",
+      "type": null,
+      "source": "user_supplied_forum_example",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@UzmanFilmcilik",
+      "status": "pending_endpoint_and_rights_verification"
+    }
+  ]
+}
