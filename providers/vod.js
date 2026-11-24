@@ -94,20 +94,6 @@ async function runProvider(provider, lookup, type) {
 // Full-length uploads from the series' and producers' official YouTube channels.
 const youtubeSeries = [
   {
-    ids: ["197632", "tt0952637"],
-    title: "Çalıkuşu",
-    year: "1986",
-    episodes: {
-      "1:1": "_DYRV1Asmjw",
-      "1:2": "4XGkoZIqLvw",
-      "1:3": "nvs3Jzm9Fj4",
-      "1:4": "mFLZgrL_yl4",
-      "1:5": "j98WHi9ZpO8",
-      "1:6": "bPwxslfEth0",
-      "1:7": "S-WbdpDMFXk",
-    },
-  },
-  {
     ids: ["65556", "tt3142876"],
     title: "Çalıkuşu",
     year: "2013",
