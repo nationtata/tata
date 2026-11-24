@@ -228,7 +228,7 @@ app.get("/film/manifest.json", (req, res) => {
 
 app.get(["/stream/:type(movie|series)/:id.json", "/film/stream/:type(movie|series)/:id.json"], async (req, res) => {
   try {
-    return res.json({ streams: uniqueStreamLinks(await getVodStreams(req.params.type, req.params.id)) });
+    return res.json({ streams: await getVodStreams(req.params.type, req.params.id) });
   } catch (err) {
     console.error("[VOD STREAM ERROR]", err.message);
     return res.json({ streams: [] });
