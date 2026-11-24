@@ -39,11 +39,16 @@ loadM3U();
 ========================================================= */
 
 function absolute(req, url) {
+  if (url.startsWith("https://")) return url;
   return `${req.protocol}://${req.get("host")}${url}`;
 }
 
-function assetPaths(name) {
+function assetPaths(name, remoteLogo) {
   const encoded = encodeURIComponent(name);
+
+  if (remoteLogo && /^https:\/\//.test(remoteLogo) && !fs.existsSync(path.join(__dirname, "public", "logos", name + ".png"))) {
+    return { poster: remoteLogo, background: remoteLogo, logo: remoteLogo };
+  }
 
   const posterFile = path.join(__dirname, "public", "poster", `${name}.jpg`);
   const backgroundFile = path.join(__dirname, "public", "background", `${name}.jpg`);
@@ -91,7 +96,9 @@ app.get("/manifest.json", (req, res) => {
       { type: "tv", id: "haber", name: "Haber" },
       { type: "tv", id: "spor", name: "Spor" },
       { type: "tv", id: "belgesel", name: "Belgesel" },
-      { type: "tv", id: "cocuk", name: "Çocuk" }
+      { type: "tv", id: "cocuk", name: "Çocuk" },
+      { type: "tv", id: "sinema", name: "Sinema" },
+      { type: "tv", id: "muzik", name: "Müzik" }
     ]
 
   });
@@ -107,6 +114,8 @@ const catalogMap = {
   haber: "Haber",
   spor: "Spor",
   belgesel: "Belgesel",
+  sinema: "Sinema",
+  muzik: "Müzik",
   cocuk: "Çocuk"
 };
 
@@ -117,7 +126,7 @@ app.get("/catalog/tv/:id.json", (req, res) => {
 
   const metas = (groups[groupName] || []).map(channel => {
 
-    const assets = assetPaths(channel.name);
+    const assets = assetPaths(channel.name, channel.logo);
 
     return {
       id: `tv-${channel.id}`,
@@ -148,7 +157,7 @@ app.get("/meta/tv/:id.json", async (req, res) => {
     return res.status(404).json({ meta: null });
   }
 
-  const assets = assetPaths(channel.name);
+  const assets = assetPaths(channel.name, channel.logo);
 
   const meta = {
     id: `tv-${channel.id}`,
