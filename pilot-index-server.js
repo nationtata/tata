@@ -1,10 +1,7 @@
-const express=require("express");
-const cors=require("cors");
-const {execFile}=require("node:child_process");
-const fs=require("node:fs/promises");
-const app=express();app.use(cors());let state={status:"running"},index=null;
-app.get("/",(_,res)=>res.json(state));
-app.get("/index",(_,res)=>index?res.json(index):res.status(503).json(state));
-app.get("/manifest.json",(_,res)=>res.json({id:"com.tata.youtube.pilot",version:"0.1.0",name:"TATA YouTube Pilot",description:"Ezel pilot - verified public YouTube uploads",resources:["stream"],types:["series"],catalogs:[],idPrefixes:["tt1534360"]}));
-app.get("/stream/series/:id.json",(req,res)=>{const m=req.params.id.match(/^tt1534360:1:(\d+)$/);const streams=m&&index?index.episodes.filter(e=>e.absoluteEpisode===Number(m[1])&&e.absoluteEpisode>=1&&e.absoluteEpisode<=33).map(e=>({name:"Yayın",ytId:e.ytId})):[];res.json({streams});});
-app.listen(process.env.PORT||10000,()=>{execFile(process.execPath,["scripts/index-ezel.js"],{timeout:180000},async(err,stdout,stderr)=>{try{if(err)throw new Error(stderr.trim().slice(0,300)||err.message);index=JSON.parse(await fs.readFile("data/youtube/ezel-index.json","utf8"));state={status:"complete",summary:stdout.trim(),pilotSeason:1,maxPilotEpisode:33};}catch(e){state={status:"failed",error:e.message};}console.log(JSON.stringify(state));});});
+const express=require("express"),cors=require("cors");const {run}=require("./scripts/index-series");const app=express();app.use(cors());const results=[];let status="running";
+const bounds={"tt1534360":[33,71],"tt1286677":[38,79],"tt4132514":[8,39],"tt2239964":[11],"tt2543258":[32]};
+app.get("/",(_,res)=>res.json({status,completed:results.length,total:24,series:results.map(s=>({title:s.title,count:s.episodes.length,error:s.error,imdbId:s.imdbId}))}));
+app.get("/index",(_,res)=>res.json(results));
+app.get("/manifest.json",(_,res)=>res.json({id:"com.tata.youtube.pilot",version:"0.2.0",name:"TATA YouTube Pilot",description:"YouTube series pilot",resources:["stream"],types:["series"],catalogs:[],idPrefixes:["tt"]}));
+app.get("/stream/series/:id.json",(req,res)=>{const m=req.params.id.match(/^(tt\d+):(\d+):(\d+)$/);if(!m)return res.json({streams:[]});const [,id,ss,ee]=m,season=Number(ss),ep=Number(ee),b=bounds[id];const s=results.find(x=>x.imdbId===id);const ids=new Set();for(const e of s?.episodes||[]){if(e.explicitSeason===season&&e.absoluteEpisode===ep||id==="tt1534360"&&season===1&&ep<=33&&e.absoluteEpisode===ep)ids.add(e.ytId);}res.json({streams:[...ids].map(ytId=>({name:"Yayın",ytId}))});});
+app.listen(process.env.PORT||10000,()=>{run(s=>{results.push(s);console.log(JSON.stringify({title:s.title,count:s.episodes.length,error:s.error}));}).then(()=>{status="complete";console.log("Series scan complete");}).catch(e=>{status="failed";console.log(e.message);});});
