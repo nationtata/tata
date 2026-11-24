@@ -21,7 +21,8 @@ async function main(){
       const videos=await api("videos",{part:"snippet,status,contentDetails",id:ids.join(",")});
       for(const v of videos.items||[]){
         const title=v.snippet.title.normalize("NFKD").replace(/\p{M}/gu,"").toLowerCase().replace(/ı/g,"i");
-        const match=title.match(/^ezel\s*[-:–]?\s*(\d+)\.?\s*bolum(?:\s*[-|–]?\s*(?:full hd|tek parca|tam bolum|hd))?\s*$/);
+        const match=title.match(/^ezel\s*[-:–]?\s*(\d+)\.?\s*bolum\b/) || title.match(/^(\d+)\.?\s*bolum\s*[-:–|]?\s*ezel\b/);
+        if(/\b(fragman|ozet|sahne|kesit|klip|shorts|part|kisim|kamera arkasi|roportaj|tanitim)\b/.test(title)) continue;
         const duration=v.contentDetails.duration.match(/^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/);
         const region=v.contentDetails.regionRestriction;
         if(!match||!duration||Number(duration[1]||0)*60+Number(duration[2]||0)<40||v.status.privacyStatus!=="public"||!v.status.embeddable||v.snippet.channelId!==channel.id||region?.blocked?.includes("TR")||(region?.allowed&&!region.allowed.includes("TR"))) continue;
