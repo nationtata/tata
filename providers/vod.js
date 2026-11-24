@@ -37,6 +37,12 @@ async function findTmdb(type, id, language = "tr-TR", timeout = 3500) {
 }
 
 const providerKey = Symbol("provider");
+const streamKey = Symbol("streamKey");
+let streamSequence = 0;
+function streamIdentity(stream) {
+  if (stream[streamKey] !== undefined) return "stream:" + stream[streamKey];
+  return stream.ytId ? "youtube:" + JSON.stringify([stream.name, stream.ytId]) : null;
+}
 function cleanStream(stream, provider) {
   if (!stream || typeof stream.url !== "string" || !/^https?:\/\//i.test(stream.url)) return null;
   const headers = stream.behaviorHints?.proxyHeaders?.request ?? stream.behaviorHints?.headers ?? stream.headers;
@@ -55,8 +61,9 @@ function cleanStream(stream, provider) {
     : undefined;
   return {
     [providerKey]: provider,
+    [streamKey]: ++streamSequence,
     ...(provider === "ME TV Medya" && stream.metvVariant && { metvVariant: stream.metvVariant }),
-    name: provider === "Law" ? "Law" : "Yayın",
+    name: provider,
     ...(stream.description || stream.quality ? { description: stream.description || stream.quality } : {}),
     ...(stream.quality && { quality: stream.quality }),
     ...(stream.title && stream.title !== provider && { title: stream.title }),
@@ -2315,7 +2322,7 @@ async function getVodStreams(type, id) {
     const publish = results => {
       if (!entry.accepting || !Array.isArray(results)) return;
       for (const stream of results) {
-        const identity = stream.url ? "url:" + stream.url : stream.ytId ? "yt:" + stream.ytId : null;
+        const identity = streamIdentity(stream);
         if (!identity || entry.rejected.has(identity)) continue;
         const previous=entry.streams.get(identity);
         entry.streams.set(identity, mergeStreams(previous, stream));
@@ -2324,7 +2331,8 @@ async function getVodStreams(type, id) {
     };
     const remove = stream => {
       if (!entry.accepting || !stream?.url) return;
-      const identity = "url:" + stream.url;
+      const identity = streamIdentity(stream);
+      if (!identity) return;
       entry.rejected.add(identity);
       entry.streams.delete(identity);
       entry.updated = Date.now();
