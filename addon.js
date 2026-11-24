@@ -39,17 +39,22 @@ loadM3U();
 ========================================================= */
 
 function uniqueStreamLinks(streams) {
-  const seen = new Set();
-  return streams.filter(stream => {
+  const { mergeStreams } = require("./providers/stream-metadata");
+  const positions = new Map();
+  const result = [];
+  for (const stream of streams) {
     const key = typeof stream.url === "string" && stream.url.length
       ? "url:" + stream.url
-      : typeof stream.ytId === "string" && stream.ytId.length
-        ? "youtube:" + stream.ytId : null;
-    if (key === null) return true;
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  });
+      : typeof stream.ytId === "string" && stream.ytId.length ? "youtube:" + stream.ytId : null;
+    if (key !== null && positions.has(key)) {
+      const index = positions.get(key);
+      result[index] = mergeStreams(result[index], stream);
+    } else {
+      if (key !== null) positions.set(key, result.length);
+      result.push(stream);
+    }
+  }
+  return result;
 }
 
 function absolute(req, url) {
