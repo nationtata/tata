@@ -14,31 +14,11 @@ const getMetvFilmIndex = remotePlaylistIndex(
   text => indexFilms(text, "metvCinema").titles,
   "metv-films.m3u.gz"
 );
-const powerCinemaUrl = "https://raw.githubusercontent.com/GitLatte/patr0n/refs/heads/site/lists/power-sinema.m3u";
-const powerCinemaRefreshMs = 30 * 60 * 1000;
-let powerCinemaIndex;
-let powerCinemaRefresh;
-let powerCinemaExpiresAt = 0;
-
-async function getPowerCinemaIndex() {
-  if (powerCinemaIndex && Date.now() < powerCinemaExpiresAt) return powerCinemaIndex;
-  if (!powerCinemaRefresh) {
-    powerCinemaRefresh = (async () => {
-      const response = await fetch(powerCinemaUrl, { signal: AbortSignal.timeout(6000) });
-      if (!response.ok) throw new Error("Power Sinema HTTP " + response.status);
-      const index = indexFilms(await response.text(), "powerCinema");
-      if (!index.imdb.size) throw new Error("Power Sinema playlist has no IMDb entries");
-      powerCinemaIndex = index;
-      powerCinemaExpiresAt = Date.now() + powerCinemaRefreshMs;
-      return index;
-    })().catch(error => {
-      powerCinemaExpiresAt = Date.now() + 60000;
-      if (!powerCinemaIndex) throw error;
-      return powerCinemaIndex;
-    }).finally(() => { powerCinemaRefresh = undefined; });
-  }
-  return powerCinemaRefresh;
-}
+const getPowerCinemaIndex = remotePlaylistIndex(
+  "https://raw.githubusercontent.com/GitLatte/patr0n/refs/heads/site/lists/power-sinema.m3u",
+  text => indexFilms(text, "powerCinema").imdb,
+  "power-cinema.m3u.gz"
+);
 const directSources = new Set(["fullmovies", "rectv", "pixeldrain", "imgsapi", "metvCinema"]);
 
 function add(index, key, row) {
@@ -122,7 +102,7 @@ async function getFilmPlaylistStreams(source, details, requestId) {
   if (source === "powerCinema") {
     const id = requestId.startsWith("tt") ? requestId : details.external_ids?.imdb_id ?? details.imdb_id;
     if (!id) return [];
-    const { imdb } = await getPowerCinemaIndex();
+    const imdb = await getPowerCinemaIndex();
     const matches = [...new Map((imdb.get(id) ?? []).map(row => [row.url, row])).values()];
     return Promise.all(matches.slice(0, 5).map(resolveFilm));
   }
