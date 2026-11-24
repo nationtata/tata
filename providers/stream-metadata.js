@@ -147,10 +147,10 @@ function describe(stream,media={},originalLanguage="") {
   const display=xs=>xs.map(x=>flags[x]||x.toUpperCase()).join(" / ");
   let langLine=[audio.length?"Ses: "+display(audio):estimatedAudio?"Ses: "+display([estimatedAudio]):/Ses:\s*Orijinal/i.test(existing)?"Ses: Orijinal":"",subs.length?"Altyazı: "+display(subs):""].filter(Boolean).join(" • ");
   if (stream.metvVariant === "dubbed") {
-    langLine = ["Ses: " + display(["tr"]) + " (Dublaj)", subs.length && "Altyazı: " + display(subs)].filter(Boolean).join(" • ");
+    langLine = ["Ses: " + display(["tr"]), subs.length && "Altyazı: " + display(subs)].filter(Boolean).join(" • ");
   } else if (stream.metvVariant === "subtitled") {
     const original = language(originalLanguage);
-    const originalLabel = original ? display([original]) + " (Orijinal)" : "Orijinal";
+    const originalLabel = original ? display([original]) : "Orijinal";
     langLine = "Ses: " + originalLabel + " • Altyazı: " + display(unique(["tr", ...subs]));
   }
   const channels=media.channels||existing.match(/\b(?:2\.0|5\.1|7\.1)\b/)?.[0];
