@@ -290,13 +290,6 @@
     "anime": false
   },
   {
-    "id": "webdramaturkey2",
-    "name": "WebDramaTurkey2",
-    "movie": false,
-    "series": true,
-    "anime": false
-  },
-  {
     "id": "asyawatch",
     "name": "AsyaWatch",
     "movie": true,
@@ -304,23 +297,9 @@
     "anime": false
   },
   {
-    "id": "dizibox",
-    "name": "DiziBox",
-    "movie": false,
-    "series": true,
-    "anime": false
-  },
-  {
     "id": "ddizimag",
     "name": "DDizimag",
     "movie": true,
-    "series": true,
-    "anime": false
-  },
-  {
-    "id": "dizilla",
-    "name": "Dizilla",
-    "movie": false,
     "series": true,
     "anime": false
   },
@@ -336,20 +315,6 @@
     "name": "FullHDFilmizlesene",
     "movie": true,
     "series": false,
-    "anime": false
-  },
-  {
-    "id": "jetfilmizle",
-    "name": "JetFilmizle",
-    "movie": true,
-    "series": false,
-    "anime": false
-  },
-  {
-    "id": "sinemetrik",
-    "name": "Sinemetrik",
-    "movie": true,
-    "series": true,
     "anime": false
   },
   {
