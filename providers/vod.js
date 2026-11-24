@@ -89,7 +89,22 @@ async function runProvider(provider, lookup, type) {
   try {
     const result = await Promise.resolve().then(lookup);
     if (!Array.isArray(result)) return [];
-    const streams = result.map(stream => cleanStream(stream, provider)).filter(Boolean);
+    const streams = result.map(stream => {
+      const cleaned = cleanStream(stream, provider);
+      if (provider === "Law") {
+        const summarize = value => (Array.isArray(value) ? value : []).map(sub => ({
+          lang: String(sub?.lang || sub?.language || "").slice(0, 40),
+          absoluteHttp: typeof sub?.url === "string" && /^https?:\/\//i.test(sub.url),
+          hasHeaders: !!sub?.headers
+        }));
+        console.info("[Law subtitle diagnostic]", JSON.stringify({
+          before: summarize(stream?.subtitles),
+          after: summarize(cleaned?.subtitles),
+          streamAccepted: !!cleaned
+        }));
+      }
+      return cleaned;
+    }).filter(Boolean);
     if (result.length && !streams.length) console.warn("[TATA VOD]", provider, type, "invalid-stream-url");
     return streams;
   } catch (error) {
