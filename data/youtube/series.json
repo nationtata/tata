@@ -1,0 +1,2304 @@
+{
+  "schemaVersion": 1,
+  "kind": "candidate_registry",
+  "series": [
+    {
+      "key": "tr-001",
+      "title": "Şahsiyet",
+      "year": 2018,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-002",
+      "title": "Leyla ile Mecnun",
+      "year": 2011,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-003",
+      "title": "İkinci Bahar",
+      "year": 1998,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-004",
+      "title": "Ezel",
+      "year": 2009,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot",
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-005",
+      "title": "Tatlı Hayat",
+      "year": 2001,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-006",
+      "title": "Masum",
+      "year": 2017,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot",
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-007",
+      "title": "Muhteşem Yüzyıl",
+      "year": 2011,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot",
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-008",
+      "title": "Çalıkuşu",
+      "year": 1986,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-009",
+      "title": "Behzat Ç.: Bir Ankara Polisiyesi",
+      "year": 2010,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-010",
+      "title": "Yedi Güzel Adam",
+      "year": 2014,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-011",
+      "title": "Yeditepe İstanbul",
+      "year": 2001,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-012",
+      "title": "Kurtlar Vadisi",
+      "year": 2003,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-013",
+      "title": "Bir Demet Tiyatro",
+      "year": 1995,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-014",
+      "title": "Şubat",
+      "year": 2012,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-015",
+      "title": "Aşk-ı Memnu",
+      "year": 2008,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-016",
+      "title": "Fi",
+      "year": 2017,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot",
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-017",
+      "title": "Acayip Hikayeler",
+      "year": 2012,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-018",
+      "title": "Süper Baba",
+      "year": 1993,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot",
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-019",
+      "title": "Avrupa Yakası",
+      "year": 2004,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-020",
+      "title": "Beş Kardeş",
+      "year": 2015,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-021",
+      "title": "Şeref Meselesi",
+      "year": 2014,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-022",
+      "title": "İşler Güçler",
+      "year": 2012,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-023",
+      "title": "Kardeş Payı",
+      "year": 2014,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-024",
+      "title": "Avlu",
+      "year": 2018,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-025",
+      "title": "Elveda Rumeli",
+      "year": 2007,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-026",
+      "title": "7 Numara",
+      "year": 2000,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-027",
+      "title": "Çemberimde Gül Oya",
+      "year": 2004,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-028",
+      "title": "Kuzey Güney",
+      "year": 2011,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-029",
+      "title": "Asmalı Konak",
+      "year": 2002,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-030",
+      "title": "Kaygısızlar",
+      "year": 1994,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-031",
+      "title": "Sıdıka",
+      "year": 1997,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-032",
+      "title": "Ben de Özledim",
+      "year": 2013,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-033",
+      "title": "Çukur",
+      "year": 2017,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot",
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-034",
+      "title": "Gülbeyaz",
+      "year": 2002,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-035",
+      "title": "46: Yok Olan",
+      "year": 2016,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot",
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-036",
+      "title": "Sultan Makamı",
+      "year": 2003,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-037",
+      "title": "Ekmek Teknesi",
+      "year": 2002,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-038",
+      "title": "Suskunlar",
+      "year": 2012,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-039",
+      "title": "1 Kadın 1 Erkek",
+      "year": 2008,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot",
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-040",
+      "title": "Mutlu Ol Yeter",
+      "year": 2015,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-041",
+      "title": "Poyraz Karayel",
+      "year": 2015,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-042",
+      "title": "Kampüsistan",
+      "year": 2003,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-043",
+      "title": "Ufak Tefek Cinayetler",
+      "year": 2017,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-044",
+      "title": "Mahallenin Muhtarları",
+      "year": 1992,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-045",
+      "title": "Deli Yürek",
+      "year": 1998,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot",
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-046",
+      "title": "Kartallar Yüksek Uçar",
+      "year": 1983,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-047",
+      "title": "Bizimkiler",
+      "year": 1989,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot",
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-048",
+      "title": "Şaşıfelek Çıkmazı",
+      "year": 1996,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-049",
+      "title": "Hatırla Sevgili",
+      "year": 2006,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-050",
+      "title": "Yabancı Damat",
+      "year": 2004,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot",
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-051",
+      "title": "Sıcak Saatler",
+      "year": 1998,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-052",
+      "title": "Benim Adım Gültepe",
+      "year": 2014,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-053",
+      "title": "Perihan Abla",
+      "year": 1986,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-054",
+      "title": "Köprü",
+      "year": 2006,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-055",
+      "title": "Vatanım Sensin",
+      "year": 2016,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot",
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-056",
+      "title": "İstanbullu Gelin",
+      "year": 2017,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-057",
+      "title": "Küçük Ağa",
+      "year": 1983,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-058",
+      "title": "Ayrılsak da Beraberiz",
+      "year": 1999,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot",
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-059",
+      "title": "Yeter Anne",
+      "year": 2002,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-060",
+      "title": "Çiçek Taksi",
+      "year": 1995,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-061",
+      "title": "Üsküdar'a Giderken",
+      "year": 2011,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-062",
+      "title": "Yaprak Dökümü",
+      "year": 2006,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot",
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-063",
+      "title": "Ulan İstanbul",
+      "year": 2014,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-064",
+      "title": "İçerde",
+      "year": 2016,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot",
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-065",
+      "title": "Hayat Bilgisi",
+      "year": 2003,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-066",
+      "title": "Doktorlar",
+      "year": 2006,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-067",
+      "title": "Yalan Dünya",
+      "year": 2012,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-068",
+      "title": "Çocuklar Duymasın",
+      "year": 2002,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot",
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-069",
+      "title": "Kara Melek",
+      "year": 1997,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-070",
+      "title": "Medcezir",
+      "year": 2013,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-071",
+      "title": "Yılan Hikayesi",
+      "year": 1999,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot",
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-072",
+      "title": "Kara Sevda",
+      "year": 2015,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot",
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-073",
+      "title": "Kaynanalar",
+      "year": 1974,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-074",
+      "title": "Zerda",
+      "year": 2002,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-075",
+      "title": "Kara Para Aşk",
+      "year": 2014,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot",
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-076",
+      "title": "Çılgın Bediş",
+      "year": 1996,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-077",
+      "title": "Karagül",
+      "year": 2013,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-078",
+      "title": "Fatmagül'ün Suçu Ne?",
+      "year": 2010,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot",
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-079",
+      "title": "Binbir Gece",
+      "year": 2006,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-080",
+      "title": "Hanımın Çiftliği",
+      "year": 2009,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-081",
+      "title": "Kurt Seyit ve Şura",
+      "year": 2014,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot",
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-082",
+      "title": "Sıla",
+      "year": 2006,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-083",
+      "title": "Öyle Bir Geçer Zaman Ki",
+      "year": 2010,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-084",
+      "title": "Gümüş",
+      "year": 2005,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-085",
+      "title": "Adını Feriha Koydum",
+      "year": 2011,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-086",
+      "title": "Dudaktan Kalbe",
+      "year": 2007,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-087",
+      "title": "Geniş Aile",
+      "year": 2009,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-088",
+      "title": "Bir İstanbul Masalı",
+      "year": 2003,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-089",
+      "title": "Dadı",
+      "year": 2001,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-090",
+      "title": "Diriliş: Ertuğrul",
+      "year": 2014,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot",
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-091",
+      "title": "Yunus Emre: Aşkın Yolculuğu",
+      "year": 2015,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-092",
+      "title": "Aliye",
+      "year": 2004,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-093",
+      "title": "Seksenler",
+      "year": 2012,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-094",
+      "title": "Ruhsar",
+      "year": 1998,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot",
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-095",
+      "title": "Eşkıya Dünyaya Hükümdar Olmaz",
+      "year": 2015,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-096",
+      "title": "Payitaht: Abdülhamid",
+      "year": 2017,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-097",
+      "title": "Böyle mi Olacaktı",
+      "year": 1997,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-098",
+      "title": "Kuzenlerim",
+      "year": 2002,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "imdb_screenshot"
+      ]
+    },
+    {
+      "key": "tr-099",
+      "title": "Hudutsuz Sevda",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-100",
+      "title": "Uzak Şehir",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-101",
+      "title": "Kuruluş Osman",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-102",
+      "title": "Sıfır Bir",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-103",
+      "title": "Emanet",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-104",
+      "title": "Arka Sokaklar",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-105",
+      "title": "Yalı Çapkını",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-106",
+      "title": "Kızılcık Şerbeti",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-107",
+      "title": "Teşkilat",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-108",
+      "title": "Kurtlar Vadisi Pusu",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-109",
+      "title": "Arafta",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-110",
+      "title": "Taşacak Bu Deniz",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-111",
+      "title": "Kan Çiçekleri",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-112",
+      "title": "Mehmed: Fetihler Sultanı",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-113",
+      "title": "Mucize Doktor",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-114",
+      "title": "Fazilet Hanım ve Kızları",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-115",
+      "title": "Muhteşem Yüzyıl: Kösem",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-116",
+      "title": "Kiralık Aşk",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-117",
+      "title": "Leyla: Hayat... Aşk... Adalet...",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-118",
+      "title": "Yabani",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-119",
+      "title": "Rüzgarlı Tepe",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-120",
+      "title": "Mezarlık",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-121",
+      "title": "Gibi",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-122",
+      "title": "Konuşanlar",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-123",
+      "title": "Kadın",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-124",
+      "title": "Söz",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-125",
+      "title": "Mahsun J",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-126",
+      "title": "Akasya Durağı",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-127",
+      "title": "Seni Tanıyorum",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-128",
+      "title": "Bizim Hikaye",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-129",
+      "title": "Çarpışma",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-130",
+      "title": "Cennet Mahallesi",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-131",
+      "title": "Doğduğun Ev Kaderindir",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-132",
+      "title": "Siyah Beyaz Aşk",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-133",
+      "title": "Prens",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-134",
+      "title": "Sen Anlat Karadeniz",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-135",
+      "title": "Aşk Yeniden",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-136",
+      "title": "Sefirin Kızı",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-137",
+      "title": "Güneşin Kızları",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-138",
+      "title": "Kimler Geldi Kimler Geçti",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-139",
+      "title": "Aşkı Hatırla",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-140",
+      "title": "Kuma",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-141",
+      "title": "Aşk Mantık İntikam",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-142",
+      "title": "Yeşil Vadi'nin Kızı",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-143",
+      "title": "Enfes Bir Akşam",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-144",
+      "title": "El Turco",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-145",
+      "title": "Masumiyet Müzesi",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-146",
+      "title": "Pera Palas'ta Gece Yarısı",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-147",
+      "title": "Erşan Kuneri",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-148",
+      "title": "Dolunay",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-149",
+      "title": "Çilek Kokusu",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-150",
+      "title": "Aktris",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-151",
+      "title": "Duy Beni",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-152",
+      "title": "Şahmaran",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-153",
+      "title": "Bambaşka Biri",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-154",
+      "title": "Çekiç ve Gül: Bir Behzat Ç. Hikayesi",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-155",
+      "title": "Bay Yanlış",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-156",
+      "title": "Ada Masalı",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-157",
+      "title": "Kızım",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-158",
+      "title": "Yaratılan",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-159",
+      "title": "Dünyayla Benim Aramda",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-160",
+      "title": "Sıcak Kafa",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-161",
+      "title": "Alef",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-162",
+      "title": "20 Dakika",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-163",
+      "title": "Gülcemal",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-164",
+      "title": "Uysallar",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-165",
+      "title": "Biz Kimden Kaçıyorduk Anne?",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-166",
+      "title": "Komedi Dükkanı",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-167",
+      "title": "Var Bunlar",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-168",
+      "title": "Asaf",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-169",
+      "title": "Kaçış",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-170",
+      "title": "Börü",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-171",
+      "title": "50m²",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-172",
+      "title": "Yakamoz S-245",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-173",
+      "title": "Yaşamayanlar",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-174",
+      "title": "Arkadaşım Hoşgeldin",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    },
+    {
+      "key": "tr-175",
+      "title": "Börü 2039",
+      "year": null,
+      "imdbId": null,
+      "tmdbId": null,
+      "language": "tr",
+      "status": "pending_verification",
+      "youtubeEligible": false,
+      "source": [
+        "nuvio_screenshot"
+      ]
+    }
+  ]
+}
