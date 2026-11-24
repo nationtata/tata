@@ -90,9 +90,9 @@ async function runProvider(provider, lookup, type) {
 
 // Full-length uploads from the series' and producers' official YouTube channels.
 const youtubeSeries = [
-  { ids: ["32836", "tt0845088"], title: "arka sokaklar", year: "2006",
+  { ids: ["32836", "tt0845088"], title: "Arka Sokaklar", year: "2006", youtubeChannel: "UCJBBp-6JoqjOeLzTxzol_7A",
     episodes: { "1:1": "TBBRBD8Fudg", "1:2": "JjVOWBu4z48", "1:3": "AF7o7S8TBiQ" } },
-  { ids: ["tt2361816"], title: "seksenler", year: "2012",
+  { ids: ["tt2361816"], title: "Seksenler", year: "2012", youtubeChannel: "UCYRPB4TbD2RYHlIQdLgEeYA",
     episodes: { "1:1": "Wn5piPtkki0" } }
 ];
 
@@ -120,12 +120,16 @@ function getYouTubeStreams(type, request, details) {
 
 async function search(type, request) {
   const knownYouTubeStreams = getYouTubeStreams(type, request);
+  const knownShow = type === "series" && youtubeSeries.find(item => item.ids.includes(request.id.replace(/^tmdb:/, "")));
+  const earlyYouTube = !knownYouTubeStreams.length && knownShow && process.env.YOUTUBE_DATA_API_KEY
+    ? findYouTubeStreams(type, { id: knownShow.ids[0], name: knownShow.title, youtubeChannel: knownShow.youtubeChannel }, request)
+    : undefined;
   const details = await findTmdb(type, request.id).catch(error => {
-    if (!knownYouTubeStreams.length) throw error;
+    if (!knownYouTubeStreams.length && !earlyYouTube) throw error;
     console.warn("[TATA VOD] YouTube series metadata", error.name);
     return null;
   });
-  if (!details?.id) return knownYouTubeStreams;
+  if (!details?.id) return earlyYouTube ?? knownYouTubeStreams;
   const youtubeStreams = knownYouTubeStreams.length ? knownYouTubeStreams : getYouTubeStreams(type, request, details);
   const genres = details.genre_ids ?? details.genres?.map(genre => genre.id) ?? [];
   const isAnimation = genres.includes(16);
@@ -174,9 +178,8 @@ async function search(type, request) {
   for (const source of getLocalIzlelanJobs()) {
     jobs.push(runProvider(source.name, () => source.getStreams(String(details.id), type === "series" ? "tv" : "movie", request.season, request.episode), type));
   }
-  if (!youtubeStreams.length && process.env.YOUTUBE_DATA_API_KEY) {
-    jobs.push(findYouTubeStreams(type, details, request));
-  }
+  const discoveredYouTube = earlyYouTube ?? (!youtubeStreams.length && process.env.YOUTUBE_DATA_API_KEY
+    ? findYouTubeStreams(type, details, request) : []);
   const streams = [];
   let accepting = true;
   let timer;
@@ -193,14 +196,13 @@ async function search(type, request) {
   }
   const seen = new Set();
   const enriched = await enrichStreams(streams.filter(stream => {
-    if (stream.ytId) return false;
     const identity = streamIdentity(stream);
     const key = JSON.stringify([stream[providerKey], identity]);
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
   }), details.original_language);
-  return [...youtubeStreams, ...streams.filter(stream => stream.ytId), ...enriched];
+  return [...youtubeStreams, ...await discoveredYouTube, ...enriched];
 }
 
 async function getVodStreams(type, id) {

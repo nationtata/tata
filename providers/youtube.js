@@ -47,21 +47,22 @@ function playable(video, type, channels) {
 }
 
 async function callYouTube(resource, params, apiKey, signal) {
-  const query = new URLSearchParams({ ...params, key: apiKey });
-  const response = await fetch("https://www.googleapis.com/youtube/v3/" + resource + "?" + query, { signal });
-  if (!response.ok) throw new Error("YouTube HTTP " + response.status);
+  const query = new URLSearchParams(params);
+  const response = await fetch("https://www.googleapis.com/youtube/v3/" + resource + "?" + query, { signal, headers: { "X-Goog-Api-Key": apiKey } });
+  if (!response.ok) throw new Error("YouTube " + resource + " HTTP " + response.status);
   return response.json();
 }
 
 async function lookUp(type, details, request, apiKey, channels) {
-  const signal = AbortSignal.timeout(3700);
+  const signal = AbortSignal.timeout(8500);
   const title = details.name || details.title;
   const suffix = type === "movie" ? details.release_date?.slice(0, 4)
     : request.season + ". Sezon " + request.episode + ". Bölüm";
   if (!title || !suffix) return [];
   const found = await callYouTube("search", {
     part: "snippet", type: "video", maxResults: "30", q: title + " " + suffix,
-    regionCode: "TR", videoEmbeddable: "true"
+    regionCode: "TR", videoEmbeddable: "true",
+    ...(details.youtubeChannel && { channelId: details.youtubeChannel })
   }, apiKey, signal);
   const ids = (found.items ?? []).filter(item => channels.has(item.snippet?.channelId))
     .map(item => item.id?.videoId).filter(id => /^[\w-]{11}$/.test(id || ""));
@@ -89,7 +90,11 @@ async function findYouTubeStreams(type, details, request) {
     if (cache.size >= 512) cache.delete(cache.keys().next().value);
     cache.set(key, { streams, expires: Date.now() + (streams.length ? 21600000 : 900000) });
     return streams;
-  }).catch(() => []).finally(() => pending.delete(key));
+  }).catch(error => {
+    console.warn("[TATA YouTube]", type, details.id, error.name,
+      /^YouTube (?:search|videos) HTTP \d{3}$/.test(error.message) ? error.message : "");
+    return [];
+  }).finally(() => pending.delete(key));
   pending.set(key, job);
   return job;
 }
