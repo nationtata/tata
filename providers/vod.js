@@ -7,7 +7,7 @@ const { enrichStreams } = require("./stream-metadata");
 const izProviderNames = new Set(IZLELAN_NAMES);
 const anthologyProviderNames = new Set(registry.map(provider => provider.name));
 
-const PROVIDER_TIMEOUT = 9000;
+const PROVIDER_TIMEOUT = 5000;
 const MAX_ACTIVE_SEARCHES = 8;
 const ongoing = new Map();
 

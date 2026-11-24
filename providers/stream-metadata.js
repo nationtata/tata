@@ -111,18 +111,20 @@ async function probeBuffer(buffer) {
  });
  }catch{return {};}
 }
-async function inspect(stream) {
+async function inspect(stream, deadline) {
   const isHls=/\.m3u8(?:[?#]|$)|\/hls\/|\/master\./i.test(stream.url||"")||/^(hls|m3u8)$/i.test(stream.format||"")||/\.m3u8$/i.test(stream.behaviorHints?.filename||"");
   if(!isHls&&/\.(mpd|ts|webm)(?:[?#]|$)/i.test(stream.url||""))return {};
   const headers=stream.behaviorHints?.proxyHeaders?.request||stream.headers||{};
   const key=JSON.stringify([stream.url,headers]);
   const hit=cache.get(key);if(hit&&hit.until>Date.now())return hit.data;
   if(pending.has(key))return pending.get(key);
-  if(active>=6){for(let i=0;i<30&&active>=6;i++)await new Promise(resolve=>setTimeout(resolve,100));if(active>=6)return {};}
+  while(active>=12 && Date.now()<deadline) await new Promise(resolve=>setTimeout(resolve,50));
+  if(Date.now()>=deadline)return {};
+  if(pending.has(key))return pending.get(key);
   active++;
-  const task=readMedia(stream.url,headers,isHls).then(async data=>!isHls&&!data.audio?.length?{...data,...await readMedia(stream.url,headers,false,true)}:data).catch(()=>({})).then(data=>{
+  const task=readMedia(stream.url,headers,isHls).then(async data=>!isHls&&!data.audio?.length&&Date.now()<deadline?{...data,...await readMedia(stream.url,headers,false,true)}:data).catch(()=>({})).then(data=>{
     if(cache.size>=512)cache.delete(cache.keys().next().value);
-    cache.set(key,{data,until:Date.now()+ (Object.keys(data).length?300000:30000)});return data;
+    cache.set(key,{data,until:Date.now()+ (Object.keys(data).length?3600000:300000)});return data;
   }).finally(()=>{active--;pending.delete(key);});
   pending.set(key,task);return task;
 }
@@ -159,6 +161,11 @@ function describe(stream,media={},originalLanguage="") {
   return result;
 }
 async function enrichStreams(streams,originalLanguage="") {
-  return Promise.all(streams.map(async s=>{try{return describe(s,await inspect(s),originalLanguage);}catch{return s;}}));
+  const deadline=Date.now()+2500;
+  let timer;
+  const cutoff=new Promise(resolve=>{timer=setTimeout(()=>resolve({}),2500);});
+  try {
+    return await Promise.all(streams.map(async s=>{try{return describe(s,await Promise.race([inspect(s,deadline),cutoff]),originalLanguage);}catch{return s;}}));
+  } finally {clearTimeout(timer);}
 }
 module.exports={parseProbe,parseHls,describe,enrichStreams,publicIPv4};
