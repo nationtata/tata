@@ -266,7 +266,8 @@ function describe(stream,media={},originalLanguage="") {
   audio.sort((a,b)=>Number(b==="tr")-Number(a==="tr"));
   const display=xs=>unique(xs.map(x=>flags[x])).join(" / ");
   const sourceTurkishSubtitle = stream.metvVariant === "subtitled" || /(?:türkçe|turkce|\btr\b)\s+altyaz[ıi](?:l[ıi])?|(?:^|[\s|•\[(])altyaz[ıi]l[ıi](?:$|[\s|•\])])/iu.test(existing);
-  const langLine=[audio.length?"Ses: "+display(audio):"", ((media.subs||[]).map(language).includes("tr") || sourceTurkishSubtitle)?"Altyazı: 🇹🇷":""].filter(Boolean).join(" • ");
+  const providerTurkishSubtitle = Array.isArray(stream.subtitles) && stream.subtitles.some(sub => typeof sub?.url === "string" && /^https?:\/\//i.test(sub.url) && [sub.lang, sub.langCode, sub.language, sub.label].some(value => language(value) === "tr"));
+  const langLine=[audio.length?"Ses: "+display(audio):"", ((media.subs||[]).map(language).includes("tr") || sourceTurkishSubtitle || providerTurkishSubtitle)?"Altyazı: 🇹🇷":""].filter(Boolean).join(" • ");
   const channels=media.channels||existing.match(/\b(?:2\.0|5\.1|7\.1)\b/)?.[0];
   const sound=unique([media.audioCodec||ac,channels,media.atmos||/Dolby Atmos/i.test(existing)?"Dolby Atmos":""]).join(" ");
   const rate=media.rate||existing.match(/\b\d+(?:[.,]\d+)?\s*Mbps\b/i)?.[0];
