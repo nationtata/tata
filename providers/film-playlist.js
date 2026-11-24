@@ -1,4 +1,4 @@
-const { readEncryptedPlaylist, titleKey } = require("./playlist");
+const { readEncryptedPlaylist, titleKey, remotePlaylistIndex } = require("./playlist");
 
 const sources = {
   fullhdfi: "fullhdfi.m3u.gz.enc",
@@ -9,6 +9,10 @@ const sources = {
   imgsapi: "imgsapi.m3u.gz.enc"
 };
 const indexes = new Map();
+const getMetvFilmIndex = remotePlaylistIndex(
+  "https://raw.githubusercontent.com/kimbumuratyavuz/capcanli/refs/heads/main/filmuygulama.m3u",
+  text => indexFilms(text, "metvCinema").titles
+);
 const powerCinemaUrl = "https://raw.githubusercontent.com/GitLatte/patr0n/refs/heads/site/lists/power-sinema.m3u";
 const powerCinemaRefreshMs = 30 * 60 * 1000;
 let powerCinemaIndex;
@@ -34,7 +38,7 @@ async function getPowerCinemaIndex() {
   }
   return powerCinemaRefresh;
 }
-const directSources = new Set(["fullmovies", "rectv", "pixeldrain", "imgsapi"]);
+const directSources = new Set(["fullmovies", "rectv", "pixeldrain", "imgsapi", "metvCinema"]);
 
 function add(index, key, row) {
   if (!key) return;
@@ -123,14 +127,15 @@ async function getFilmPlaylistStreams(source, details, requestId) {
   }
   const key = directSources.has(source)
     ? process.env.TATA_EXTRA_FILM_M3U_KEY : process.env.TATA_FILM_M3U_KEY;
-  if (!key) return [];
-  if (!indexes.has(source)) {
+  if (!key && source !== "metvCinema") return [];
+  if (source !== "metvCinema" && !indexes.has(source)) {
     indexes.set(source, readEncryptedPlaylist(sources[source], key).then(text => indexFilms(text, source)).catch(error => {
       indexes.delete(source);
       throw error;
     }));
   }
-  const { imdb, titles } = await indexes.get(source);
+  const { imdb, titles } = source === "metvCinema"
+    ? { titles: await getMetvFilmIndex() } : await indexes.get(source);
   const id = requestId.startsWith("tt") ? requestId : details.external_ids?.imdb_id ?? details.imdb_id;
   const year = details.release_date?.slice(0, 4);
   const names = [...new Set([details.title, details.original_title, details.englishTitle].map(titleKey).filter(Boolean))];

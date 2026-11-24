@@ -18,7 +18,7 @@ async function readEncryptedPlaylist(filename, key) {
 const titleKey = value => String(value ?? "").normalize("NFKD").toLowerCase()
   .replace(/ı/g, "i").replace(/\p{M}/gu, "").replace(/[^\p{L}\p{N}]/gu, "");
 
-function indexPlaylist(text) {
+function indexPlaylist(text, remote = false) {
   const episodes = new Map();
   let pending;
   for (const raw of text.split(/\r?\n/)) {
@@ -41,10 +41,15 @@ function indexPlaylist(text) {
     if (option) {
       pending.headers[option[1].toLowerCase() === "referrer" ? "Referer" : "User-Agent"] = option[2];
     } else if (/^https?:\/\//i.test(line)) {
+      if (remote && !/^https:\/\/[^/@\s]+\/[^\s]*\.(?:m3u8|mp4|mkv|m4v)(?:[?#][^\s]*)?$/i.test(line)) {
+        pending = null;
+        continue;
+      }
       const rows = episodes.get(pending.key) ?? [];
       rows.push({
         url: line,
         headers: pending.headers,
+        ...(remote && /\.m3u8(?:[?#]|$)/i.test(line) && { isHls: true }),
         ...(pending.dubbed && { audio: "Türkçe Dublaj" })
       });
       episodes.set(pending.key, rows);
@@ -56,6 +61,32 @@ function indexPlaylist(text) {
   return episodes;
 }
 
+function remotePlaylistIndex(url, index) {
+  let cached, pending, expiresAt = 0;
+  return async () => {
+    if (cached && Date.now() < expiresAt) return cached;
+    pending ??= (async () => {
+      const response = await fetch(url, { signal: AbortSignal.timeout(15000) });
+      if (!response.ok) throw new Error("Playlist HTTP " + response.status);
+      const next = index(await response.text());
+      if (!next.size) throw new Error("Playlist has no supported entries");
+      cached = next;
+      expiresAt = Date.now() + 30 * 60 * 1000;
+      return cached;
+    })().catch(error => {
+      if (!cached) throw error;
+      expiresAt = Date.now() + 60000;
+      return cached;
+    }).finally(() => { pending = undefined; });
+    return pending;
+  };
+}
+
+const getMetvSeriesIndex = remotePlaylistIndex(
+  "https://raw.githubusercontent.com/kimbumuratyavuz/capcanli/refs/heads/main/dizi.m3u",
+  text => indexPlaylist(text, true)
+);
+
 let indexed;
 async function getPlaylistStreams(details, season, episode) {
   const path = process.env.TATA_SERIES_M3U_PATH;
@@ -66,8 +97,16 @@ async function getPlaylistStreams(details, season, episode) {
     throw error;
   });
   const episodes = await indexed;
+  return matchEpisodes(episodes, details, season, episode);
+}
+
+async function getMetvSeriesStreams(details, season, episode) {
+  return matchEpisodes(await getMetvSeriesIndex(), details, season, episode).slice(0, 5);
+}
+
+function matchEpisodes(episodes, details, season, episode) {
   const titles = [details.name, details.original_name, details.englishTitle].map(titleKey).filter(Boolean);
   return [...new Set(titles)].flatMap(title => episodes.get([title, season, episode].join(":")) ?? []);
 }
 
-module.exports = { getPlaylistStreams, readEncryptedPlaylist, titleKey };
+module.exports = { getPlaylistStreams, readEncryptedPlaylist, titleKey, remotePlaylistIndex, getMetvSeriesStreams };

@@ -1,5 +1,5 @@
 const { getFilmPlaylistStreams } = require("./film-playlist");
-const { getPlaylistStreams } = require("./playlist");
+const { getPlaylistStreams, getMetvSeriesStreams } = require("./playlist");
 const { getMovieStreams } = require("./izlefilm");
 const registry = require("../vendor/anthology/providers.json");
 const { getLocalIzlelanJobs } = require("./izlelan-adapter");
@@ -105,7 +105,12 @@ async function search(type, request) {
     jobs.unshift(runProvider("TATA M3U", async () =>
       getPlaylistStreams(await animeDetails, request.season, request.episode), type));
   }
+  if (type === "series") {
+    jobs.push(runProvider("ME TV Medya", async () =>
+      getMetvSeriesStreams(await animeDetails, request.season, request.episode), type));
+  }
   if (type === "movie") {
+    jobs.push(runProvider("ME TV Medya", () => getFilmPlaylistStreams("metvCinema", details, request.id), type));
     jobs.unshift(runProvider("İzlefilm", () => getMovieStreams(details), type));
     if (process.env.TATA_EXTRA_FILM_M3U_KEY) {
       jobs.unshift(
