@@ -9,48 +9,53 @@
       "handle": null,
       "url": null,
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "user_no_channel_found",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-002",
       "title": "Leyla ile Mecnun",
       "imdbId": "tt1831164",
-      "handle": null,
-      "url": null,
+      "handle": "leylailemecnundizisitrt",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@leylailemecnundizisitrt&type=dizi",
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "pending_endpoint_and_rights_verification",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-003",
       "title": "İkinci Bahar",
       "imdbId": "tt0264700",
-      "handle": null,
-      "url": null,
+      "handle": "İkincibahardizi",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@%C4%B0kincibahardizi&type=dizi",
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "pending_endpoint_and_rights_verification",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-004",
       "title": "Ezel",
       "imdbId": "tt1534360",
-      "handle": null,
-      "url": null,
+      "handle": "ezel",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@ezel&type=dizi",
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "pending_endpoint_and_rights_verification",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-005",
       "title": "Tatlı Hayat",
       "imdbId": "tt0302199",
-      "handle": null,
-      "url": null,
+      "handle": "TatliHayat",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@TatliHayat&type=dizi",
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "pending_endpoint_and_rights_verification",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-006",
@@ -59,98 +64,108 @@
       "handle": null,
       "url": null,
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "user_no_channel_found",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-007",
       "title": "Muhteşem Yüzyıl",
       "imdbId": "tt1848220",
-      "handle": null,
-      "url": null,
+      "handle": "muhtesemyuzyilofficial",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@muhtesemyuzyilofficial&type=dizi",
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "pending_endpoint_and_rights_verification",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-008",
       "title": "Çalıkuşu",
       "imdbId": "tt0952637",
-      "handle": null,
-      "url": null,
+      "handle": "calikusudizi",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@calikusudizi&type=dizi",
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "pending_endpoint_and_rights_verification",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-009",
       "title": "Behzat Ç.: Bir Ankara Polisiyesi",
       "imdbId": "tt1795096",
-      "handle": null,
-      "url": null,
+      "handle": "Behzatc.",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@Behzatc.&type=dizi",
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "pending_endpoint_and_rights_verification",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-010",
       "title": "Yedi Güzel Adam",
       "imdbId": "tt4132514",
-      "handle": null,
-      "url": null,
+      "handle": "YediGuzelAdamTRT",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@YediGuzelAdamTRT&type=dizi",
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "pending_endpoint_and_rights_verification",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-011",
       "title": "Yeditepe İstanbul",
       "imdbId": "tt0290995",
-      "handle": null,
-      "url": null,
+      "handle": "NostaljiTRT",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@NostaljiTRT&type=dizi",
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "pending_endpoint_and_rights_verification",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-012",
       "title": "Kurtlar Vadisi",
       "imdbId": "tt0421384",
-      "handle": null,
-      "url": null,
+      "handle": "KurtlarVadisiOfficial",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@KurtlarVadisiOfficial&type=dizi",
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "pending_endpoint_and_rights_verification",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-013",
       "title": "Bir Demet Tiyatro",
       "imdbId": "tt0346211",
-      "handle": null,
-      "url": null,
+      "handle": "BirDemetTiyatro",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@BirDemetTiyatro&type=dizi",
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "pending_endpoint_and_rights_verification",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-014",
       "title": "Şubat",
       "imdbId": "tt2543258",
-      "handle": null,
-      "url": null,
+      "handle": "NostaljiTRT",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@NostaljiTRT&type=dizi",
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "pending_endpoint_and_rights_verification",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-015",
       "title": "Aşk-ı Memnu",
       "imdbId": "tt1286677",
-      "handle": null,
-      "url": null,
+      "handle": "AskMemnuKanalD",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@AskMemnuKanalD&type=dizi",
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "pending_endpoint_and_rights_verification",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-016",
@@ -159,108 +174,119 @@
       "handle": null,
       "url": null,
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "user_no_channel_found",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-017",
       "title": "Acayip Hikayeler",
       "imdbId": "tt2239964",
-      "handle": null,
-      "url": null,
+      "handle": "acayiphikayelerdizi",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@acayiphikayelerdizi&type=dizi",
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "pending_endpoint_and_rights_verification",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-018",
       "title": "Süper Baba",
       "imdbId": null,
-      "handle": null,
-      "url": null,
+      "handle": "SuperBabaatv",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@SuperBabaatv&type=dizi",
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "pending_endpoint_and_rights_verification",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-019",
       "title": "Avrupa Yakası",
       "imdbId": null,
-      "handle": null,
-      "url": null,
+      "handle": "AvrupaYakasi",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@AvrupaYakasi&type=dizi",
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "pending_endpoint_and_rights_verification",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-020",
       "title": "Beş Kardeş",
       "imdbId": null,
-      "handle": null,
-      "url": null,
+      "handle": "varbunya",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@varbunya&type=dizi",
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "pending_endpoint_and_rights_verification",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-021",
       "title": "Şeref Meselesi",
       "imdbId": null,
-      "handle": null,
-      "url": null,
+      "handle": "serefmeselesiKanalD",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@serefmeselesiKanalD&type=dizi",
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "pending_endpoint_and_rights_verification",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-022",
       "title": "İşler Güçler",
       "imdbId": null,
-      "handle": null,
-      "url": null,
+      "handle": "islerGuclerDizi",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@islerGuclerDizi&type=dizi",
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "pending_endpoint_and_rights_verification",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-023",
       "title": "Kardeş Payı",
       "imdbId": null,
-      "handle": null,
-      "url": null,
+      "handle": "kardespayitv",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@kardespayitv&type=dizi",
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "pending_endpoint_and_rights_verification",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-024",
       "title": "Avlu",
       "imdbId": null,
-      "handle": null,
-      "url": null,
+      "handle": "avludizi",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@avludizi&type=dizi",
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "pending_endpoint_and_rights_verification",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-025",
       "title": "Elveda Rumeli",
       "imdbId": null,
-      "handle": null,
-      "url": null,
+      "handle": "ElvedaRumeli",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@ElvedaRumeli&type=dizi",
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "pending_endpoint_and_rights_verification",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-026",
       "title": "7 Numara",
       "imdbId": null,
-      "handle": null,
-      "url": null,
+      "handle": "YedinumaradizisiTRT",
+      "url": "https://xbyte.alwaysdata.net/YouTube.php?ID=@YedinumaradizisiTRT&type=dizi",
       "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
+      "status": "pending_endpoint_and_rights_verification",
+      "enabled": false,
+      "source": "user_supplied_handle"
     },
     {
       "seriesKey": "tr-027",
