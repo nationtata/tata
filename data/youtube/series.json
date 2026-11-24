@@ -114,111 +114,127 @@
       "key": "tr-008",
       "title": "Çalıkuşu",
       "year": 1986,
-      "imdbId": null,
+      "imdbId": "tt0952637",
       "tmdbId": null,
       "language": "tr",
       "status": "pending_verification",
       "youtubeEligible": false,
       "source": [
         "imdb_screenshot"
-      ]
+      ],
+      "imdbSource": "https://www.imdb.com/title/tt0952637/",
+      "imdbVerified": true
     },
     {
       "key": "tr-009",
       "title": "Behzat Ç.: Bir Ankara Polisiyesi",
       "year": 2010,
-      "imdbId": null,
+      "imdbId": "tt1795096",
       "tmdbId": null,
       "language": "tr",
       "status": "pending_verification",
       "youtubeEligible": false,
       "source": [
         "imdb_screenshot"
-      ]
+      ],
+      "imdbSource": "https://www.imdb.com/title/tt1795096/",
+      "imdbVerified": true
     },
     {
       "key": "tr-010",
       "title": "Yedi Güzel Adam",
       "year": 2014,
-      "imdbId": null,
+      "imdbId": "tt4132514",
       "tmdbId": null,
       "language": "tr",
       "status": "pending_verification",
       "youtubeEligible": false,
       "source": [
         "imdb_screenshot"
-      ]
+      ],
+      "imdbSource": "https://www.imdb.com/title/tt4132514/",
+      "imdbVerified": true
     },
     {
       "key": "tr-011",
       "title": "Yeditepe İstanbul",
       "year": 2001,
-      "imdbId": null,
+      "imdbId": "tt0290995",
       "tmdbId": null,
       "language": "tr",
       "status": "pending_verification",
       "youtubeEligible": false,
       "source": [
         "imdb_screenshot"
-      ]
+      ],
+      "imdbSource": "https://www.imdb.com/title/tt0290995/",
+      "imdbVerified": true
     },
     {
       "key": "tr-012",
       "title": "Kurtlar Vadisi",
       "year": 2003,
-      "imdbId": null,
+      "imdbId": "tt0421384",
       "tmdbId": null,
       "language": "tr",
       "status": "pending_verification",
       "youtubeEligible": false,
       "source": [
         "imdb_screenshot"
-      ]
+      ],
+      "imdbSource": "https://www.imdb.com/title/tt0421384/",
+      "imdbVerified": true
     },
     {
       "key": "tr-013",
       "title": "Bir Demet Tiyatro",
       "year": 1995,
-      "imdbId": null,
+      "imdbId": "tt0346211",
       "tmdbId": null,
       "language": "tr",
       "status": "pending_verification",
       "youtubeEligible": false,
       "source": [
         "imdb_screenshot"
-      ]
+      ],
+      "imdbSource": "https://www.imdb.com/title/tt0346211/",
+      "imdbVerified": true
     },
     {
       "key": "tr-014",
       "title": "Şubat",
       "year": 2012,
-      "imdbId": null,
+      "imdbId": "tt2543258",
       "tmdbId": null,
       "language": "tr",
       "status": "pending_verification",
       "youtubeEligible": false,
       "source": [
         "imdb_screenshot"
-      ]
+      ],
+      "imdbSource": "https://www.imdb.com/title/tt2543258/",
+      "imdbVerified": true
     },
     {
       "key": "tr-015",
       "title": "Aşk-ı Memnu",
       "year": 2008,
-      "imdbId": null,
+      "imdbId": "tt1286677",
       "tmdbId": null,
       "language": "tr",
       "status": "pending_verification",
       "youtubeEligible": false,
       "source": [
         "imdb_screenshot"
-      ]
+      ],
+      "imdbSource": "https://www.imdb.com/title/tt1286677/",
+      "imdbVerified": true
     },
     {
       "key": "tr-016",
       "title": "Fi",
       "year": 2017,
-      "imdbId": null,
+      "imdbId": "tt6724368",
       "tmdbId": null,
       "language": "tr",
       "status": "pending_verification",
@@ -226,20 +242,24 @@
       "source": [
         "imdb_screenshot",
         "nuvio_screenshot"
-      ]
+      ],
+      "imdbSource": "https://www.imdb.com/title/tt6724368/",
+      "imdbVerified": true
     },
     {
       "key": "tr-017",
       "title": "Acayip Hikayeler",
       "year": 2012,
-      "imdbId": null,
+      "imdbId": "tt2239964",
       "tmdbId": null,
       "language": "tr",
       "status": "pending_verification",
       "youtubeEligible": false,
       "source": [
         "imdb_screenshot"
-      ]
+      ],
+      "imdbSource": "https://www.imdb.com/title/tt2239964/",
+      "imdbVerified": true
     },
     {
       "key": "tr-018",
