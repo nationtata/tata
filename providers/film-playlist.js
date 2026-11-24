@@ -1,4 +1,4 @@
-const { readEncryptedPlaylist, titleKey, remotePlaylistIndex } = require("./playlist");
+const { readEncryptedPlaylist, titleKey, remotePlaylistIndex, metvLanguageVariant } = require("./playlist");
 
 const sources = {
   fullhdfi: "fullhdfi.m3u.gz.enc",
@@ -37,6 +37,7 @@ function indexFilms(text, source) {
     const line = raw.trim();
     if (line.startsWith("#EXTINF:")) {
       let name = line.replace(/^#EXTINF:(?:"[^"]*"|[^,])*,/, "").trim();
+      const metvVariant = source === "metvCinema" ? metvLanguageVariant(name) : undefined;
       if (direct) name = name.replace(/\s*\[(?:Türkçe\s+)?(?:Dublaj(?:\s*&\s*Altyazı)?|Altyazı(?:lı)?|Orijinal)\]/giu, "")
         .replace(/\s+-\s+(?:Dublaj|Altyazı(?:lı)?|Orijinal)$/iu, "")
         .replace(/\s+\((?:PixelDrain|(?:Türkçe\s+)?(?:Dublaj|Altyazı(?:lı)?|Orijinal)\s+-\s+(?:\d{3,4}p|4K))\)$/iu, "")
@@ -44,7 +45,7 @@ function indexFilms(text, source) {
       const year = name.match(/\s*\(((?:19|20)\d{2})\)/);
       const baseTitle = year ? name.slice(0, year.index) : name;
       const aliases = direct ? baseTitle.split(/\s+-\s+/).map(titleKey).filter(Boolean) : [];
-      pending = { title: titleKey(baseTitle), aliases, year: year?.[1], headers: {} };
+      pending = { title: titleKey(baseTitle), aliases, year: year?.[1], headers: {}, ...(metvVariant && { metvVariant }) };
       continue;
     }
     if (!pending) continue;
@@ -81,7 +82,7 @@ function indexFilms(text, source) {
 }
 
 async function resolveFilm(row) {
-  if (row.direct) return { url: row.url, isHls: row.isHls, headers: row.headers };
+  if (row.direct) return { url: row.url, isHls: row.isHls, headers: row.headers, ...(row.metvVariant && { metvVariant: row.metvVariant }) };
   if (row.host === "ha.vixolity.com") return {
     url: row.url,
     isHls: true,

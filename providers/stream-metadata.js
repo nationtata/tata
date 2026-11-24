@@ -145,7 +145,14 @@ function describe(stream,media={},originalLanguage="") {
   const estimatedAudio=!audio.length&&language(originalLanguage);
   const subs=unique([...(media.subs||[]),...(Array.isArray(stream.subtitles)?stream.subtitles.map(s=>language(s.lang||s.language)||language(s.label)):[]),...parseLangs(subLine),/(?:TR|Türkçe)\s*(?:Dublaj\s*&\s*)?Altyazılı/i.test(existing)?"tr":""]);
   const display=xs=>xs.map(x=>flags[x]||x.toUpperCase()).join(" / ");
-  const langLine=[audio.length?"Ses: "+display(audio):estimatedAudio?"Ses: "+display([estimatedAudio]):/Ses:\s*Orijinal/i.test(existing)?"Ses: Orijinal":"",subs.length?"Altyazı: "+display(subs):""].filter(Boolean).join(" • ");
+  let langLine=[audio.length?"Ses: "+display(audio):estimatedAudio?"Ses: "+display([estimatedAudio]):/Ses:\s*Orijinal/i.test(existing)?"Ses: Orijinal":"",subs.length?"Altyazı: "+display(subs):""].filter(Boolean).join(" • ");
+  if (stream.metvVariant === "dubbed") {
+    langLine = ["Ses: " + display(["tr"]) + " (Dublaj)", subs.length && "Altyazı: " + display(subs)].filter(Boolean).join(" • ");
+  } else if (stream.metvVariant === "subtitled") {
+    const original = language(originalLanguage);
+    const originalLabel = original ? display([original]) + " (Orijinal)" : "Orijinal";
+    langLine = "Ses: " + originalLabel + " • Altyazı: " + display(unique(["tr", ...subs]));
+  }
   const channels=media.channels||existing.match(/\b(?:2\.0|5\.1|7\.1)\b/)?.[0];
   const sound=unique([media.audioCodec||ac,channels,media.atmos||/Dolby Atmos/i.test(existing)?"Dolby Atmos":""]).join(" ");
   const rate=media.rate||existing.match(/\b\d+(?:[.,]\d+)?\s*Mbps\b/i)?.[0];
@@ -154,6 +161,7 @@ function describe(stream,media={},originalLanguage="") {
   const tech=unique([q,source,media.videoCodec||vc,depth,hdr,sound,rate,fps,size]).join(" • ");
   const description=[langLine||"Ses: Tespit edilemedi",tech||"Teknik bilgi tespit edilemedi"].filter(Boolean).join("\n");
   const result={...stream};
+  delete result.metvVariant;
   delete result.title;
   delete result.quality;
   delete result.description;

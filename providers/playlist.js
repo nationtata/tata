@@ -18,6 +18,12 @@ async function readEncryptedPlaylist(filename, key) {
 const titleKey = value => String(value ?? "").normalize("NFKD").toLowerCase()
   .replace(/ı/g, "i").replace(/\p{M}/gu, "").replace(/[^\p{L}\p{N}]/gu, "");
 
+function metvLanguageVariant(title) {
+  const label = title.match(/\s+-\s+(Dublaj|Altyazı(?:lı)?)\s*$/iu)?.[1];
+  if (!label) return undefined;
+  return /^dublaj$/i.test(label) ? "dubbed" : "subtitled";
+}
+
 function indexPlaylist(text, remote = false) {
   const episodes = new Map();
   let pending;
@@ -32,6 +38,7 @@ function indexPlaylist(text, remote = false) {
       pending = group && season && episode ? {
         key: [titleKey(group), Number(season[1] || season[2]), Number(episode[1] || episode[2])].join(":"),
         dubbed: /\bdublaj\b/.test(numbers),
+        ...(remote && { metvVariant: metvLanguageVariant(name) }),
         headers: {}
       } : null;
       continue;
@@ -49,6 +56,7 @@ function indexPlaylist(text, remote = false) {
       rows.push({
         url: line,
         headers: pending.headers,
+        ...(pending.metvVariant && { metvVariant: pending.metvVariant }),
         ...(remote && /\.m3u8(?:[?#]|$)/i.test(line) && { isHls: true }),
         ...(pending.dubbed && { audio: "Türkçe Dublaj" })
       });
@@ -113,4 +121,4 @@ function matchEpisodes(episodes, details, season, episode) {
   return [...new Set(titles)].flatMap(title => episodes.get([title, season, episode].join(":")) ?? []);
 }
 
-module.exports = { getPlaylistStreams, readEncryptedPlaylist, titleKey, remotePlaylistIndex, getMetvSeriesStreams };
+module.exports = { getPlaylistStreams, readEncryptedPlaylist, titleKey, remotePlaylistIndex, getMetvSeriesStreams, metvLanguageVariant };

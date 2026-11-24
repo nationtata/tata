@@ -54,6 +54,7 @@ function cleanStream(stream, provider) {
     : undefined;
   return {
     [providerKey]: provider,
+    ...(provider === "ME TV Medya" && stream.metvVariant && { metvVariant: stream.metvVariant }),
     name: visibleProviderNames.has(provider) ? provider : "Yayın",
     ...(stream.description || stream.quality ? { description: stream.description || stream.quality } : {}),
     ...(stream.quality && { quality: stream.quality }),
