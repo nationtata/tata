@@ -7,13 +7,6 @@
     "anime": false
   },
   {
-    "id": "liderfilmizle",
-    "name": "LiderFilm",
-    "movie": true,
-    "series": true,
-    "anime": false
-  },
-  {
     "id": "youtube_dizifilm",
     "name": "YouTube Dizi & Film",
     "movie": true,
@@ -83,13 +76,6 @@
     ]
   },
   {
-    "id": "anizm",
-    "name": "Anizm",
-    "movie": true,
-    "series": true,
-    "anime": true
-  },
-  {
     "id": "anizume",
     "name": "Anizume",
     "movie": true,
@@ -106,20 +92,6 @@
     "metadataArgs": true
   },
   {
-    "id": "animom",
-    "name": "AniMOM",
-    "movie": true,
-    "series": true,
-    "anime": true
-  },
-  {
-    "id": "animeprax",
-    "name": "AnimePraX",
-    "movie": true,
-    "series": true,
-    "anime": true
-  },
-  {
     "id": "anizium",
     "name": "Anizium",
     "movie": true,
@@ -129,13 +101,6 @@
       "ANIZIUM_TOKEN_KEY",
       "ANIZIUM_CLIENT_KEY"
     ]
-  },
-  {
-    "id": "asyaanimeleri",
-    "name": "AsyaAnimeleri",
-    "movie": true,
-    "series": true,
-    "anime": true
   },
   {
     "id": "sonanime",
@@ -152,13 +117,6 @@
     "series": true,
     "anime": true,
     "metadataArgs": true
-  },
-  {
-    "id": "diziboxizle",
-    "name": "DiziBoxİzle",
-    "movie": false,
-    "series": true,
-    "anime": false
   },
   {
     "id": "ddizi",
@@ -203,13 +161,6 @@
     "anime": false
   },
   {
-    "id": "tvdiziler",
-    "name": "TvDiziler",
-    "movie": false,
-    "series": true,
-    "anime": false
-  },
-  {
     "id": "setfilmizle",
     "name": "SetFilmIzle",
     "movie": true,
@@ -238,42 +189,11 @@
     "anime": false
   },
   {
-    "id": "diziwatch",
-    "name": "DiziWatch",
-    "movie": false,
-    "series": true,
-    "anime": false
-  },
-  {
     "id": "seicode",
     "name": "SeiCode",
     "movie": true,
     "series": true,
     "anime": true
-  },
-  {
-    "id": "anthology_diziler",
-    "name": "Anthology Dizi",
-    "movie": false,
-    "series": true,
-    "anime": false,
-    "objectArgs": true
-  },
-  {
-    "id": "puhutv",
-    "name": "PuhuTV",
-    "movie": false,
-    "series": true,
-    "anime": false,
-    "objectArgs": true
-  },
-  {
-    "id": "trdiziizle",
-    "name": "TR Dizi İzle",
-    "movie": false,
-    "series": true,
-    "anime": false,
-    "objectArgs": true
   },
   {
     "id": "dizibal",
@@ -325,13 +245,6 @@
     "anime": false
   },
   {
-    "id": "filmmakinesi",
-    "name": "FilmMakinesi",
-    "movie": true,
-    "series": true,
-    "anime": false
-  },
-  {
     "id": "fullhdfilmizlesene",
     "name": "FullHDFilmizlesene",
     "movie": true,
@@ -356,13 +269,6 @@
     "id": "turkcedizi",
     "name": "TurkceDizi",
     "movie": true,
-    "series": true,
-    "anime": false
-  },
-  {
-    "id": "yerlidiziler",
-    "name": "YerliDiziler",
-    "movie": false,
     "series": true,
     "anime": false
   },
