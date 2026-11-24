@@ -96,5 +96,13 @@
     "movie": false,
     "series": true,
     "anime": false
+  },
+  {
+    "id": "animecix",
+    "name": "AnimeciX",
+    "movie": false,
+    "series": true,
+    "anime": true,
+    "metadataArgs": true
   }
 ]
