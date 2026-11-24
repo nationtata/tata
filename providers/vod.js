@@ -6,7 +6,7 @@ const { getLocalIzlelanJobs } = require("./izlelan-adapter");
 const { mergeStreams, enrichStreams, describe, inspect } = require("./stream-metadata");
 const { findYouTubeStreams } = require("./youtube");
 
-const MAX_ACTIVE_SEARCHES = 32;
+const MAX_ACTIVE_SEARCHES = 16;
 const INITIAL_WAIT_MIN_MS = 6500;
 const INITIAL_WAIT_MAX_MS = 11000;
 const BACKGROUND_TIMEOUT_MS = 40000;
@@ -53,8 +53,10 @@ function prefetchNextEpisode(type, request) {
       prefetching.delete(key);
       return;
     }
-    getVodStreams(type, id, { prefetch: true }).catch(error =>
-      console.warn("[TATA VOD prefetch]", error.name)).finally(() => prefetching.delete(key));
+    getVodStreams(type, id, { prefetch: true })
+      .then(() => ongoing.get(key))
+      .catch(error => console.warn("[TATA VOD prefetch]", error.name))
+      .finally(() => prefetching.delete(key));
   }, PREFETCH_DELAY_MS);
   timer.unref?.();
 }
@@ -2345,28 +2347,45 @@ async function search(type, request, publish, remove, progress) {
     }
   }
   for (const source of getLocalIzlelanJobs()) {
-    jobs.push({ name: source.name, promise: runProvider(source.name, () => source.getStreams(String(details.id), type === "series" ? "tv" : "movie", request.season, request.episode), type) });
+    jobs.push({ name: source.name, promise: runProvider(source.name, async () => {
+      const args = [String(details.id), type === "series" ? "tv" : "movie", request.season, request.episode];
+      // Law occasionally fails while resolving the provider address.
+      // One delayed retry is limited to Law and never modifies law.js.
+      let first;
+      try {
+        first = await source.getStreams(...args);
+      } catch (error) {
+        if (source.name !== "Law" || Date.now() + 1000 >= deadline) throw error;
+        console.warn("[TATA VOD] Law transient lookup failure; retry once", error.name);
+      }
+      if (source.name !== "Law" || Array.isArray(first) && first.length || Date.now() + 1000 >= deadline) return first;
+      await pause(650);
+      return source.getStreams(...args);
+    }, type) });
   }
   const discoveredYouTube = finishYouTube(earlyYouTube ?? (!youtubeStreams.length && process.env.YOUTUBE_DATA_API_KEY
     ? findYouTubeStreams(type, details, request) : undefined), deadline);
   const jobNames = jobs.map(job => job.name);
   progress.started(jobNames);
+  const enrichments = [];
   await Promise.allSettled([
     discoveredYouTube.then(publish),
     ...jobs.map(async ({ name, promise }) => {
       try {
         const result = await promise;
         publish(result.map(stream => describe(stream, {}, details.original_language)));
-        // Do not hold up the first Nuvio response for media probing.
+        // Media analysis does not hold up initial response but can refine
+        // cached cards until the bounded search has actually completed.
         if (result.length) {
-          void enrichStreams(result, details.original_language, { deadline, onInvalid: remove })
-            .then(publish, () => {});
+          enrichments.push(enrichStreams(result, details.original_language, { deadline, onInvalid: remove })
+            .then(publish, () => {}));
         }
       } finally {
         progress.done(name);
       }
     })
   ]);
+  await Promise.allSettled(enrichments);
 }
 
 function activeProviderCount(entry) {
@@ -2392,12 +2411,23 @@ async function getVodStreams(type, id, options = {}) {
   if (!request) return [];
   const key = type + ":" + id;
   let entry = cache.get(key);
-  if (entry && !ongoing.has(key) && Date.now() - entry.updated > CACHE_TTL_MS) {
+  if (entry && !ongoing.has(key) &&
+      Date.now() - entry.updated > (entry.streams.size ? CACHE_TTL_MS : 15000)) {
     cache.delete(key);
     entry = undefined;
   }
   if (!entry) {
-    if (ongoing.size >= MAX_ACTIVE_SEARCHES) return getYouTubeStreams(type, request);
+    // Rejecting a request with an empty list at the concurrency limit makes
+    // providers disappear. A bounded queue is preferable to silent data loss.
+    if (ongoing.size >= MAX_ACTIVE_SEARCHES) {
+      const active = Array.from(ongoing.values());
+      await Promise.race([
+        Promise.race(active),
+        pause(INITIAL_WAIT_MAX_MS)
+      ]);
+      // If capacity is still exhausted, return only actually known sources.
+      if (ongoing.size >= MAX_ACTIVE_SEARCHES) return getYouTubeStreams(type, request);
+    }
     for (const k of cache.keys()) {
       if (cache.size < MAX_CACHE_ENTRIES) break;
       if (!ongoing.has(k)) cache.delete(k);
