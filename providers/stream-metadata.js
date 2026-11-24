@@ -6,10 +6,10 @@ const cache = new Map();
 const pending = new Map();
 let active = 0;
 const unique = xs => [...new Set(xs.filter(Boolean))];
-const flags = {tr:"🇹🇷",en:"🇬🇧",ja:"🇯🇵",ko:"🇰🇷",de:"🇩🇪",fr:"🇫🇷",es:"🇪🇸",ar:"🇸🇦",ru:"🇷🇺",zh:"🇨🇳",it:"🇮🇹",pt:"🇵🇹"};
+const flags = {tr:"🇹🇷",en:"🇬🇧",ja:"🇯🇵",ko:"🇰🇷",de:"🇩🇪",fr:"🇫🇷",es:"🇪🇸",ar:"🇸🇦",ru:"🇷🇺",zh:"🇨🇳",it:"🇮🇹",pt:"🇵🇹",id:"🇮🇩",st:"🇱🇸",hi:"🇮🇳",nl:"🇳🇱",pl:"🇵🇱",th:"🇹🇭",vi:"🇻🇳",uk:"🇺🇦",sv:"🇸🇪",fa:"🇮🇷",he:"🇮🇱"};
 function language(value) {
   const s = String(value || "").trim().toLowerCase();
-  const aliases = {tur:"tr",turkish:"tr","türkçe":"tr",turkce:"tr",eng:"en",english:"en","ingilizce":"en",jpn:"ja",japanese:"ja",japonca:"ja",kor:"ko",korean:"ko",deu:"de",ger:"de",fra:"fr",fre:"fr",spa:"es",ara:"ar",rus:"ru",zho:"zh",chi:"zh",ita:"it",por:"pt"};
+  const aliases = {tur:"tr",turkish:"tr","türkçe":"tr",turkce:"tr",eng:"en",english:"en","ingilizce":"en",jpn:"ja",japanese:"ja",japonca:"ja",kor:"ko",korean:"ko",deu:"de",ger:"de",fra:"fr",fre:"fr",spa:"es",ara:"ar",rus:"ru",zho:"zh",chi:"zh",ita:"it",por:"pt",ind:"id",indonesian:"id",sot:"st",sotho:"st",hin:"hi",nld:"nl",dut:"nl",pol:"pl",tha:"th",vie:"vi",ukr:"uk",swe:"sv",fas:"fa",per:"fa",heb:"he"};
   return aliases[s] || (/^[a-z]{2}(?:-[a-z]{2})?$/.test(s) ? s.split("-")[0] : "");
 }
 function attributes(line) {
@@ -54,7 +54,7 @@ function publicIPv4(ip) {
   const [a,b,c]=ip.split(".").map(Number);
   return !(a===0||a===10||a===127||a>=224||a===169&&b===254||a===172&&b>=16&&b<=31||a===192&&(b===168||b===0||b===2)||a===100&&b>=64&&b<=127||a===198&&(b===18||b===19||b===51)||a===203&&b===0&&c===113);
 }
-async function readHls(url,headers) {
+async function readMedia(url,headers,isHls) {
   const u=new URL(url);
   if(u.protocol!=="https:"||u.username||u.password||u.port&&u.port!=="443")return {};
   const ip=await Promise.race([dns.lookup(u.hostname,{family:4}).then(x=>x.address),new Promise(resolve=>{const t=setTimeout(()=>resolve(""),650);t.unref();})]);
@@ -65,25 +65,46 @@ async function readHls(url,headers) {
     const timer=setTimeout(()=>{finish({});req?.destroy();},1300);
     const safeHeaders={};
     for(const [k,v] of Object.entries(headers||{}))if(/^(user-agent|referer|origin|accept)$/i.test(k)&&typeof v==="string"&&!/[\r\n]/.test(v))safeHeaders[k]=v;
+    if(!isHls)safeHeaders.Range="bytes=0-2097151";
     req=https.get(u,{headers:safeHeaders,lookup:(_h,opts,cb)=>opts.all?cb(null,[{address:ip,family:4}]):cb(null,ip,4)},res=>{
-      if(res.statusCode!==200){res.destroy();return finish({});}
+      if(res.statusCode!==200&&res.statusCode!==206){res.destroy();return finish({});}
       let bytes=0;const chunks=[];
-      res.on("data",chunk=>{bytes+=chunk.length;if(bytes>262144){finish({});res.destroy();}else chunks.push(chunk);});
-      res.on("end",()=>finish(parseHls(Buffer.concat(chunks).toString("utf8"))));
+      res.on("data",chunk=>{bytes+=chunk.length;if(bytes>(isHls?262144:2097152)){finish({});res.destroy();}else chunks.push(chunk);});
+      res.on("end",()=>finish(isHls?parseHls(Buffer.concat(chunks).toString("utf8")):probeBuffer(Buffer.concat(chunks))));
       res.on("error",()=>finish({}));
     });
     req.on("error",()=>finish({}));
   });
 }
+function parseProbe(data) {
+ const streams=data.streams||[], v=streams.find(x=>x.codec_type==="video")||{}, a=streams.filter(x=>x.codec_type==="audio"), sub=streams.filter(x=>x.codec_type==="subtitle");
+ const langs=xs=>unique(xs.map(x=>language(x.tags?.language)||language(x.tags?.title)));
+ const [n,d]=String(v.avg_frame_rate||"").split("/").map(Number);
+ const ch=unique(a.map(x=>x.channels));
+ return {quality:qualityClass(v.height),videoCodec:codecs(v.codec_name)[0],audioCodec:unique(a.map(x=>codecs(x.codec_name)[1])).join(" / "),audio:langs(a),subs:langs(sub),unknownAudio:a.some(x=>!language(x.tags?.language)&&!language(x.tags?.title)),channels:ch.length===1?({1:"1.0",2:"2.0",6:"5.1",8:"7.1"}[ch[0]]||""):"",fps:n&&d?Number((n/d).toFixed(3)):0};
+}
+async function probeBuffer(buffer) {
+ if(!(buffer.subarray(4,8).toString()==="ftyp"||buffer.subarray(0,4).equals(Buffer.from([0x1a,0x45,0xdf,0xa3]))))return {};
+ try {
+ const {execFile}=require("node:child_process");
+ const bin=require("@ffprobe-installer/ffprobe").path;
+ const format=buffer.subarray(4,8).toString()==="ftyp"?"mov":"matroska";
+ return await new Promise(resolve=>{
+ const child=execFile(bin,["-v","error","-protocol_whitelist","pipe","-f",format,"-show_streams","-of","json","-i","pipe:0"],{timeout:1500,maxBuffer:262144},(err,out)=>{try{resolve(err?{}:parseProbe(JSON.parse(out)));}catch{resolve({});}});
+ child.stdin.on("error",()=>{});child.stdin.end(buffer);
+ });
+ }catch{return {};}
+}
 async function inspect(stream) {
-  if(!/\.m3u8(?:[?#]|$)|\/hls\/|\/master\./i.test(stream.url||"")&&!/^(hls|m3u8)$/i.test(stream.format||"")&&!/\.m3u8$/i.test(stream.behaviorHints?.filename||""))return {};
+  const isHls=/\.m3u8(?:[?#]|$)|\/hls\/|\/master\./i.test(stream.url||"")||/^(hls|m3u8)$/i.test(stream.format||"")||/\.m3u8$/i.test(stream.behaviorHints?.filename||"");
+  if(!isHls&&!/\.(mp4|mkv)(?:[?#]|$)/i.test(stream.url||"")&&!/^(mp4|mkv|matroska)$/i.test(stream.format||"")&&!/\.(mp4|mkv)$/i.test(stream.behaviorHints?.filename||""))return {};
   const headers=stream.behaviorHints?.proxyHeaders?.request||stream.headers||{};
   const key=JSON.stringify([stream.url,headers]);
   const hit=cache.get(key);if(hit&&hit.until>Date.now())return hit.data;
   if(pending.has(key))return pending.get(key);
-  if(active>=6)return {};
+  if(active>=6){for(let i=0;i<30&&active>=6;i++)await new Promise(resolve=>setTimeout(resolve,100));if(active>=6)return {};}
   active++;
-  const task=readHls(stream.url,headers).catch(()=>({})).then(data=>{
+  const task=readMedia(stream.url,headers,isHls).catch(()=>({})).then(data=>{
     if(cache.size>=512)cache.delete(cache.keys().next().value);
     cache.set(key,{data,until:Date.now()+ (Object.keys(data).length?300000:30000)});return data;
   }).finally(()=>{active--;pending.delete(key);});
@@ -113,15 +134,15 @@ function describe(stream,media={},originalLanguage="") {
   const fps=media.fps?media.fps+" FPS":existing.match(/\b\d+(?:[.,]\d+)?\s*FPS\b/i)?.[0];
   const size=existing.match(/\b\d+(?:[.,]\d+)?\s*(?:GB|MB)\b/i)?.[0];
   const tech=unique([q,source,media.videoCodec||vc,depth,hdr,sound,rate,fps,size]).join(" • ");
-  const description=[langLine,tech].filter(Boolean).join("\n");
+  const description=[langLine||"Ses: Tespit edilemedi",tech||"Teknik bilgi tespit edilemedi"].filter(Boolean).join("\n");
   const result={...stream};
   delete result.title;
   delete result.quality;
   delete result.description;
-  if(description){result.description=description;result.quality=description;}
+  if(description){result.description=description;if(q)result.quality=description;}
   return result;
 }
 async function enrichStreams(streams,originalLanguage="") {
   return Promise.all(streams.map(async s=>{try{return describe(s,await inspect(s),originalLanguage);}catch{return s;}}));
 }
-module.exports={parseHls,describe,enrichStreams,publicIPv4};
+module.exports={parseProbe,parseHls,describe,enrichStreams,publicIPv4};
