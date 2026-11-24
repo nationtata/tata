@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "channels": [
+    {
+      "name": "Arka Sokaklar",
+      "channelId": "UCJBBp-6JoqjOeLzTxzol_7A",
+      "type": "series",
+      "url": "https://www.youtube.com/channel/UCJBBp-6JoqjOeLzTxzol_7A",
+      "source": "providers/youtube.js",
+      "status": "existing_allowlist_pending_external_verification",
+      "playlistIds": []
+    },
+    {
+      "name": "Seksenler",
+      "channelId": "UCYRPB4TbD2RYHlIQdLgEeYA",
+      "type": "series",
+      "url": "https://www.youtube.com/channel/UCYRPB4TbD2RYHlIQdLgEeYA",
+      "source": "providers/youtube.js",
+      "status": "existing_allowlist_pending_external_verification",
+      "playlistIds": []
+    },
+    {
+      "name": "Arzu Film",
+      "channelId": "UCUALYmnkEmx8vlxIbpr2gmw",
+      "type": "producer",
+      "url": "https://www.youtube.com/channel/UCUALYmnkEmx8vlxIbpr2gmw",
+      "source": "providers/youtube.js",
+      "status": "existing_allowlist_pending_external_verification",
+      "playlistIds": []
+    },
+    {
+      "name": "Erler Film",
+      "channelId": "UCUX_iQoFXw2nYzIuuYdeWhg",
+      "type": "producer",
+      "url": "https://www.youtube.com/channel/UCUX_iQoFXw2nYzIuuYdeWhg",
+      "source": "providers/youtube.js",
+      "status": "existing_allowlist_pending_external_verification",
+      "playlistIds": []
+    }
+  ]
+}
