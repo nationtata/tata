@@ -135,7 +135,7 @@ function parseProbe(data) {
  const langs=xs=>unique(xs.map(x=>trackLanguage(x.tags?.language)||trackLanguage(x.tags?.title)||trackLanguage(x.tags?.handler_name)));
  const [n,d]=String(v.avg_frame_rate||"").split("/").map(Number);
  const ch=unique(a.map(x=>x.channels));
- return {quality:qualityClass(v.height),videoCodec:codecs(v.codec_name)[0],audioCodec:unique(a.map(x=>codecs(x.codec_name)[1])).join(" / "),audio:langs(a),subs:langs(sub),unknownAudio:a.some(x=>!trackLanguage(x.tags?.language)&&!trackLanguage(x.tags?.title)&&!trackLanguage(x.tags?.handler_name)),channels:ch.length===1?({1:"1.0",2:"2.0",6:"5.1",8:"7.1"}[ch[0]]||""):"",fps:n&&d?Number((n/d).toFixed(3)):0};
+ return {audioTrackCount:a.length,quality:qualityClass(v.height),videoCodec:codecs(v.codec_name)[0],audioCodec:unique(a.map(x=>codecs(x.codec_name)[1])).join(" / "),audio:langs(a),subs:langs(sub),unknownAudio:a.some(x=>!trackLanguage(x.tags?.language)&&!trackLanguage(x.tags?.title)&&!trackLanguage(x.tags?.handler_name)),channels:ch.length===1?({1:"1.0",2:"2.0",6:"5.1",8:"7.1"}[ch[0]]||""):"",fps:n&&d?Number((n/d).toFixed(3)):0};
 }
 function probeBuffer(buffer, timeout) {
   if (!(buffer.subarray(4,8).toString()==="ftyp" || buffer.subarray(0,4).equals(Buffer.from([0x1a,0x45,0xdf,0xa3]))))
@@ -225,7 +225,7 @@ function describe(stream,media={},originalLanguage="") {
   if(/(?:türkçe|turkce|\btr\b)\s*(?:dublaj|dub|sesli)|(?:^|[\s[(])dublaj(?:$|[\s)\]])/iu.test(existing)) sourceAudio.push("tr");
   if(/(?:ingilizce|\beng(?:lish)?\b)\s*(?:ses|audio|dublaj)/iu.test(existing)) sourceAudio.push("en");
   // Explicit source labels are evidence only when no actual channel-language metadata was found.
-  const audio=observed.length?(media.unknownAudio?unique([...observed,...taggedAudio,...sourceAudio]):observed):unique([...taggedAudio,...sourceAudio]);
+  const audio=observed.length && !media.unknownAudio && (media.audioTrackCount === undefined || observed.length >= media.audioTrackCount) ? observed : unique([...observed,...taggedAudio,...sourceAudio]);
   const original=language(originalLanguage);
   if (!audio.length && flags[original]) audio.push(original);
   audio.sort((a,b)=>Number(b==="tr")-Number(a==="tr"));
