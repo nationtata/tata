@@ -207,7 +207,7 @@ async function inspect(stream, deadline) {
 }
 function describe(stream,media={},originalLanguage="") {
   let path="";try{path=decodeURIComponent(new URL(stream.url).pathname)}catch{}
-  const existing=unique([stream.description,stream.quality,stream.title].filter(x=>typeof x==="string"&&x!==stream.name)).join("\n");
+  const existing=unique([stream.sourceTitle,stream.description,stream.quality,stream.title].filter(x=>typeof x==="string"&&x!==stream.name)).join("\n");
   const sourceText=[existing,path].join(" ");
   const q=qualityClass(media.quality||sourceText.match(/\b(?:\d{3,4}p|4K|2K|UHD|FHD|HD|SD)\b/i)?.[0]);
   const [vc,ac]=codecs(sourceText.replace(/H\.26/g,"H26"));
@@ -218,7 +218,11 @@ function describe(stream,media={},originalLanguage="") {
   const taggedAudio=unique((Array.isArray(stream.audioLangs)?stream.audioLangs:[]).map(language))
     .filter(code=>flags[code]);
   // Source-provided audio tracks supplement only when no contradictory probe exists.
-  const audio=observed.length?observed:taggedAudio;
+  const sourceAudio=[];
+  if(/(?:türkçe|turkce|\btr\b)\s*(?:dublaj|dub|sesli)|(?:^|[\s[(])dublaj(?:$|[\s)\]])/iu.test(existing)) sourceAudio.push("tr");
+  if(/(?:ingilizce|\beng(?:lish)?\b)\s*(?:ses|audio|dublaj)/iu.test(existing)) sourceAudio.push("en");
+  // Explicit source labels are evidence only when no actual channel-language metadata was found.
+  const audio=observed.length?observed:unique([...taggedAudio,...sourceAudio]);
   const original=language(originalLanguage);
   if (!audio.length && flags[original]) audio.push(original);
   audio.sort((a,b)=>Number(b==="tr")-Number(a==="tr"));
@@ -245,7 +249,10 @@ async function enrichStreams(streams, originalLanguage="", options={}) {
   const measured=await Promise.all(streams.map(stream=>inspect(stream,deadline).catch(()=>({status:"unknown"}))));
   return streams.map((stream,i)=>{
     const media=measured[i]||{};
-    if(media.status==="invalid")return null;
+    if(media.status==="invalid") {
+      if(typeof options.onInvalid==="function") options.onInvalid(stream);
+      return null;
+    }
     try {
       const result=describe(stream,media,originalLanguage);
       // Callers can distinguish measured from fallback metadata when merging updates.
