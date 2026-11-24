@@ -94,6 +94,26 @@ async function runProvider(provider, lookup, type) {
 // Full-length uploads from the series' and producers' official YouTube channels.
 const youtubeSeries = [
   {
+    ids: ["50012", "tt1616295"],
+    title: "Kaygısızlar",
+    year: "1994",
+    episodes: {
+      "1:1": "m22q0-3CYaU",
+      "1:2": "DWVMfeD5Wwc",
+      "1:3": "w6rjt3A-e2Y",
+      "1:4": "zgt4WBaIt58",
+      "1:5": "fr2ovJqOB-8",
+      "1:6": "MrOQi2WMNPo",
+      "1:7": "JiqqW_bFisg",
+      "1:8": "ZbDuMIs1zUI",
+      "1:9": "vf7kra0_UmA",
+      "1:10": "-SSG6RxI9Yc",
+      "1:11": "4CmfGZ2zSms",
+      "1:12": "ZJNG8t3mtUw",
+      "1:13": "R-oPo-m5x_Q",
+    },
+  },
+  {
     ids: ["32107", "tt0365980"],
     title: "Asmalı Konak",
     year: "2002",
