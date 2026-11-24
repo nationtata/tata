@@ -37,12 +37,6 @@ async function findTmdb(type, id, language = "tr-TR", timeout = 3500) {
 }
 
 const providerKey = Symbol("provider");
-const verifiedResults = new Map();
-
-
-function streamIdentity(stream) {
-  return JSON.stringify([stream.url, stream.behaviorHints?.proxyHeaders?.request ?? {}]);
-}
 function cleanStream(stream, provider) {
   if (!stream || typeof stream.url !== "string" || !/^https?:\/\//i.test(stream.url)) return null;
   const headers = stream.behaviorHints?.proxyHeaders?.request ?? stream.behaviorHints?.headers ?? stream.headers;
@@ -66,7 +60,9 @@ function cleanStream(stream, provider) {
     ...(stream.description || stream.quality ? { description: stream.description || stream.quality } : {}),
     ...(stream.quality && { quality: stream.quality }),
     ...(stream.title && stream.title !== provider && { title: stream.title }),
-    ...(stream.sourceTitle && { sourceTitle: stream.sourceTitle }),
+    ...((stream.sourceTitle || (stream.name && stream.name !== provider && stream.name !== "Yayın" && stream.name !== "Stream" ? stream.name : "")) && {
+      sourceTitle: stream.sourceTitle || stream.name
+    }),
     ...(stream.format && { format: stream.format }),
     ...(Array.isArray(stream.audioLangs) && { audioLangs: stream.audioLangs }),
     url: stream.url,
@@ -139,7 +135,7 @@ async function finishYouTube(lookup, deadline) {
   }
 }
 
-async function search(type, request, publish) {
+async function search(type, request, publish, remove) {
   const deadline = Date.now() + BACKGROUND_TIMEOUT_MS;
   const knownYouTubeStreams = getYouTubeStreams(type, request);
   publish(knownYouTubeStreams);
@@ -210,7 +206,7 @@ async function search(type, request, publish) {
       const result = await job;
       publish(result.map(stream => describe(stream, {}, details.original_language)));
       if (result.length) {
-        const enriched = await enrichStreams(result, details.original_language, { deadline }).catch(() => []);
+        const enriched = await enrichStreams(result, details.original_language, { deadline, onInvalid: remove }).catch(() => []);
         publish(enriched);
       }
     })
@@ -233,13 +229,13 @@ async function getVodStreams(type, id) {
       if (cache.size < MAX_CACHE_ENTRIES) break;
       if (!ongoing.has(k)) cache.delete(k);
     }
-    entry = { streams: new Map(), updated: Date.now(), accepting: true };
+    entry = { streams: new Map(), rejected: new Set(), updated: Date.now(), accepting: true };
     cache.set(key, entry);
     const publish = results => {
       if (!entry.accepting || !Array.isArray(results)) return;
       for (const stream of results) {
         const identity = stream.url ? "url:" + stream.url : stream.ytId ? "yt:" + stream.ytId : null;
-        if (!identity) continue;
+        if (!identity || entry.rejected.has(identity)) continue;
         const previous=entry.streams.get(identity);
         // A late provider's provisional TMDB label must not replace an inspected result.
         const inspected=!!stream.__verifiedAudio;
@@ -248,9 +244,16 @@ async function getVodStreams(type, id) {
       }
       entry.updated = Date.now();
     };
+    const remove = stream => {
+      if (!entry.accepting || !stream?.url) return;
+      const identity = "url:" + stream.url;
+      entry.rejected.add(identity);
+      entry.streams.delete(identity);
+      entry.updated = Date.now();
+    };
     let backgroundTimer;
     const job = Promise.race([
-      Promise.resolve().then(() => search(type, request, publish)).catch(error => console.warn("[TATA VOD]", error.name)),
+      Promise.resolve().then(() => search(type, request, publish, remove)).catch(error => console.warn("[TATA VOD]", error.name)),
       new Promise(resolve => { backgroundTimer = setTimeout(resolve, BACKGROUND_TIMEOUT_MS); })
     ]).finally(() => {
       clearTimeout(backgroundTimer);
