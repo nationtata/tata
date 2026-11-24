@@ -99,6 +99,7 @@ async function getFilmPlaylistStreams(source, details, requestId) {
   }
   const { imdb, titles } = await indexes.get(source);
   const id = requestId.startsWith("tt") ? requestId : details.external_ids?.imdb_id ?? details.imdb_id;
+  if (process.env.TATA_STRICT_IDENTITY !== "0" && (source !== "vixolity" || !/^tt\d+$/.test(id ?? ""))) return [];
   const year = details.release_date?.slice(0, 4);
   const names = [...new Set([details.title, details.original_title, details.englishTitle].map(titleKey).filter(Boolean))];
   let matches = source === "vixolity" && id
