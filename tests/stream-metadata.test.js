@@ -1,0 +1,9 @@
+const assert=require("node:assert/strict");
+const {parseHls,describe,publicIPv4}=require("../providers/stream-metadata");
+const media=parseHls('#EXTM3U\n#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="a",LANGUAGE="ja",CHANNELS="6/JOC"\n#EXT-X-MEDIA:TYPE=SUBTITLES,GROUP-ID="s",LANGUAGE="tr"\n#EXT-X-STREAM-INF:BANDWIDTH=5000000,RESOLUTION=1920x1080,CODECS="hvc1.2,ec-3",FRAME-RATE=24\nvideo.m3u8');
+assert.equal(media.quality,"1080p");assert.equal(media.videoCodec,"HEVC");assert.deepEqual(media.audio,["ja"]);assert.deepEqual(media.subs,["tr"]);assert.equal(media.channels,"5.1");assert.equal(media.atmos,true);
+const input={name:"TATA",url:"https://example.com/master.m3u8",behaviorHints:{notWebReady:true},subtitles:[{lang:"tr",url:"https://example.com/sub.vtt"}]};
+const output=describe(input,media);assert.match(output.description,/🇯🇵/);assert.match(output.description,/🇹🇷/);assert.match(output.description,/1080p/);assert.match(output.description,/Dolby Atmos/);assert.deepEqual(output.behaviorHints,input.behaviorHints);assert.deepEqual(output.subtitles,input.subtitles);assert.equal(output.url,input.url);
+assert.equal(describe({url:"https://example.com/video"}).quality,undefined);
+assert.equal(publicIPv4("127.0.0.1"),false);assert.equal(publicIPv4("169.254.169.254"),false);assert.equal(publicIPv4("10.0.0.1"),false);assert.equal(publicIPv4("8.8.8.8"),true);
+console.log("metadata tests passed");
