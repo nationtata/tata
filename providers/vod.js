@@ -111,8 +111,16 @@ function attachOptionalSubtitles(streams, response) {
     for (const index of matched) additions[index].push(...tracks);
   }
   return streams.flatMap((stream, i) => {
-    const subtitles = normalizeSubtitles([...(stream.subtitles || []),...additions[i]]);
-    return additions[i].length && subtitles.length ? [{...stream, subtitles}] : [];
+    const requestHeaders = stream.behaviorHints?.proxyHeaders?.request || {};
+    const incoming = additions[i].map(subtitle => {
+      if (!subtitle || typeof subtitle !== "object") return subtitle;
+      let sameOrigin = false;
+      try { sameOrigin = new URL(subtitle.url).origin === new URL(stream.url).origin; } catch {}
+      return {...subtitle, ...(!subtitle.headers && sameOrigin && Object.keys(requestHeaders).length &&
+        {headers:requestHeaders})};
+    });
+    const subtitles = normalizeSubtitles([...(stream.subtitles || []),...incoming]);
+    return incoming.length && subtitles.length ? [{...stream, subtitles}] : [];
   });
 }
 async function boundedSubtitles(lookup, deadline, provider) {
