@@ -3,21 +3,6 @@
   "kind": "candidate_registry",
   "series": [
     {
-      "key": "tr-001",
-      "title": "Şahsiyet",
-      "year": 2018,
-      "imdbId": "tt7920978",
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "imdb_screenshot"
-      ],
-      "imdbSource": "https://www.imdb.com/title/tt7920978/",
-      "imdbVerified": true
-    },
-    {
       "key": "tr-002",
       "title": "Leyla ile Mecnun",
       "year": 2011,
@@ -76,22 +61,6 @@
         "imdb_screenshot"
       ],
       "imdbSource": "https://www.imdb.com/title/tt0302199/",
-      "imdbVerified": true
-    },
-    {
-      "key": "tr-006",
-      "title": "Masum",
-      "year": 2017,
-      "imdbId": "tt6478318",
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "imdb_screenshot",
-        "nuvio_screenshot"
-      ],
-      "imdbSource": "https://www.imdb.com/title/tt6478318/",
       "imdbVerified": true
     },
     {
@@ -228,22 +197,6 @@
         "imdb_screenshot"
       ],
       "imdbSource": "https://www.imdb.com/title/tt1286677/",
-      "imdbVerified": true
-    },
-    {
-      "key": "tr-016",
-      "title": "Fi",
-      "year": 2017,
-      "imdbId": "tt6724368",
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "imdb_screenshot",
-        "nuvio_screenshot"
-      ],
-      "imdbSource": "https://www.imdb.com/title/tt6724368/",
       "imdbVerified": true
     },
     {
@@ -485,20 +438,6 @@
       ]
     },
     {
-      "key": "tr-035",
-      "title": "46: Yok Olan",
-      "year": 2016,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "imdb_screenshot",
-        "nuvio_screenshot"
-      ]
-    },
-    {
       "key": "tr-036",
       "title": "Sultan Makamı",
       "year": 2003,
@@ -568,19 +507,6 @@
       "key": "tr-041",
       "title": "Poyraz Karayel",
       "year": 2015,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "imdb_screenshot"
-      ]
-    },
-    {
-      "key": "tr-042",
-      "title": "Kampüsistan",
-      "year": 2003,
       "imdbId": null,
       "tmdbId": null,
       "language": "tr",
@@ -1373,19 +1299,6 @@
       ]
     },
     {
-      "key": "tr-102",
-      "title": "Sıfır Bir",
-      "year": null,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "nuvio_screenshot"
-      ]
-    },
-    {
       "key": "tr-103",
       "title": "Emanet",
       "year": null,
@@ -1620,32 +1533,6 @@
       ]
     },
     {
-      "key": "tr-121",
-      "title": "Gibi",
-      "year": null,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "nuvio_screenshot"
-      ]
-    },
-    {
-      "key": "tr-122",
-      "title": "Konuşanlar",
-      "year": null,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "nuvio_screenshot"
-      ]
-    },
-    {
       "key": "tr-123",
       "title": "Kadın",
       "year": null,
@@ -1661,19 +1548,6 @@
     {
       "key": "tr-124",
       "title": "Söz",
-      "year": null,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "nuvio_screenshot"
-      ]
-    },
-    {
-      "key": "tr-125",
-      "title": "Mahsun J",
       "year": null,
       "imdbId": null,
       "tmdbId": null,
@@ -1765,19 +1639,6 @@
     {
       "key": "tr-132",
       "title": "Siyah Beyaz Aşk",
-      "year": null,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "nuvio_screenshot"
-      ]
-    },
-    {
-      "key": "tr-133",
-      "title": "Prens",
       "year": null,
       "imdbId": null,
       "tmdbId": null,
@@ -1919,58 +1780,6 @@
       ]
     },
     {
-      "key": "tr-144",
-      "title": "El Turco",
-      "year": null,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "nuvio_screenshot"
-      ]
-    },
-    {
-      "key": "tr-145",
-      "title": "Masumiyet Müzesi",
-      "year": null,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "nuvio_screenshot"
-      ]
-    },
-    {
-      "key": "tr-146",
-      "title": "Pera Palas'ta Gece Yarısı",
-      "year": null,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "nuvio_screenshot"
-      ]
-    },
-    {
-      "key": "tr-147",
-      "title": "Erşan Kuneri",
-      "year": null,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "nuvio_screenshot"
-      ]
-    },
-    {
       "key": "tr-148",
       "title": "Dolunay",
       "year": null,
@@ -1997,60 +1806,8 @@
       ]
     },
     {
-      "key": "tr-150",
-      "title": "Aktris",
-      "year": null,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "nuvio_screenshot"
-      ]
-    },
-    {
       "key": "tr-151",
       "title": "Duy Beni",
-      "year": null,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "nuvio_screenshot"
-      ]
-    },
-    {
-      "key": "tr-152",
-      "title": "Şahmaran",
-      "year": null,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "nuvio_screenshot"
-      ]
-    },
-    {
-      "key": "tr-153",
-      "title": "Bambaşka Biri",
-      "year": null,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "nuvio_screenshot"
-      ]
-    },
-    {
-      "key": "tr-154",
-      "title": "Çekiç ve Gül: Bir Behzat Ç. Hikayesi",
       "year": null,
       "imdbId": null,
       "tmdbId": null,
@@ -2101,47 +1858,8 @@
       ]
     },
     {
-      "key": "tr-158",
-      "title": "Yaratılan",
-      "year": null,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "nuvio_screenshot"
-      ]
-    },
-    {
       "key": "tr-159",
       "title": "Dünyayla Benim Aramda",
-      "year": null,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "nuvio_screenshot"
-      ]
-    },
-    {
-      "key": "tr-160",
-      "title": "Sıcak Kafa",
-      "year": null,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "nuvio_screenshot"
-      ]
-    },
-    {
-      "key": "tr-161",
-      "title": "Alef",
       "year": null,
       "imdbId": null,
       "tmdbId": null,
@@ -2179,47 +1897,8 @@
       ]
     },
     {
-      "key": "tr-164",
-      "title": "Uysallar",
-      "year": null,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "nuvio_screenshot"
-      ]
-    },
-    {
-      "key": "tr-165",
-      "title": "Biz Kimden Kaçıyorduk Anne?",
-      "year": null,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "nuvio_screenshot"
-      ]
-    },
-    {
       "key": "tr-166",
       "title": "Komedi Dükkanı",
-      "year": null,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "nuvio_screenshot"
-      ]
-    },
-    {
-      "key": "tr-167",
-      "title": "Var Bunlar",
       "year": null,
       "imdbId": null,
       "tmdbId": null,
@@ -2270,60 +1949,8 @@
       ]
     },
     {
-      "key": "tr-171",
-      "title": "50m²",
-      "year": null,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "nuvio_screenshot"
-      ]
-    },
-    {
-      "key": "tr-172",
-      "title": "Yakamoz S-245",
-      "year": null,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "nuvio_screenshot"
-      ]
-    },
-    {
-      "key": "tr-173",
-      "title": "Yaşamayanlar",
-      "year": null,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "nuvio_screenshot"
-      ]
-    },
-    {
       "key": "tr-174",
       "title": "Arkadaşım Hoşgeldin",
-      "year": null,
-      "imdbId": null,
-      "tmdbId": null,
-      "language": "tr",
-      "status": "pending_verification",
-      "youtubeEligible": false,
-      "source": [
-        "nuvio_screenshot"
-      ]
-    },
-    {
-      "key": "tr-175",
-      "title": "Börü 2039",
       "year": null,
       "imdbId": null,
       "tmdbId": null,
