@@ -3,7 +3,7 @@ const { getPlaylistStreams, getMetvSeriesStreams, titleKey } = require("./playli
 const { getMovieStreams } = require("./izlefilm");
 const registry = require("../vendor/anthology/providers.json");
 const { getLocalIzlelanJobs } = require("./izlelan-adapter");
-const { mergeStreams, normalizeSubtitles, enrichStreams, describe, inspect } = require("./stream-metadata");
+const { mergeStreams, enrichStreams, describe, inspect } = require("./stream-metadata");
 const { findYouTubeStreams } = require("./youtube");
 
 const MAX_ACTIVE_SEARCHES = 8;
@@ -52,19 +52,13 @@ function cleanStream(stream, provider) {
     ? "stream.m3u8"
     : /^(?:dash|mpd)$/.test(format) ? "stream.mpd" : undefined;
   const playbackFilename = filename || adaptiveFilename;
-  const subtitles = normalizeSubtitles(
-    [stream.subtitles, stream.externalSubtitles, stream.subs]
-      .flatMap(value => Array.isArray(value) ? value : [])
-      .map(subtitle => {
-        if (!subtitle || typeof subtitle !== "object") return null;
-        const url = subtitle.url || subtitle.file || subtitle.src;
-        const explicitHeaders = subtitle.headers || subtitle.requestHeaders || subtitle.behaviorHints?.proxyHeaders?.request;
-        let sameOrigin = false;
-        try { sameOrigin = new URL(url).origin === new URL(stream.url).origin; } catch {}
-        return { ...subtitle, url,
-          ...((explicitHeaders || sameOrigin && headers) && {headers:explicitHeaders || headers}) };
-      })
-  );
+  const subtitles = Array.isArray(stream.subtitles)
+    ? stream.subtitles.filter(subtitle => typeof subtitle?.url === "string" && /^https?:\/\//i.test(subtitle.url))
+      .map(subtitle => ({
+        ...subtitle,
+        lang: [subtitle.lang, subtitle.language, subtitle.label].find(value => typeof value === "string" && value.trim()) || "und"
+      }))
+    : undefined;
   return {
     [providerKey]: provider,
     [streamKey]: ++streamSequence,
@@ -77,10 +71,9 @@ function cleanStream(stream, provider) {
       sourceTitle: stream.sourceTitle || stream.name
     }),
     ...(stream.format && { format: stream.format }),
-    ...(headers && { headers }),
     ...(Array.isArray(stream.audioLangs) && { audioLangs: stream.audioLangs }),
     url: stream.url,
-    ...(provider === "Law" ? (Array.isArray(stream.subtitles) && {subtitles:stream.subtitles}) : (subtitles.length && { subtitles: subtitles.map((sub, index) => ({...sub, id:String(index)})) })),
+    ...(subtitles && { subtitles }),
     behaviorHints: {
       notWebReady: notWebReady ?? true,
       ...(playbackFilename && { filename: playbackFilename }),
@@ -90,53 +83,6 @@ function cleanStream(stream, provider) {
       })
     }
   };
-}
-
-// Supplemental subtitle responses may be plain tracks or tracks grouped by stream URL.
-// Unassociated tracks are added only when the provider returned one stream.
-function attachOptionalSubtitles(streams, response) {
-  const entries = Array.isArray(response) ? response
-    : Array.isArray(response?.subtitles) ? response.subtitles
-    : Array.isArray(response?.tracks) ? response.tracks : [];
-  if (!entries.length || !streams.length) return [];
-  const additions = streams.map(() => []);
-  for (const entry of entries) {
-    if (!entry || typeof entry !== "object") continue;
-    const tracks = Array.isArray(entry.subtitles) ? entry.subtitles
-      : Array.isArray(entry.tracks) ? entry.tracks : [entry];
-    const streamUrl = entry.streamUrl || entry.videoUrl || entry.playbackUrl
-      || entry.forUrl || entry.mediaUrl || (Array.isArray(entry.subtitles) ? entry.url : "");
-    const matched = typeof streamUrl === "string" && streamUrl
-      ? streams.map((stream, i) => stream.url === streamUrl ? i : -1).filter(i => i >= 0)
-      : streams.length === 1 ? [0] : [];
-    for (const index of matched) additions[index].push(...tracks);
-  }
-  return streams.flatMap((stream, i) => {
-    const requestHeaders = stream.behaviorHints?.proxyHeaders?.request || {};
-    const incoming = additions[i].map(subtitle => {
-      if (!subtitle || typeof subtitle !== "object") return subtitle;
-      let sameOrigin = false;
-      try { sameOrigin = new URL(subtitle.url).origin === new URL(stream.url).origin; } catch {}
-      return {...subtitle, ...(!subtitle.headers && sameOrigin && Object.keys(requestHeaders).length &&
-        {headers:requestHeaders})};
-    });
-    const subtitles = normalizeSubtitles([...(stream.subtitles || []),...incoming]);
-    return incoming.length && subtitles.length ? [{...stream, subtitles}] : [];
-  });
-}
-async function boundedSubtitles(lookup, deadline, provider) {
-  const remaining = Math.min(10000, deadline-Date.now());
-  if (remaining <= 0) return [];
-  let timer;
-  try {
-    return await Promise.race([
-      Promise.resolve().then(lookup).catch(error => {
-        console.warn("[TATA SUBTITLES]", provider, error.name);
-        return [];
-      }),
-      new Promise(resolve => {timer=setTimeout(()=>resolve([]),remaining);})
-    ]);
-  } finally {clearTimeout(timer);}
 }
 
 async function runProvider(provider, lookup, type) {
@@ -2302,21 +2248,14 @@ async function search(type, request, publish, remove) {
       .then(english => ({ ...details, englishTitle: english?.name ?? english?.title }))
       .catch(() => details)
     : Promise.resolve(details);
-  const callAddonMethod = (provider, method) => {
-    const addon = require("../vendor/anthology/" + provider.id + "/index.js");
-    const execute = addon[method] || addon.default?.[method];
-    if (typeof execute !== "function") return [];
+  const jobs = providers.map(provider => runProvider(provider.name, () => {
+    const { getStreams } = require("../vendor/anthology/" + provider.id + "/index.js");
     const id = String(details.id);
     if (provider.metadataArgs) return (provider.anime ? animeDetails : Promise.resolve(details))
-      .then(metadata => execute({ details: metadata, type, season: request.season, episode: request.episode }));
-    if (provider.objectArgs) return execute({ id, type, season: request.season, episode: request.episode });
-    return execute(id, type === "series" ? "tv" : "movie", request.season, request.episode);
-  };
-  const jobs = providers.map(provider => ({
-    streams: runProvider(provider.name, () => callAddonMethod(provider, "getStreams"), type),
-    subtitles: () => callAddonMethod(provider, "getSubtitles"),
-    name: provider.name
-  }));
+      .then(metadata => getStreams({ details: metadata, type, season: request.season, episode: request.episode }));
+    if (provider.objectArgs) return getStreams({ id, type, season: request.season, episode: request.episode });
+    return getStreams(id, type === "series" ? "tv" : "movie", request.season, request.episode);
+  }, type));
   if (type === "series" && (process.env.TATA_SERIES_M3U_PATH || process.env.TATA_SERIES_M3U_KEY)) {
     jobs.unshift(runProvider("TATA M3U", async () =>
       getPlaylistStreams(await animeDetails, request.season, request.episode), type));
@@ -2345,30 +2284,18 @@ async function search(type, request, publish, remove) {
     }
   }
   for (const source of getLocalIzlelanJobs()) {
-    const args=[String(details.id), type === "series" ? "tv" : "movie", request.season, request.episode];
-    jobs.push({
-      streams: runProvider(source.name, () => source.getStreams(...args), type),
-      ...(source.name !== "Law" && typeof source.getSubtitles === "function" && {subtitles:()=>source.getSubtitles(...args)}),
-      name: source.name
-    });
+    jobs.push(runProvider(source.name, () => source.getStreams(String(details.id), type === "series" ? "tv" : "movie", request.season, request.episode), type));
   }
   const discoveredYouTube = finishYouTube(earlyYouTube ?? (!youtubeStreams.length && process.env.YOUTUBE_DATA_API_KEY
     ? findYouTubeStreams(type, details, request) : undefined), deadline);
   await Promise.allSettled([
     discoveredYouTube.then(publish),
     ...jobs.map(async job => {
-      const result = await (job.streams || job);
+      const result = await job;
       publish(result.map(stream => describe(stream, {}, details.original_language)));
       if (result.length) {
-        const subtitleTask = typeof job.subtitles === "function"
-          ? boundedSubtitles(job.subtitles, deadline, job.name).then(response => {
-              const attached = attachOptionalSubtitles(result, response);
-              if (attached.length) publish(attached.map(stream => describe(stream, {}, details.original_language)));
-            })
-          : Promise.resolve();
-        const enrichedTask = enrichStreams(result, details.original_language, { deadline, onInvalid: remove })
-          .then(publish).catch(()=>{});
-        await Promise.allSettled([subtitleTask, enrichedTask]);
+        const enriched = await enrichStreams(result, details.original_language, { deadline, onInvalid: remove }).catch(() => []);
+        publish(enriched);
       }
     })
   ]);
