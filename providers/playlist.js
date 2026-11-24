@@ -38,6 +38,7 @@ function indexPlaylist(text, remote = false) {
       pending = group && season && episode ? {
         key: [titleKey(group), Number(season[1] || season[2]), Number(episode[1] || episode[2])].join(":"),
         dubbed: /\bdublaj\b/.test(numbers),
+        sourceTitle: name,
         ...(remote && { metvVariant: metvLanguageVariant(name) }),
         headers: {}
       } : null;
@@ -55,6 +56,7 @@ function indexPlaylist(text, remote = false) {
       const rows = episodes.get(pending.key) ?? [];
       rows.push({
         url: line,
+        title: pending.sourceTitle,
         headers: pending.headers,
         ...(pending.metvVariant && { metvVariant: pending.metvVariant }),
         ...(remote && /\.m3u8(?:[?#]|$)/i.test(line) && { isHls: true }),
