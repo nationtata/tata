@@ -18,6 +18,21 @@ function trackLanguage(value) {
  for(const word of words){if(word.length>=3){const lang=language(word);if(lang)return lang;}}
  return /日本語/.test(String(value))?"ja":"";
 }
+// Normalize provider and HLS subtitles without guessing a language from the film.
+function normalizeSubtitles(items) {
+  const found = new Map();
+  for (const item of Array.isArray(items) ? items : []) {
+    if (!item || typeof item !== "object") continue;
+    const url = typeof item.url === "string" ? item.url.trim() : "";
+    if (!/^https?:\/\//i.test(url)) continue;
+    const lang = [item.lang, item.language, item.langCode, item.label, item.name, item.title]
+      .map(trackLanguage).find(Boolean) || "und";
+    const key = JSON.stringify([url, lang]);
+    const previous = found.get(key) || {};
+    found.set(key, { ...previous, ...item, url, lang, id: String(previous.id ?? item.id ?? found.size) });
+  }
+  return [...found.values()];
+}
 function attributes(line) {
   const result = {};
   for (const m of line.matchAll(/(?:^|,)([A-Z0-9-]+)=("[^"]*"|[^,]*)/g)) result[m[1]] = m[2].replace(/^"|"$/g,"");
@@ -39,13 +54,17 @@ function qualityClass(value) {
 }
 function parseHls(body) {
   if (!/^\s*#EXTM3U/.test(body)) return {};
-  const audio=[], subs=[], variants=[], channels=[];
+  const audio=[], subs=[], subtitleTracks=[], variants=[], channels=[];
   let unknownAudio=false;
   for (const line of body.split(/\r?\n/)) {
     if (line.startsWith("#EXT-X-MEDIA:")) {
       const a=attributes(line.slice(13));
       if(a.TYPE==="AUDIO"){const lang=trackLanguage(a.LANGUAGE)||trackLanguage(a.NAME); audio.push(lang); if(!lang)unknownAudio=true; if(a.CHANNELS)channels.push(a.CHANNELS);}
-      if(a.TYPE==="SUBTITLES")subs.push(trackLanguage(a.LANGUAGE)||trackLanguage(a.NAME));
+      if(a.TYPE==="SUBTITLES"){
+        const lang=trackLanguage(a.LANGUAGE)||trackLanguage(a.NAME);
+        subs.push(lang);
+        if(a.URI) subtitleTracks.push({ url:a.URI, lang:lang||"und", ...(a.NAME && {name:a.NAME}) });
+      }
     }
     if(line.startsWith("#EXT-X-STREAM-INF:"))variants.push(attributes(line.slice(18)));
   }
@@ -53,7 +72,7 @@ function parseHls(body) {
   const v=variants[0]||{}, h=Number(v.RESOLUTION?.split("x")[1]), [videoCodec,audioCodec]=codecs(v.CODECS);
   const channel=channels.length && channels.every(x=>x===channels[0]) ? channels[0] : "";
   const rate=Number(v["AVERAGE-BANDWIDTH"]||v.BANDWIDTH);
-  return {unknownAudio,audio:unique(audio),subs:unique(subs),quality:qualityClass(h),videoCodec,audioCodec,channels:channel==="6"?"5.1":channel==="8"?"7.1":channel==="2"?"2.0":channel==="6/JOC"?"5.1":"",atmos:/JOC/i.test(channel),hdr:/\b(?:dvhe|dvh1)\b/i.test(v.CODECS||"")?"Dolby Vision":v["VIDEO-RANGE"]==="PQ"?"HDR (PQ)":v["VIDEO-RANGE"]==="HLG"?"HLG":"",fps:Number(v["FRAME-RATE"])||0,rate:rate? (rate/1e6).toFixed(1)+" Mbps":""};
+  return {unknownAudio,audio:unique(audio),subs:unique(subs),subtitleTracks,quality:qualityClass(h),videoCodec,audioCodec,channels:channel==="6"?"5.1":channel==="8"?"7.1":channel==="2"?"2.0":channel==="6/JOC"?"5.1":"",atmos:/JOC/i.test(channel),hdr:/\b(?:dvhe|dvh1)\b/i.test(v.CODECS||"")?"Dolby Vision":v["VIDEO-RANGE"]==="PQ"?"HDR (PQ)":v["VIDEO-RANGE"]==="HLG"?"HLG":"",fps:Number(v["FRAME-RATE"])||0,rate:rate? (rate/1e6).toFixed(1)+" Mbps":""};
 }
 function publicIPv4(ip) {
   if(net.isIP(ip)!==4)return false;
@@ -174,6 +193,9 @@ async function validateHls(first, url, headers, deadline, depth=0) {
   const metadata=parseHls(body);
   const lines=body.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
   const base=first.finalUrl||url;
+  metadata.subtitleTracks=normalizeSubtitles((metadata.subtitleTracks||[]).map(sub=>{
+    try { return {...sub,url:new URL(sub.url,base).href}; } catch { return null; }
+  }));
   const variants=[],segments=[];
   let variant=false;
   for(const line of lines){
@@ -196,7 +218,7 @@ async function validateHls(first, url, headers, deadline, depth=0) {
     return {status:"valid"};
   }));
   const valid=results.find(x=>x.status==="valid");
-  if(valid)return {...metadata,...Object.fromEntries(Object.entries(valid).filter(([k,v])=>k!=="status"&&v!==""&&v!==0&&(!Array.isArray(v)||v.length))),audio:unique([...(metadata.audio||[]),...(valid.audio||[])]),subs:unique([...(metadata.subs||[]),...(valid.subs||[])]),status:"valid"};
+  if(valid)return {...metadata,...Object.fromEntries(Object.entries(valid).filter(([k,v])=>k!=="status"&&v!==""&&v!==0&&(!Array.isArray(v)||v.length))),audio:unique([...(metadata.audio||[]),...(valid.audio||[])]),subs:unique([...(metadata.subs||[]),...(valid.subs||[])]),subtitleTracks:normalizeSubtitles([...(metadata.subtitleTracks||[]),...(valid.subtitleTracks||[])]),status:"valid"};
   // Never discard a master when untested alternatives or transient failures remain.
   return {...metadata,status:results.every(x=>x.status==="invalid")&&targets.length===(variants.length||Math.min(segments.length,2))?"invalid":"unknown"};
 }
@@ -266,7 +288,7 @@ function describe(stream,media={},originalLanguage="") {
   audio.sort((a,b)=>Number(b==="tr")-Number(a==="tr"));
   const display=xs=>unique(xs.map(x=>flags[x])).join(" / ");
   const sourceTurkishSubtitle = stream.metvVariant === "subtitled" || /(?:türkçe|turkce|\btr\b)\s+altyaz[ıi](?:l[ıi])?|(?:^|[\s|•\[(])altyaz[ıi]l[ıi](?:$|[\s|•\])])/iu.test(existing);
-  const langLine=[audio.length?"Ses: "+display(audio):"", ((media.subs||[]).map(language).includes("tr") || sourceTurkishSubtitle)?"Altyazı: 🇹🇷":""].filter(Boolean).join(" • ");
+  const langLine=[audio.length?"Ses: "+display(audio):"", ((media.subs||[]).map(language).includes("tr") || normalizeSubtitles(stream.subtitles).some(sub=>sub.lang==="tr") || sourceTurkishSubtitle)?"Altyazı: 🇹🇷":""].filter(Boolean).join(" • ");
   const channels=media.channels||existing.match(/\b(?:2\.0|5\.1|7\.1)\b/)?.[0];
   const sound=unique([media.audioCodec||ac,channels,media.atmos||/Dolby Atmos/i.test(existing)?"Dolby Atmos":""]).join(" ");
   const rate=media.rate||existing.match(/\b\d+(?:[.,]\d+)?\s*Mbps\b/i)?.[0];
@@ -292,7 +314,8 @@ async function enrichStreams(streams, originalLanguage="", options={}) {
       return null;
     }
     try {
-      const result=describe(stream,media,originalLanguage);
+      const withSubtitles={...stream,subtitles:normalizeSubtitles([...(stream.subtitles||[]),...(media.subtitleTracks||[])])};
+      const result=describe(withSubtitles,media,originalLanguage);
       // Callers can distinguish measured from fallback metadata when merging updates.
       Object.defineProperty(result,"__verifiedAudio",{value:!!media.audio?.length,enumerable:false});
       return result;
@@ -303,15 +326,8 @@ function mergeStreams(previous, incoming) {
   if (!previous) return incoming;
   const base = previous.__verifiedAudio && !incoming.__verifiedAudio ? previous : incoming;
   const result = {...base};
-  const subtitles = new Map();
-  for (const stream of [previous, incoming]) {
-    for (const sub of Array.isArray(stream.subtitles) ? stream.subtitles : []) {
-      if (!sub || typeof sub.url !== "string") continue;
-      const key = JSON.stringify([sub.url, sub.lang || sub.language || ""]);
-      subtitles.set(key, {...subtitles.get(key), ...sub});
-    }
-  }
-  if (subtitles.size) result.subtitles = [...subtitles.values()];
+  const subtitles = normalizeSubtitles([...(previous.subtitles||[]),...(incoming.subtitles||[])]);
+  if(subtitles.length) result.subtitles = subtitles;
   const marker = "Altyazı: 🇹🇷";
   if ([previous,incoming].some(s => [s.description,s.quality].some(x => typeof x === "string" && x.includes(marker)))) {
     const add = value => {
@@ -328,4 +344,4 @@ function mergeStreams(previous, incoming) {
   Object.defineProperty(result,"__verifiedAudio",{value:!!base.__verifiedAudio,enumerable:false});
   return result;
 }
-module.exports={mergeStreams,parseProbe,parseHls,describe,enrichStreams,publicIPv4,inspect,validateHls};
+module.exports={mergeStreams,normalizeSubtitles,parseProbe,parseHls,describe,enrichStreams,publicIPv4,inspect,validateHls};
