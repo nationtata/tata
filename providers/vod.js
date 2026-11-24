@@ -1,5 +1,5 @@
 const { getFilmPlaylistStreams } = require("./film-playlist");
-const { getPlaylistStreams, getMetvSeriesStreams } = require("./playlist");
+const { getPlaylistStreams, getMetvSeriesStreams, titleKey } = require("./playlist");
 const { getMovieStreams } = require("./izlefilm");
 const registry = require("../vendor/anthology/providers.json");
 const { getLocalIzlelanJobs } = require("./izlelan-adapter");
@@ -87,21 +87,45 @@ async function runProvider(provider, lookup, type) {
   }
 }
 
-function getYouTubePilot(type, request) {
-  const isFirstEpisode = type === "series" && request.season === 1 && request.episode === 1;
-  const isArkaSokaklar = ["tmdb:32836", "32836", "tt0845088"].includes(request.id);
-  if (!isFirstEpisode || !isArkaSokaklar) return [];
-  return [{ name: "YouTube", ytId: "TBBRBD8Fudg", description: "Ses: 🇹🇷" }];
+// Full-length uploads from the series' and producers' official YouTube channels.
+const youtubeSeries = [
+  { ids: ["32836", "tt0845088"], title: "arka sokaklar", year: "2006",
+    episodes: { "1:1": "TBBRBD8Fudg", "1:2": "JjVOWBu4z48", "1:3": "AF7o7S8TBiQ" } },
+  { ids: ["tt2361816"], title: "seksenler", year: "2012",
+    episodes: { "1:1": "Wn5piPtkki0" } }
+];
+
+const youtubeMovies = [
+  { titles: ["Hababam Sınıfı", "The Chaos Class"], year: "1975", ytId: "hf2-8MRPGu8" },
+  { titles: ["Süt Kardeşler", "The Foster Brothers"], year: "1976", ytId: "KRy20M7uQM4" },
+  { titles: ["Neşeli Günler", "Happy Days"], year: "1978", ytId: "FQ_7cabWOv0" },
+  { titles: ["Baskın"], year: "1977", ytId: "HIWwTWZP1H8" }
+];
+
+function getYouTubeStreams(type, request, details) {
+  let ytId;
+  if (type === "series") {
+    const id = request.id.replace(/^tmdb:/, "");
+    const show = youtubeSeries.find(item => item.ids.includes(id) || (details?.first_air_date?.slice(0, 4) === item.year &&
+      [details.name, details.original_name].map(titleKey).includes(titleKey(item.title))));
+    ytId = show?.episodes[request.season + ":" + request.episode];
+  } else if (details) {
+    const names = [details.title, details.original_title].map(titleKey);
+    ytId = youtubeMovies.find(item => item.year === details.release_date?.slice(0, 4) &&
+      item.titles.some(title => names.includes(titleKey(title))))?.ytId;
+  }
+  return ytId ? [{ name: "YouTube", ytId, description: "Ses: 🇹🇷" }] : [];
 }
 
 async function search(type, request) {
-  const youtubeStreams = getYouTubePilot(type, request);
+  const knownYouTubeStreams = getYouTubeStreams(type, request);
   const details = await findTmdb(type, request.id).catch(error => {
-    if (!youtubeStreams.length) throw error;
-    console.warn("[TATA VOD] Arka Sokaklar metadata", error.name);
+    if (!knownYouTubeStreams.length) throw error;
+    console.warn("[TATA VOD] YouTube series metadata", error.name);
     return null;
   });
-  if (!details?.id) return youtubeStreams;
+  if (!details?.id) return knownYouTubeStreams;
+  const youtubeStreams = knownYouTubeStreams.length ? knownYouTubeStreams : getYouTubeStreams(type, request, details);
   const genres = details.genre_ids ?? details.genres?.map(genre => genre.id) ?? [];
   const isAnimation = genres.includes(16);
   const providers = registry.filter(provider => provider[type] && (!provider.anime || isAnimation) &&
