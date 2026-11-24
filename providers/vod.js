@@ -94,6 +94,26 @@ async function runProvider(provider, lookup, type) {
 // Full-length uploads from the series' and producers' official YouTube channels.
 const youtubeSeries = [
   {
+    ids: ["66154", "tt3296782"],
+    title: "Ben de Özledim",
+    year: "2013",
+    episodes: {
+      "1:1": "XifibeGIH7g",
+      "1:2": "OMGcqb8myTg",
+      "1:3": "d8c4ZDgwTM8",
+      "1:4": "LGUxwb02LPQ",
+      "1:5": "e4-vxnEVmEQ",
+      "1:6": "XH-KI5h8fho",
+      "1:7": "-U9f3URA4Y0",
+      "1:8": "2oqRk1nXLwk",
+      "1:9": "kYihFp2gPHg",
+      "1:10": "YwpHhuCOlX0",
+      "1:11": "2g8gwais16g",
+      "1:12": "gkApdLwah4E",
+      "1:13": "aumBnxIdbxE",
+    },
+  },
+  {
     ids: ["52508", "tt1496198"],
     title: "Sıdıka",
     year: "1997",
