@@ -125,7 +125,20 @@ async function search(type, request) {
   for (const source of getLocalIzlelanJobs()) {
     jobs.push(runProvider(source.name, () => source.getStreams(String(details.id), type === "series" ? "tv" : "movie", request.season, request.episode), type));
   }
-  const streams = (await Promise.all(jobs)).flat();
+  const streams = [];
+  let accepting = true;
+  let timer;
+  try {
+    await Promise.race([
+      Promise.allSettled(jobs.map(job => job.then(result => {
+        if (accepting) streams.push(...result);
+      }))),
+      new Promise(resolve => { timer = setTimeout(resolve, 7000); })
+    ]);
+  } finally {
+    accepting = false;
+    clearTimeout(timer);
+  }
   const seen = new Set();
   return enrichStreams(streams.filter(stream => {
     const key = JSON.stringify([stream[providerKey], stream.url, stream.behaviorHints?.proxyHeaders?.request ?? {}]);
