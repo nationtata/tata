@@ -92,6 +92,8 @@ async function runProvider(provider, lookup, type) {
 
 // Full-length uploads from the series' and producers' official YouTube channels.
 const youtubeSeries = [
+  { ids: ["tt1534360"], title: "Ezel", year: "2009",
+    episodes: {"1:1":"T6UZhrunjSo","1:2":"4tulyH8Y91Q","1:3":"Jqm1MDxUNlo","1:4":"yl-iudreN-g","1:5":"TFjjfXJ9ojA","1:6":"6UOKx0PN8SA","1:7":"3HKbPaVJdHc","1:8":"JkVmwURfbZk","1:9":"q51gAOF7_P8","1:10":"qguf6giAFCg","1:11":"Tfwe8DJ6b4I","1:12":"gfT9SITvE3M","1:13":"w7BPGxjolrs","1:14":"FQxSrdWQbEo","1:15":"xvQMt9HiG4A","1:16":"lHQJuM03K70","1:17":"w-wRMzMn6qU"} },
   { ids: ["32836", "tt0845088"], title: "Arka Sokaklar", year: "2006", youtubeChannel: "UCJBBp-6JoqjOeLzTxzol_7A",
     episodes: { "1:1": "TBBRBD8Fudg", "1:2": "JjVOWBu4z48", "1:3": "AF7o7S8TBiQ" } },
   { ids: ["tt2361816"], title: "Seksenler", year: "2012", youtubeChannel: "UCYRPB4TbD2RYHlIQdLgEeYA",
