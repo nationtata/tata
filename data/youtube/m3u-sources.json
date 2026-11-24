@@ -3,17 +3,6 @@
   "urlTemplate": "http://92.5.110.31/YouTube.php?ID=@{handle}",
   "sources": [
     {
-      "seriesKey": "tr-001",
-      "title": "Şahsiyet",
-      "imdbId": "tt7920978",
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "user_no_channel_found",
-      "enabled": false,
-      "source": "user_supplied_handle"
-    },
-    {
       "seriesKey": "tr-002",
       "title": "Leyla ile Mecnun",
       "imdbId": "tt1831164",
@@ -54,17 +43,6 @@
       "url": "http://92.5.110.31/YouTube.php?ID=@TatliHayat",
       "type": "dizi",
       "status": "pending_endpoint_and_rights_verification",
-      "enabled": false,
-      "source": "user_supplied_handle"
-    },
-    {
-      "seriesKey": "tr-006",
-      "title": "Masum",
-      "imdbId": "tt6478318",
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "user_no_channel_found",
       "enabled": false,
       "source": "user_supplied_handle"
     },
@@ -164,17 +142,6 @@
       "url": "http://92.5.110.31/YouTube.php?ID=@AskMemnuKanalD",
       "type": "dizi",
       "status": "pending_endpoint_and_rights_verification",
-      "enabled": false,
-      "source": "user_supplied_handle"
-    },
-    {
-      "seriesKey": "tr-016",
-      "title": "Fi",
-      "imdbId": "tt6724368",
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "user_no_channel_found",
       "enabled": false,
       "source": "user_supplied_handle"
     },
@@ -369,16 +336,6 @@
       "enabled": false
     },
     {
-      "seriesKey": "tr-035",
-      "title": "46: Yok Olan",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
       "seriesKey": "tr-036",
       "title": "Sultan Makamı",
       "imdbId": null,
@@ -431,16 +388,6 @@
     {
       "seriesKey": "tr-041",
       "title": "Poyraz Karayel",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
-      "seriesKey": "tr-042",
-      "title": "Kampüsistan",
       "imdbId": null,
       "handle": null,
       "url": null,
@@ -1039,16 +986,6 @@
       "enabled": false
     },
     {
-      "seriesKey": "tr-102",
-      "title": "Sıfır Bir",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
       "seriesKey": "tr-103",
       "title": "Emanet",
       "imdbId": null,
@@ -1229,26 +1166,6 @@
       "enabled": false
     },
     {
-      "seriesKey": "tr-121",
-      "title": "Gibi",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
-      "seriesKey": "tr-122",
-      "title": "Konuşanlar",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
       "seriesKey": "tr-123",
       "title": "Kadın",
       "imdbId": null,
@@ -1261,16 +1178,6 @@
     {
       "seriesKey": "tr-124",
       "title": "Söz",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
-      "seriesKey": "tr-125",
-      "title": "Mahsun J",
       "imdbId": null,
       "handle": null,
       "url": null,
@@ -1341,16 +1248,6 @@
     {
       "seriesKey": "tr-132",
       "title": "Siyah Beyaz Aşk",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
-      "seriesKey": "tr-133",
-      "title": "Prens",
       "imdbId": null,
       "handle": null,
       "url": null,
@@ -1459,46 +1356,6 @@
       "enabled": false
     },
     {
-      "seriesKey": "tr-144",
-      "title": "El Turco",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
-      "seriesKey": "tr-145",
-      "title": "Masumiyet Müzesi",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
-      "seriesKey": "tr-146",
-      "title": "Pera Palas'ta Gece Yarısı",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
-      "seriesKey": "tr-147",
-      "title": "Erşan Kuneri",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
       "seriesKey": "tr-148",
       "title": "Dolunay",
       "imdbId": null,
@@ -1519,48 +1376,8 @@
       "enabled": false
     },
     {
-      "seriesKey": "tr-150",
-      "title": "Aktris",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
       "seriesKey": "tr-151",
       "title": "Duy Beni",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
-      "seriesKey": "tr-152",
-      "title": "Şahmaran",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
-      "seriesKey": "tr-153",
-      "title": "Bambaşka Biri",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
-      "seriesKey": "tr-154",
-      "title": "Çekiç ve Gül: Bir Behzat Ç. Hikayesi",
       "imdbId": null,
       "handle": null,
       "url": null,
@@ -1599,38 +1416,8 @@
       "enabled": false
     },
     {
-      "seriesKey": "tr-158",
-      "title": "Yaratılan",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
       "seriesKey": "tr-159",
       "title": "Dünyayla Benim Aramda",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
-      "seriesKey": "tr-160",
-      "title": "Sıcak Kafa",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
-      "seriesKey": "tr-161",
-      "title": "Alef",
       "imdbId": null,
       "handle": null,
       "url": null,
@@ -1659,38 +1446,8 @@
       "enabled": false
     },
     {
-      "seriesKey": "tr-164",
-      "title": "Uysallar",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
-      "seriesKey": "tr-165",
-      "title": "Biz Kimden Kaçıyorduk Anne?",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
       "seriesKey": "tr-166",
       "title": "Komedi Dükkanı",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
-      "seriesKey": "tr-167",
-      "title": "Var Bunlar",
       "imdbId": null,
       "handle": null,
       "url": null,
@@ -1729,48 +1486,8 @@
       "enabled": false
     },
     {
-      "seriesKey": "tr-171",
-      "title": "50m²",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
-      "seriesKey": "tr-172",
-      "title": "Yakamoz S-245",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
-      "seriesKey": "tr-173",
-      "title": "Yaşamayanlar",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
       "seriesKey": "tr-174",
       "title": "Arkadaşım Hoşgeldin",
-      "imdbId": null,
-      "handle": null,
-      "url": null,
-      "type": "dizi",
-      "status": "pending_official_handle",
-      "enabled": false
-    },
-    {
-      "seriesKey": "tr-175",
-      "title": "Börü 2039",
       "imdbId": null,
       "handle": null,
       "url": null,
