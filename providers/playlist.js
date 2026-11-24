@@ -61,8 +61,8 @@ function indexPlaylist(text, remote = false) {
   return episodes;
 }
 
-function remotePlaylistIndex(url, index) {
-  let cached, pending, expiresAt = 0;
+function remotePlaylistIndex(url, index, bundledFile) {
+  let cached, pending, bundled, expiresAt = 0;
   return async () => {
     if (cached && Date.now() < expiresAt) return cached;
     pending ??= (async () => {
@@ -78,13 +78,17 @@ function remotePlaylistIndex(url, index) {
       expiresAt = Date.now() + 60000;
       return cached;
     }).finally(() => { pending = undefined; });
-    return pending;
+    if (cached) return cached;
+    bundled ??= readFile(join(__dirname, "..", "assets", bundledFile))
+      .then(data => index(gunzipSync(data).toString("utf8")));
+    return Promise.any([pending, bundled]);
   };
 }
 
 const getMetvSeriesIndex = remotePlaylistIndex(
   "https://raw.githubusercontent.com/kimbumuratyavuz/capcanli/refs/heads/main/dizi.m3u",
-  text => indexPlaylist(text, true)
+  text => indexPlaylist(text, true),
+  "metv-series.m3u.gz"
 );
 
 let indexed;

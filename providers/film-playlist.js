@@ -11,7 +11,8 @@ const sources = {
 const indexes = new Map();
 const getMetvFilmIndex = remotePlaylistIndex(
   "https://raw.githubusercontent.com/kimbumuratyavuz/capcanli/refs/heads/main/filmuygulama.m3u",
-  text => indexFilms(text, "metvCinema").titles
+  text => indexFilms(text, "metvCinema").titles,
+  "metv-films.m3u.gz"
 );
 const powerCinemaUrl = "https://raw.githubusercontent.com/GitLatte/patr0n/refs/heads/site/lists/power-sinema.m3u";
 const powerCinemaRefreshMs = 30 * 60 * 1000;
