@@ -321,12 +321,8 @@ function loadM3U(){
   }
 
   for (const item of readPlaylist(path.join(__dirname, "lists", "anthology.m3u"))) {
-    const key = rootKey(item.raw);
-    let channel = reference.get(key);
-    if (!channel) {
-      channel = { id: slugify(item.raw), name: cleanName(item.raw), logo: item.logo, group: item.group, alternatives: [] };
-      reference.set(key, channel);
-    }
+    const channel = reference.get(rootKey(item.raw));
+    if (!channel) continue;
     if (!channel.alternatives.some(alt => alt.url === item.stream)) {
       channel.alternatives.push({ source: "Anthology", url: item.stream });
     }
