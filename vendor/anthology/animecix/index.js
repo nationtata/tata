@@ -80,7 +80,15 @@ async function resolveTmdbInfo(id, mediaType) {
 }
 
 async function getStreams(tmdbId, mediaType, seasonNum, episodeNum) {
+  let stage = 'metadata';
   try {
+    const request = tmdbId?.details ? tmdbId : null;
+    if (request) {
+      tmdbId = request.details.id;
+      mediaType = request.type;
+      seasonNum = request.season;
+      episodeNum = request.episode;
+    }
     if (typeof tmdbId === 'object' && tmdbId && tmdbId.id) {
       return getStreams(tmdbId.id, mediaType || 'tv', seasonNum, episodeNum);
     }
@@ -146,15 +154,24 @@ async function getStreams(tmdbId, mediaType, seasonNum, episodeNum) {
       }));
     }
 
-    const info = await resolveTmdbInfo(tmdbId, mediaType);
-    const queries = [info.title, info.origTitle].filter(Boolean);
+    const info = request ? {
+      numericId: tmdbId,
+      title: request.details.name || request.details.title,
+      origTitle: request.details.original_name || request.details.original_title
+    } : await resolveTmdbInfo(tmdbId, mediaType);
+    const queries = [...new Set([request?.details.englishTitle, info.title, info.origTitle].filter(Boolean))];
+    stage = 'search';
     if (queries.length === 0) return [];
 
     let matchedItem = null;
 
     for (const q of queries) {
       const searchRes = await fetch(`${BASE_URL}/secure/search/${encodeURIComponent(q)}?limit=10`, { headers: HEADERS });
-      if (!searchRes.ok) continue;
+      if (!searchRes.ok) {
+        console.info('[AnimeciX] search', info.numericId, searchRes.status);
+        if (searchRes.status === 403 || searchRes.status === 401) return [];
+        continue;
+      }
       const sData = await searchRes.json();
       if (sData.results && sData.results.length > 0) {
         const qClean = ultraClean(q);
@@ -175,18 +192,22 @@ async function getStreams(tmdbId, mediaType, seasonNum, episodeNum) {
       }
     }
 
+    console.info('[AnimeciX] match', info.numericId, Boolean(matchedItem), season, episode);
     if (!matchedItem) return [];
+    stage = 'episode';
 
     let videoUrl = isTv
       ? `${BASE_URL}/secure/best-video?titleId=${matchedItem.id}&episode=${episode}&season=${season}`
       : `${BASE_URL}/secure/best-video?titleId=${matchedItem.id}&episode=1&season=1`;
 
     const bestRes = await fetch(videoUrl, { headers: HEADERS, redirect: 'follow' });
+    console.info('[AnimeciX] episode', info.numericId, bestRes.status);
     const finalUrl = bestRes.url || '';
 
     const m = finalUrl.match(/tau-video\.xyz\/embed\/([a-zA-Z0-9_-]+)/);
     if (!m) return [];
 
+    stage = 'media';
     const tauId = m[1];
     const tauRes = await fetch(`https://tau-video.xyz/api/video/${tauId}`, {
       headers: {
@@ -199,6 +220,7 @@ async function getStreams(tmdbId, mediaType, seasonNum, episodeNum) {
     const tauData = await tauRes.json();
     if (!tauData.urls || tauData.urls.length === 0) return [];
 
+    console.info('[AnimeciX] streams', info.numericId, tauData.urls.length);
     const displayTitle = isTv ? `${matchedItem.name} S${season}E${episode}` : matchedItem.name;
 
     const aHeaders = {
@@ -220,6 +242,7 @@ async function getStreams(tmdbId, mediaType, seasonNum, episodeNum) {
       }
     }));
   } catch (err) {
+    console.info('[AnimeciX]', stage, err.name, err.cause?.code || '');
     return [];
   }
 }
