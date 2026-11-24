@@ -328,4 +328,4 @@ function mergeStreams(previous, incoming) {
   Object.defineProperty(result,"__verifiedAudio",{value:!!base.__verifiedAudio,enumerable:false});
   return result;
 }
-module.exports={mergeStreams,parseProbe,parseHls,describe,enrichStreams,publicIPv4,inspect,validateHls};
+module.exports={mergeStreams,parseProbe,parseHls,describe,enrichStreams,publicIPv4,inspect,validateHls,requestMedia};
