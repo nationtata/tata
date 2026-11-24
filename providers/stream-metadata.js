@@ -323,7 +323,7 @@ async function enrichStreams(streams, originalLanguage="", options={}) {
         return {...sub,...(sameOrigin&&Object.keys(requestHeaders).length&&{headers:requestHeaders})};
       });
       const withSubtitles={...stream,subtitles:normalizeSubtitles([...(stream.subtitles||[]),...hlsSubtitles])};
-      const result=describe(withSubtitles,media,originalLanguage);
+      const result=describe(stream.name==="Law" ? stream : withSubtitles,media,originalLanguage);
       // Callers can distinguish measured from fallback metadata when merging updates.
       Object.defineProperty(result,"__verifiedAudio",{value:!!media.audio?.length,enumerable:false});
       return result;
@@ -335,7 +335,10 @@ function mergeStreams(previous, incoming) {
   const base = previous.__verifiedAudio && !incoming.__verifiedAudio ? previous : incoming;
   const result = {...base};
   const subtitles = normalizeSubtitles([...(previous.subtitles||[]),...(incoming.subtitles||[])]);
-  if(subtitles.length) result.subtitles = subtitles;
+  if (base.name === "Law") {
+    if (previous.subtitles?.length) result.subtitles = previous.subtitles;
+    else if (incoming.subtitles?.length) result.subtitles = incoming.subtitles;
+  } else if(subtitles.length) result.subtitles = subtitles;
   const marker = "Altyazı: 🇹🇷";
   if ([previous,incoming].some(s => [s.description,s.quality].some(x => typeof x === "string" && x.includes(marker)))) {
     const add = value => {
