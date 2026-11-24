@@ -60,26 +60,74 @@ function publicIPv4(ip) {
   const [a,b,c]=ip.split(".").map(Number);
   return !(a===0||a===10||a===127||a>=224||a===169&&b===254||a===172&&b>=16&&b<=31||a===192&&(b===168||b===0||b===2)||a===100&&b>=64&&b<=127||a===198&&(b===18||b===19||b===51)||a===203&&b===0&&c===113);
 }
-async function readMedia(url,headers,isHls,tail=false) {
-  const u=new URL(url);
-  if(u.protocol!=="https:"||u.username||u.password||u.port&&u.port!=="443")return {};
-  const ip=await Promise.race([dns.lookup(u.hostname,{family:4}).then(x=>x.address),new Promise(resolve=>{const t=setTimeout(()=>resolve(""),650);t.unref();})]);
-  if(!publicIPv4(ip))return {};
-  return new Promise(resolve=>{
-    let done=false, req;
-    const finish=x=>{if(done)return;done=true;clearTimeout(timer);resolve(x);};
-    const timer=setTimeout(()=>{finish({});req?.destroy();},1300);
-    const safeHeaders={};
-    for(const [k,v] of Object.entries(headers||{}))if(/^(user-agent|referer|origin|accept)$/i.test(k)&&typeof v==="string"&&!/[\r\n]/.test(v))safeHeaders[k]=v;
-    if(!isHls)safeHeaders.Range=tail?"bytes=-2097152":"bytes=0-2097151";
-    req=https.get(u,{headers:safeHeaders,lookup:(_h,opts,cb)=>opts.all?cb(null,[{address:ip,family:4}]):cb(null,ip,4)},res=>{
-      if(res.statusCode!==200&&res.statusCode!==206){res.destroy();return finish({});}
-      let bytes=0;const chunks=[];
-      res.on("data",chunk=>{bytes+=chunk.length;if(bytes>(isHls?262144:2097152)){finish({});res.destroy();}else chunks.push(chunk);});
-      res.on("end",()=>finish(isHls?parseHls(Buffer.concat(chunks).toString("utf8")):(tail?probeTail(Buffer.concat(chunks)):probeBuffer(Buffer.concat(chunks)))));
-      res.on("error",()=>finish({}));
+
+// Requests are bounded, redirect-checked and pinned to public addresses on each hop.
+const MAX_REDIRECTS = 4;
+const REQUEST_TIMEOUT_MS = 3500;
+const PROBE_BYTES = 8 * 1024 * 1024;
+const PROBE_CONCURRENCY = 6;
+function safeHeaders(headers) {
+  const result = {};
+  for (const [key,value] of Object.entries(headers || {})) {
+    if (/^(user-agent|referer|origin|accept)$/i.test(key) && typeof value === "string" && !/[\r\n]/.test(value))
+      result[key] = value;
+  }
+  return result;
+}
+async function publicAddress(hostname) {
+  const addresses = await dns.lookup(hostname, { all: true, family: 4 });
+  const address = addresses.find(item => publicIPv4(item.address));
+  if (!address || addresses.some(item => !publicIPv4(item.address))) throw Error("non-public-address");
+  return address.address;
+}
+async function requestMedia(url, headers, options = {}) {
+  const { range, maxBytes = 262144, deadline = Date.now() + REQUEST_TIMEOUT_MS, depth = 0 } = options;
+  if (depth > MAX_REDIRECTS || deadline <= Date.now()) return { status: "unknown" };
+  let target;
+  try { target = new URL(url); } catch { return { status: "invalid" }; }
+  if (target.protocol !== "https:" || target.username || target.password || (target.port && target.port !== "443"))
+    return { status: "invalid" };
+  let ip;
+  try { ip = await publicAddress(target.hostname); } catch { return { status: "unknown" }; }
+  const timeout = Math.max(1, Math.min(REQUEST_TIMEOUT_MS, deadline - Date.now()));
+  return new Promise(resolve => {
+    let finished = false, req;
+    const done = result => { if (finished) return; finished = true; clearTimeout(timer); resolve(result); };
+    const timer = setTimeout(() => { done({ status: "unknown" }); req?.destroy(); }, timeout);
+    const requestHeaders = safeHeaders(headers);
+    if (range) requestHeaders.Range = range;
+    req = https.get(target, {
+      headers: requestHeaders,
+      lookup: (_host, opts, cb) => opts.all
+        ? cb(null, [{ address: ip, family: 4 }])
+        : cb(null, ip, 4)
+    }, response => {
+      const status = response.statusCode || 0;
+      if ([301, 302, 303, 307, 308].includes(status)) {
+        const redirect = response.headers.location;
+        response.destroy();
+        if (!redirect) return done({ status: "invalid" });
+        let next;
+        try { next = new URL(redirect, target).href; } catch { return done({ status: "invalid" }); }
+        return requestMedia(next, headers, { ...options, depth: depth + 1 })
+          .then(done, () => done({ status: "unknown" }));
+      }
+      if ([404, 410].includes(status)) { response.destroy(); return done({ status: "invalid" }); }
+      if (status !== 200 && status !== 206) { response.destroy(); return done({ status: "unknown" }); }
+      const chunks = [];
+      let received = 0;
+      response.on("data", chunk => {
+        const remaining = maxBytes - received;
+        if (remaining > 0) { chunks.push(chunk.subarray(0, remaining)); received += Math.min(chunk.length, remaining); }
+        if (received >= maxBytes) {
+          response.destroy();
+          done({ status: "valid", buffer: Buffer.concat(chunks) });
+        }
+      });
+      response.on("end", () => done({ status: "valid", buffer: Buffer.concat(chunks) }));
+      response.on("error", () => done({ status: "unknown" }));
     });
-    req.on("error",()=>finish({}));
+    req.on("error", () => done({ status: "unknown" }));
   });
 }
 function parseProbe(data) {
@@ -89,44 +137,73 @@ function parseProbe(data) {
  const ch=unique(a.map(x=>x.channels));
  return {quality:qualityClass(v.height),videoCodec:codecs(v.codec_name)[0],audioCodec:unique(a.map(x=>codecs(x.codec_name)[1])).join(" / "),audio:langs(a),subs:langs(sub),unknownAudio:a.some(x=>!trackLanguage(x.tags?.language)&&!trackLanguage(x.tags?.title)&&!trackLanguage(x.tags?.handler_name)),channels:ch.length===1?({1:"1.0",2:"2.0",6:"5.1",8:"7.1"}[ch[0]]||""):"",fps:n&&d?Number((n/d).toFixed(3)):0};
 }
-async function probeTail(buffer) {
- for(let i=4;i+4<=buffer.length;i++){
- if(buffer.toString("ascii",i,i+4)!=="moov")continue;
- const size=buffer.readUInt32BE(i-4);
- if(size<8||i-4+size>buffer.length)continue;
- const ftyp=Buffer.from("000000146674797069736f6d0000000069736f6d","hex");
- return probeBuffer(Buffer.concat([ftyp,buffer.subarray(i-4,i-4+size)]));
- }
- return {};
+function probeBuffer(buffer, timeout) {
+  if (!(buffer.subarray(4,8).toString()==="ftyp" || buffer.subarray(0,4).equals(Buffer.from([0x1a,0x45,0xdf,0xa3]))))
+    return Promise.resolve({});
+  try {
+    const { execFile } = require("node:child_process");
+    const bin = require("@ffprobe-installer/ffprobe").path;
+    const format = buffer.subarray(4,8).toString()==="ftyp" ? "mov" : "matroska";
+    return new Promise(resolve => {
+      const child = execFile(bin, ["-v","error","-protocol_whitelist","pipe","-f",format,"-show_streams","-of","json","-i","pipe:0"],
+        { timeout: Math.max(300, timeout), maxBuffer: 524288 }, (err,out) => {
+          try { resolve(err ? {} : parseProbe(JSON.parse(out))); } catch { resolve({}); }
+        });
+      child.stdin.on("error",()=>{});
+      child.stdin.end(buffer);
+    });
+  } catch { return Promise.resolve({}); }
 }
-async function probeBuffer(buffer) {
- if(!(buffer.subarray(4,8).toString()==="ftyp"||buffer.subarray(0,4).equals(Buffer.from([0x1a,0x45,0xdf,0xa3]))))return {};
- try {
- const {execFile}=require("node:child_process");
- const bin=require("@ffprobe-installer/ffprobe").path;
- const format=buffer.subarray(4,8).toString()==="ftyp"?"mov":"matroska";
- return await new Promise(resolve=>{
- const child=execFile(bin,["-v","error","-protocol_whitelist","pipe","-f",format,"-show_streams","-of","json","-i","pipe:0"],{timeout:1500,maxBuffer:262144},(err,out)=>{try{resolve(err?{}:parseProbe(JSON.parse(out)));}catch{resolve({});}});
- child.stdin.on("error",()=>{});child.stdin.end(buffer);
- });
- }catch{return {};}
+function mp4Metadata(buffer) {
+  // A moov atom may be located at the file tail. Feed the self-contained atom to ffprobe.
+  for (let i=4;i+4<=buffer.length;i++) {
+    if (buffer.toString("ascii", i, i+4)!=="moov") continue;
+    const size=buffer.readUInt32BE(i-4);
+    if (size<8 || i-4+size>buffer.length) continue;
+    const ftyp=Buffer.from("000000146674797069736f6d0000000069736f6d","hex");
+    return Buffer.concat([ftyp,buffer.subarray(i-4,i-4+size)]);
+  }
+  return null;
 }
 async function inspect(stream, deadline) {
-  const isHls=/\.m3u8(?:[?#]|$)|\/hls\/|\/master\./i.test(stream.url||"")||/^(hls|m3u8)$/i.test(stream.format||"")||/\.m3u8$/i.test(stream.behaviorHints?.filename||"");
-  if(!isHls&&/\.(mpd|ts|webm)(?:[?#]|$)/i.test(stream.url||""))return {};
+  const url=stream.url||"";
+  const isHls=/\.m3u8(?:[?#]|$)|\/hls\/|\/master\./i.test(url)||/^(hls|m3u8)$/i.test(stream.format||"")||/\.m3u8$/i.test(stream.behaviorHints?.filename||"");
   const headers=stream.behaviorHints?.proxyHeaders?.request||stream.headers||{};
-  const key=JSON.stringify([stream.url,headers]);
-  const hit=cache.get(key);if(hit&&hit.until>Date.now())return hit.data;
+  const key=JSON.stringify([url,headers]);
+  const hit=cache.get(key); if(hit && hit.until>Date.now()) return hit.data;
   if(pending.has(key))return pending.get(key);
-  while(active>=12 && Date.now()<deadline) await new Promise(resolve=>setTimeout(resolve,50));
-  if(Date.now()>=deadline)return {};
-  if(pending.has(key))return pending.get(key);
+  while(active>=PROBE_CONCURRENCY && Date.now()<deadline)await new Promise(resolve=>setTimeout(resolve,70));
+  if(Date.now()>=deadline)return {status:"unknown"};
   active++;
-  const task=readMedia(stream.url,headers,isHls).then(async data=>!isHls&&!data.audio?.length&&Date.now()<deadline?{...data,...await readMedia(stream.url,headers,false,true)}:data).catch(()=>({})).then(data=>{
+  const task=(async()=>{
+    const first=await requestMedia(url,headers,{range:isHls?undefined:"bytes=0-"+(PROBE_BYTES-1),
+      maxBytes:isHls?262144:PROBE_BYTES,deadline});
+    if(first.status!=="valid")return {status:first.status};
+    if(isHls) {
+      const text=first.buffer.toString("utf8");
+      return /^\s*#EXTM3U/.test(text) ? {...parseHls(text),status:"valid"} : {status:"unknown"};
+    }
+    const timeout=()=>Math.min(3500,Math.max(300,deadline-Date.now()));
+    let data=await probeBuffer(first.buffer,timeout());
+    if((!data.audio?.length || !data.quality) && Date.now()+500<deadline) {
+      const tail=await requestMedia(url,headers,{range:"bytes=-"+PROBE_BYTES,maxBytes:PROBE_BYTES,deadline});
+      if(tail.status==="valid") {
+        const atom=mp4Metadata(tail.buffer);
+        if(atom) {
+          const last=await probeBuffer(atom,timeout());
+          data={...data,...Object.fromEntries(Object.entries(last).filter(([,v])=>v!=="" && v!==0 && (!Array.isArray(v)||v.length)))};
+        }
+      }
+    }
+    return {...data,status:"valid"};
+  })().catch(()=>({status:"unknown"})).then(data=>{
     if(cache.size>=512)cache.delete(cache.keys().next().value);
-    cache.set(key,{data,until:Date.now()+ (Object.keys(data).length?3600000:300000)});return data;
+    // Only hard failures are negative; timeouts are retried soon.
+    cache.set(key,{data,until:Date.now()+(data.status==="valid"?3600000:data.status==="invalid"?600000:15000)});
+    return data;
   }).finally(()=>{active--;pending.delete(key);});
-  pending.set(key,task);return task;
+  pending.set(key,task);
+  return task;
 }
 function describe(stream,media={},originalLanguage="") {
   let path="";try{path=decodeURIComponent(new URL(stream.url).pathname)}catch{}
@@ -137,7 +214,11 @@ function describe(stream,media={},originalLanguage="") {
   const source=sourceText.match(/\b(?:WEB[- .]?DL|WEBRip|BluRay|REMUX|HDTV)\b/i)?.[0];
   const hdr=media.hdr||sourceText.match(/\b(?:Dolby Vision|HDR10\+?|HDR|HLG)\b/i)?.[0];
   const depth=sourceText.match(/\b(?:8|10|12)[- ]?bit\b/i)?.[0];
-  const audio=unique((media.audio||[]).map(language)).filter(code=>flags[code]);
+  const observed=unique((media.audio||[]).map(language)).filter(code=>flags[code]);
+  const taggedAudio=unique((Array.isArray(stream.audioLangs)?stream.audioLangs:[]).map(language))
+    .filter(code=>flags[code]);
+  // Source-provided audio tracks supplement only when no contradictory probe exists.
+  const audio=observed.length?observed:taggedAudio;
   const original=language(originalLanguage);
   if (!audio.length && flags[original]) audio.push(original);
   audio.sort((a,b)=>Number(b==="tr")-Number(a==="tr"));
@@ -159,28 +240,18 @@ function describe(stream,media={},originalLanguage="") {
   if(description){result.description=description;if(q)result.quality=description;}
   return result;
 }
-async function enrichStreams(streams,originalLanguage="") {
-  const deadline=Date.now()+2500;
-  let timer;
-  const cutoff=new Promise(resolve=>{timer=setTimeout(()=>resolve({}),2500);});
-  try {
-    const measured = await Promise.all(streams.map(stream =>
-      Promise.race([inspect(stream, deadline), cutoff]).catch(() => ({}))
-    ));
-    const technicalByUrl = new Map();
-    for (const [i, stream] of streams.entries()) {
-      const { quality, videoCodec, audioCodec, channels, hdr, atmos, rate, fps } = measured[i];
-      if (quality && !technicalByUrl.has(stream.url)) {
-        technicalByUrl.set(stream.url, { quality, videoCodec, audioCodec, channels, hdr, atmos, rate, fps });
-      }
-    }
-    return streams.map((stream, i) => {
-      const media = measured[i];
-      const known = stream.name === "Power Sinema" && !media.quality
-        ? technicalByUrl.get(stream.url) : undefined;
-      try { return describe(stream, { ...known, ...media }, originalLanguage); }
-      catch { return stream; }
-    });
-  } finally {clearTimeout(timer);}
+async function enrichStreams(streams, originalLanguage="", options={}) {
+  const deadline=options.deadline||Date.now()+45000;
+  const measured=await Promise.all(streams.map(stream=>inspect(stream,deadline).catch(()=>({status:"unknown"}))));
+  return streams.map((stream,i)=>{
+    const media=measured[i]||{};
+    if(media.status==="invalid")return null;
+    try {
+      const result=describe(stream,media,originalLanguage);
+      // Callers can distinguish measured from fallback metadata when merging updates.
+      Object.defineProperty(result,"__verifiedAudio",{value:!!media.audio?.length,enumerable:false});
+      return result;
+    } catch { return describe(stream,{},originalLanguage); }
+  }).filter(Boolean);
 }
-module.exports={parseProbe,parseHls,describe,enrichStreams,publicIPv4};
+module.exports={parseProbe,parseHls,describe,enrichStreams,publicIPv4,inspect};
