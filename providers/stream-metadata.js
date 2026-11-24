@@ -22,6 +22,15 @@ function codecs(value) {
   return [/\b(?:hvc1|hev1|hevc|h265|x265|dvhe|dvh1)\b/.test(s)?"HEVC":/\b(?:av01|av1)\b/.test(s)?"AV1":/\b(?:vp09|vp9)\b/.test(s)?"VP9":/\b(?:avc1|h264|x264)\b/.test(s)?"H.264":"",
   /\b(?:ec-3|eac3)\b/.test(s)?"DD+":/\b(?:ac-3|ac3)\b/.test(s)?"Dolby Digital":/\b(?:mp4a|aac)\b/.test(s)?"AAC":/\bflac\b/.test(s)?"FLAC":/\bdts\b/.test(s)?"DTS":""];
 }
+function qualityClass(value) {
+  const s=String(value||"").trim().toLowerCase();
+  if(s==="4k"||s==="uhd")return "4K";
+  if(s==="2k"||s==="fhd")return "1080p";
+  if(s==="hd")return "720p";
+  if(s==="sd")return "480p";
+  const n=Number(s.replace(/p$/,""));
+  return n>0?(n>=2160?"4K":n>=1000?"1080p":n>=600?"720p":"480p"):"";
+}
 function parseHls(body) {
   if (!/^\s*#EXTM3U/.test(body)) return {};
   const audio=[], subs=[], variants=[], channels=[];
@@ -37,7 +46,7 @@ function parseHls(body) {
   const v=variants[0]||{}, h=Number(v.RESOLUTION?.split("x")[1]), [videoCodec,audioCodec]=codecs(v.CODECS);
   const channel=channels.length && channels.every(x=>x===channels[0]) ? channels[0] : "";
   const rate=Number(v["AVERAGE-BANDWIDTH"]||v.BANDWIDTH);
-  return {audio:unique(audio),subs:unique(subs),quality:h?h+"p":"",videoCodec,audioCodec,channels:channel==="6"?"5.1":channel==="8"?"7.1":channel==="2"?"2.0":channel==="6/JOC"?"5.1":"",atmos:/JOC/i.test(channel),hdr:/\b(?:dvhe|dvh1)\b/i.test(v.CODECS||"")?"Dolby Vision":v["VIDEO-RANGE"]==="PQ"?"HDR (PQ)":v["VIDEO-RANGE"]==="HLG"?"HLG":"",fps:Number(v["FRAME-RATE"])||0,rate:rate? (rate/1e6).toFixed(1)+" Mbps":""};
+  return {audio:unique(audio),subs:unique(subs),quality:qualityClass(h),videoCodec,audioCodec,channels:channel==="6"?"5.1":channel==="8"?"7.1":channel==="2"?"2.0":channel==="6/JOC"?"5.1":"",atmos:/JOC/i.test(channel),hdr:/\b(?:dvhe|dvh1)\b/i.test(v.CODECS||"")?"Dolby Vision":v["VIDEO-RANGE"]==="PQ"?"HDR (PQ)":v["VIDEO-RANGE"]==="HLG"?"HLG":"",fps:Number(v["FRAME-RATE"])||0,rate:rate? (rate/1e6).toFixed(1)+" Mbps":""};
 }
 function publicIPv4(ip) {
   if(net.isIP(ip)!==4)return false;
@@ -79,25 +88,39 @@ async function inspect(stream) {
   }).finally(()=>{active--;pending.delete(key);});
   pending.set(key,task);return task;
 }
-function describe(stream,media={}) {
+function describe(stream,media={},originalLanguage="") {
   let path="";try{path=decodeURIComponent(new URL(stream.url).pathname)}catch{}
   const existing=unique([stream.description,stream.quality,stream.title].filter(x=>typeof x==="string"&&x!==stream.name)).join("\n");
   const sourceText=[existing,path].join(" ");
-  const q=media.quality||sourceText.match(/\b(?:2160p|1440p|1080p|720p|480p|360p|4K|2K)\b/i)?.[0];
+  const q=qualityClass(media.quality||sourceText.match(/\b(?:\d{3,4}p|4K|2K|UHD|FHD|HD|SD)\b/i)?.[0]);
   const [vc,ac]=codecs(sourceText.replace(/H\.26/g,"H26"));
   const source=sourceText.match(/\b(?:WEB[- .]?DL|WEBRip|BluRay|REMUX|HDTV)\b/i)?.[0];
   const hdr=media.hdr||sourceText.match(/\b(?:Dolby Vision|HDR10\+?|HDR|HLG)\b/i)?.[0];
   const depth=sourceText.match(/\b(?:8|10|12)[- ]?bit\b/i)?.[0];
-  const audio=unique([...(media.audio||[]),...(Array.isArray(stream.audioLangs)?stream.audioLangs.map(language):[])]);
-  const subs=unique([...(media.subs||[]),...(Array.isArray(stream.subtitles)?stream.subtitles.map(s=>language(s.lang||s.language)||language(s.label)):[])]);
+  const flagCodes=Object.fromEntries(Object.entries(flags).map(([k,v])=>[v,k]));
+  const parseLangs=t=>unique([...Object.entries(flagCodes).filter(([f])=>t.includes(f)).map(([,k])=>k),...t.split(/[\s/,\[\]&]+/).map(language)]);
+  const audioLine=existing.match(/Ses:\s*([^\n•]+)/i)?.[1]||"";
+  const subLine=existing.match(/Altyazı:\s*([^\n•]+)/i)?.[1]||"";
+  const audio=unique([...(media.audio||[]),...(!(media.audio||[]).length?(Array.isArray(stream.audioLangs)?stream.audioLangs.map(language):[]).concat(parseLangs(audioLine)):[]), /(?:TR|Türkçe)\s*(?:Dublaj|Dub)/i.test(existing)?"tr":""]);
+  if(!audio.length && /Ses:\s*Orijinal|\b(?:original|orijinal)\b/i.test(existing) && language(originalLanguage))audio.push(language(originalLanguage));
+  const subs=unique([...(media.subs||[]),...(Array.isArray(stream.subtitles)?stream.subtitles.map(s=>language(s.lang||s.language)||language(s.label)):[]),...parseLangs(subLine),/(?:TR|Türkçe)\s*(?:Dublaj\s*&\s*)?Altyazılı/i.test(existing)?"tr":""]);
   const display=xs=>xs.map(x=>flags[x]||x.toUpperCase()).join(" / ");
-  const langLine=[audio.length&&!/Ses:/i.test(existing)?"Ses: "+display(audio):"",subs.length&&!/Altyazı:/i.test(existing)?"Altyazı: "+display(subs):""].filter(Boolean).join(" • ");
-  const sound=unique([media.audioCodec||ac,media.channels,media.atmos?"Dolby Atmos":""]).join(" ");
-  const tech=unique([q,source,media.videoCodec||vc,depth,hdr,sound,media.rate,media.fps?media.fps+" FPS":""]).filter(x=>!existing.toLowerCase().includes(x.toLowerCase())).join(" • ");
-  const description=[existing,langLine,tech].filter(Boolean).join("\n");
-  return {...stream,...(description?{description}:{}),...(q?{quality:q}:{})};
+  const langLine=[audio.length?"Ses: "+display(audio):/Ses:\s*Orijinal/i.test(existing)?"Ses: Orijinal":"",subs.length?"Altyazı: "+display(subs):""].filter(Boolean).join(" • ");
+  const channels=media.channels||existing.match(/\b(?:2\.0|5\.1|7\.1)\b/)?.[0];
+  const sound=unique([media.audioCodec||ac,channels,media.atmos||/Dolby Atmos/i.test(existing)?"Dolby Atmos":""]).join(" ");
+  const rate=media.rate||existing.match(/\b\d+(?:[.,]\d+)?\s*Mbps\b/i)?.[0];
+  const fps=media.fps?media.fps+" FPS":existing.match(/\b\d+(?:[.,]\d+)?\s*FPS\b/i)?.[0];
+  const size=existing.match(/\b\d+(?:[.,]\d+)?\s*(?:GB|MB)\b/i)?.[0];
+  const tech=unique([q,source,media.videoCodec||vc,depth,hdr,sound,rate,fps,size]).join(" • ");
+  const description=[langLine,tech].filter(Boolean).join("\n");
+  const result={...stream};
+  delete result.title;
+  delete result.quality;
+  delete result.description;
+  if(description){result.description=description;result.quality=description;}
+  return result;
 }
-async function enrichStreams(streams) {
-  return Promise.all(streams.map(async s=>{try{return describe(s,await inspect(s));}catch{return s;}}));
+async function enrichStreams(streams,originalLanguage="") {
+  return Promise.all(streams.map(async s=>{try{return describe(s,await inspect(s),originalLanguage);}catch{return s;}}));
 }
 module.exports={parseHls,describe,enrichStreams,publicIPv4};
