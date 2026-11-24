@@ -38,6 +38,20 @@ loadM3U();
    HELPERS
 ========================================================= */
 
+function uniqueStreamLinks(streams) {
+  const seen = new Set();
+  return streams.filter(stream => {
+    const key = typeof stream.url === "string" && stream.url.length
+      ? "url:" + stream.url
+      : typeof stream.ytId === "string" && stream.ytId.length
+        ? "youtube:" + stream.ytId : null;
+    if (key === null) return true;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
 function absolute(req, url) {
   if (url.startsWith("https://")) return url;
   return `${req.protocol}://${req.get("host")}${url}`;
@@ -209,7 +223,7 @@ app.get("/film/manifest.json", (req, res) => {
 
 app.get(["/stream/:type(movie|series)/:id.json", "/film/stream/:type(movie|series)/:id.json"], async (req, res) => {
   try {
-    return res.json({ streams: await getVodStreams(req.params.type, req.params.id) });
+    return res.json({ streams: uniqueStreamLinks(await getVodStreams(req.params.type, req.params.id)) });
   } catch (err) {
     console.error("[VOD STREAM ERROR]", err.message);
     return res.json({ streams: [] });
@@ -235,7 +249,7 @@ app.get("/stream/tv/:id.json", async (req, res) => {
 
     const streams = alternatives.map(alt => ({ name: alt.name, url: alt.url }));
 
-    return res.json({ streams });
+    return res.json({ streams: uniqueStreamLinks(streams) });
 
   } catch (err) {
 
