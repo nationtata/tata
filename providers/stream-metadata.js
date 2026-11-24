@@ -35,7 +35,7 @@ function qualityClass(value) {
   if(s==="hd")return "720p";
   if(s==="sd")return "480p";
   const n=Number(s.replace(/p$/,""));
-  return n>0?(n>=2160?"4K":n>=1000?"1080p":n>=600?"720p":n>=400?"480p":n>=300?"360p":n+"p"):"";
+  return n>0?(n>=1620?"4K":n>=900?"1080p":n>=600?"720p":"480p"):"";
 }
 function parseHls(body) {
   if (!/^\s*#EXTM3U/.test(body)) return {};
