@@ -3,7 +3,7 @@ const { getPlaylistStreams, getMetvSeriesStreams, titleKey } = require("./playli
 const { getMovieStreams } = require("./izlefilm");
 const registry = require("../vendor/anthology/providers.json");
 const { getLocalIzlelanJobs } = require("./izlelan-adapter");
-const { enrichStreams } = require("./stream-metadata");
+const { enrichStreams, describe } = require("./stream-metadata");
 const { findYouTubeStreams } = require("./youtube");
 
 const MAX_ACTIVE_SEARCHES = 8;
@@ -206,7 +206,7 @@ async function search(type, request, publish) {
     discoveredYouTube.then(publish),
     ...jobs.map(async job => {
       const result = await job;
-      publish(result);
+      publish(result.map(stream => describe(stream, {}, details.original_language)));
       if (result.length) {
         const enriched = await enrichStreams(result, details.original_language).catch(() => result);
         publish(enriched);
