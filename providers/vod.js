@@ -8,6 +8,7 @@ const izProviderNames = new Set(IZLELAN_NAMES);
 // Fail closed: unreviewed providers must not return title-matched content.
 const strictIdentity = process.env.TATA_STRICT_IDENTITY !== "0";
 const identityProviders = new Set();
+const { matchesIdentity } = require("./content-identity");
 
 const PROVIDER_TIMEOUT = 9000;
 const MAX_ACTIVE_SEARCHES = 8;
@@ -73,7 +74,7 @@ function cleanStream(stream, provider) {
   };
 }
 
-async function runProvider(provider, lookup, type) {
+async function runProvider(provider, lookup, type, expected) {
   let timer;
   try {
     const timeout = new Promise(resolve => {
@@ -84,7 +85,7 @@ async function runProvider(provider, lookup, type) {
     });
     const result = await Promise.race([Promise.resolve().then(lookup), timeout]);
     if (!Array.isArray(result)) return [];
-    const streams = result.map(stream => cleanStream(stream, provider)).filter(Boolean);
+    const streams = result.filter(stream => !strictIdentity || !expected || matchesIdentity(expected, stream?.contentIdentity)).map(stream => cleanStream(stream, provider)).filter(Boolean);
     if (result.length && !streams.length) console.warn("[TATA VOD]", provider, type, "invalid-stream-url");
     return streams;
   } catch (error) {
@@ -107,6 +108,7 @@ async function search(type, request) {
       .then(english => ({ ...details, englishTitle: english?.name ?? english?.title }))
       .catch(() => details)
     : Promise.resolve(details);
+  const expected = { type, tmdbId: details.id, imdbId: request.id.startsWith("tt") ? request.id : details.imdb_id ?? details.external_ids?.imdb_id, titles: [details.name, details.original_name, details.title, details.original_title], year: (details.first_air_date ?? details.release_date)?.slice(0,4), countries: details.origin_country ?? details.production_countries?.map(c => c.iso_3166_1), originalLanguage: details.original_language, season: request.season, episode: request.episode };
   const jobs = providers.map(provider => runProvider(provider.name, () => {
     const { getStreams } = require("../vendor/anthology/" + provider.id + "/index.js");
     const id = String(details.id);
@@ -114,7 +116,7 @@ async function search(type, request) {
       .then(metadata => getStreams({ details: metadata, type, season: request.season, episode: request.episode }));
     if (provider.objectArgs) return getStreams({ id, type, season: request.season, episode: request.episode });
     return getStreams(id, type === "series" ? "tv" : "movie", request.season, request.episode);
-  }, type));
+  }, type, expected));
   if (!strictIdentity && type === "series" && (process.env.TATA_SERIES_M3U_PATH || process.env.TATA_SERIES_M3U_KEY)) {
     jobs.unshift(runProvider("TATA M3U", async () =>
       getPlaylistStreams(await animeDetails, request.season, request.episode), type));
