@@ -2374,4 +2374,31 @@ async function getVodStreams(type, id) {
   return Array.from(entry.streams.values());
 }
 
-module.exports = { getVodStreams };
+// An individual subtitle request must never combine unrelated provider streams.
+async function getVodSubtitles(type, id) {
+  const streams = await getVodStreams(type, id);
+  const groups = new Map();
+  for (const stream of streams) {
+    if (!Array.isArray(stream.subtitles) || !stream.subtitles.length) continue;
+    const provider = String(stream.name || "Provider");
+    const tracks = groups.get(provider) || [];
+    for (const sub of stream.subtitles) {
+      if (typeof sub?.url !== "string" || !/^https?:\/\//i.test(sub.url)) continue;
+      const language = String(sub.lang || sub.language || "und");
+      if (tracks.some(item => item.url === sub.url && item.lang === language)) continue;
+      tracks.push({ ...sub, lang: language });
+    }
+    groups.set(provider, tracks);
+  }
+  // Subtitle resources have no selected stream id; expose a source-qualified
+  // track id so providers remain distinct even if they reuse a URL.
+  return [...groups].flatMap(([provider, subtitles]) =>
+    subtitles.map((sub, index) => ({
+      ...sub,
+      id: provider + ":" + String(sub.id ?? index),
+      lang: sub.lang
+    }))
+  );
+}
+
+module.exports = { getVodStreams, getVodSubtitles };
