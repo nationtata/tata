@@ -84,13 +84,6 @@
     "anime": false
   },
   {
-    "id": "kultfilmler",
-    "name": "KultFilmler",
-    "movie": true,
-    "series": false,
-    "anime": false
-  },
-  {
     "id": "ddizi",
     "name": "DDizi",
     "movie": false,
@@ -100,27 +93,6 @@
   {
     "id": "tvdiziler",
     "name": "TvDiziler",
-    "movie": false,
-    "series": true,
-    "anime": false
-  },
-  {
-    "id": "diziwatch",
-    "name": "DiziWatch",
-    "movie": false,
-    "series": true,
-    "anime": true
-  },
-  {
-    "id": "animecix",
-    "name": "AnimeciX",
-    "movie": false,
-    "series": true,
-    "anime": true
-  },
-  {
-    "id": "dizipod",
-    "name": "DiziPod",
     "movie": false,
     "series": true,
     "anime": false
