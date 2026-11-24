@@ -14,7 +14,6 @@ const {
 
 const { getAlternatives } = require("./providers/tata");
 const { getVodStreams } = require("./providers/vod");
-const { enrichStreams } = require("./providers/stream-metadata");
 
 const app = express();
 const PORT = process.env.PORT || 7000;
@@ -229,7 +228,7 @@ app.get("/stream/tv/:id.json", async (req, res) => {
       return res.json({ streams: [] });
     }
 
-    const streams = await enrichStreams(alternatives.map(alt => ({ name: alt.name, url: alt.url })));
+    const streams = alternatives.map(alt => ({ name: alt.name, url: alt.url }));
 
     return res.json({ streams });
 
