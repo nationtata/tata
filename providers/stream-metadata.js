@@ -173,7 +173,23 @@ async function enrichStreams(streams,originalLanguage="") {
   let timer;
   const cutoff=new Promise(resolve=>{timer=setTimeout(()=>resolve({}),2500);});
   try {
-    return await Promise.all(streams.map(async s=>{try{return describe(s,await Promise.race([inspect(s,deadline),cutoff]),originalLanguage);}catch{return s;}}));
+    const measured = await Promise.all(streams.map(stream =>
+      Promise.race([inspect(stream, deadline), cutoff]).catch(() => ({}))
+    ));
+    const technicalByUrl = new Map();
+    for (const [i, stream] of streams.entries()) {
+      const { quality, videoCodec, audioCodec, channels, hdr, atmos, rate, fps } = measured[i];
+      if (quality && !technicalByUrl.has(stream.url)) {
+        technicalByUrl.set(stream.url, { quality, videoCodec, audioCodec, channels, hdr, atmos, rate, fps });
+      }
+    }
+    return streams.map((stream, i) => {
+      const media = measured[i];
+      const known = stream.name === "Power Sinema" && !media.quality
+        ? technicalByUrl.get(stream.url) : undefined;
+      try { return describe(stream, { ...known, ...media }, originalLanguage); }
+      catch { return stream; }
+    });
   } finally {clearTimeout(timer);}
 }
 module.exports={parseProbe,parseHls,describe,enrichStreams,publicIPv4};
