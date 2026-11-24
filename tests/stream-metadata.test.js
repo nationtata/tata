@@ -11,6 +11,10 @@ console.log("metadata tests passed");
 const cropped=parseHls('#EXTM3U\n#EXT-X-STREAM-INF:RESOLUTION=1920x800,CODECS="avc1,mp4a"\nv.m3u8');
 assert.equal(cropped.quality,"1080p");
 const formatted=describe({name:"TATA",url:"https://example.com/video",description:"1080p [EN]\nExample Movie",title:"Example Movie"},cropped);
-assert.equal(formatted.description,"Ses: 🇬🇧\n1080p • H.264 • AAC");
+assert.equal(formatted.description,"1080p • H.264 • AAC");
 assert.equal(formatted.quality,formatted.description);
 assert.equal(formatted.title,undefined);
+
+assert.match(describe({description:"Ses: Orijinal",url:"https://example.com/video"},{},"ja").description,/🇯🇵/);
+assert.match(describe({description:"Ses: Orijinal",url:"https://example.com/video"},{audio:["en"]},"ja").description,/🇬🇧/);
+assert.doesNotMatch(describe({description:"720p [EN]",url:"https://example.com/video"},{},"ja").description,/🇬🇧/);
