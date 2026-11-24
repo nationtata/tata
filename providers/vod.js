@@ -87,9 +87,21 @@ async function runProvider(provider, lookup, type) {
   }
 }
 
+function getYouTubePilot(type, request) {
+  const isFirstEpisode = type === "series" && request.season === 1 && request.episode === 1;
+  const isArkaSokaklar = ["tmdb:32836", "32836", "tt0845088"].includes(request.id);
+  if (!isFirstEpisode || !isArkaSokaklar) return [];
+  return [{ name: "YouTube", ytId: "TBBRBD8Fudg", description: "Ses: 🇹🇷" }];
+}
+
 async function search(type, request) {
-  const details = await findTmdb(type, request.id);
-  if (!details?.id) return [];
+  const youtubeStreams = getYouTubePilot(type, request);
+  const details = await findTmdb(type, request.id).catch(error => {
+    if (!youtubeStreams.length) throw error;
+    console.warn("[TATA VOD] Arka Sokaklar metadata", error.name);
+    return null;
+  });
+  if (!details?.id) return youtubeStreams;
   const genres = details.genre_ids ?? details.genres?.map(genre => genre.id) ?? [];
   const isAnimation = genres.includes(16);
   const providers = registry.filter(provider => provider[type] && (!provider.anime || isAnimation) &&
@@ -152,13 +164,14 @@ async function search(type, request) {
     clearTimeout(timer);
   }
   const seen = new Set();
-  return enrichStreams(streams.filter(stream => {
+  const enriched = await enrichStreams(streams.filter(stream => {
     const identity = streamIdentity(stream);
     const key = JSON.stringify([stream[providerKey], identity]);
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
   }), details.original_language);
+  return [...youtubeStreams, ...enriched];
 }
 
 async function getVodStreams(type, id) {
