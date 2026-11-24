@@ -228,7 +228,18 @@ app.get("/film/manifest.json", (req, res) => {
 
 app.get(["/stream/:type(movie|series)/:id.json", "/film/stream/:type(movie|series)/:id.json"], async (req, res) => {
   try {
-    return res.json({ streams: await getVodStreams(req.params.type, req.params.id) });
+    const streams = await getVodStreams(req.params.type, req.params.id);
+    for (const stream of streams.filter(item => item.name === "Law")) {
+      console.info("[Law API subtitle diagnostic]", JSON.stringify({
+        subtitles: (Array.isArray(stream.subtitles) ? stream.subtitles : []).map(sub => ({
+          lang: String(sub?.lang || "").slice(0,40),
+          hasId: sub?.id != null,
+          absoluteHttp: typeof sub?.url === "string" && /^https?:\/\//i.test(sub.url),
+          hasHeaders: !!sub?.headers
+        }))
+      }));
+    }
+    return res.json({ streams });
   } catch (err) {
     console.error("[VOD STREAM ERROR]", err.message);
     return res.json({ streams: [] });
