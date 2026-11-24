@@ -3,7 +3,7 @@ const { getPlaylistStreams } = require("./playlist");
 const { getMovieStreams } = require("./izlefilm");
 const registry = require("../vendor/anthology/providers.json");
 const { getLocalIzlelanJobs } = require("./izlelan-adapter");
-const { enrichStreams } = require("./stream-metadata");
+const { enrichStreams, describe } = require("./stream-metadata");
 
 const MAX_ACTIVE_SEARCHES = 8;
 const ongoing = new Map();
@@ -82,7 +82,8 @@ async function runProvider(provider, lookup, type) {
 }
 
 async function search(type, request) {
-  const details = await findTmdb(type, request.id);
+  const deadline = Date.now() + 7000;
+  const details = await findTmdb(type, request.id).catch(() => null);
   if (!details?.id) return [];
   const genres = details.genre_ids ?? details.genres?.map(genre => genre.id) ?? [];
   const isAnimation = genres.includes(16);
@@ -125,14 +126,40 @@ async function search(type, request) {
   for (const source of getLocalIzlelanJobs()) {
     jobs.push(runProvider(source.name, () => source.getStreams(String(details.id), type === "series" ? "tv" : "movie", request.season, request.episode), type));
   }
-  const streams = (await Promise.all(jobs)).flat();
+  const collected = [];
   const seen = new Set();
-  return enrichStreams(streams.filter(stream => {
-    const key = JSON.stringify([stream[providerKey], stream.url, stream.behaviorHints?.proxyHeaders?.request ?? {}]);
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  }), details.original_language);
+  let timer;
+  let closed = false;
+  const tasks = jobs.map(async job => {
+    const streams = await job;
+    if (closed || Date.now() >= deadline) return;
+    for (const stream of streams) {
+      const key = JSON.stringify([stream[providerKey], stream.url, stream.behaviorHints?.proxyHeaders?.request ?? {}]);
+      if (seen.has(key)) continue;
+      seen.add(key);
+      const entry = { value: describe(stream, {}, details.original_language) };
+      collected.push(entry);
+      if (deadline - Date.now() >= 2500) {
+        enrichStreams([stream], details.original_language).then(([value]) => {
+          if (!closed && Date.now() < deadline && value) entry.value = value;
+        }).catch(() => {});
+      }
+    }
+  });
+  try {
+    await Promise.race([
+      Promise.allSettled(tasks),
+      new Promise(resolve => { timer = setTimeout(resolve, Math.max(0, deadline - Date.now())); })
+    ]);
+    // Allow metadata already in flight to finish within the same overall budget.
+    if (collected.length && Date.now() < deadline) {
+      await new Promise(resolve => setTimeout(resolve, Math.min(2500, Math.max(0, deadline - Date.now()))));
+    }
+  } finally {
+    closed = true;
+    clearTimeout(timer);
+  }
+  return collected.map(entry => entry.value);
 }
 
 async function getVodStreams(type, id) {
