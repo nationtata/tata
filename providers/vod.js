@@ -2349,7 +2349,8 @@ async function search(type, request, publish, remove, progress) {
   }
   const discoveredYouTube = finishYouTube(earlyYouTube ?? (!youtubeStreams.length && process.env.YOUTUBE_DATA_API_KEY
     ? findYouTubeStreams(type, details, request) : undefined), deadline);
-  progress.started(jobs.map(job => job.name));
+  const jobNames = jobs.map(job => job.name);
+  progress.started(jobNames);
   await Promise.allSettled([
     discoveredYouTube.then(publish),
     ...jobs.map(async ({ name, promise }) => {
@@ -2457,11 +2458,13 @@ async function getVodStreams(type, id, options = {}) {
   if (ongoing.has(key) && !options.prefetch) {
     const elapsed = Date.now() - entry.startedAt;
     if (elapsed < INITIAL_WAIT_MIN_MS) {
-      await waitForFirstResponse(entry, INITIAL_WAIT_MIN_MS - elapsed);
+      // The minimum collection window must not be shortened by the first
+      // early YouTube/provider result.
+      await pause(INITIAL_WAIT_MIN_MS - elapsed);
     }
-    // Favor completion of all providers when it happens within 11 seconds.
-    // Otherwise return everything already found by that deadline.
-    while (entry.accepting && activeProviderCount(entry) > 0 &&
+    // Let fast providers finish, but never keep the client past the cap.
+    while (entry.accepting &&
+           (!entry.providersStarted || activeProviderCount(entry) > 0) &&
            Date.now() - entry.startedAt < INITIAL_WAIT_MAX_MS) {
       const left = INITIAL_WAIT_MAX_MS - (Date.now() - entry.startedAt);
       await waitForFirstResponse(entry, Math.min(left, 750));
