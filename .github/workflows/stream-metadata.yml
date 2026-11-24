@@ -11,4 +11,4 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --check providers/vod.js && node --check addon.js && node tests/stream-metadata.test.js
+      - run: node --check providers/vod.js && node --check addon.js && node tests/stream-metadata.test.js && node tests/content-identity.test.js
