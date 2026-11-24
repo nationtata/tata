@@ -33,7 +33,11 @@ function cachedTmdb(type, id, language = "tr-TR", timeout = 3500) {
   const record = { promise, expires: Date.now() + TMDB_CACHE_TTL_MS };
   tmdbCache.set(key, record);
   while (tmdbCache.size > 512) tmdbCache.delete(tmdbCache.keys().next().value);
-  promise.catch(() => { if (tmdbCache.get(key) === record) tmdbCache.delete(key); });
+  promise.then(value => {
+    if (!value?.id && tmdbCache.get(key) === record) tmdbCache.delete(key);
+  }, () => {
+    if (tmdbCache.get(key) === record) tmdbCache.delete(key);
+  });
   return promise;
 }
 
@@ -2410,6 +2414,7 @@ async function getVodStreams(type, id, options = {}) {
   const request = parseRequest(type, id);
   if (!request) return [];
   const key = type + ":" + id;
+  const requestStartedAt = Date.now();
   let entry = cache.get(key);
   if (entry && !ongoing.has(key) &&
       Date.now() - entry.updated > (entry.streams.size ? CACHE_TTL_MS : 15000)) {
@@ -2434,7 +2439,7 @@ async function getVodStreams(type, id, options = {}) {
     }
     entry = {
       streams: new Map(), rejected: new Set(), updated: Date.now(),
-      accepting: true, startedAt: Date.now(), providersStarted: false,
+      accepting: true, startedAt: requestStartedAt, providersStarted: false,
       pendingProviders: new Set(), waiters: new Set(), cacheReady: false
     };
     cache.set(key, entry);
