@@ -3,6 +3,7 @@ const { getPlaylistStreams } = require("./playlist");
 const { getMovieStreams } = require("./izlefilm");
 const registry = require("../vendor/anthology/providers.json");
 const { getLocalIzlelanJobs, IZLELAN_NAMES } = require("./izlelan-adapter");
+const { enrichStreams } = require("./stream-metadata");
 const izProviderNames = new Set(IZLELAN_NAMES);
 
 const PROVIDER_TIMEOUT = 9000;
@@ -51,7 +52,11 @@ function cleanStream(stream, provider) {
   return {
     [providerKey]: provider,
     name: izProviderNames.has(provider) ? provider : "TATA",
-    ...(izProviderNames.has(provider) && stream.quality && { description: stream.quality }),
+    ...(stream.description || stream.quality ? { description: stream.description || stream.quality } : {}),
+    ...(stream.quality && { quality: stream.quality }),
+    ...(stream.title && { title: stream.title }),
+    ...(stream.format && { format: stream.format }),
+    ...(Array.isArray(stream.audioLangs) && { audioLangs: stream.audioLangs }),
     url: stream.url,
     ...(subtitles && { subtitles }),
     behaviorHints: {
@@ -133,12 +138,12 @@ async function search(type, request) {
   }
   const streams = (await Promise.all(jobs)).flat();
   const seen = new Set();
-  return streams.filter(stream => {
+  return enrichStreams(streams.filter(stream => {
     const key = JSON.stringify([stream[providerKey], stream.url, stream.behaviorHints?.proxyHeaders?.request ?? {}]);
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
-  });
+  }));
 }
 
 async function getVodStreams(type, id) {
