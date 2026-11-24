@@ -143,7 +143,7 @@ function describe(stream,media={},originalLanguage="") {
   const estimatedAudio=!audio.length&&language(originalLanguage);
   const subs=unique([...(media.subs||[]),...(Array.isArray(stream.subtitles)?stream.subtitles.map(s=>language(s.lang||s.language)||language(s.label)):[]),...parseLangs(subLine),/(?:TR|Türkçe)\s*(?:Dublaj\s*&\s*)?Altyazılı/i.test(existing)?"tr":""]);
   const display=xs=>xs.map(x=>flags[x]||x.toUpperCase()).join(" / ");
-  const langLine=[audio.length?"Ses: "+display(audio):estimatedAudio?"Ses: "+display([estimatedAudio])+" (TMDB tahmini)":/Ses:\s*Orijinal/i.test(existing)?"Ses: Orijinal":"",subs.length?"Altyazı: "+display(subs):""].filter(Boolean).join(" • ");
+  const langLine=[audio.length?"Ses: "+display(audio):estimatedAudio?"Ses: "+display([estimatedAudio]):/Ses:\s*Orijinal/i.test(existing)?"Ses: Orijinal":"",subs.length?"Altyazı: "+display(subs):""].filter(Boolean).join(" • ");
   const channels=media.channels||existing.match(/\b(?:2\.0|5\.1|7\.1)\b/)?.[0];
   const sound=unique([media.audioCodec||ac,channels,media.atmos||/Dolby Atmos/i.test(existing)?"Dolby Atmos":""]).join(" ");
   const rate=media.rate||existing.match(/\b\d+(?:[.,]\d+)?\s*Mbps\b/i)?.[0];

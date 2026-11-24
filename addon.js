@@ -229,7 +229,7 @@ app.get("/stream/tv/:id.json", async (req, res) => {
       return res.json({ streams: [] });
     }
 
-    const streams = await enrichStreams(alternatives.map(alt => ({ name: "TATA", url: alt.url })));
+    const streams = await enrichStreams(alternatives.map(alt => ({ name: alt.name, url: alt.url })));
 
     return res.json({ streams });
 
