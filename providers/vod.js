@@ -7,6 +7,8 @@ const { enrichStreams } = require("./stream-metadata");
 const { findYouTubeStreams } = require("./youtube");
 
 const MAX_ACTIVE_SEARCHES = 8;
+const LOAD_TIMEOUT_MS = 9000;
+const MEDIA_INSPECTION_MS = 2500;
 const ongoing = new Map();
 
 function parseRequest(type, id) {
@@ -118,7 +120,20 @@ function getYouTubeStreams(type, request, details) {
   return ytId ? [{ name: "YouTube", ytId, description: "Ses: 🇹🇷" }] : [];
 }
 
+async function finishYouTube(lookup, deadline) {
+  if (!lookup) return [];
+  let timer;
+  try {
+    return await Promise.race([lookup, new Promise(resolve => {
+      timer = setTimeout(() => resolve([]), Math.max(0, deadline - Date.now()));
+    })]);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 async function search(type, request) {
+  const deadline = Date.now() + LOAD_TIMEOUT_MS;
   const knownYouTubeStreams = getYouTubeStreams(type, request);
   const knownShow = type === "series" && youtubeSeries.find(item => item.ids.includes(request.id.replace(/^tmdb:/, "")));
   const earlyYouTube = !knownYouTubeStreams.length && knownShow && process.env.YOUTUBE_DATA_API_KEY
@@ -129,7 +144,7 @@ async function search(type, request) {
     console.warn("[TATA VOD] YouTube series metadata", error.name);
     return null;
   });
-  if (!details?.id) return earlyYouTube ?? knownYouTubeStreams;
+  if (!details?.id) return earlyYouTube ? finishYouTube(earlyYouTube, deadline) : knownYouTubeStreams;
   const youtubeStreams = knownYouTubeStreams.length ? knownYouTubeStreams : getYouTubeStreams(type, request, details);
   const genres = details.genre_ids ?? details.genres?.map(genre => genre.id) ?? [];
   const isAnimation = genres.includes(16);
@@ -178,8 +193,8 @@ async function search(type, request) {
   for (const source of getLocalIzlelanJobs()) {
     jobs.push(runProvider(source.name, () => source.getStreams(String(details.id), type === "series" ? "tv" : "movie", request.season, request.episode), type));
   }
-  const discoveredYouTube = earlyYouTube ?? (!youtubeStreams.length && process.env.YOUTUBE_DATA_API_KEY
-    ? findYouTubeStreams(type, details, request) : []);
+  const discoveredYouTube = finishYouTube(earlyYouTube ?? (!youtubeStreams.length && process.env.YOUTUBE_DATA_API_KEY
+    ? findYouTubeStreams(type, details, request) : undefined), deadline);
   const streams = [];
   let accepting = true;
   let timer;
@@ -188,7 +203,7 @@ async function search(type, request) {
       Promise.allSettled(jobs.map(job => job.then(result => {
         if (accepting) streams.push(...result);
       }))),
-      new Promise(resolve => { timer = setTimeout(resolve, 5000); })
+      new Promise(resolve => { timer = setTimeout(resolve, Math.max(0, deadline - MEDIA_INSPECTION_MS - Date.now())); })
     ]);
   } finally {
     accepting = false;
