@@ -12,6 +12,12 @@ function language(value) {
   const aliases = {tur:"tr",turkish:"tr","türkçe":"tr",turkce:"tr",eng:"en",english:"en","ingilizce":"en",jpn:"ja",japanese:"ja",japonca:"ja",kor:"ko",korean:"ko",deu:"de",ger:"de",fra:"fr",fre:"fr",spa:"es",ara:"ar",rus:"ru",zho:"zh",chi:"zh",ita:"it",por:"pt",ind:"id",indonesian:"id",sot:"st",sotho:"st",hin:"hi",nld:"nl",dut:"nl",pol:"pl",tha:"th",vie:"vi",ukr:"uk",swe:"sv",fas:"fa",per:"fa",heb:"he"};
   return aliases[s] || (/^[a-z]{2}(?:-[a-z]{2})?$/.test(s) ? s.split("-")[0] : "");
 }
+function trackLanguage(value) {
+ const direct=language(value);if(direct)return direct;
+ const words=String(value||"").toLowerCase().split(/[^\p{L}]+/u);
+ for(const word of words){if(word.length>=3){const lang=language(word);if(lang)return lang;}}
+ return /日本語/.test(String(value))?"ja":"";
+}
 function attributes(line) {
   const result = {};
   for (const m of line.matchAll(/(?:^|,)([A-Z0-9-]+)=("[^"]*"|[^,]*)/g)) result[m[1]] = m[2].replace(/^"|"$/g,"");
@@ -38,8 +44,8 @@ function parseHls(body) {
   for (const line of body.split(/\r?\n/)) {
     if (line.startsWith("#EXT-X-MEDIA:")) {
       const a=attributes(line.slice(13));
-      if(a.TYPE==="AUDIO"){const lang=language(a.LANGUAGE)||language(a.NAME); audio.push(lang); if(!lang)unknownAudio=true; if(a.CHANNELS)channels.push(a.CHANNELS);}
-      if(a.TYPE==="SUBTITLES")subs.push(language(a.LANGUAGE)||language(a.NAME));
+      if(a.TYPE==="AUDIO"){const lang=trackLanguage(a.LANGUAGE)||trackLanguage(a.NAME); audio.push(lang); if(!lang)unknownAudio=true; if(a.CHANNELS)channels.push(a.CHANNELS);}
+      if(a.TYPE==="SUBTITLES")subs.push(trackLanguage(a.LANGUAGE)||trackLanguage(a.NAME));
     }
     if(line.startsWith("#EXT-X-STREAM-INF:"))variants.push(attributes(line.slice(18)));
   }
@@ -54,7 +60,7 @@ function publicIPv4(ip) {
   const [a,b,c]=ip.split(".").map(Number);
   return !(a===0||a===10||a===127||a>=224||a===169&&b===254||a===172&&b>=16&&b<=31||a===192&&(b===168||b===0||b===2)||a===100&&b>=64&&b<=127||a===198&&(b===18||b===19||b===51)||a===203&&b===0&&c===113);
 }
-async function readMedia(url,headers,isHls) {
+async function readMedia(url,headers,isHls,tail=false) {
   const u=new URL(url);
   if(u.protocol!=="https:"||u.username||u.password||u.port&&u.port!=="443")return {};
   const ip=await Promise.race([dns.lookup(u.hostname,{family:4}).then(x=>x.address),new Promise(resolve=>{const t=setTimeout(()=>resolve(""),650);t.unref();})]);
@@ -65,12 +71,12 @@ async function readMedia(url,headers,isHls) {
     const timer=setTimeout(()=>{finish({});req?.destroy();},1300);
     const safeHeaders={};
     for(const [k,v] of Object.entries(headers||{}))if(/^(user-agent|referer|origin|accept)$/i.test(k)&&typeof v==="string"&&!/[\r\n]/.test(v))safeHeaders[k]=v;
-    if(!isHls)safeHeaders.Range="bytes=0-2097151";
+    if(!isHls)safeHeaders.Range=tail?"bytes=-2097152":"bytes=0-2097151";
     req=https.get(u,{headers:safeHeaders,lookup:(_h,opts,cb)=>opts.all?cb(null,[{address:ip,family:4}]):cb(null,ip,4)},res=>{
       if(res.statusCode!==200&&res.statusCode!==206){res.destroy();return finish({});}
       let bytes=0;const chunks=[];
       res.on("data",chunk=>{bytes+=chunk.length;if(bytes>(isHls?262144:2097152)){finish({});res.destroy();}else chunks.push(chunk);});
-      res.on("end",()=>finish(isHls?parseHls(Buffer.concat(chunks).toString("utf8")):probeBuffer(Buffer.concat(chunks))));
+      res.on("end",()=>finish(isHls?parseHls(Buffer.concat(chunks).toString("utf8")):(tail?probeTail(Buffer.concat(chunks)):probeBuffer(Buffer.concat(chunks)))));
       res.on("error",()=>finish({}));
     });
     req.on("error",()=>finish({}));
@@ -78,10 +84,20 @@ async function readMedia(url,headers,isHls) {
 }
 function parseProbe(data) {
  const streams=data.streams||[], v=streams.find(x=>x.codec_type==="video")||{}, a=streams.filter(x=>x.codec_type==="audio"), sub=streams.filter(x=>x.codec_type==="subtitle");
- const langs=xs=>unique(xs.map(x=>language(x.tags?.language)||language(x.tags?.title)));
+ const langs=xs=>unique(xs.map(x=>trackLanguage(x.tags?.language)||trackLanguage(x.tags?.title)||trackLanguage(x.tags?.handler_name)));
  const [n,d]=String(v.avg_frame_rate||"").split("/").map(Number);
  const ch=unique(a.map(x=>x.channels));
- return {quality:qualityClass(v.height),videoCodec:codecs(v.codec_name)[0],audioCodec:unique(a.map(x=>codecs(x.codec_name)[1])).join(" / "),audio:langs(a),subs:langs(sub),unknownAudio:a.some(x=>!language(x.tags?.language)&&!language(x.tags?.title)),channels:ch.length===1?({1:"1.0",2:"2.0",6:"5.1",8:"7.1"}[ch[0]]||""):"",fps:n&&d?Number((n/d).toFixed(3)):0};
+ return {quality:qualityClass(v.height),videoCodec:codecs(v.codec_name)[0],audioCodec:unique(a.map(x=>codecs(x.codec_name)[1])).join(" / "),audio:langs(a),subs:langs(sub),unknownAudio:a.some(x=>!trackLanguage(x.tags?.language)&&!trackLanguage(x.tags?.title)&&!trackLanguage(x.tags?.handler_name)),channels:ch.length===1?({1:"1.0",2:"2.0",6:"5.1",8:"7.1"}[ch[0]]||""):"",fps:n&&d?Number((n/d).toFixed(3)):0};
+}
+async function probeTail(buffer) {
+ for(let i=4;i+4<=buffer.length;i++){
+ if(buffer.toString("ascii",i,i+4)!=="moov")continue;
+ const size=buffer.readUInt32BE(i-4);
+ if(size<8||i-4+size>buffer.length)continue;
+ const ftyp=Buffer.from("000000146674797069736f6d0000000069736f6d","hex");
+ return probeBuffer(Buffer.concat([ftyp,buffer.subarray(i-4,i-4+size)]));
+ }
+ return {};
 }
 async function probeBuffer(buffer) {
  if(!(buffer.subarray(4,8).toString()==="ftyp"||buffer.subarray(0,4).equals(Buffer.from([0x1a,0x45,0xdf,0xa3]))))return {};
@@ -97,14 +113,14 @@ async function probeBuffer(buffer) {
 }
 async function inspect(stream) {
   const isHls=/\.m3u8(?:[?#]|$)|\/hls\/|\/master\./i.test(stream.url||"")||/^(hls|m3u8)$/i.test(stream.format||"")||/\.m3u8$/i.test(stream.behaviorHints?.filename||"");
-  if(!isHls&&!/\.(mp4|mkv)(?:[?#]|$)/i.test(stream.url||"")&&!/^(mp4|mkv|matroska)$/i.test(stream.format||"")&&!/\.(mp4|mkv)$/i.test(stream.behaviorHints?.filename||""))return {};
+  if(!isHls&&/\.(mpd|ts|webm)(?:[?#]|$)/i.test(stream.url||""))return {};
   const headers=stream.behaviorHints?.proxyHeaders?.request||stream.headers||{};
   const key=JSON.stringify([stream.url,headers]);
   const hit=cache.get(key);if(hit&&hit.until>Date.now())return hit.data;
   if(pending.has(key))return pending.get(key);
   if(active>=6){for(let i=0;i<30&&active>=6;i++)await new Promise(resolve=>setTimeout(resolve,100));if(active>=6)return {};}
   active++;
-  const task=readMedia(stream.url,headers,isHls).catch(()=>({})).then(data=>{
+  const task=readMedia(stream.url,headers,isHls).then(async data=>!isHls&&!data.audio?.length?{...data,...await readMedia(stream.url,headers,false,true)}:data).catch(()=>({})).then(data=>{
     if(cache.size>=512)cache.delete(cache.keys().next().value);
     cache.set(key,{data,until:Date.now()+ (Object.keys(data).length?300000:30000)});return data;
   }).finally(()=>{active--;pending.delete(key);});
@@ -124,10 +140,10 @@ function describe(stream,media={},originalLanguage="") {
   const audioLine=existing.match(/Ses:\s*([^\n•]+)/i)?.[1]||"";
   const subLine=existing.match(/Altyazı:\s*([^\n•]+)/i)?.[1]||"";
   const audio=unique([...(media.audio||[]),...(!(media.audio||[]).length?(Array.isArray(stream.audioLangs)?stream.audioLangs.map(language):[]).concat(parseLangs(audioLine)):[]), /(?:TR|Türkçe)\s*(?:Dublaj|Dub)/i.test(existing)?"tr":""]);
-  if(!audio.length && (media.unknownAudio || /Ses:\s*Orijinal|\b(?:original|orijinal|track\s*\d+|unknown|und)\b/i.test(existing)) && language(originalLanguage))audio.push(language(originalLanguage));
+  const estimatedAudio=!audio.length&&language(originalLanguage);
   const subs=unique([...(media.subs||[]),...(Array.isArray(stream.subtitles)?stream.subtitles.map(s=>language(s.lang||s.language)||language(s.label)):[]),...parseLangs(subLine),/(?:TR|Türkçe)\s*(?:Dublaj\s*&\s*)?Altyazılı/i.test(existing)?"tr":""]);
   const display=xs=>xs.map(x=>flags[x]||x.toUpperCase()).join(" / ");
-  const langLine=[audio.length?"Ses: "+display(audio):/Ses:\s*Orijinal/i.test(existing)?"Ses: Orijinal":"",subs.length?"Altyazı: "+display(subs):""].filter(Boolean).join(" • ");
+  const langLine=[audio.length?"Ses: "+display(audio):estimatedAudio?"Ses: "+display([estimatedAudio])+" (TMDB tahmini)":/Ses:\s*Orijinal/i.test(existing)?"Ses: Orijinal":"",subs.length?"Altyazı: "+display(subs):""].filter(Boolean).join(" • ");
   const channels=media.channels||existing.match(/\b(?:2\.0|5\.1|7\.1)\b/)?.[0];
   const sound=unique([media.audioCodec||ac,channels,media.atmos||/Dolby Atmos/i.test(existing)?"Dolby Atmos":""]).join(" ");
   const rate=media.rate||existing.match(/\b\d+(?:[.,]\d+)?\s*Mbps\b/i)?.[0];

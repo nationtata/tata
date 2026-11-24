@@ -31,3 +31,7 @@ const probe=parseProbe({streams:[{codec_type:"video",codec_name:"hevc",height:10
 assert.equal(probe.quality,"1080p");assert.deepEqual(probe.audio,["de"]);assert.deepEqual(probe.subs,["tr"]);assert.equal(probe.fps,23.976);
 assert.match(describe({url:"https://example.com/video"},probe).description,/🇩🇪/);
 assert.match(describe({url:"https://example.com/video"}).description,/Tespit edilemedi/);
+
+assert.match(describe({url:"https://example.com/video",description:"480p HEVC"},{},"ja").description,/🇯🇵.*TMDB tahmini/);
+assert.deepEqual(parseProbe({streams:[{codec_type:"audio",tags:{language:"und",title:"Japanese AAC 2.0"}}]}).audio,["ja"]);
+assert.deepEqual(parseProbe({streams:[{codec_type:"audio",tags:{handler_name:"Japonca"}}]}).audio,["ja"]);
