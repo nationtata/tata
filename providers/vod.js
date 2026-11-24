@@ -3,7 +3,7 @@ const { getPlaylistStreams, getMetvSeriesStreams, titleKey } = require("./playli
 const { getMovieStreams } = require("./izlefilm");
 const registry = require("../vendor/anthology/providers.json");
 const { getLocalIzlelanJobs } = require("./izlelan-adapter");
-const { enrichStreams, describe } = require("./stream-metadata");
+const { enrichStreams, describe, inspect } = require("./stream-metadata");
 const { findYouTubeStreams } = require("./youtube");
 
 const MAX_ACTIVE_SEARCHES = 8;
@@ -37,6 +37,7 @@ async function findTmdb(type, id, language = "tr-TR", timeout = 3500) {
 }
 
 const providerKey = Symbol("provider");
+const verifiedResults = new Map();
 
 
 function streamIdentity(stream) {
@@ -65,6 +66,7 @@ function cleanStream(stream, provider) {
     ...(stream.description || stream.quality ? { description: stream.description || stream.quality } : {}),
     ...(stream.quality && { quality: stream.quality }),
     ...(stream.title && stream.title !== provider && { title: stream.title }),
+    ...(stream.sourceTitle && { sourceTitle: stream.sourceTitle }),
     ...(stream.format && { format: stream.format }),
     ...(Array.isArray(stream.audioLangs) && { audioLangs: stream.audioLangs }),
     url: stream.url,
@@ -208,7 +210,7 @@ async function search(type, request, publish) {
       const result = await job;
       publish(result.map(stream => describe(stream, {}, details.original_language)));
       if (result.length) {
-        const enriched = await enrichStreams(result, details.original_language).catch(() => result);
+        const enriched = await enrichStreams(result, details.original_language, { deadline }).catch(() => []);
         publish(enriched);
       }
     })
@@ -237,7 +239,12 @@ async function getVodStreams(type, id) {
       if (!entry.accepting || !Array.isArray(results)) return;
       for (const stream of results) {
         const identity = stream.url ? "url:" + stream.url : stream.ytId ? "yt:" + stream.ytId : null;
-        if (identity) entry.streams.set(identity, stream);
+        if (!identity) continue;
+        const previous=entry.streams.get(identity);
+        // A late provider's provisional TMDB label must not replace an inspected result.
+        const inspected=!!stream.__verifiedAudio;
+        if(previous?.__verifiedAudio && !inspected)continue;
+        entry.streams.set(identity,stream);
       }
       entry.updated = Date.now();
     };
