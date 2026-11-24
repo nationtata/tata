@@ -39,8 +39,8 @@ function getAlternatives(id) {
   if (!channel) return [];
 
   return channel.alternatives.map(alt => ({
-    name: alt.source,
-    title: `▶ ${alt.source}`,
+    name: alt.source === "Anthology" ? "Alternatif Yayın" : alt.source,
+    title: `▶ ${alt.source === "Anthology" ? "Alternatif Yayın" : alt.source}`,
     url: alt.url
   }));
 
