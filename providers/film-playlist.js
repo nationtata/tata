@@ -70,6 +70,10 @@ function indexFilms(text, source) {
     } else if ((source === "vixolity" || source === "powerCinema")) {
       const id = url.hostname === "ha.vixolity.com" && url.pathname.match(/^\/(?:vs|mm)\/+(tt\d+)\/{0,2}$/i)?.[1];
       if (!id) continue;
+      if (source === "powerCinema") {
+        url.pathname = url.pathname.replace(/\/+$/, "");
+        row.url = url.href;
+      }
       row.imdbId = id.toLowerCase();
       add(imdb, row.imdbId, row);
       if (source === "powerCinema") continue;

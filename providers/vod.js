@@ -151,11 +151,9 @@ async function search(type, request) {
     accepting = false;
     clearTimeout(timer);
   }
-  const powerStreams = new Set(streams.filter(stream => stream[providerKey] === "Power Sinema").map(streamIdentity));
   const seen = new Set();
   return enrichStreams(streams.filter(stream => {
     const identity = streamIdentity(stream);
-    if (stream[providerKey] === "TATA M3U · Vixolity" && powerStreams.has(identity)) return false;
     const key = JSON.stringify([stream[providerKey], identity]);
     if (seen.has(key)) return false;
     seen.add(key);
