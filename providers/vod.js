@@ -94,6 +94,24 @@ async function runProvider(provider, lookup, type) {
 // Full-length uploads from the series' and producers' official YouTube channels.
 const youtubeSeries = [
   {
+    ids: ["43577", "tt2239964"],
+    title: "Acayip Hikayeler",
+    year: "2012",
+    episodes: {
+      "1:1": "zLRTgIGSzrY",
+      "1:2": "lxWVvFPsHwU",
+      "1:3": "SWduLA3xNeM",
+      "1:4": "WcGmA3NwI_I",
+      "1:5": "Tx5oM4G0Q2E",
+      "1:6": "_K0Dw9ptfEQ",
+      "1:7": "yRT88NTJgPo",
+      "1:8": "jyR7o1n4NZM",
+      "1:9": "2RNkX9Y3h5E",
+      "1:10": "oOtrfEDRRa4",
+      "1:11": "vKYLQbwJhuk",
+    },
+  },
+  {
     ids: ["17635", "tt1286677"],
     title: "Aşk-ı Memnu",
     year: "2008",
