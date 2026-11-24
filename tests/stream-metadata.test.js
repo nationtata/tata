@@ -32,6 +32,6 @@ assert.equal(probe.quality,"1080p");assert.deepEqual(probe.audio,["de"]);assert.
 assert.match(describe({url:"https://example.com/video"},probe).description,/🇩🇪/);
 assert.match(describe({url:"https://example.com/video"}).description,/Tespit edilemedi/);
 
-assert.match(describe({url:"https://example.com/video",description:"480p HEVC"},{},"ja").description,/🇯🇵.*TMDB tahmini/);
+assert.match(describe({url:"https://example.com/video",description:"480p HEVC"},{},"ja").description,/Ses: 🇯🇵\n/);
 assert.deepEqual(parseProbe({streams:[{codec_type:"audio",tags:{language:"und",title:"Japanese AAC 2.0"}}]}).audio,["ja"]);
 assert.deepEqual(parseProbe({streams:[{codec_type:"audio",tags:{handler_name:"Japonca"}}]}).audio,["ja"]);
