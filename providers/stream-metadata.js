@@ -203,7 +203,7 @@ async function validateHls(first, url, headers, deadline, depth=0) {
 
 async function inspect(stream, deadline) {
   const url=stream.url||"";
-  const isHls=/\.m3u8(?:[?#]|$)|\/hls\/|\/master\./i.test(url)||/^(hls|m3u8)$/i.test(stream.format||"")||/\.m3u8$/i.test(stream.behaviorHints?.filename||"");
+  const isHls=/\.m3u8(?:[?#&]|$)|\/hls\/|\/master\./i.test(url)||/^(hls|m3u8)$/i.test(stream.format||"")||/\.m3u8$/i.test(stream.behaviorHints?.filename||"");
   const headers=stream.behaviorHints?.proxyHeaders?.request||stream.headers||{};
   const key=JSON.stringify([url,headers]);
   const hit=cache.get(key); if(hit && hit.until>Date.now()) return hit.data;
@@ -260,7 +260,7 @@ function describe(stream,media={},originalLanguage="") {
   if(/(?:türkçe|turkce|\btr\b)\s*(?:dublaj|dub|sesli)|(?:^|[\s[(])dublaj(?:$|[\s)\]])/iu.test(existing)) sourceAudio.push("tr");
   if(/(?:ingilizce|\beng(?:lish)?\b)\s*(?:ses|audio|dublaj)/iu.test(existing)) sourceAudio.push("en");
   // Explicit source labels are evidence only when no actual channel-language metadata was found.
-  const audio=observed.length && !media.unknownAudio && (media.audioTrackCount === undefined || observed.length >= media.audioTrackCount) ? observed : unique([...observed,...taggedAudio,...sourceAudio]);
+  const audio=observed.length ? observed : unique([...taggedAudio,...sourceAudio]);
   const original=language(originalLanguage);
   if (!audio.length && flags[original]) audio.push(original);
   audio.sort((a,b)=>Number(b==="tr")-Number(a==="tr"));
