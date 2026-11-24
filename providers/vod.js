@@ -7,7 +7,6 @@ const { enrichStreams } = require("./stream-metadata");
 const izProviderNames = new Set(IZLELAN_NAMES);
 const anthologyProviderNames = new Set(registry.map(provider => provider.name));
 
-const PROVIDER_TIMEOUT = 5000;
 const MAX_ACTIVE_SEARCHES = 8;
 const ongoing = new Map();
 
@@ -72,15 +71,8 @@ function cleanStream(stream, provider) {
 }
 
 async function runProvider(provider, lookup, type) {
-  let timer;
   try {
-    const timeout = new Promise(resolve => {
-      timer = setTimeout(() => {
-        console.warn("[TATA VOD]", provider, type, "timeout");
-        resolve([]);
-      }, PROVIDER_TIMEOUT);
-    });
-    const result = await Promise.race([Promise.resolve().then(lookup), timeout]);
+    const result = await Promise.resolve().then(lookup);
     if (!Array.isArray(result)) return [];
     const streams = result.map(stream => cleanStream(stream, provider)).filter(Boolean);
     if (result.length && !streams.length) console.warn("[TATA VOD]", provider, type, "invalid-stream-url");
@@ -88,8 +80,6 @@ async function runProvider(provider, lookup, type) {
   } catch (error) {
     console.warn("[TATA VOD]", provider, type, error.name);
     return [];
-  } finally {
-    clearTimeout(timer);
   }
 }
 
