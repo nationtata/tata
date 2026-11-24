@@ -137,29 +137,19 @@ function describe(stream,media={},originalLanguage="") {
   const source=sourceText.match(/\b(?:WEB[- .]?DL|WEBRip|BluRay|REMUX|HDTV)\b/i)?.[0];
   const hdr=media.hdr||sourceText.match(/\b(?:Dolby Vision|HDR10\+?|HDR|HLG)\b/i)?.[0];
   const depth=sourceText.match(/\b(?:8|10|12)[- ]?bit\b/i)?.[0];
-  const flagCodes=Object.fromEntries(Object.entries(flags).map(([k,v])=>[v,k]));
-  const parseLangs=t=>unique([...Object.entries(flagCodes).filter(([f])=>t.includes(f)).map(([,k])=>k),...t.split(/[\s/,\[\]&]+/).map(language)]);
-  const audioLine=existing.match(/Ses:\s*([^\n•]+)/i)?.[1]||"";
-  const subLine=existing.match(/Altyazı:\s*([^\n•]+)/i)?.[1]||"";
-  const audio=unique([...(media.audio||[]),...(!(media.audio||[]).length?(Array.isArray(stream.audioLangs)?stream.audioLangs.map(language):[]).concat(parseLangs(audioLine),...Array.from(existing.matchAll(/\[([A-Z]{2,3})\]/g),m=>language(m[1]))):[]), /(?:TR|Türkçe)\s*(?:Dublaj|Dub)/i.test(existing)?"tr":""]).filter(code => code !== "st" && flags[code]);
-  const original = language(originalLanguage);
-  const estimatedAudio = !audio.length && /Ses:\s*Orijinal/i.test(existing) && original !== "st" && flags[original] && original;
-  const subs=unique([...(media.subs||[]),...(Array.isArray(stream.subtitles)?stream.subtitles.map(s=>language(s.lang||s.language)||language(s.label)):[]),...parseLangs(subLine),/(?:TR|Türkçe)\s*(?:Dublaj\s*&\s*)?Altyazılı/i.test(existing)?"tr":""]).filter(code => code !== "st" && flags[code]);
+  const audio=unique((media.audio||[]).map(language)).filter(code=>flags[code]);
+  const original=language(originalLanguage);
+  if (!audio.length && flags[original]) audio.push(original);
+  audio.sort((a,b)=>Number(b==="tr")-Number(a==="tr"));
   const display=xs=>unique(xs.map(x=>flags[x])).join(" / ");
-  let langLine=[audio.length?"Ses: "+display(audio):estimatedAudio?"Ses: "+display([estimatedAudio]):/Ses:\s*Orijinal/i.test(existing)?"Ses: Tespit edilemedi":"",subs.length?"Altyazı: "+display(subs):""].filter(Boolean).join(" • ");
-  if (stream.metvVariant === "dubbed") {
-    langLine = ["Ses: " + display(["tr"]), subs.length && "Altyazı: " + display(subs)].filter(Boolean).join(" • ");
-  } else if (stream.metvVariant === "subtitled") {
-    const originalLabel = original && original !== "st" && flags[original] ? display([original]) : "Tespit edilemedi";
-    langLine = "Ses: " + originalLabel + " • Altyazı: " + display(unique(["tr", ...subs]));
-  }
+  const langLine=[audio.length?"Ses: "+display(audio):"", (media.subs||[]).map(language).includes("tr")?"Altyazı: 🇹🇷":""].filter(Boolean).join(" • ");
   const channels=media.channels||existing.match(/\b(?:2\.0|5\.1|7\.1)\b/)?.[0];
   const sound=unique([media.audioCodec||ac,channels,media.atmos||/Dolby Atmos/i.test(existing)?"Dolby Atmos":""]).join(" ");
   const rate=media.rate||existing.match(/\b\d+(?:[.,]\d+)?\s*Mbps\b/i)?.[0];
   const fps=media.fps?media.fps+" FPS":existing.match(/\b\d+(?:[.,]\d+)?\s*FPS\b/i)?.[0];
   const size=existing.match(/\b\d+(?:[.,]\d+)?\s*(?:GB|MB)\b/i)?.[0];
   const tech=unique([q,source,media.videoCodec||vc,depth,hdr,sound,rate,fps,size]).join(" • ");
-  const description=[langLine||"Ses: Tespit edilemedi",tech].filter(Boolean).join("\n");
+  const description=[langLine,tech].filter(Boolean).join("\n");
   const result={...stream};
   delete result.metvVariant;
   delete result.title;
