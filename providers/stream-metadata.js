@@ -124,7 +124,7 @@ async function requestMedia(url, headers, options = {}) {
           done({ status: "valid", buffer: Buffer.concat(chunks) });
         }
       });
-      response.on("end", () => done({ status: "valid", buffer: Buffer.concat(chunks) }));
+      response.on("end", () => done({ status: received ? "valid" : "invalid", buffer: Buffer.concat(chunks) }));
       response.on("error", () => done({ status: "unknown" }));
     });
     req.on("error", () => done({ status: "unknown" }));
@@ -179,9 +179,12 @@ async function inspect(stream, deadline) {
     const first=await requestMedia(url,headers,{range:isHls?undefined:"bytes=0-"+(PROBE_BYTES-1),
       maxBytes:isHls?262144:PROBE_BYTES,deadline});
     if(first.status!=="valid")return {status:first.status};
+    // An error page returned with HTTP 200 is not a playable media stream.
+    if(/^\s*(?:<!doctype html|<html|<\?xml|\{\s*"(?:error|message|status)")/i.test(first.buffer.subarray(0,512).toString("utf8")))
+      return {status:"invalid"};
     if(isHls) {
       const text=first.buffer.toString("utf8");
-      return /^\s*#EXTM3U/.test(text) ? {...parseHls(text),status:"valid"} : {status:"unknown"};
+      return /^\s*#EXTM3U/.test(text) ? {...parseHls(text),status:"valid"} : {status:"invalid"};
     }
     const timeout=()=>Math.min(3500,Math.max(300,deadline-Date.now()));
     let data=await probeBuffer(first.buffer,timeout());
@@ -222,7 +225,7 @@ function describe(stream,media={},originalLanguage="") {
   if(/(?:türkçe|turkce|\btr\b)\s*(?:dublaj|dub|sesli)|(?:^|[\s[(])dublaj(?:$|[\s)\]])/iu.test(existing)) sourceAudio.push("tr");
   if(/(?:ingilizce|\beng(?:lish)?\b)\s*(?:ses|audio|dublaj)/iu.test(existing)) sourceAudio.push("en");
   // Explicit source labels are evidence only when no actual channel-language metadata was found.
-  const audio=observed.length?observed:unique([...taggedAudio,...sourceAudio]);
+  const audio=observed.length?(media.unknownAudio?unique([...observed,...taggedAudio,...sourceAudio]):observed):unique([...taggedAudio,...sourceAudio]);
   const original=language(originalLanguage);
   if (!audio.length && flags[original]) audio.push(original);
   audio.sort((a,b)=>Number(b==="tr")-Number(a==="tr"));
