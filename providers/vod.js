@@ -31,6 +31,11 @@ async function findTmdb(type, id, language = "tr-TR", timeout = 3500) {
 }
 
 const providerKey = Symbol("provider");
+const visibleProviderNames = new Set(["ME TV Medya", "Power Sinema"]);
+
+function streamIdentity(stream) {
+  return JSON.stringify([stream.url, stream.behaviorHints?.proxyHeaders?.request ?? {}]);
+}
 function cleanStream(stream, provider) {
   if (!stream || typeof stream.url !== "string" || !/^https?:\/\//i.test(stream.url)) return null;
   const headers = stream.behaviorHints?.proxyHeaders?.request ?? stream.behaviorHints?.headers ?? stream.headers;
@@ -49,7 +54,7 @@ function cleanStream(stream, provider) {
     : undefined;
   return {
     [providerKey]: provider,
-    name: "Yayın",
+    name: visibleProviderNames.has(provider) ? provider : "Yayın",
     ...(stream.description || stream.quality ? { description: stream.description || stream.quality } : {}),
     ...(stream.quality && { quality: stream.quality }),
     ...(stream.title && stream.title !== provider && { title: stream.title }),
@@ -120,7 +125,7 @@ async function search(type, request) {
         runProvider("TATA M3U · ImgsAPI", () => getFilmPlaylistStreams("imgsapi", details, request.id), type)
       );
     }
-    jobs.push(runProvider("TATA M3U · Vixolity", () => getFilmPlaylistStreams("powerCinema", details, request.id), type));
+    jobs.push(runProvider("Power Sinema", () => getFilmPlaylistStreams("powerCinema", details, request.id), type));
     if (process.env.TATA_FILM_M3U_KEY) {
       jobs.unshift(
         runProvider("TATA M3U · FullHD", () => getFilmPlaylistStreams("fullhdfi", details, request.id), type),
@@ -145,9 +150,12 @@ async function search(type, request) {
     accepting = false;
     clearTimeout(timer);
   }
+  const powerStreams = new Set(streams.filter(stream => stream[providerKey] === "Power Sinema").map(streamIdentity));
   const seen = new Set();
   return enrichStreams(streams.filter(stream => {
-    const key = JSON.stringify([stream[providerKey], stream.url, stream.behaviorHints?.proxyHeaders?.request ?? {}]);
+    const identity = streamIdentity(stream);
+    if (stream[providerKey] === "TATA M3U · Vixolity" && powerStreams.has(identity)) return false;
+    const key = JSON.stringify([stream[providerKey], identity]);
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
