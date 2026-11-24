@@ -21,11 +21,7 @@ function getLocalIzlelanJobs() {
         console.warn("[TATA IZLELAN]", name, "missing-getStreams");
         continue;
       }
-      const getSubtitles = typeof provider.getSubtitles === "function"
-        ? provider.getSubtitles
-        : typeof provider.default?.getSubtitles === "function" ? provider.default.getSubtitles : null;
-      jobs.push({ name: name[0].toUpperCase() + name.slice(1), getStreams,
-        ...(getSubtitles && { getSubtitles }) });
+      jobs.push({ name: name[0].toUpperCase() + name.slice(1), getStreams });
     } catch (error) {
       console.warn("[TATA IZLELAN]", name, "load-failed", error.name);
     }
