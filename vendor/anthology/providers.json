@@ -96,5 +96,33 @@
     "movie": false,
     "series": true,
     "anime": false
+  },
+  {
+    "id": "animecix",
+    "name": "AnimeciX",
+    "anime": true,
+    "movie": false,
+    "series": true
+  },
+  {
+    "id": "diziwatch",
+    "name": "DiziWatch",
+    "anime": true,
+    "movie": false,
+    "series": true
+  },
+  {
+    "id": "dizipod",
+    "name": "DiziPod",
+    "anime": false,
+    "movie": false,
+    "series": true
+  },
+  {
+    "id": "kultfilmler",
+    "name": "KultFilmler",
+    "anime": false,
+    "movie": true,
+    "series": false
   }
 ]
