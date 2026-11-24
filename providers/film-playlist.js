@@ -37,6 +37,7 @@ function indexFilms(text, source) {
     const line = raw.trim();
     if (line.startsWith("#EXTINF:")) {
       let name = line.replace(/^#EXTINF:(?:"[^"]*"|[^,])*,/, "").trim();
+      const sourceTitle = name;
       const metvVariant = source === "metvCinema" ? metvLanguageVariant(name) : undefined;
       if (direct) name = name.replace(/\s*\[(?:Türkçe\s+)?(?:Dublaj(?:\s*&\s*Altyazı)?|Altyazı(?:lı)?|Orijinal)\]/giu, "")
         .replace(/\s+-\s+(?:Dublaj|Altyazı(?:lı)?|Orijinal)$/iu, "")
@@ -45,7 +46,7 @@ function indexFilms(text, source) {
       const year = name.match(/\s*\(((?:19|20)\d{2})\)/);
       const baseTitle = year ? name.slice(0, year.index) : name;
       const aliases = direct ? baseTitle.split(/\s+-\s+/).map(titleKey).filter(Boolean) : [];
-      pending = { title: titleKey(baseTitle), aliases, year: year?.[1], headers: {}, ...(metvVariant && { metvVariant }) };
+      pending = { title: titleKey(baseTitle), aliases, year: year?.[1], sourceTitle, headers: {}, ...(metvVariant && { metvVariant }) };
       continue;
     }
     if (!pending) continue;
@@ -86,9 +87,10 @@ function indexFilms(text, source) {
 }
 
 async function resolveFilm(row) {
-  if (row.direct) return { url: row.url, isHls: row.isHls, headers: row.headers, ...(row.metvVariant && { metvVariant: row.metvVariant }) };
+  if (row.direct) return { url: row.url, isHls: row.isHls, headers: row.headers, title: row.sourceTitle, ...(row.metvVariant && { metvVariant: row.metvVariant }) };
   if (row.host === "ha.vixolity.com") return {
     url: row.url,
+    title: row.sourceTitle,
     isHls: true,
     headers: { Referer: "https://ha.vixolity.com/", Origin: "https://ha.vixolity.com", ...row.headers }
   };
@@ -96,11 +98,11 @@ async function resolveFilm(row) {
   if (row.host === "vidmoxy.net") {
     const { resolveVidmoxy } = require("../vendor/anthology/hdfilmizle");
     const result = await resolveVidmoxy(row.url, row.headers.Referer);
-    return result && { url: result.streamUrl, isHls: true, subtitles: result.subtitles, headers };
+    return result && { url: result.streamUrl, title: row.sourceTitle, isHls: true, subtitles: result.subtitles, headers };
   }
   const { resolveAtom } = require("../vendor/anthology/fullhdfilmizlesene");
   const [result] = await resolveAtom(row.url, "", row.headers) ?? [];
-  return result && { ...result, isHls: true, headers };
+  return result && { ...result, title: row.sourceTitle, isHls: true, headers };
 }
 
 async function getFilmPlaylistStreams(source, details, requestId) {
