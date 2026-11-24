@@ -7,7 +7,7 @@ const { enrichStreams, describe, inspect } = require("./stream-metadata");
 const { findYouTubeStreams } = require("./youtube");
 
 const MAX_ACTIVE_SEARCHES = 8;
-const LOAD_TIMEOUT_MS = 3000;
+const LOAD_TIMEOUT_MS = 5000;
 const BACKGROUND_TIMEOUT_MS = 45000;
 const CACHE_TTL_MS = 120000;
 const MAX_CACHE_ENTRIES = 128;
