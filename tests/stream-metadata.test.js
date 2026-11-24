@@ -20,3 +20,9 @@ assert.match(describe({description:"Ses: Orijinal",url:"https://example.com/vide
 assert.doesNotMatch(describe({description:"720p [EN]",url:"https://example.com/video"},{},"ja").description,/🇬🇧/);
 
 for(const [input,expected] of [["360p","480p"],["800p","720p"],["824p","720p"],["1440p","1080p"],["2160p","4K"]])assert.equal(describe({description:input,url:"https://example.com/video"}).description,expected);
+
+const unknown=parseHls('#EXTM3U\n#EXT-X-MEDIA:TYPE=AUDIO,NAME="Track 1",LANGUAGE="und"\n#EXT-X-MEDIA:TYPE=AUDIO,NAME="Track 2"');
+assert.equal(unknown.unknownAudio,true);
+for(const [lang,flag] of [["ja","🇯🇵"],["ko","🇰🇷"],["fr","🇫🇷"],["tr","🇹🇷"]])assert.ok(describe({url:"https://example.com/video"},unknown,lang).description.includes(flag));
+assert.match(describe({description:"Track 1",url:"https://example.com/video"},{},"fr").description,/🇫🇷/);
+assert.match(describe({description:"Track 2",url:"https://example.com/video"},{audio:["en"],unknownAudio:true},"ja").description,/🇬🇧/);
