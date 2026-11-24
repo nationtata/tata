@@ -6,13 +6,59 @@ const { getLocalIzlelanJobs } = require("./izlelan-adapter");
 const { mergeStreams, enrichStreams, describe, inspect } = require("./stream-metadata");
 const { findYouTubeStreams } = require("./youtube");
 
-const MAX_ACTIVE_SEARCHES = 8;
-const LOAD_TIMEOUT_MS = 5000;
-const BACKGROUND_TIMEOUT_MS = 45000;
-const CACHE_TTL_MS = 120000;
-const MAX_CACHE_ENTRIES = 128;
+const MAX_ACTIVE_SEARCHES = 32;
+const INITIAL_WAIT_MIN_MS = 6500;
+const INITIAL_WAIT_MAX_MS = 11000;
+const BACKGROUND_TIMEOUT_MS = 40000;
+const CACHE_TTL_MS = 10 * 60 * 1000;
+const MAX_CACHE_ENTRIES = 256;
+const TMDB_CACHE_TTL_MS = 30 * 60 * 1000;
+const PREFETCH_DELAY_MS = 2500;
+const MAX_PREFETCH_SEARCHES = 2;
 const cache = new Map();
 const ongoing = new Map();
+const tmdbCache = new Map();
+const prefetching = new Set();
+
+function pause(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function cachedTmdb(type, id, language = "tr-TR", timeout = 3500) {
+  const key = type + ":" + id + ":" + language;
+  const previous = tmdbCache.get(key);
+  if (previous && previous.expires > Date.now()) return previous.promise;
+  // Cache in-flight metadata requests as well; retry failures next time.
+  const promise = findTmdb(type, id, language, timeout);
+  const record = { promise, expires: Date.now() + TMDB_CACHE_TTL_MS };
+  tmdbCache.set(key, record);
+  while (tmdbCache.size > 512) tmdbCache.delete(tmdbCache.keys().next().value);
+  promise.catch(() => { if (tmdbCache.get(key) === record) tmdbCache.delete(key); });
+  return promise;
+}
+
+function nextEpisodeId(type, request) {
+  if (type !== "series" || request.episode >= 9999) return null;
+  return request.id + ":" + request.season + ":" + (request.episode + 1);
+}
+
+function prefetchNextEpisode(type, request) {
+  const id = nextEpisodeId(type, request);
+  if (!id || ongoing.size >= MAX_ACTIVE_SEARCHES - 4 || prefetching.size >= MAX_PREFETCH_SEARCHES) return;
+  const key = type + ":" + id;
+  if (cache.has(key) || ongoing.has(key) || prefetching.has(key)) return;
+  prefetching.add(key);
+  const timer = setTimeout(() => {
+    if (ongoing.size >= MAX_ACTIVE_SEARCHES - 4) {
+      prefetching.delete(key);
+      return;
+    }
+    getVodStreams(type, id, { prefetch: true }).catch(error =>
+      console.warn("[TATA VOD prefetch]", error.name)).finally(() => prefetching.delete(key));
+  }, PREFETCH_DELAY_MS);
+  timer.unref?.();
+}
+
 
 function parseRequest(type, id) {
   const match = /^(tmdb:[1-9]\d{0,9}|tt\d{5,12}|[1-9]\d{0,9})(?::(\d{1,3}):([1-9]\d{0,3}))?$/i.exec(id);
@@ -2238,7 +2284,7 @@ async function finishYouTube(lookup, deadline) {
   }
 }
 
-async function search(type, request, publish, remove) {
+async function search(type, request, publish, remove, progress) {
   const deadline = Date.now() + BACKGROUND_TIMEOUT_MS;
   const knownYouTubeStreams = getYouTubeStreams(type, request);
   publish(knownYouTubeStreams);
@@ -2246,7 +2292,7 @@ async function search(type, request, publish, remove) {
   const earlyYouTube = !knownYouTubeStreams.length && knownShow && process.env.YOUTUBE_DATA_API_KEY
     ? findYouTubeStreams(type, { id: knownShow.ids[0], name: knownShow.title, youtubeChannel: knownShow.youtubeChannel }, request)
     : undefined;
-  const details = await findTmdb(type, request.id, "tr-TR", 3500).catch(error => {
+  const details = await cachedTmdb(type, request.id, "tr-TR", 3500).catch(error => {
     if (!knownYouTubeStreams.length && !earlyYouTube) throw error;
     console.warn("[TATA VOD] YouTube series metadata", error.name);
     return null;
@@ -2259,64 +2305,87 @@ async function search(type, request, publish, remove) {
   const providers = registry.filter(provider => provider[type] && (!provider.anime || isAnimation) &&
     (provider.credentials ?? []).every(key => process.env[key]));
   const animeDetails = isAnimation
-    ? findTmdb(type, String(details.id), "en-US", 1800)
+    ? cachedTmdb(type, String(details.id), "en-US", 1800)
       .then(english => ({ ...details, englishTitle: english?.name ?? english?.title }))
       .catch(() => details)
     : Promise.resolve(details);
-  const jobs = providers.map(provider => runProvider(provider.name, () => {
+  const jobs = providers.map(provider => ({ name: provider.name, promise: runProvider(provider.name, () => {
     const { getStreams } = require("../vendor/anthology/" + provider.id + "/index.js");
     const id = String(details.id);
     if (provider.metadataArgs) return (provider.anime ? animeDetails : Promise.resolve(details))
       .then(metadata => getStreams({ details: metadata, type, season: request.season, episode: request.episode }));
     if (provider.objectArgs) return getStreams({ id, type, season: request.season, episode: request.episode });
     return getStreams(id, type === "series" ? "tv" : "movie", request.season, request.episode);
-  }, type));
+  }, type) }));
   if (type === "series" && (process.env.TATA_SERIES_M3U_PATH || process.env.TATA_SERIES_M3U_KEY)) {
-    jobs.unshift(runProvider("TATA M3U", async () =>
-      getPlaylistStreams(await animeDetails, request.season, request.episode), type));
+    jobs.unshift({ name: "TATA M3U", promise: runProvider("TATA M3U", async () =>
+      getPlaylistStreams(await animeDetails, request.season, request.episode), type) });
   }
   if (type === "series") {
-    jobs.push(runProvider("ME TV Medya", async () =>
-      getMetvSeriesStreams(await animeDetails, request.season, request.episode), type));
+    jobs.push({ name: "ME TV Medya", promise: runProvider("ME TV Medya", async () =>
+      getMetvSeriesStreams(await animeDetails, request.season, request.episode), type) });
   }
   if (type === "movie") {
-    jobs.push(runProvider("ME TV Medya", () => getFilmPlaylistStreams("metvCinema", details, request.id), type));
-    jobs.unshift(runProvider("İzlefilm", () => getMovieStreams(details), type));
+    jobs.push({ name: "ME TV Medya", promise: runProvider("ME TV Medya", () => getFilmPlaylistStreams("metvCinema", details, request.id), type) });
+    jobs.unshift({ name: "İzlefilm", promise: runProvider("İzlefilm", () => getMovieStreams(details), type) });
     if (process.env.TATA_EXTRA_FILM_M3U_KEY) {
       jobs.unshift(
-        runProvider("TATA M3U · Filmler", () => getFilmPlaylistStreams("fullmovies", details, request.id), type),
-        runProvider("TATA M3U · RecTV", () => getFilmPlaylistStreams("rectv", details, request.id), type),
-        runProvider("TATA M3U · PixelDrain", () => getFilmPlaylistStreams("pixeldrain", details, request.id), type),
-        runProvider("TATA M3U · ImgsAPI", () => getFilmPlaylistStreams("imgsapi", details, request.id), type)
+        { name: "TATA M3U · Filmler", promise: runProvider("TATA M3U · Filmler", () => getFilmPlaylistStreams("fullmovies", details, request.id), type) },
+        { name: "TATA M3U · RecTV", promise: runProvider("TATA M3U · RecTV", () => getFilmPlaylistStreams("rectv", details, request.id), type) },
+        { name: "TATA M3U · PixelDrain", promise: runProvider("TATA M3U · PixelDrain", () => getFilmPlaylistStreams("pixeldrain", details, request.id), type) },
+        { name: "TATA M3U · ImgsAPI", promise: runProvider("TATA M3U · ImgsAPI", () => getFilmPlaylistStreams("imgsapi", details, request.id), type) }
       );
     }
-    jobs.push(runProvider("Power Sinema", () => getFilmPlaylistStreams("powerCinema", details, request.id), type));
+    jobs.push({ name: "Power Sinema", promise: runProvider("Power Sinema", () => getFilmPlaylistStreams("powerCinema", details, request.id), type) });
     if (process.env.TATA_FILM_M3U_KEY) {
       jobs.unshift(
-        runProvider("TATA M3U · FullHD", () => getFilmPlaylistStreams("fullhdfi", details, request.id), type),
-        runProvider("TATA M3U · Vixolity", () => getFilmPlaylistStreams("vixolity", details, request.id), type)
+        { name: "TATA M3U · FullHD", promise: runProvider("TATA M3U · FullHD", () => getFilmPlaylistStreams("fullhdfi", details, request.id), type) },
+        { name: "TATA M3U · Vixolity", promise: runProvider("TATA M3U · Vixolity", () => getFilmPlaylistStreams("vixolity", details, request.id), type) }
       );
     }
   }
   for (const source of getLocalIzlelanJobs()) {
-    jobs.push(runProvider(source.name, () => source.getStreams(String(details.id), type === "series" ? "tv" : "movie", request.season, request.episode), type));
+    jobs.push({ name: source.name, promise: runProvider(source.name, () => source.getStreams(String(details.id), type === "series" ? "tv" : "movie", request.season, request.episode), type) });
   }
   const discoveredYouTube = finishYouTube(earlyYouTube ?? (!youtubeStreams.length && process.env.YOUTUBE_DATA_API_KEY
     ? findYouTubeStreams(type, details, request) : undefined), deadline);
+  progress.started(jobs.map(job => job.name));
   await Promise.allSettled([
     discoveredYouTube.then(publish),
-    ...jobs.map(async job => {
-      const result = await job;
-      publish(result.map(stream => describe(stream, {}, details.original_language)));
-      if (result.length) {
-        const enriched = await enrichStreams(result, details.original_language, { deadline, onInvalid: remove }).catch(() => []);
-        publish(enriched);
+    ...jobs.map(async ({ name, promise }) => {
+      try {
+        const result = await promise;
+        publish(result.map(stream => describe(stream, {}, details.original_language)));
+        // Do not hold up the first Nuvio response for media probing.
+        if (result.length) {
+          void enrichStreams(result, details.original_language, { deadline, onInvalid: remove })
+            .then(publish, () => {});
+        }
+      } finally {
+        progress.done(name);
       }
     })
   ]);
 }
 
-async function getVodStreams(type, id) {
+function activeProviderCount(entry) {
+  return entry.pendingProviders.size;
+}
+
+function waitForFirstResponse(entry, timeout) {
+  return new Promise(resolve => {
+    const timer = setTimeout(() => { entry.waiters.delete(wake); resolve(); }, timeout);
+    const wake = () => { clearTimeout(timer); entry.waiters.delete(wake); resolve(); };
+    entry.waiters.add(wake);
+    if (!entry.accepting || (entry.providersStarted && activeProviderCount(entry) === 0)) wake();
+  });
+}
+
+function signalWaiters(entry) {
+  for (const wake of [...entry.waiters]) wake();
+}
+
+async function getVodStreams(type, id, options = {}) {
   if (!["movie", "series"].includes(type)) return [];
   const request = parseRequest(type, id);
   if (!request) return [];
@@ -2332,17 +2401,22 @@ async function getVodStreams(type, id) {
       if (cache.size < MAX_CACHE_ENTRIES) break;
       if (!ongoing.has(k)) cache.delete(k);
     }
-    entry = { streams: new Map(), rejected: new Set(), updated: Date.now(), accepting: true };
+    entry = {
+      streams: new Map(), rejected: new Set(), updated: Date.now(),
+      accepting: true, startedAt: Date.now(), providersStarted: false,
+      pendingProviders: new Set(), waiters: new Set(), cacheReady: false
+    };
     cache.set(key, entry);
     const publish = results => {
       if (!entry.accepting || !Array.isArray(results)) return;
       for (const stream of results) {
         const identity = streamIdentity(stream);
         if (!identity || entry.rejected.has(identity)) continue;
-        const previous=entry.streams.get(identity);
+        const previous = entry.streams.get(identity);
         entry.streams.set(identity, mergeStreams(previous, stream));
       }
       entry.updated = Date.now();
+      if (results.length) signalWaiters(entry);
     };
     const remove = stream => {
       if (!entry.accepting || !stream?.url) return;
@@ -2352,25 +2426,48 @@ async function getVodStreams(type, id) {
       entry.streams.delete(identity);
       entry.updated = Date.now();
     };
+    const progress = {
+      started: names => {
+        entry.providersStarted = true;
+        entry.pendingProviders = new Set(names);
+        signalWaiters(entry);
+      },
+      done: name => {
+        entry.pendingProviders.delete(name);
+        signalWaiters(entry);
+      }
+    };
     let backgroundTimer;
     const job = Promise.race([
-      Promise.resolve().then(() => search(type, request, publish, remove)).catch(error => console.warn("[TATA VOD]", error.name)),
+      Promise.resolve().then(() => search(type, request, publish, remove, progress))
+        .catch(error => console.warn("[TATA VOD]", error.name)),
       new Promise(resolve => { backgroundTimer = setTimeout(resolve, BACKGROUND_TIMEOUT_MS); })
     ]).finally(() => {
       clearTimeout(backgroundTimer);
       entry.accepting = false;
+      entry.cacheReady = true;
       entry.updated = Date.now();
       ongoing.delete(key);
+      signalWaiters(entry);
     });
     ongoing.set(key, job);
   }
-  if (!entry.streams.size && ongoing.has(key)) {
-    let timer;
-    await Promise.race([
-      ongoing.get(key),
-      new Promise(resolve => { timer = setTimeout(resolve, LOAD_TIMEOUT_MS); })
-    ]).finally(() => clearTimeout(timer));
+  // A completed cached result returns immediately; fresh searches use a
+  // bounded consolidation window instead of releasing on the first provider.
+  if (ongoing.has(key) && !options.prefetch) {
+    const elapsed = Date.now() - entry.startedAt;
+    if (elapsed < INITIAL_WAIT_MIN_MS) {
+      await waitForFirstResponse(entry, INITIAL_WAIT_MIN_MS - elapsed);
+    }
+    // Favor completion of all providers when it happens within 11 seconds.
+    // Otherwise return everything already found by that deadline.
+    while (entry.accepting && activeProviderCount(entry) > 0 &&
+           Date.now() - entry.startedAt < INITIAL_WAIT_MAX_MS) {
+      const left = INITIAL_WAIT_MAX_MS - (Date.now() - entry.startedAt);
+      await waitForFirstResponse(entry, Math.min(left, 750));
+    }
   }
+  if (!options.prefetch) prefetchNextEpisode(type, request);
   return Array.from(entry.streams.values());
 }
 
