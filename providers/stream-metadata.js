@@ -299,4 +299,33 @@ async function enrichStreams(streams, originalLanguage="", options={}) {
     } catch { return describe(stream,{},originalLanguage); }
   }).filter(Boolean);
 }
-module.exports={parseProbe,parseHls,describe,enrichStreams,publicIPv4,inspect,validateHls};
+function mergeStreams(previous, incoming) {
+  if (!previous) return incoming;
+  const base = previous.__verifiedAudio && !incoming.__verifiedAudio ? previous : incoming;
+  const result = {...base};
+  const subtitles = new Map();
+  for (const stream of [previous, incoming]) {
+    for (const sub of Array.isArray(stream.subtitles) ? stream.subtitles : []) {
+      if (!sub || typeof sub.url !== "string") continue;
+      const key = JSON.stringify([sub.url, sub.lang || sub.language || ""]);
+      subtitles.set(key, {...subtitles.get(key), ...sub});
+    }
+  }
+  if (subtitles.size) result.subtitles = [...subtitles.values()];
+  const marker = "Altyazı: 🇹🇷";
+  if ([previous,incoming].some(s => [s.description,s.quality].some(x => typeof x === "string" && x.includes(marker)))) {
+    const add = value => {
+      const lines = String(value || "").split("\n");
+      if (lines.some(line => line.includes(marker))) return lines.join("\n");
+      if (/^Ses: /.test(lines[0])) lines[0] += " • " + marker;
+      else lines.unshift(marker);
+      return lines.filter(Boolean).join("\n");
+    };
+    result.description = add(result.description);
+    if (result.quality) result.quality = add(result.quality);
+  }
+  if (previous.name === "Law" || incoming.name === "Law") result.name = "Law";
+  Object.defineProperty(result,"__verifiedAudio",{value:!!base.__verifiedAudio,enumerable:false});
+  return result;
+}
+module.exports={mergeStreams,parseProbe,parseHls,describe,enrichStreams,publicIPv4,inspect,validateHls};
