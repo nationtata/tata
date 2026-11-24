@@ -4,6 +4,7 @@ const { getMovieStreams } = require("./izlefilm");
 const registry = require("../vendor/anthology/providers.json");
 const { getLocalIzlelanJobs } = require("./izlelan-adapter");
 const { enrichStreams } = require("./stream-metadata");
+const { findYouTubeStreams } = require("./youtube");
 
 const MAX_ACTIVE_SEARCHES = 8;
 const ongoing = new Map();
@@ -173,6 +174,9 @@ async function search(type, request) {
   for (const source of getLocalIzlelanJobs()) {
     jobs.push(runProvider(source.name, () => source.getStreams(String(details.id), type === "series" ? "tv" : "movie", request.season, request.episode), type));
   }
+  if (!youtubeStreams.length && process.env.YOUTUBE_DATA_API_KEY) {
+    jobs.push(findYouTubeStreams(type, details, request));
+  }
   const streams = [];
   let accepting = true;
   let timer;
@@ -189,13 +193,14 @@ async function search(type, request) {
   }
   const seen = new Set();
   const enriched = await enrichStreams(streams.filter(stream => {
+    if (stream.ytId) return false;
     const identity = streamIdentity(stream);
     const key = JSON.stringify([stream[providerKey], identity]);
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
   }), details.original_language);
-  return [...youtubeStreams, ...enriched];
+  return [...youtubeStreams, ...streams.filter(stream => stream.ytId), ...enriched];
 }
 
 async function getVodStreams(type, id) {
