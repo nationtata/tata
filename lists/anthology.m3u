@@ -117,10 +117,6 @@ https://fox-foxnewsnow-vizio.amagi.tv/playlist.m3u8
 https://amg00106-france24-france24-samsunguk-qvpp8.amagi.tv/playlist/amg00106-france24-france24-samsunguk/playlist.m3u8
 #EXTINF:-1 group-title="Haber" tvg-logo="https://raw.githubusercontent.com/falsisdev/anthology/main/assets/canli/reuterstv.png",Reuters TV
 https://amg00453-reuters-amg00453c1-samsung-de-2111.playouts.now.amagi.tv/playlist/amg00453-reuters-reuters-samsungde/playlist.m3u8
-#EXTINF:-1 group-title="Sinema" tvg-logo="https://raw.githubusercontent.com/falsisdev/anthology/main/assets/canli/cine1.png",Cine 1
-https://canliyayin.cine1.com.tr/memfs/cbaef080-a742-4644-9e9e-2b9f6a5103c3.m3u8
-#EXTINF:-1 group-title="Sinema" tvg-logo="https://raw.githubusercontent.com/falsisdev/anthology/main/assets/canli/trtnostalji.png",TRT Nostalji
-https://playlist.fasttvcdn.com/pl/rfrk9821hdy9dayo8wfyha/dizi-tv/playlist/0.m3u8
 #EXTINF:-1 group-title="Belgesel" tvg-logo="https://raw.githubusercontent.com/falsisdev/anthology/main/assets/canli/tlc.png",TLC
 https://dogus-blackout.daioncdn.net/tlctv_geoblock.smil/playlist.m3u8
 #EXTINF:-1 group-title="Belgesel" tvg-logo="https://raw.githubusercontent.com/falsisdev/anthology/main/assets/canli/dmax.png",DMAX
@@ -143,25 +139,3 @@ https://tv-trtdiyanetcocuk.medya.trt.com.tr/master.m3u8
 https://live.artidijitalmedya.com/artidijital_ciftcitv/ciftcitv/playlist.m3u8
 #EXTINF:-1 group-title="Çocuk" tvg-logo="https://raw.githubusercontent.com/falsisdev/anthology/main/assets/canli/travelxp.png",Travelxp
 https://travelxp-travelxp-1-nz.samsung.wurl.tv/playlist.m3u8
-#EXTINF:-1 group-title="Müzik" tvg-logo="https://raw.githubusercontent.com/falsisdev/anthology/main/assets/canli/kralpop.png",Kral Pop TV
-https://dogus-live.daioncdn.net/kralpoptv/playlist.m3u8
-#EXTINF:-1 group-title="Müzik" tvg-logo="https://raw.githubusercontent.com/falsisdev/anthology/main/assets/canli/powerturk.png",PowerTürk TV
-https://live.artidijitalmedya.com/artidijital_powerturktv/powerturktv/playlist.m3u8
-#EXTINF:-1 group-title="Müzik" tvg-logo="https://raw.githubusercontent.com/falsisdev/anthology/main/assets/canli/powertv.png",Power TV
-https://livetv.powerapp.com.tr/powerTV/powerhd.smil/playlist.m3u8
-#EXTINF:-1 group-title="Müzik" tvg-logo="https://raw.githubusercontent.com/falsisdev/anthology/main/assets/canli/number1.png",Number 1 TV
-https://b01c02nl.mediatriple.net/videoonlylive/mtkgeuihrlfwlive/broadcast_5c9e17cd59e8b.smil/playlist.m3u8
-#EXTINF:-1 group-title="Müzik" tvg-logo="https://raw.githubusercontent.com/falsisdev/anthology/main/assets/canli/trtmuzik.png",TRT Müzik
-https://tv-trtmuzik.medya.trt.com.tr/master.m3u8
-#EXTINF:-1 group-title="Müzik" tvg-logo="https://raw.githubusercontent.com/falsisdev/anthology/main/assets/canli/powerdance.png",Power Dance
-https://livetv.powerapp.com.tr/dance/dance.smil/playlist.m3u8
-#EXTINF:-1 group-title="Müzik" tvg-logo="https://raw.githubusercontent.com/falsisdev/anthology/main/assets/canli/powerlove.png",Power Love
-https://livetv.powerapp.com.tr/plove/love.smil/playlist.m3u8
-#EXTINF:-1 group-title="Müzik" tvg-logo="https://raw.githubusercontent.com/falsisdev/anthology/main/assets/canli/dreamturk.png",Dream Türk
-https://live.duhnet.tv/S2/HLS_LIVE/dreamturknp/playlist.m3u8
-#EXTINF:-1 group-title="Müzik" tvg-logo="https://raw.githubusercontent.com/falsisdev/anthology/main/assets/canli/number1.png",Number 1 Aşk
-https://b01c02nl.mediatriple.net/videoonlylive/mtkgeuihrlfwlive/u_stream_5c9e18f9cea15_1/playlist.m3u8
-#EXTINF:-1 group-title="Müzik" tvg-logo="https://raw.githubusercontent.com/falsisdev/anthology/main/assets/canli/number1.png",Number 1 Türk
-https://b01c02nl.mediatriple.net/videoonlylive/mtkgeuihrlfwlive/broadcast_5c9e187770143.smil/playlist.m3u8
-#EXTINF:-1 group-title="Müzik" tvg-logo="https://raw.githubusercontent.com/falsisdev/anthology/main/assets/canli/number1.png",Number 1 Dance
-https://b01c02nl.mediatriple.net/videoonlylive/mtkgeuihrlfwlive/u_stream_5c9e2aa8acf44_1/playlist.m3u8

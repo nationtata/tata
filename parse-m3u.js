@@ -29,8 +29,6 @@ function normalizeGroup(group = "") {
   if (g.includes("belgesel")) return "Belgesel";
   if (g.includes("çocuk") || g.includes("cocuk")) return "Çocuk";
 
-  if (g.includes("sinema")) return "Sinema";
-  if (g.includes("müzik")) return "Müzik";
 
   return "Diğer";
 
@@ -287,8 +285,6 @@ function loadM3U(){
     Haber:[],
     Belgesel:[],
     Çocuk:[],
-    Sinema:[],
-    Müzik:[],
     Diğer:[]
   };
 

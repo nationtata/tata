@@ -96,9 +96,7 @@ app.get("/manifest.json", (req, res) => {
       { type: "tv", id: "haber", name: "Haber" },
       { type: "tv", id: "spor", name: "Spor" },
       { type: "tv", id: "belgesel", name: "Belgesel" },
-      { type: "tv", id: "cocuk", name: "Çocuk" },
-      { type: "tv", id: "sinema", name: "Sinema" },
-      { type: "tv", id: "muzik", name: "Müzik" }
+      { type: "tv", id: "cocuk", name: "Çocuk" }
     ]
 
   });
@@ -114,8 +112,6 @@ const catalogMap = {
   haber: "Haber",
   spor: "Spor",
   belgesel: "Belgesel",
-  sinema: "Sinema",
-  muzik: "Müzik",
   cocuk: "Çocuk"
 };
 
