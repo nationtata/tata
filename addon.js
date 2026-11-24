@@ -14,6 +14,7 @@ const {
 
 const { getAlternatives } = require("./providers/tata");
 const { getVodStreams, getVodSubtitles } = require("./providers/vod");
+const { proxyLawStream, proxyLawResourceTracks, serveSubtitle } = require("./providers/subtitle-proxy");
 
 const app = express();
 const PORT = process.env.PORT || 7000;
@@ -240,7 +241,7 @@ app.get(["/stream/:type(movie|series)/:id.json", "/film/stream/:type(movie|serie
         }))
       }));
     }
-    return res.json({ streams });
+    return res.json({ streams: streams.map(proxyLawStream) });
   } catch (err) {
     console.error("[VOD STREAM ERROR]", err.message);
     return res.json({ streams: [] });
@@ -249,15 +250,18 @@ app.get(["/stream/:type(movie|series)/:id.json", "/film/stream/:type(movie|serie
 
 // Separate Stremio subtitle resource. The existing stream response and TV routes
 // remain unchanged. Subtitle entries retain their original URL and headers.
-app.get(["/subtitles/:type(movie|series)/:id.json", "/film/subtitles/:type(movie|series)/:id.json"], async (req, res) => {
+app.get(["/subtitles/:type(movie|series)/:id.json", "/film/subtitles/:type(movie|series)/:id.json", "/subtitles/:type(movie|series)/:id/:extra.json", "/film/subtitles/:type(movie|series)/:id/:extra.json"], async (req, res) => {
   try {
     const subtitles = await getVodSubtitles(req.params.type, req.params.id);
-    return res.json({ subtitles });
+    return res.json({ subtitles: proxyLawResourceTracks(subtitles) });
   } catch (err) {
     console.error("[VOD SUBTITLES ERROR]", err.message);
     return res.json({ subtitles: [] });
   }
 });
+
+// Only opaque subtitle IDs produced by a Law stream are accepted.
+app.get("/subtitle-proxy/:id.vtt", serveSubtitle);
 
 app.get("/stream/tv/:id.json", async (req, res) => {
 
