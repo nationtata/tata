@@ -121,10 +121,10 @@ async function requestMedia(url, headers, options = {}) {
         if (remaining > 0) { chunks.push(chunk.subarray(0, remaining)); received += Math.min(chunk.length, remaining); }
         if (received >= maxBytes) {
           response.destroy();
-          done({ status: "valid", buffer: Buffer.concat(chunks) });
+          done({ status: "valid", buffer: Buffer.concat(chunks), finalUrl: target.href });
         }
       });
-      response.on("end", () => done({ status: received ? "valid" : "invalid", buffer: Buffer.concat(chunks) }));
+      response.on("end", () => done({ status: received ? "valid" : "invalid", buffer: Buffer.concat(chunks), finalUrl: target.href }));
       response.on("error", () => done({ status: "unknown" }));
     });
     req.on("error", () => done({ status: "unknown" }));
@@ -166,6 +166,41 @@ function mp4Metadata(buffer) {
   }
   return null;
 }
+
+async function validateHls(first, url, headers, deadline, depth=0) {
+  if(depth>3 || Date.now()>=deadline)return {status:"unknown"};
+  const body=first.buffer.toString("utf8");
+  if(!/^\s*#EXTM3U/.test(body))return {status:"invalid"};
+  const metadata=parseHls(body);
+  const lines=body.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+  const base=first.finalUrl||url;
+  const variants=[],segments=[];
+  let variant=false;
+  for(const line of lines){
+    if(line.startsWith("#EXT-X-STREAM-INF:")){variant=true;continue;}
+    if(line.startsWith("#"))continue;
+    try{
+      const target=new URL(line,base).href;
+      (variant?variants:segments).push(target);
+    }catch{}
+    variant=false;
+  }
+  const targets=variants.length?variants.slice(0,3):segments.slice(0,2);
+  if(!targets.length)return {...metadata,status:"unknown"};
+  const results=await Promise.all(targets.map(async target=>{
+    const response=await requestMedia(target,headers,{deadline,maxBytes:variants.length?262144:4096,range:variants.length?undefined:"bytes=0-4095"});
+    if(response.status!=="valid")return {status:response.status};
+    if(variants.length)return validateHls(response,target,headers,deadline,depth+1);
+    const prefix=response.buffer.subarray(0,256).toString("utf8");
+    if(/^\s*(?:<!doctype html|<html|<\?xml|\{\s*"(?:error|message|status)")/i.test(prefix))return {status:"invalid"};
+    return {status:"valid"};
+  }));
+  const valid=results.find(x=>x.status==="valid");
+  if(valid)return {...metadata,...Object.fromEntries(Object.entries(valid).filter(([k,v])=>k!=="status"&&v!==""&&v!==0&&(!Array.isArray(v)||v.length))),audio:unique([...(metadata.audio||[]),...(valid.audio||[])]),subs:unique([...(metadata.subs||[]),...(valid.subs||[])]),status:"valid"};
+  // Never discard a master when untested alternatives or transient failures remain.
+  return {...metadata,status:results.every(x=>x.status==="invalid")&&targets.length===(variants.length||Math.min(segments.length,2))?"invalid":"unknown"};
+}
+
 async function inspect(stream, deadline) {
   const url=stream.url||"";
   const isHls=/\.m3u8(?:[?#]|$)|\/hls\/|\/master\./i.test(url)||/^(hls|m3u8)$/i.test(stream.format||"")||/\.m3u8$/i.test(stream.behaviorHints?.filename||"");
@@ -184,8 +219,7 @@ async function inspect(stream, deadline) {
     if(/^\s*(?:<!doctype html|<html|<\?xml|\{\s*"(?:error|message|status)")/i.test(first.buffer.subarray(0,512).toString("utf8")))
       return {status:"invalid"};
     if(isHls) {
-      const text=first.buffer.toString("utf8");
-      return /^\s*#EXTM3U/.test(text) ? {...parseHls(text),status:"valid"} : {status:"invalid"};
+      return validateHls(first,url,headers,deadline);
     }
     const timeout=()=>Math.min(3500,Math.max(300,deadline-Date.now()));
     let data=await probeBuffer(first.buffer,timeout());
@@ -265,4 +299,4 @@ async function enrichStreams(streams, originalLanguage="", options={}) {
     } catch { return describe(stream,{},originalLanguage); }
   }).filter(Boolean);
 }
-module.exports={parseProbe,parseHls,describe,enrichStreams,publicIPv4,inspect};
+module.exports={parseProbe,parseHls,describe,enrichStreams,publicIPv4,inspect,validateHls};
