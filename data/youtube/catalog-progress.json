@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "lastVerifiedSeries": "Payitaht: Abdülhamid",
-  "nextSeries": "Böyle mi Olacaktı",
+  "lastVerifiedSeries": "Hudutsuz Sevda",
+  "nextSeries": "Uzak Şehir",
   "pending": [
     {
       "title": "Çılgın Bediş",
@@ -103,6 +103,16 @@
       "title": "Payitaht: Abdülhamid",
       "reason": "153 tam bölüm eklendi. 143. bölüm (S5 B24) için resmî YouTube bağlantısı doğrulanacak.",
       "source": "https://www.youtube.com/playlist?list=PLge_kMuGwvL8pfyOpLP0hXprI7yQ0L2q-"
+    },
+    {
+      "title": "Böyle mi Olacaktı",
+      "reason": "Yapımcının kanalında 1. bölüm doğrulandı. 167 bölümlük arşivin geri kalanı için resmî tam bölüm bağlantıları araştırılacak.",
+      "source": "https://www.youtube.com/watch?v=C4giljXijB4"
+    },
+    {
+      "title": "Kuzenlerim",
+      "reason": "Resmî tabii sayfası bulundu. Tam bölümlerin resmî YouTube arşivi doğrulanamadı.",
+      "source": "https://www.tabii.com/tr/detail/1667/kuzenlerim"
     }
   ]
 }
