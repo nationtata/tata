@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "lastVerifiedSeries": "Bizim Hikaye",
-  "nextSeries": "Çarpışma",
+  "lastVerifiedSeries": "Aşk Mantık İntikam",
+  "nextSeries": "Dolunay",
   "pending": [
     {
       "title": "Çılgın Bediş",
@@ -191,6 +191,46 @@
     {
       "title": "Bizim Hikaye",
       "reason": "Doğrulanan 67 bölüm eklendi. Eksik tam bölümler 17, 21, 22."
+    },
+    {
+      "title": "Çarpışma",
+      "reason": "Resmî bölüm ve final bulundu. Tam arşivin oynatma listesi doğrulanacak."
+    },
+    {
+      "title": "Cennet Mahallesi",
+      "reason": "119 bölümden 118 liste kaydı bulundu. Eksik bölüm ve sezon sınırları doğrulanacak."
+    },
+    {
+      "title": "Aşk Yeniden",
+      "reason": "Final bulundu. İncelenen liste tam bölümler yerine sahneleri döndürdü."
+    },
+    {
+      "title": "Sefirin Kızı",
+      "reason": "52 bölümlük yayının incelenen listesinde 1–26 var. Kalan resmî bağlantılar doğrulanacak."
+    },
+    {
+      "title": "Kimler Geldi Kimler Geçti",
+      "reason": "Netflix tanıtımı bulundu. Resmî YouTube tam bölüm arşivi doğrulanamadı."
+    },
+    {
+      "title": "Aşkı Hatırla",
+      "reason": "Disney+ tanıtımı bulundu. Resmî YouTube tam bölüm arşivi doğrulanamadı."
+    },
+    {
+      "title": "Kuma",
+      "reason": "Yüklemelerde farklı bölüm numaralandırmaları var. Tam bölümler ve katalog eşleşmesi doğrulanacak."
+    },
+    {
+      "title": "Aşk Mantık İntikam",
+      "reason": "Eklenen bölüm sayısı 41. Eksik bölüm 40."
+    },
+    {
+      "title": "Yeşil Vadi'nin Kızı",
+      "reason": "Türkçe resmî YouTube arşivi doğrulanamadı."
+    },
+    {
+      "title": "Enfes Bir Akşam",
+      "reason": "Resmî YouTube tam bölüm arşivi doğrulanamadı."
     }
   ]
 }
