@@ -169,6 +169,147 @@ async function runProvider(provider, lookup, type) {
 // Full-length uploads from the series' and producers' official YouTube channels.
 const youtubeSeries = [
   {
+    "title": "Kaynanalar",
+    "year": "1974",
+    "ids": [
+      "tt0286365"
+    ],
+    "episodes": {
+      "1:1": "ZTE4JobzmuE"
+    }
+  },
+  {
+    "title": "Çılgın Bediş",
+    "year": "1996",
+    "ids": [
+      "tt1162451"
+    ],
+    "episodes": {
+      "1:1": "V1lVYPoJ-K8"
+    }
+  },
+  {
+    "title": "Hanımın Çiftliği",
+    "year": "2009",
+    "ids": [
+      "tt1592293"
+    ],
+    "episodes": {
+      "1:1": "21bw7dHqAYY"
+    }
+  },
+  {
+    "title": "Sıla",
+    "year": "2006",
+    "ids": [
+      "tt0875103"
+    ],
+    "episodes": {
+      "1:1": "jurHPVXvE5k"
+    }
+  },
+  {
+    "title": "Öyle Bir Geçer Zaman Ki",
+    "year": "2010",
+    "ids": [
+      "tt1784141"
+    ],
+    "episodes": {
+      "1:1": "-uoNSJpPABA"
+    }
+  },
+  {
+    "title": "Bir İstanbul Masalı",
+    "year": "2003",
+    "ids": [
+      "tt0421297"
+    ],
+    "episodes": {
+      "1:1": "_aO2XbsPtCE"
+    }
+  },
+  {
+    "title": "Dadı",
+    "year": "2001",
+    "ids": [
+      "tt0303449"
+    ],
+    "episodes": {
+      "1:1": "yPloM-5c9-8"
+    }
+  },
+  {
+    "title": "Ruhsar",
+    "year": "1998",
+    "ids": [
+      "tt0846614"
+    ],
+    "episodes": {
+      "1:1": "5t9ElfaLpig"
+    }
+  },
+  {
+    "title": "Böyle mi Olacaktı",
+    "year": "1997",
+    "ids": [
+      "tt0462087"
+    ],
+    "episodes": {
+      "1:1": "C4giljXijB4",
+      "1:2": "a6B6AVjEZq0"
+    }
+  },
+  {
+    "title": "Kuzenlerim",
+    "year": "2002",
+    "ids": [
+      "tt0449138"
+    ],
+    "episodes": {
+      "1:1": "vREFnqDjQSI"
+    }
+  },
+  {
+    "title": "Emanet",
+    "year": "2020",
+    "ids": [
+      "tt12562262"
+    ],
+    "episodes": {
+      "1:1": "T7dspKtImKo"
+    }
+  },
+  {
+    "title": "Teşkilat",
+    "year": "2021",
+    "ids": [
+      "tt13562418"
+    ],
+    "episodes": {
+      "1:1": "783_OJX_1fA"
+    }
+  },
+  {
+    "title": "Kurtlar Vadisi Pusu",
+    "year": "2007",
+    "ids": [
+      "tt1018501"
+    ],
+    "episodes": {
+      "1:1": "c9YySJu39_k"
+    }
+  },
+  {
+    "title": "Mehmed: Fetihler Sultanı",
+    "year": "2024",
+    "ids": [
+      "tt31323988"
+    ],
+    "episodes": {
+      "1:1": "S76TuoUjZDg"
+    }
+  },
+  {
     "title": "Ekmek Teknesi",
     "year": "2002",
     "ids": [
