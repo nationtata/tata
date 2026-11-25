@@ -94,6 +94,259 @@ async function runProvider(provider, lookup, type) {
 // Full-length uploads from the series' and producers' official YouTube channels.
 const youtubeSeries = [
   {
+    "title": "Dolunay",
+    "year": "2017",
+    "ids": [
+      "tt7115498"
+    ],
+    "episodes": {
+      "1:1": "jk3UDTix5f4",
+      "1:2": "6mUZjBt9k5M",
+      "1:3": "kGhgKhbriSQ",
+      "1:4": "QziQIs8N3EA",
+      "1:5": "Y01Sby32iLA",
+      "1:6": "VrJ1ALACxGc",
+      "1:7": "YHBCkj1CTiQ",
+      "1:8": "ByV6qm5RqyM",
+      "1:9": "HuOSfTYuq1A",
+      "1:10": "eavhe068zxI",
+      "1:11": "zUpcn5LNzmI",
+      "1:12": "luFzT-nrQ74",
+      "1:13": "ype-4E3ABJE",
+      "1:14": "iRblGuLl-pc",
+      "1:15": "NNuje0uDmXA",
+      "1:16": "QqZO9gmDj9I",
+      "1:17": "FhJ5mwYhAUI",
+      "1:18": "V7by5YazxLc",
+      "1:19": "I2HBa44Xboc",
+      "1:20": "YpN9oPXlKsk",
+      "1:21": "sfGkeE2GNNg",
+      "1:22": "DcPsP0FQ1UM",
+      "1:23": "D9lfLZHYP7M",
+      "1:24": "FxuCqVF4Foo",
+      "1:25": "3Nwc0AV9XWo",
+      "1:26": "ppUZhdC7DXE"
+    }
+  },
+  {
+    "title": "Çilek Kokusu",
+    "year": "2015",
+    "ids": [
+      "tt4900982"
+    ],
+    "episodes": {
+      "1:1": "uTVfgYLmoiI",
+      "1:2": "WXx3zLikf8s",
+      "1:3": "4phDOoafk_g",
+      "1:4": "DNOyZ9H198k",
+      "1:5": "iEMBRJk1ODA",
+      "1:6": "wWFELDIKqnQ",
+      "1:7": "R136V-WJch8",
+      "1:8": "FLBVB6ffwQY",
+      "1:9": "CFrDmvMeTL0",
+      "1:10": "ePxxUesNSKc",
+      "1:11": "Ao3AYYApso8",
+      "1:12": "d_m746uC170",
+      "1:13": "dccs_sxpXrs",
+      "1:14": "5JutE3smHjA",
+      "1:15": "aeGnjI-dN18",
+      "1:16": "mf5hqe2-rCU",
+      "1:17": "LYzaFQPRJQA",
+      "1:18": "X9QZnATrfk8",
+      "1:19": "xqFWdtlvMmo",
+      "1:20": "6-pF3BLXokg",
+      "1:21": "Dx4fbus8SLE",
+      "1:22": "sY_CSmlRZ1A",
+      "1:23": "QDgXXfpUObk"
+    }
+  },
+  {
+    "title": "Duy Beni",
+    "year": "2022",
+    "ids": [
+      "tt20248478"
+    ],
+    "episodes": {
+      "1:1": "qKQZyso3Ogs",
+      "1:2": "5M6JLe0pyts",
+      "1:3": "OmDBDB5jbuw",
+      "1:4": "Tqw8KOkwh24",
+      "1:5": "gkHLDWOz5OI",
+      "1:6": "8qX38IJ25z8",
+      "1:7": "_Ctnn0MGizQ",
+      "1:8": "yFjvZU05npc",
+      "1:9": "g_aZYP2Zbp4",
+      "1:10": "DpGM5nsjcnM",
+      "1:11": "EEr7qdgDUqg",
+      "1:12": "FXaxQiVcdbc",
+      "1:13": "FbPyxxAx9O0",
+      "1:14": "Vs0OcA56UWI",
+      "1:15": "zodSxs2sZgQ",
+      "1:16": "boyFVXfWDZg",
+      "1:17": "QAM2TFWUp-s",
+      "1:18": "OdzEC3SHqBQ",
+      "1:19": "ciVmHLw9TqE",
+      "1:20": "FLQwtDmKD38"
+    }
+  },
+  {
+    "title": "Bay Yanlış",
+    "year": "2020",
+    "ids": [
+      "tt12453442"
+    ],
+    "episodes": {
+      "1:1": "LfUhnlECUOs",
+      "1:2": "zZdqTJCn1W0",
+      "1:3": "OUtmdxAEJys",
+      "1:4": "YbFJrKdWZe8",
+      "1:5": "x7NNb00ziIw",
+      "1:6": "Vba7PxPITAI",
+      "1:7": "C_V1U5Nq8RM",
+      "1:8": "skU2lpqAq8c",
+      "1:9": "Iq27kHrULV8",
+      "1:10": "II4d0WyZuqU",
+      "1:11": "IGlpfJ2WAxw",
+      "1:12": "iPFU8uaMDug",
+      "1:13": "gKJ6FpqKPPA",
+      "1:14": "Q7bytYroxOs"
+    }
+  },
+  {
+    "title": "Ada Masalı",
+    "year": "2021",
+    "ids": [
+      "tt14411808"
+    ],
+    "episodes": {
+      "1:1": "bMJ0BpwmtK8",
+      "1:2": "YoKVmtRmC-I",
+      "1:3": "Ci9SCDiiYF4",
+      "1:4": "3u0vdQsLH-8",
+      "1:5": "KwnWZlnz_dU",
+      "1:6": "a-ETer3BP2o",
+      "1:7": "C13GtziEw0I",
+      "1:8": "R_QzcX5Vdn0",
+      "1:9": "CJFBbLMSGdw",
+      "1:10": "abKXvglD5Ww",
+      "1:11": "m4zpk1FNj2s",
+      "1:12": "C97aM92Gp00",
+      "1:13": "siImqjnNyxQ",
+      "1:14": "-PR-d2P70aA",
+      "1:15": "ev_4-PvgS6Y",
+      "1:16": "NO4chLEE_Wg",
+      "1:17": "NzaUzcqgWsU",
+      "1:18": "QioK-6v8GHA",
+      "1:19": "Ov5V6p4m4P8",
+      "1:20": "3fPxppyMHUI",
+      "1:21": "IsbFukxHwEI",
+      "1:22": "6voepaPdTTw",
+      "1:23": "VHGzpXdQ_ko",
+      "1:24": "DytwcvxEIlo",
+      "1:25": "ODTYAS6Undk"
+    }
+  },
+  {
+    "title": "Kızım",
+    "year": "2018",
+    "ids": [
+      "tt8961058",
+      "82369"
+    ],
+    "episodes": {
+      "1:1": "SANZ8eSwlpY",
+      "1:2": "inh3q9LFxeY",
+      "1:3": "Uw0rnFq6XYU",
+      "1:4": "dooadxT0iPg",
+      "1:5": "Ap9uwyGl3wM",
+      "1:6": "YzpHSDcEKGQ",
+      "1:7": "r8TLjrkJ7uU",
+      "1:8": "ABSYBMLzhgI",
+      "1:9": "KthAL9jpMFo",
+      "1:10": "2_LGyewaof0",
+      "1:11": "5SG6-Oa5Ugo",
+      "1:12": "hPi0d7MxQx0",
+      "1:13": "W8ikaJdn_1o",
+      "1:14": "1-pye-B6YmQ",
+      "1:15": "SuH9_wEiB54",
+      "1:16": "cM_z8AZLwhc",
+      "1:17": "P3W-pFmrfa8",
+      "1:18": "jKqofEH3ZVs",
+      "1:19": "fq1_XSzp-OE",
+      "1:20": "-qX56RxfjlU",
+      "1:21": "fZlpUfkYd6s",
+      "1:22": "E9h9lgCrdtI",
+      "1:23": "mPYtxGB6lvU",
+      "1:24": "WuE503AohFM",
+      "1:25": "xWZ5JGK1dAM",
+      "1:26": "TWIvgJy9ap0",
+      "1:27": "Syk0B8hWNoA",
+      "1:28": "DBlZGS7Wgqw",
+      "1:29": "ZGAYeigK2HI",
+      "1:30": "Hk2b3r-6YBs",
+      "1:31": "nykHjkhb9p0",
+      "1:32": "JIC7APBVjG4",
+      "1:33": "pzY7AK3ITCU",
+      "1:34": "4_RQdoW1Muw"
+    }
+  },
+  {
+    "title": "20 Dakika",
+    "year": "2013",
+    "ids": [
+      "tt2544148"
+    ],
+    "episodes": {
+      "1:1": "A5-G680m9To",
+      "1:2": "094MRpwnlYQ",
+      "1:3": "-xOTgW6JEWw",
+      "1:4": "rWhRaXeEs_o",
+      "1:5": "c3elVzgnk90",
+      "1:6": "Hg71-mC9mSQ",
+      "1:7": "O0AN9D8nCpk",
+      "1:8": "gvKY6iI0sGk",
+      "1:9": "XdJlSUYOaIE",
+      "1:10": "uWMFpWcLsmQ",
+      "1:11": "vzL-gMbAiC0",
+      "1:12": "JpiKVdITzck",
+      "1:13": "MRiwmwGiPxE",
+      "1:14": "GxEYRwC2gD0",
+      "1:15": "xxIEdJN4yAg",
+      "1:16": "is_5CldPpnk",
+      "1:17": "rOqQkf1Tds0",
+      "1:18": "kinC5oFC2O8",
+      "1:19": "6PY9XSl3Xk0",
+      "1:20": "6PhXn6z4p3M",
+      "1:21": "w6H-Hz0BxG0",
+      "1:22": "4wXUqja_Q8E",
+      "1:23": "7ZojwZQlmto",
+      "1:24": "_y_zk87TEHA",
+      "1:25": "_Y_jCsivf4U"
+    }
+  },
+  {
+    "title": "Gülcemal",
+    "year": "2023",
+    "ids": [
+      "tt22728026"
+    ],
+    "episodes": {
+      "1:1": "YNJWBZ41ZPI",
+      "1:2": "etAAGqyVzzg",
+      "1:3": "pUhjm2SJrWM",
+      "1:4": "eyVWOPy9RyY",
+      "1:5": "eY16rW5VwG4",
+      "1:6": "4HZK0_P7VM0",
+      "1:7": "z5g1jXBRZOI",
+      "1:8": "2ScN_DgpGQo",
+      "1:9": "tym64iR6Q4c",
+      "1:10": "ngZkaTeJ0Zw",
+      "1:11": "M4UAhUd91Qg",
+      "1:12": "FEoxJ1f8y7M",
+      "1:13": "kBt_VM_tkfc"
+    }
+  },
+  {
     "title": "Doğduğun Ev Kaderindir",
     "year": "2019",
     "ids": [
