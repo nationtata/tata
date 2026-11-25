@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "lastVerifiedSeries": "Yalı Çapkını",
-  "nextSeries": "Kızılcık Şerbeti",
+  "lastVerifiedSeries": "Bizim Hikaye",
+  "nextSeries": "Çarpışma",
   "pending": [
     {
       "title": "Çılgın Bediş",
@@ -123,6 +123,74 @@
       "title": "Arka Sokaklar",
       "reason": "Kanal D bölüm arşivi ve mevcut TATA bağlantısı bulundu. Uzun YouTube arşivinin sezon ve bölüm bazında doğrulaması devam ediyor.",
       "source": "https://www.kanald.com.tr/arka-sokaklar/bolumler"
+    },
+    {
+      "title": "Kızılcık Şerbeti",
+      "reason": "Resmî kanal bulundu. Tam bölüm video kimlikleri ve beş sezonun sınırları doğrulanacak."
+    },
+    {
+      "title": "Teşkilat",
+      "reason": "TRT’nin resmî bölüm listesi bulundu. Bölüm kimlikleri ve sezon eşleşmesi doğrulanacak."
+    },
+    {
+      "title": "Kurtlar Vadisi Pusu",
+      "reason": "Kanal D arşivi ve resmî bölüm yüklemesi bulundu. Tam arşiv sezon bazında doğrulanacak."
+    },
+    {
+      "title": "Arafta",
+      "reason": "Bulunan 1–20 yüklemesi derleme. Tekil tam bölüm bağlantıları doğrulanacak."
+    },
+    {
+      "title": "Taşacak Bu Deniz",
+      "reason": "Resmî kanal bulundu. Tekil tam bölüm dizisi doğrulanacak."
+    },
+    {
+      "title": "Kan Çiçekleri",
+      "reason": "Resmî final ve sezon finali bulundu. 434 bölümlük arşivin tamamı doğrulanacak."
+    },
+    {
+      "title": "Mehmed: Fetihler Sultanı",
+      "reason": "Resmî kanal bulundu. Güncel bölüm aralığı ve sezon sınırları doğrulanacak."
+    },
+    {
+      "title": "Mucize Doktor",
+      "reason": "Doğrulanan 60 bölüm eklendi. Eksik tam bölümler 29, 30, 31, 32."
+    },
+    {
+      "title": "Fazilet Hanım ve Kızları",
+      "reason": "Resmî final adayı bulundu. Tekil tam bölüm listesi ve yükleyen kanal doğrulanacak."
+    },
+    {
+      "title": "Muhteşem Yüzyıl: Kösem",
+      "reason": "Final yüklemesi bulundu. Tam bölüm oynatma listesi ve sezon eşleşmesi doğrulanacak."
+    },
+    {
+      "title": "Leyla: Hayat... Aşk... Adalet...",
+      "reason": "Aramada finalden sahneler bulundu. Resmî tekil tam bölüm listesi doğrulanacak."
+    },
+    {
+      "title": "Rüzgarlı Tepe",
+      "reason": "Canlı yayın ve finalden kesitler bulundu. Tekil tam bölüm arşivi doğrulanacak."
+    },
+    {
+      "title": "Mezarlık",
+      "reason": "Netflix tanıtımı bulundu. Resmî YouTube tam bölüm arşivi doğrulanamadı."
+    },
+    {
+      "title": "Söz",
+      "reason": "Doğrulanan 80 bölüm eklendi. Eksik tam bölümler 28, 47, 49, 80."
+    },
+    {
+      "title": "Akasya Durağı",
+      "reason": "174. bölüm yüklemesi bulundu. Hak sahipliği ve arşiv eşleşmesi doğrulanacak."
+    },
+    {
+      "title": "Seni Tanıyorum",
+      "reason": "Netflix yayın sayfası bulundu. Resmî YouTube tam bölüm arşivi doğrulanamadı."
+    },
+    {
+      "title": "Bizim Hikaye",
+      "reason": "Doğrulanan 67 bölüm eklendi. Eksik tam bölümler 17, 21, 22."
     }
   ]
 }
