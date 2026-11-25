@@ -1869,7 +1869,16 @@ const youtubeSeries = [
     ],
     "episodes": {
       "1:1": "OjBAgDoBKa0",
-      "1:2": "V5R_03KbzFk"
+      "1:2": "V5R_03KbzFk",
+      "1:3": "i0Gt6SJDv4s",
+      "1:4": "VLfbEZ3Ldxg",
+      "1:5": "SMifw7jaUQw",
+      "1:6": "NEQ_4pTQbWc",
+      "1:7": "KrkBz8nXeDk",
+      "1:8": "_3NcBCyWWY8",
+      "1:9": "NR3-p0iQjJg",
+      "1:10": "-r7ed5XzVRo",
+      "1:11": "OEwR-UtCrmY"
     }
   },
   {
@@ -1929,7 +1938,44 @@ const youtubeSeries = [
     ],
     "episodes": {
       "1:1": "u5_iBps1J7I",
-      "1:2": "m2_4fyEvCjQ"
+      "1:2": "m2_4fyEvCjQ",
+      "1:3": "gQVGKEuTpNU",
+      "1:4": "WAnmNqvOCWk",
+      "1:5": "aCSExU6aZt0",
+      "1:6": "Qvpbz_CX8us",
+      "1:7": "1jcs67LE4DE",
+      "1:8": "GbqAqUs1og8",
+      "1:9": "d1rhYup1Wpo",
+      "1:10": "bUs5oYJcwUY",
+      "1:11": "XkUEBuT8By8",
+      "1:12": "V5qotGdE2AU",
+      "1:13": "6NzPRutLFSE",
+      "1:14": "r_ppIOzybEM",
+      "1:15": "rJYXAaB_Co0",
+      "1:16": "eSudoSUUFKU",
+      "1:17": "ToqgTwhvloI",
+      "1:18": "kaq9deQAmrQ",
+      "1:19": "GdCzv0QRs0s",
+      "1:20": "PMT8V8h_x1U",
+      "1:21": "yj9McjvoI_M",
+      "1:22": "jkUYfukd5To",
+      "1:23": "TdSIUbFxoK4",
+      "1:24": "92OYLYHsS7c",
+      "1:25": "rPqDqJMfrcs",
+      "1:26": "WprbyNNH6M0",
+      "1:27": "fLTZmMOuD2g",
+      "1:28": "L5JD5QIPgcw",
+      "1:29": "SAiA7CJS74Y",
+      "1:30": "NpUyrPByPTM",
+      "1:31": "cV-MMvrUoMQ",
+      "1:32": "curKRkNlVvk",
+      "1:33": "x4gF-Vb6y64",
+      "1:34": "rVDAJB6nmtg",
+      "1:35": "9XfdoLOCLiA",
+      "1:36": "7jvBsKe3xQI",
+      "1:37": "OX72CVx4mZA",
+      "1:38": "acXGrI_XDbE",
+      "1:39": "NEOU1xyhLvI"
     }
   },
   {
