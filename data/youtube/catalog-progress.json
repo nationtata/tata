@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "lastVerifiedSeries": "Binbir Gece",
-  "nextSeries": "Hanımın Çiftliği",
+  "lastVerifiedSeries": "Adını Feriha Koydum",
+  "nextSeries": "Dudaktan Kalbe",
   "pending": [
     {
       "title": "Çılgın Bediş",
@@ -66,6 +66,18 @@
     {
       "title": "Kara Melek",
       "reason": "Hak sahibine ait eksiksiz resmî YouTube tam bölüm arşivi doğrulanamadı."
+    },
+    {
+      "title": "Hanımın Çiftliği",
+      "reason": "Resmî HD oynatma listesinde bölüm aralıkları eksik; 70 bölümün tamamı doğrulanamadı."
+    },
+    {
+      "title": "Sıla",
+      "reason": "Resmî HD oynatma listesinde 1-57 mevcut; 58-79 için eksiksiz tam bölüm listesi doğrulanacak."
+    },
+    {
+      "title": "Öyle Bir Geçer Zaman Ki",
+      "reason": "Resmî 4K oynatma listesi sayfası bölüm öğelerini döndürmedi; 120 bölümün video kimlikleri yeniden alınacak."
     }
   ]
 }
