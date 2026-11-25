@@ -2723,7 +2723,19 @@ const youtubeSeries = [
       "3:4": "Buunwn6l6q8",
       "3:5": "M0CbTE9T8f0",
       "3:6": "YXqGmcR4bxs",
-      "3:7": "8Q0bjyEBCXQ"
+      "3:7": "8Q0bjyEBCXQ",
+      "7:1": "Mmxmoxbp13I",
+      "7:2": "hO7lKMwN2iI",
+      "7:3": "EGiw9XmWdUY",
+      "7:4": "eMHGjkPVGag",
+      "7:5": "FrFNTPXY8k4",
+      "7:6": "kJyayah8sUE",
+      "8:1": "E_PXIq2GJ0Q",
+      "8:2": "-VbzvLicyoo",
+      "8:3": "h2EcIFHAtGE",
+      "8:4": "UMI48WInm-0",
+      "8:5": "wemEHqy8Uuc",
+      "8:6": "x9s4VuLSzo0"
     }
   },
   {
