@@ -1656,7 +1656,15 @@ const youtubeSeries = [
     ],
     "episodes": {
       "1:1": "yPloM-5c9-8",
-      "1:2": "xujNQL_4LIE"
+      "1:2": "xujNQL_4LIE",
+      "1:3": "ZO8texrCS08",
+      "1:4": "U9_nYp713jo",
+      "1:5": "JWsTGrddvqk",
+      "1:6": "k4Mkinw0j68",
+      "1:7": "TXfuuIm2FWw",
+      "1:8": "iOl4yUJnd2k",
+      "1:9": "psozD03Cww4",
+      "1:10": "bonLz9USwHo"
     }
   },
   {
