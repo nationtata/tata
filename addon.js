@@ -243,7 +243,7 @@ app.get(["/stream/:type(movie|series)/:id.json", "/film/stream/:type(movie|serie
     }
     return res.json({ streams: streams.map(stream => {
       const result = { ...proxyLawStream(stream) };
-      result.name = " ";
+      result.name = "🔴";
       const resolution = [result.quality, result.description, result.title]
         .map(value => String(value || "").match(/\b(?:480p|720p|1080p|4K)\b/i)?.[0])
         .find(Boolean);
