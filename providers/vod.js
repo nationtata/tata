@@ -169,6 +169,186 @@ async function runProvider(provider, lookup, type) {
 // Full-length uploads from the series' and producers' official YouTube channels.
 const youtubeSeries = [
   {
+    "title": "Çocuklar Duymasın",
+    "year": "2002",
+    "ids": [
+      "tt0413623"
+    ],
+    "episodes": {
+      "1:1": "8qpR3Xbqq6A"
+    }
+  },
+  {
+    "title": "Fazilet Hanım ve Kızları",
+    "year": "2017",
+    "ids": [
+      "tt6756704"
+    ],
+    "episodes": {
+      "1:1": "6LPoHjKWiYU"
+    }
+  },
+  {
+    "title": "Muhteşem Yüzyıl: Kösem",
+    "year": "2015",
+    "ids": [
+      "tt4787028"
+    ],
+    "episodes": {
+      "1:1": "EDw3qtjBQVk"
+    }
+  },
+  {
+    "title": "Leyla: Hayat... Aşk... Adalet...",
+    "year": "2024",
+    "ids": [
+      "tt33264855"
+    ],
+    "episodes": {
+      "1:1": "ZY_kd4KSI8U"
+    }
+  },
+  {
+    "title": "Rüzgarlı Tepe",
+    "year": "2024",
+    "ids": [
+      "tt30690005"
+    ],
+    "episodes": {
+      "1:1": "AO-fxTQRpCg"
+    }
+  },
+  {
+    "title": "Akasya Durağı",
+    "year": "2008",
+    "ids": [
+      "tt1286883"
+    ],
+    "episodes": {
+      "1:1": "yiTn83EPj6E"
+    }
+  },
+  {
+    "title": "Çarpışma",
+    "year": "2018",
+    "ids": [
+      "tt9114372"
+    ],
+    "episodes": {
+      "1:1": "zwVejtuEAmU"
+    }
+  },
+  {
+    "title": "Cennet Mahallesi",
+    "year": "2004",
+    "ids": [
+      "tt0424619"
+    ],
+    "episodes": {
+      "1:1": "1Ppn2jsGPfU"
+    }
+  },
+  {
+    "title": "Aşk Yeniden",
+    "year": "2015",
+    "ids": [
+      "tt5616644"
+    ],
+    "episodes": {
+      "1:1": "UyM7t4Bsqus"
+    }
+  },
+  {
+    "title": "Sefirin Kızı",
+    "year": "2019",
+    "ids": [
+      "tt11256614"
+    ],
+    "episodes": {
+      "1:1": "sJfF5FeTRv8"
+    }
+  },
+  {
+    "title": "Dolunay",
+    "year": "2017",
+    "ids": [
+      "tt7115498"
+    ],
+    "episodes": {
+      "1:1": "jk3UDTix5f4"
+    }
+  },
+  {
+    "title": "Çilek Kokusu",
+    "year": "2015",
+    "ids": [
+      "tt4900982"
+    ],
+    "episodes": {
+      "1:1": "cY7Z6WbxBSQ"
+    }
+  },
+  {
+    "title": "Duy Beni",
+    "year": "2022",
+    "ids": [
+      "tt20248478"
+    ],
+    "episodes": {
+      "1:1": "qKQZyso3Ogs"
+    }
+  },
+  {
+    "title": "Bay Yanlış",
+    "year": "2020",
+    "ids": [
+      "tt12453442"
+    ],
+    "episodes": {
+      "1:1": "oi34NOttemE"
+    }
+  },
+  {
+    "title": "Ada Masalı",
+    "year": "2021",
+    "ids": [
+      "tt14411808"
+    ],
+    "episodes": {
+      "1:1": "eJdXvjRhwFo"
+    }
+  },
+  {
+    "title": "Kızım",
+    "year": "2018",
+    "ids": [
+      "tt8961058"
+    ],
+    "episodes": {
+      "1:1": "SANZ8eSwlpY"
+    }
+  },
+  {
+    "title": "20 Dakika",
+    "year": "2013",
+    "ids": [
+      "tt2544148"
+    ],
+    "episodes": {
+      "1:1": "A5-G680m9To"
+    }
+  },
+  {
+    "title": "Gülcemal",
+    "year": "2023",
+    "ids": [
+      "tt22728026"
+    ],
+    "episodes": {
+      "1:1": "zc2JC39pc-Q"
+    }
+  },
+  {
     "title": "Kaynanalar",
     "year": "1974",
     "ids": [
