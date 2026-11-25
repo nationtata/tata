@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "lastVerifiedSeries": "Hudutsuz Sevda",
-  "nextSeries": "Uzak Şehir",
+  "lastVerifiedSeries": "Yalı Çapkını",
+  "nextSeries": "Kızılcık Şerbeti",
   "pending": [
     {
       "title": "Çılgın Bediş",
@@ -113,6 +113,16 @@
       "title": "Kuzenlerim",
       "reason": "Resmî tabii sayfası bulundu. Tam bölümlerin resmî YouTube arşivi doğrulanamadı.",
       "source": "https://www.tabii.com/tr/detail/1667/kuzenlerim"
+    },
+    {
+      "title": "Emanet",
+      "reason": "Kanal 7 toplam 805 bölüm yayımladı. İncelenen YouTube liste görünümünde 606–805 var. Önceki video kimlikleri ve katalogdaki 877 kayıtla bölüm eşleşmesi doğrulanacak.",
+      "source": "https://www.youtube.com/playlist?list=PLW-AJux17Ta64EbbX9ursoEUwp5qbt-nR"
+    },
+    {
+      "title": "Arka Sokaklar",
+      "reason": "Kanal D bölüm arşivi ve mevcut TATA bağlantısı bulundu. Uzun YouTube arşivinin sezon ve bölüm bazında doğrulaması devam ediyor.",
+      "source": "https://www.kanald.com.tr/arka-sokaklar/bolumler"
     }
   ]
 }
