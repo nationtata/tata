@@ -175,7 +175,8 @@ const youtubeSeries = [
       "tt34807505"
     ],
     "episodes": {
-      "1:1": "UKmlA8uH7tI"
+      "1:1": "UKmlA8uH7tI",
+      "1:2": "AQ_K1M9Quio"
     }
   },
   {
@@ -185,7 +186,8 @@ const youtubeSeries = [
       "tt19246424"
     ],
     "episodes": {
-      "1:1": "AO5J0KjgoII"
+      "1:1": "AO5J0KjgoII",
+      "1:2": "LHdbNrJ3PEU"
     }
   },
   {
@@ -205,7 +207,8 @@ const youtubeSeries = [
       "tt4241744"
     ],
     "episodes": {
-      "1:1": "wC2T_8q95yQ"
+      "1:1": "wC2T_8q95yQ",
+      "1:2": "mp6X7IaGYGc"
     }
   },
   {
@@ -215,7 +218,8 @@ const youtubeSeries = [
       "tt0413623"
     ],
     "episodes": {
-      "1:1": "8qpR3Xbqq6A"
+      "1:1": "8qpR3Xbqq6A",
+      "1:2": "xRrA_1QwBvw"
     }
   },
   {
@@ -225,7 +229,8 @@ const youtubeSeries = [
       "tt6756704"
     ],
     "episodes": {
-      "1:1": "6LPoHjKWiYU"
+      "1:1": "6LPoHjKWiYU",
+      "1:2": "55Z8YEYGWuo"
     }
   },
   {
@@ -235,7 +240,8 @@ const youtubeSeries = [
       "tt4787028"
     ],
     "episodes": {
-      "1:1": "EDw3qtjBQVk"
+      "1:1": "EDw3qtjBQVk",
+      "1:2": "UwXVEDCZ3gY"
     }
   },
   {
@@ -245,7 +251,8 @@ const youtubeSeries = [
       "tt33264855"
     ],
     "episodes": {
-      "1:1": "ZY_kd4KSI8U"
+      "1:1": "ZY_kd4KSI8U",
+      "1:2": "fgw6htt-EKw"
     }
   },
   {
@@ -255,7 +262,8 @@ const youtubeSeries = [
       "tt30690005"
     ],
     "episodes": {
-      "1:1": "AO-fxTQRpCg"
+      "1:1": "AO-fxTQRpCg",
+      "1:2": "_7C4Lilxibk"
     }
   },
   {
@@ -265,7 +273,8 @@ const youtubeSeries = [
       "tt1286883"
     ],
     "episodes": {
-      "1:1": "yiTn83EPj6E"
+      "1:1": "yiTn83EPj6E",
+      "1:2": "_RfnWMi1ejg"
     }
   },
   {
@@ -275,7 +284,8 @@ const youtubeSeries = [
       "tt9114372"
     ],
     "episodes": {
-      "1:1": "zwVejtuEAmU"
+      "1:1": "zwVejtuEAmU",
+      "1:2": "O1nm0hdMlhc"
     }
   },
   {
@@ -285,7 +295,8 @@ const youtubeSeries = [
       "tt0424619"
     ],
     "episodes": {
-      "1:1": "1Ppn2jsGPfU"
+      "1:1": "1Ppn2jsGPfU",
+      "1:2": "I4xZ8mphwIo"
     }
   },
   {
@@ -295,7 +306,8 @@ const youtubeSeries = [
       "tt5616644"
     ],
     "episodes": {
-      "1:1": "UyM7t4Bsqus"
+      "1:1": "UyM7t4Bsqus",
+      "1:2": "7tAfx1xF-_4"
     }
   },
   {
@@ -305,7 +317,8 @@ const youtubeSeries = [
       "tt11256614"
     ],
     "episodes": {
-      "1:1": "sJfF5FeTRv8"
+      "1:1": "sJfF5FeTRv8",
+      "1:2": "uYrovJIhkIQ"
     }
   },
   {
@@ -325,7 +338,8 @@ const youtubeSeries = [
       "tt4900982"
     ],
     "episodes": {
-      "1:1": "cY7Z6WbxBSQ"
+      "1:1": "cY7Z6WbxBSQ",
+      "1:2": "k8T3Qb4n2TA"
     }
   },
   {
@@ -335,7 +349,8 @@ const youtubeSeries = [
       "tt20248478"
     ],
     "episodes": {
-      "1:1": "qKQZyso3Ogs"
+      "1:1": "qKQZyso3Ogs",
+      "1:2": "5M6JLe0pyts"
     }
   },
   {
@@ -345,7 +360,8 @@ const youtubeSeries = [
       "tt12453442"
     ],
     "episodes": {
-      "1:1": "oi34NOttemE"
+      "1:1": "oi34NOttemE",
+      "1:2": "osNXGu8cfA4"
     }
   },
   {
@@ -355,7 +371,8 @@ const youtubeSeries = [
       "tt14411808"
     ],
     "episodes": {
-      "1:1": "eJdXvjRhwFo"
+      "1:1": "eJdXvjRhwFo",
+      "1:2": "Iar1CSHcWLM"
     }
   },
   {
@@ -365,7 +382,8 @@ const youtubeSeries = [
       "tt8961058"
     ],
     "episodes": {
-      "1:1": "SANZ8eSwlpY"
+      "1:1": "SANZ8eSwlpY",
+      "1:2": "inh3q9LFxeY"
     }
   },
   {
@@ -375,7 +393,8 @@ const youtubeSeries = [
       "tt2544148"
     ],
     "episodes": {
-      "1:1": "A5-G680m9To"
+      "1:1": "A5-G680m9To",
+      "1:2": "094MRpwnlYQ"
     }
   },
   {
@@ -385,7 +404,8 @@ const youtubeSeries = [
       "tt22728026"
     ],
     "episodes": {
-      "1:1": "zc2JC39pc-Q"
+      "1:1": "zc2JC39pc-Q",
+      "1:2": "24NRKNlqqjQ"
     }
   },
   {
@@ -395,7 +415,8 @@ const youtubeSeries = [
       "tt0286365"
     ],
     "episodes": {
-      "1:1": "ZTE4JobzmuE"
+      "1:1": "ZTE4JobzmuE",
+      "1:2": "jArsKdwO3Bw"
     }
   },
   {
@@ -405,7 +426,8 @@ const youtubeSeries = [
       "tt1162451"
     ],
     "episodes": {
-      "1:1": "V1lVYPoJ-K8"
+      "1:1": "V1lVYPoJ-K8",
+      "1:2": "E2NQ7iqCoRs"
     }
   },
   {
@@ -415,7 +437,8 @@ const youtubeSeries = [
       "tt1592293"
     ],
     "episodes": {
-      "1:1": "21bw7dHqAYY"
+      "1:1": "21bw7dHqAYY",
+      "1:2": "rPUexMG8iOE"
     }
   },
   {
@@ -425,7 +448,8 @@ const youtubeSeries = [
       "tt0875103"
     ],
     "episodes": {
-      "1:1": "jurHPVXvE5k"
+      "1:1": "jurHPVXvE5k",
+      "1:2": "PtXvoc9Fs8g"
     }
   },
   {
@@ -435,7 +459,8 @@ const youtubeSeries = [
       "tt1784141"
     ],
     "episodes": {
-      "1:1": "-uoNSJpPABA"
+      "1:1": "-uoNSJpPABA",
+      "1:2": "GLdlTf2FE30"
     }
   },
   {
@@ -445,7 +470,8 @@ const youtubeSeries = [
       "tt0421297"
     ],
     "episodes": {
-      "1:1": "_aO2XbsPtCE"
+      "1:1": "_aO2XbsPtCE",
+      "1:2": "0waG7yB1sXo"
     }
   },
   {
@@ -455,7 +481,8 @@ const youtubeSeries = [
       "tt0303449"
     ],
     "episodes": {
-      "1:1": "yPloM-5c9-8"
+      "1:1": "yPloM-5c9-8",
+      "1:2": "xujNQL_4LIE"
     }
   },
   {
@@ -465,7 +492,8 @@ const youtubeSeries = [
       "tt0846614"
     ],
     "episodes": {
-      "1:1": "5t9ElfaLpig"
+      "1:1": "5t9ElfaLpig",
+      "1:2": "Os9ExrAL_Cc"
     }
   },
   {
@@ -486,7 +514,8 @@ const youtubeSeries = [
       "tt0449138"
     ],
     "episodes": {
-      "1:1": "vREFnqDjQSI"
+      "1:1": "vREFnqDjQSI",
+      "1:2": "_qGZtAm793w"
     }
   },
   {
@@ -506,7 +535,8 @@ const youtubeSeries = [
       "tt13562418"
     ],
     "episodes": {
-      "1:1": "783_OJX_1fA"
+      "1:1": "783_OJX_1fA",
+      "1:2": "Q5CUmF_-_ik"
     }
   },
   {
@@ -516,7 +546,8 @@ const youtubeSeries = [
       "tt1018501"
     ],
     "episodes": {
-      "1:1": "c9YySJu39_k"
+      "1:1": "c9YySJu39_k",
+      "1:2": "9MqgtnZGCy0"
     }
   },
   {
@@ -526,7 +557,8 @@ const youtubeSeries = [
       "tt31323988"
     ],
     "episodes": {
-      "1:1": "S76TuoUjZDg"
+      "1:1": "S76TuoUjZDg",
+      "1:2": "2MGCE6BAk6U"
     }
   },
   {
@@ -7070,7 +7102,8 @@ const youtubeSeries = [
   { ids: ["32836", "tt0845088"], title: "Arka Sokaklar", year: "2006", youtubeChannel: "UCJBBp-6JoqjOeLzTxzol_7A",
     episodes: { "1:1": "TBBRBD8Fudg", "1:2": "JjVOWBu4z48", "1:3": "AF7o7S8TBiQ" } },
   { ids: ["tt2361816"], title: "Seksenler", year: "2012", youtubeChannel: "UCYRPB4TbD2RYHlIQdLgEeYA",
-    episodes: { "1:1": "Wn5piPtkki0" } }
+    episodes: { "1:1": "Wn5piPtkki0",
+      "1:2": "Pc_hznlppHg" } }
 ];
 
 const youtubeMovies = [
