@@ -607,7 +607,8 @@ const youtubeSeries = [
       "1:38": "oLlcxiLqGXw",
       "1:39": "HG7lhV9mJtY",
       "1:41": "ctv7hyd_A6k",
-      "1:42": "W5Bf9uYouZs"
+      "1:42": "W5Bf9uYouZs",
+      "1:40": "WPEUrNDWE7s"
     }
   },
   {
@@ -1075,10 +1076,13 @@ const youtubeSeries = [
     }
   },
   {
-    ids: ["274556","tt34063491"],
-    title: "Uzak Şehir",
-    year: "2024",
-    episodes: {
+    "ids": [
+      "274556",
+      "tt34063491"
+    ],
+    "title": "Uzak Şehir",
+    "year": "2024",
+    "episodes": {
       "1:1": "Tz6J5B0as2Y",
       "1:2": "q4OPU0128os",
       "1:3": "-SoVAxELLwc",
@@ -1152,14 +1156,17 @@ const youtubeSeries = [
       "3:8": "v458hdhiMrU",
       "3:9": "-Krd5vGkHZs",
       "3:10": "ZiLidv3tehw",
-      "3:11": "VX-ouUFkz5M",
-    },
+      "3:11": "VX-ouUFkz5M"
+    }
   },
   {
-    ids: ["95603","tt11093718"],
-    title: "Kuruluş Osman",
-    year: "2019",
-    episodes: {
+    "ids": [
+      "95603",
+      "tt11093718"
+    ],
+    "title": "Kuruluş Osman",
+    "year": "2019",
+    "episodes": {
       "1:1": "0fTJyCTwznM",
       "1:2": "ugLGoSZvuOc",
       "1:3": "1nS6XKd_NXw",
@@ -1353,14 +1360,17 @@ const youtubeSeries = [
       "6:27": "hVji-Ml7NmI",
       "6:28": "Sw3U3fLGscI",
       "6:29": "osvlWZGJ-sc",
-      "6:30": "346i0496yVM",
-    },
+      "6:30": "346i0496yVM"
+    }
   },
   {
-    ids: ["210865","tt21105088"],
-    title: "Yalı Çapkını",
-    year: "2022",
-    episodes: {
+    "ids": [
+      "210865",
+      "tt21105088"
+    ],
+    "title": "Yalı Çapkını",
+    "year": "2022",
+    "episodes": {
       "1:1": "-u_RlLqmopg",
       "1:2": "DehYOOQiLgI",
       "1:3": "60CyQKY3_GU",
@@ -1461,14 +1471,17 @@ const youtubeSeries = [
       "3:25": "Yo8MvCRxboU",
       "3:26": "6_beMXNXCns",
       "3:27": "mNyqWva5x4Q",
-      "3:28": "PSfHi7doXM0",
-    },
+      "3:28": "PSfHi7doXM0"
+    }
   },
   {
-    ids: ["231100", "tt29258720"],
-    title: "Hudutsuz Sevda",
-    year: "2023",
-    episodes: {
+    "ids": [
+      "231100",
+      "tt29258720"
+    ],
+    "title": "Hudutsuz Sevda",
+    "year": "2023",
+    "episodes": {
       "1:1": "h-L_lb_OouU",
       "1:2": "20V_i5HU75Y",
       "1:3": "gH7gjF8A9aA",
@@ -1531,14 +1544,17 @@ const youtubeSeries = [
       "2:26": "YC9AIdV0zmI",
       "2:27": "_oFLAPbTYnA",
       "2:28": "PIQD9LklYKI",
-      "2:29": "_PQiDatVAcg",
-    },
+      "2:29": "_PQiDatVAcg"
+    }
   },
   {
-    ids: ["64535", "tt5175270"],
-    title: "Eşkıya Dünyaya Hükümdar Olmaz",
-    year: "2015",
-    episodes: {
+    "ids": [
+      "64535",
+      "tt5175270"
+    ],
+    "title": "Eşkıya Dünyaya Hükümdar Olmaz",
+    "year": "2015",
+    "episodes": {
       "1:1": "0ocs4QH3Mcc",
       "1:2": "F65G8BhqvHc",
       "1:3": "sFR_BxOu6-Y",
@@ -1737,14 +1753,17 @@ const youtubeSeries = [
       "6:31": "ogNjQ2i--Mg",
       "6:32": "jTizVpdiPa0",
       "6:33": "L19pAn-3aII",
-      "6:34": "hHSROEf3ER8",
-    },
+      "6:34": "hHSROEf3ER8"
+    }
   },
   {
-    ids: ["70788", "tt6536562"],
-    title: "Payitaht Abdülhamid",
-    year: "2017",
-    episodes: {
+    "ids": [
+      "70788",
+      "tt6536562"
+    ],
+    "title": "Payitaht Abdülhamid",
+    "year": "2017",
+    "episodes": {
       "1:1": "kf5USsE6Xq8",
       "1:2": "4QIcBbbPojc",
       "1:3": "ZK9sYnqO2TI",
@@ -1897,14 +1916,16 @@ const youtubeSeries = [
       "5:32": "ZDaVOR9eusE",
       "5:33": "0L9auxAs3lM",
       "5:34": "z6wrRt1iWR0",
-      "5:35": "bjSAVQQU65w",
-    },
+      "5:35": "bjSAVQQU65w"
+    }
   },
   {
-    ids: ["tt4833638"],
-    title: "Yunus Emre: Aşkın Yolculuğu",
-    year: "2015",
-    episodes: {
+    "ids": [
+      "tt4833638"
+    ],
+    "title": "Yunus Emre: Aşkın Yolculuğu",
+    "year": "2015",
+    "episodes": {
       "1:1": "yQvUQQgzwCw",
       "1:2": "Pf16mPpKJsY",
       "1:3": "PWLRQMUuE28",
@@ -1948,14 +1969,17 @@ const youtubeSeries = [
       "2:19": "9ZFHpJmU7v8",
       "2:20": "C-ZekaLBC0I",
       "2:21": "hjOEanzFl9Q",
-      "2:22": "pPhrNSxbNeM",
-    },
+      "2:22": "pPhrNSxbNeM"
+    }
   },
   {
-    ids: ["48385", "tt0424596"],
-    title: "Aliye",
-    year: "2004",
-    episodes: {
+    "ids": [
+      "48385",
+      "tt0424596"
+    ],
+    "title": "Aliye",
+    "year": "2004",
+    "episodes": {
       "1:1": "-tToA_sGG48",
       "1:2": "LGmst2FK4zo",
       "1:3": "N6k86ToZwsc",
@@ -2031,14 +2055,17 @@ const youtubeSeries = [
       "3:2": "UyFbV-_2004",
       "3:3": "TDbMBXKpE1E",
       "3:4": "RlekA4PbC6A",
-      "3:5": "N8wO3XcrLlE",
-    },
+      "3:5": "N8wO3XcrLlE"
+    }
   },
   {
-    ids: ["66017", "tt4320258"],
-    title: "Diriliş: Ertuğrul",
-    year: "2014",
-    episodes: {
+    "ids": [
+      "66017",
+      "tt4320258"
+    ],
+    "title": "Diriliş: Ertuğrul",
+    "year": "2014",
+    "episodes": {
       "1:1": "3yjO6yfHLcU",
       "1:2": "aHj-PkwU4ps",
       "1:3": "7rlde3OSlKY",
@@ -2188,14 +2215,17 @@ const youtubeSeries = [
       "5:26": "eijZPI8p9vc",
       "5:27": "9lOZ7e-iQ9o",
       "5:28": "glefGFprZmE",
-      "5:29": "g2iBGZASkEY",
-    },
+      "5:29": "g2iBGZASkEY"
+    }
   },
   {
-    ids: ["32090", "tt1478022"],
-    title: "Geniş Aile",
-    year: "2009",
-    episodes: {
+    "ids": [
+      "32090",
+      "tt1478022"
+    ],
+    "title": "Geniş Aile",
+    "year": "2009",
+    "episodes": {
       "1:1": "gjr-X2vFNaQ",
       "1:2": "f8xvhGiFo1A",
       "1:3": "17IooSB5alo",
@@ -2303,14 +2333,16 @@ const youtubeSeries = [
       "3:10": "_zgd1r_-ITo",
       "3:11": "I7-iDxfjOz4",
       "3:12": "2wZZZUXFQZw",
-      "3:13": "80lkQFkkl3E",
-    },
+      "3:13": "80lkQFkkl3E"
+    }
   },
   {
-    ids: ["tt1171658"],
-    title: "Dudaktan Kalbe",
-    year: "2007",
-    episodes: {
+    "ids": [
+      "tt1171658"
+    ],
+    "title": "Dudaktan Kalbe",
+    "year": "2007",
+    "episodes": {
       "1:1": "wR5ppGjEa_8",
       "1:2": "NYJLrIo7M4E",
       "1:3": "gWbwbJhlD38",
@@ -2385,14 +2417,16 @@ const youtubeSeries = [
       "2:31": "DjdD5_e_MOE",
       "2:32": "5IvzIRhbrOM",
       "2:33": "UkYro5tz28o",
-      "2:34": "UVKIAgeRZ3E",
-    },
+      "2:34": "UVKIAgeRZ3E"
+    }
   },
   {
-    ids: ["tt1826071"],
-    title: "Adını Feriha Koydum",
-    year: "2011",
-    episodes: {
+    "ids": [
+      "tt1826071"
+    ],
+    "title": "Adını Feriha Koydum",
+    "year": "2011",
+    "episodes": {
       "1:1": "SZqtHBFmP04",
       "1:2": "Jdchy9yuyJA",
       "1:3": "kQ4Y6EPljPk",
@@ -2472,14 +2506,16 @@ const youtubeSeries = [
       "3:10": "ZDFjstPa2g4",
       "3:11": "QJ3lQkN1O_k",
       "3:12": "nc7owmrMRcw",
-      "3:13": "1yAZ9Wx4viw",
-    },
+      "3:13": "1yAZ9Wx4viw"
+    }
   },
   {
-    ids: ["tt0441924"],
-    title: "Gümüş",
-    year: "2005",
-    episodes: {
+    "ids": [
+      "tt0441924"
+    ],
+    "title": "Gümüş",
+    "year": "2005",
+    "episodes": {
       "1:1": "VDr3AfExt2w",
       "1:2": "pSfFbvXceX0",
       "1:3": "Ty54D5thc3k",
@@ -2579,14 +2615,16 @@ const youtubeSeries = [
       "3:36": "_7XDYDWZ-8A",
       "3:37": "9oHticSpdgA",
       "3:38": "prbdSRFXzx4",
-      "3:39": "21shen7zaME",
-    },
+      "3:39": "21shen7zaME"
+    }
   },
   {
-    ids: ["tt3467380"],
-    title: "Kurt Seyit ve Şura",
-    year: "2014",
-    episodes: {
+    "ids": [
+      "tt3467380"
+    ],
+    "title": "Kurt Seyit ve Şura",
+    "year": "2014",
+    "episodes": {
       "1:1": "WeBrKH9Tcuo",
       "1:2": "D1n9uI9AGEU",
       "1:3": "VHXUQZ3hbro",
@@ -2607,14 +2645,16 @@ const youtubeSeries = [
       "2:5": "panDbLntEYs",
       "2:6": "_wh0qlFzNFw",
       "2:7": "9d6YPu1Z6SU",
-      "2:8": "2DUI6joCPcM",
-    },
+      "2:8": "2DUI6joCPcM"
+    }
   },
   {
-    ids: ["tt0905574"],
-    title: "Binbir Gece",
-    year: "2006",
-    episodes: {
+    "ids": [
+      "tt0905574"
+    ],
+    "title": "Binbir Gece",
+    "year": "2006",
+    "episodes": {
       "1:1": "bLigMefSslU",
       "1:2": "RmqPvOIuXcI",
       "1:3": "lQAXU9J7Qmo",
@@ -2704,14 +2744,16 @@ const youtubeSeries = [
       "3:21": "CqCWtKRgt4A",
       "3:22": "IpvdrpoCt-k",
       "3:23": "0_df0_OCjG4",
-      "3:24": "zogFl5NreIk",
-    },
+      "3:24": "zogFl5NreIk"
+    }
   },
   {
-    ids: ["tt1783916"],
-    title: "Fatmagül'ün Suçu Ne?",
-    year: "2010",
-    episodes: {
+    "ids": [
+      "tt1783916"
+    ],
+    "title": "Fatmagül'ün Suçu Ne?",
+    "year": "2010",
+    "episodes": {
       "1:1": "YCdLPBzOWKk",
       "1:2": "abQkKq-7Y48",
       "1:3": "Nlhaz3h8DME",
@@ -2791,14 +2833,16 @@ const youtubeSeries = [
       "2:38": "o03nOXDJdag",
       "2:39": "N5Hm_fG2FiI",
       "2:40": "PEg8c4_1heA",
-      "2:41": "S6T42zUoK_k",
-    },
+      "2:41": "S6T42zUoK_k"
+    }
   },
   {
-    ids: ["tt2735484"],
-    title: "Karagül",
-    year: "2013",
-    episodes: {
+    "ids": [
+      "tt2735484"
+    ],
+    "title": "Karagül",
+    "year": "2013",
+    "episodes": {
       "1:1": "2_NZLpcnBPc",
       "1:2": "xf2-T6E5c6c",
       "1:3": "vjUUec4FrFs",
@@ -2923,14 +2967,16 @@ const youtubeSeries = [
       "4:36": "JEIoXTGPXWQ",
       "4:37": "KjRZA6_PNXw",
       "4:38": "iMzRnP1w92E",
-      "4:39": "JA5A5A2Xvxc",
-    },
+      "4:39": "JA5A5A2Xvxc"
+    }
   },
   {
-    ids: ["tt3565486"],
-    title: "Kara Para Aşk",
-    year: "2014",
-    episodes: {
+    "ids": [
+      "tt3565486"
+    ],
+    "title": "Kara Para Aşk",
+    "year": "2014",
+    "episodes": {
       "1:1": "Qx8TgL-a7As",
       "1:2": "9hZeEtJ5i28",
       "1:3": "C5ywlESY85k",
@@ -2984,14 +3030,16 @@ const youtubeSeries = [
       "2:38": "-qjlFPnOC9g",
       "2:39": "uHiPh_PkpeE",
       "2:40": "uE9kAxiqTrI",
-      "2:41": "k6-w1BtebHk",
-    },
+      "2:41": "k6-w1BtebHk"
+    }
   },
   {
-    ids: ["tt0421488"],
-    title: "Zerda",
-    year: "2002",
-    episodes: {
+    "ids": [
+      "tt0421488"
+    ],
+    "title": "Zerda",
+    "year": "2002",
+    "episodes": {
       "1:1": "UyNbrrr-m4Q",
       "1:2": "kuApbRf4KG4",
       "1:3": "ds_mEOV4pPE",
@@ -3059,14 +3107,16 @@ const youtubeSeries = [
       "2:32": "8YZsNH9T4Ow",
       "2:33": "X4pRkhD1jsE",
       "2:34": "Zndk4Rtecb0",
-      "2:35": "o_FvwI3djpg",
-    },
+      "2:35": "o_FvwI3djpg"
+    }
   },
   {
-    ids: ["tt5133998"],
-    title: "Kara Sevda",
-    year: "2015",
-    episodes: {
+    "ids": [
+      "tt5133998"
+    ],
+    "title": "Kara Sevda",
+    "year": "2015",
+    "episodes": {
       "1:1": "fVNzewv_2oU",
       "1:2": "A3KHTmZWEdE",
       "1:3": "BMIFQgAkio0",
@@ -3140,14 +3190,17 @@ const youtubeSeries = [
       "2:36": "LryPji1Db8I",
       "2:37": "x4P-q-YvtDk",
       "2:38": "h_dukq6PAl8",
-      "2:39": "WqIhXMMbyLg",
-    },
+      "2:39": "WqIhXMMbyLg"
+    }
   },
   {
-    ids: ["48311", "tt0287285"],
-    title: "Yılan Hikayesi",
-    year: "1999",
-    episodes: {
+    "ids": [
+      "48311",
+      "tt0287285"
+    ],
+    "title": "Yılan Hikayesi",
+    "year": "1999",
+    "episodes": {
       "1:1": "gBzqkwsx5KQ",
       "1:2": "uEEEhvQVLpQ",
       "1:3": "BKJt8jYS8IY",
@@ -3237,14 +3290,16 @@ const youtubeSeries = [
       "3:23": "oWdE6dTeTKg",
       "3:24": "spJ08njs9Ak",
       "3:25": "nhhUmlLZTaY",
-      "3:26": "Dv8BsQ0z-Vw",
-    },
+      "3:26": "Dv8BsQ0z-Vw"
+    }
   },
   {
-    ids: ["tt3150586"],
-    title: "Medcezir",
-    year: "2013",
-    episodes: {
+    "ids": [
+      "tt3150586"
+    ],
+    "title": "Medcezir",
+    "year": "2013",
+    "episodes": {
       "1:1": "a2R24zBsXEA",
       "1:2": "Lpx2QpZAJoQ",
       "1:3": "dy1GGrn525w",
@@ -3321,14 +3376,16 @@ const youtubeSeries = [
       "2:36": "4PUgt-TrqRk",
       "2:37": "hW5qHysCLXw",
       "2:38": "OBt3UyctqTk",
-      "2:39": "_dmbUl5Qmw0",
-    },
+      "2:39": "_dmbUl5Qmw0"
+    }
   },
   {
-    ids: ["tt2184065"],
-    title: "Yalan Dünya",
-    year: "2012",
-    episodes: {
+    "ids": [
+      "tt2184065"
+    ],
+    "title": "Yalan Dünya",
+    "year": "2012",
+    "episodes": {
       "1:1": "9B33MeXdtec",
       "1:2": "s-3hua2PV_s",
       "1:3": "UjW6tV3YUH8",
@@ -3418,14 +3475,16 @@ const youtubeSeries = [
       "4:1": "5EosPNN8RIg",
       "4:2": "kwhd84FaHhs",
       "4:3": "IL5HS4EP35E",
-      "4:4": "5WrjuX8ZHg4",
-    },
+      "4:4": "5WrjuX8ZHg4"
+    }
   },
   {
-    ids: ["tt6051216"],
-    title: "İçerde",
-    year: "2016",
-    episodes: {
+    "ids": [
+      "tt6051216"
+    ],
+    "title": "İçerde",
+    "year": "2016",
+    "episodes": {
       "1:1": "M4eee1pZFqg",
       "1:2": "p-WpSNegBBo",
       "1:3": "MPKzDDtwrmU",
@@ -3464,14 +3523,16 @@ const youtubeSeries = [
       "1:36": "X6nNJQ_sitU",
       "1:37": "EOqra7546Kk",
       "1:38": "kP2k31jviU8",
-      "1:39": "-arMU8xidEI",
-    },
+      "1:39": "-arMU8xidEI"
+    }
   },
   {
-    ids: ["tt4824056"],
-    title: "Ulan İstanbul",
-    year: "2014",
-    episodes: {
+    "ids": [
+      "tt4824056"
+    ],
+    "title": "Ulan İstanbul",
+    "year": "2014",
+    "episodes": {
       "1:1": "BYF8Vxi2PqY",
       "1:2": "8Hq0D2XFgmk",
       "1:3": "dmvS4_9VY9k",
@@ -3510,14 +3571,16 @@ const youtubeSeries = [
       "1:36": "QG1MyadMmUw",
       "1:37": "arjM8hfIctM",
       "1:38": "W4D1CLY48zE",
-      "1:39": "KhJBDe7v3jo",
-    },
+      "1:39": "KhJBDe7v3jo"
+    }
   },
   {
-    ids: ["tt0856757"],
-    title: "Yaprak Dökümü",
-    year: "2006",
-    episodes: {
+    "ids": [
+      "tt0856757"
+    ],
+    "title": "Yaprak Dökümü",
+    "year": "2006",
+    "episodes": {
       "1:1": "IB7OroiVwPA",
       "1:2": "AT4v4nn5Co8",
       "1:3": "xGe1vO40XM0",
@@ -3691,14 +3754,16 @@ const youtubeSeries = [
       "5:12": "aFTwpZwyHXs",
       "5:13": "DAR4O5P2C5Y",
       "5:14": "ycw1hmrUjbI",
-      "5:15": "lxCejToTJxo",
-    },
+      "5:15": "lxCejToTJxo"
+    }
   },
   {
-    ids: ["tt2311454"],
-    title: "Üsküdar'a Giderken",
-    year: "2011",
-    episodes: {
+    "ids": [
+      "tt2311454"
+    ],
+    "title": "Üsküdar'a Giderken",
+    "year": "2011",
+    "episodes": {
       "1:1": "iPFDdN8mAcg",
       "1:2": "hgyjqC0ELMI",
       "1:3": "U2d2E1yA5HQ",
@@ -3711,14 +3776,16 @@ const youtubeSeries = [
       "1:10": "LjXNcBi-I3E",
       "1:11": "BLfi9U4U9Uk",
       "1:12": "sTa5sMZA1C8",
-      "1:13": "Js9QnOPlm9M",
-    },
+      "1:13": "Js9QnOPlm9M"
+    }
   },
   {
-    ids: ["tt6132720"],
-    title: "Vatanım Sensin",
-    year: "2016",
-    episodes: {
+    "ids": [
+      "tt6132720"
+    ],
+    "title": "Vatanım Sensin",
+    "year": "2016",
+    "episodes": {
       "1:1": "XA2HjEnDhBw",
       "1:2": "HrUjzim3rqQ",
       "1:3": "jPktENSCc34",
@@ -3777,14 +3844,17 @@ const youtubeSeries = [
       "2:25": "MM_pnMP8TfQ",
       "2:26": "WpaCgzsnlqU",
       "2:27": "K8eN8g7x1fw",
-      "2:28": "dKVmS08dcuc",
-    },
+      "2:28": "dKVmS08dcuc"
+    }
   },
   {
-    ids: ["194990", "tt0940634"],
-    title: "Köprü",
-    year: "2006",
-    episodes: {
+    "ids": [
+      "194990",
+      "tt0940634"
+    ],
+    "title": "Köprü",
+    "year": "2006",
+    "episodes": {
       "1:1": "rJKOk8X_EWk",
       "1:2": "x8IYeqPedQg",
       "1:3": "RJ8mWzMGxYU",
@@ -3849,14 +3919,16 @@ const youtubeSeries = [
       "2:28": "S1PwCrMbi4w",
       "2:29": "KkqOhkekKW4",
       "2:30": "SYmxyJze324",
-      "2:31": "n0Ncqd5ce00",
-    },
+      "2:31": "n0Ncqd5ce00"
+    }
   },
   {
-    ids: ["tt5165824"],
-    title: "Benim Adım Gültepe",
-    year: "2014",
-    episodes: {
+    "ids": [
+      "tt5165824"
+    ],
+    "title": "Benim Adım Gültepe",
+    "year": "2014",
+    "episodes": {
       "1:1": "QyTSadad2Tk",
       "1:2": "ilK3huc963s",
       "1:3": "QtQgMkNNQUE",
@@ -3864,14 +3936,17 @@ const youtubeSeries = [
       "1:5": "HQhIeB2BmQM",
       "1:6": "loRRSmj3FOU",
       "1:7": "FfLGL5Jp7aM",
-      "1:8": "R4sXVAMhA1g",
-    },
+      "1:8": "R4sXVAMhA1g"
+    }
   },
   {
-    ids: ["15576", "tt0434735"],
-    title: "Yabancı Damat",
-    year: "2004",
-    episodes: {
+    "ids": [
+      "15576",
+      "tt0434735"
+    ],
+    "title": "Yabancı Damat",
+    "year": "2004",
+    "episodes": {
       "1:1": "qZ_9w4U2I14",
       "1:2": "_jEyskjCWgg",
       "1:3": "WKg4Q04OW0A",
@@ -3977,14 +4052,16 @@ const youtubeSeries = [
       "3:34": "Quuu2rH7LQM",
       "3:35": "34I_wUgPIAs",
       "3:36": "OBb_m_-0-pY",
-      "3:37": "A6ZdZi9PSTQ",
-    },
+      "3:37": "A6ZdZi9PSTQ"
+    }
   },
   {
-    ids: ["tt0878797"],
-    title: "Hatırla Sevgili",
-    year: "2006",
-    episodes: {
+    "ids": [
+      "tt0878797"
+    ],
+    "title": "Hatırla Sevgili",
+    "year": "2006",
+    "episodes": {
       "1:1": "6-yIOAOxZPw",
       "1:2": "zuxU4FXl6mo",
       "1:3": "YPnshUk9t6Q",
@@ -4052,14 +4129,16 @@ const youtubeSeries = [
       "2:34": "eujCD5gLAj4",
       "2:35": "zBJM8JAlpGM",
       "2:36": "KVrFGT9zb3U",
-      "2:37": "f7FSk5rvpXA",
-    },
+      "2:37": "f7FSk5rvpXA"
+    }
   },
   {
-    ids: ["49524"],
-    title: "Şaşıfelek Çıkmazı",
-    year: "1996",
-    episodes: {
+    "ids": [
+      "49524"
+    ],
+    "title": "Şaşıfelek Çıkmazı",
+    "year": "1996",
+    "episodes": {
       "1:1": "5arc7HmP4Tc",
       "1:2": "wQLr4HTCUfA",
       "1:3": "JGE-DUq5jf4",
@@ -4122,14 +4201,16 @@ const youtubeSeries = [
       "4:23": "zHAIETYs31A",
       "4:24": "DFQqdEsgWtw",
       "4:25": "5evEu4m5RhM",
-      "4:26": "fL0BBOdwIrg",
-    },
+      "4:26": "fL0BBOdwIrg"
+    }
   },
   {
-    ids: ["tt0318900"],
-    title: "Kartallar Yüksek Uçar",
-    year: "1983",
-    episodes: {
+    "ids": [
+      "tt0318900"
+    ],
+    "title": "Kartallar Yüksek Uçar",
+    "year": "1983",
+    "episodes": {
       "1:1": "LeAYFoXk1vY",
       "1:2": "Aqvo_W7_3Zs",
       "1:3": "TEW26BV7kAE",
@@ -4141,14 +4222,16 @@ const youtubeSeries = [
       "1:9": "_iraH9ChTs0",
       "1:10": "Dhgt856qjBc",
       "1:11": "c7Qg_aYVIg0",
-      "1:12": "z75_HhbS9O0",
-    },
+      "1:12": "z75_HhbS9O0"
+    }
   },
   {
-    ids: ["tt0426672"],
-    title: "Deli Yürek",
-    year: "1998",
-    episodes: {
+    "ids": [
+      "tt0426672"
+    ],
+    "title": "Deli Yürek",
+    "year": "1998",
+    "episodes": {
       "1:1": "Y_AIVXjciek",
       "1:2": "sMfz_ZmUxLQ",
       "1:3": "obuyib0FSX0",
@@ -4261,14 +4344,16 @@ const youtubeSeries = [
       "4:20": "_34x9Ba9guw",
       "4:21": "50EASWSZjKg",
       "4:22": "DgHFbvR1ZVQ",
-      "4:23": "eHof0OLdqK0",
-    },
+      "4:23": "eHof0OLdqK0"
+    }
   },
   {
-    ids: ["tt7535994"],
-    title: "Ufak Tefek Cinayetler",
-    year: "2017",
-    episodes: {
+    "ids": [
+      "tt7535994"
+    ],
+    "title": "Ufak Tefek Cinayetler",
+    "year": "2017",
+    "episodes": {
       "1:1": "2_79QZn1t2k",
       "1:2": "0mI-tGp1HJw",
       "1:3": "I2s-bKbvrps",
@@ -4313,14 +4398,16 @@ const youtubeSeries = [
       "2:10": "9l9md_mVKn4",
       "2:11": "IIY6Sfl43P8",
       "2:12": "z7IhL_XkgW8",
-      "2:13": "08w64H_Xx5U",
-    },
+      "2:13": "08w64H_Xx5U"
+    }
   },
   {
-    ids: ["tt4343334"],
-    title: "Poyraz Karayel",
-    year: "2015",
-    episodes: {
+    "ids": [
+      "tt4343334"
+    ],
+    "title": "Poyraz Karayel",
+    "year": "2015",
+    "episodes": {
       "1:1": "TqJd3E9g_SM",
       "1:2": "k16JwQtScAM",
       "1:3": "8wRat2PyFhA",
@@ -4402,28 +4489,33 @@ const youtubeSeries = [
       "3:17": "xVYkebs8uC0",
       "3:18": "uUKmRCn7Cgk",
       "3:19": "UMlqCJdzKVk",
-      "3:20": "YGCLAL0mDRs",
-    },
+      "3:20": "YGCLAL0mDRs"
+    }
   },
   {
-    ids: ["tt4574508"],
-    title: "Mutlu Ol Yeter",
-    year: "2015",
-    episodes: {
+    "ids": [
+      "tt4574508"
+    ],
+    "title": "Mutlu Ol Yeter",
+    "year": "2015",
+    "episodes": {
       "1:1": "dQLQ5F-KrT8",
       "1:2": "yOcSYARuPG8",
       "1:3": "6feV3dM--ig",
       "1:4": "HA6Vgvwb7Eo",
       "1:5": "a3itbErQUm8",
       "1:6": "NYm4iMF8w2I",
-      "1:7": "9OcpaqVHxWI",
-    },
+      "1:7": "9OcpaqVHxWI"
+    }
   },
   {
-    ids: ["44878", "tt2275071"],
-    title: "Suskunlar",
-    year: "2012",
-    episodes: {
+    "ids": [
+      "44878",
+      "tt2275071"
+    ],
+    "title": "Suskunlar",
+    "year": "2012",
+    "episodes": {
       "1:1": "qjI8ABmLYMA",
       "1:2": "rJJS05qybiY",
       "1:3": "4E2Bn9vqv3s",
@@ -4451,14 +4543,17 @@ const youtubeSeries = [
       "2:9": "-WlbL5hyGEA",
       "2:10": "03sL6livNfU",
       "2:11": "i0DEmNoLILE",
-      "2:12": "hT2xVOa2PXQ",
-    },
+      "2:12": "hT2xVOa2PXQ"
+    }
   },
   {
-    ids: ["49490", "tt0381809"],
-    title: "Sultan Makamı",
-    year: "2003",
-    episodes: {
+    "ids": [
+      "49490",
+      "tt0381809"
+    ],
+    "title": "Sultan Makamı",
+    "year": "2003",
+    "episodes": {
       "1:1": "cQiZriPlXI0",
       "1:2": "w7j3HcKrJXw",
       "1:3": "4SXyJ6TtD40",
@@ -4484,14 +4579,17 @@ const youtubeSeries = [
       "1:23": "sDfhywpx42c",
       "1:24": "So-Eggdr81M",
       "1:25": "QyRLsOr1lGE",
-      "1:26": "nw7lA_sWF1k",
-    },
+      "1:26": "nw7lA_sWF1k"
+    }
   },
   {
-    ids: ["49882", "tt0421355"],
-    title: "Gülbeyaz",
-    year: "2002",
-    episodes: {
+    "ids": [
+      "49882",
+      "tt0421355"
+    ],
+    "title": "Gülbeyaz",
+    "year": "2002",
+    "episodes": {
       "1:1": "rC6Jcn_V0js",
       "1:2": "Tllq-Qpvnos",
       "1:3": "c1eTx-DQkFQ",
@@ -4517,14 +4615,17 @@ const youtubeSeries = [
       "1:23": "SphSfVZMcMg",
       "1:24": "py-7CRyI-qg",
       "1:25": "tpwSxGU29aQ",
-      "1:26": "bCdbA-xm5KU",
-    },
+      "1:26": "bCdbA-xm5KU"
+    }
   },
   {
-    ids: ["74823", "tt7431994"],
-    title: "Çukur",
-    year: "2017",
-    episodes: {
+    "ids": [
+      "74823",
+      "tt7431994"
+    ],
+    "title": "Çukur",
+    "year": "2017",
+    "episodes": {
       "1:1": "XbT2CoTGBdo",
       "1:2": "qA6hUvQGXo4",
       "1:3": "VIYv1CQcmjw",
@@ -4655,14 +4756,17 @@ const youtubeSeries = [
       "4:36": "LjpuHrS3eb0",
       "4:37": "7TY3ylMQ2z4",
       "4:38": "CVi9tS-r21Y",
-      "4:39": "zCvrw_Ky4YE",
-    },
+      "4:39": "zCvrw_Ky4YE"
+    }
   },
   {
-    ids: ["66154", "tt3296782"],
-    title: "Ben de Özledim",
-    year: "2013",
-    episodes: {
+    "ids": [
+      "66154",
+      "tt3296782"
+    ],
+    "title": "Ben de Özledim",
+    "year": "2013",
+    "episodes": {
       "1:1": "XifibeGIH7g",
       "1:2": "OMGcqb8myTg",
       "1:3": "d8c4ZDgwTM8",
@@ -4675,14 +4779,17 @@ const youtubeSeries = [
       "1:10": "YwpHhuCOlX0",
       "1:11": "2g8gwais16g",
       "1:12": "gkApdLwah4E",
-      "1:13": "aumBnxIdbxE",
-    },
+      "1:13": "aumBnxIdbxE"
+    }
   },
   {
-    ids: ["52508", "tt1496198"],
-    title: "Sıdıka",
-    year: "1997",
-    episodes: {
+    "ids": [
+      "52508",
+      "tt1496198"
+    ],
+    "title": "Sıdıka",
+    "year": "1997",
+    "episodes": {
       "1:1": "AOUJpfs3kfA",
       "1:2": "Pze7Dp0rvRE",
       "1:3": "ywdHh_5V8oI",
@@ -4780,14 +4887,17 @@ const youtubeSeries = [
       "3:9": "HtLHOVg_NBc",
       "3:10": "YvdDSAqHfZo",
       "3:11": "-1_kE0N8kl8",
-      "3:12": "kbHTHjlaYgE",
-    },
+      "3:12": "kbHTHjlaYgE"
+    }
   },
   {
-    ids: ["50012", "tt1616295"],
-    title: "Kaygısızlar",
-    year: "1994",
-    episodes: {
+    "ids": [
+      "50012",
+      "tt1616295"
+    ],
+    "title": "Kaygısızlar",
+    "year": "1994",
+    "episodes": {
       "1:1": "m22q0-3CYaU",
       "1:2": "DWVMfeD5Wwc",
       "1:3": "w6rjt3A-e2Y",
@@ -4800,14 +4910,17 @@ const youtubeSeries = [
       "1:10": "-SSG6RxI9Yc",
       "1:11": "4CmfGZ2zSms",
       "1:12": "ZJNG8t3mtUw",
-      "1:13": "R-oPo-m5x_Q",
-    },
+      "1:13": "R-oPo-m5x_Q"
+    }
   },
   {
-    ids: ["32107", "tt0365980"],
-    title: "Asmalı Konak",
-    year: "2002",
-    episodes: {
+    "ids": [
+      "32107",
+      "tt0365980"
+    ],
+    "title": "Asmalı Konak",
+    "year": "2002",
+    "episodes": {
       "1:1": "-aiwrmihGbo",
       "1:2": "C3FO-y-Ibs4",
       "1:3": "SS3YFML1jBk",
@@ -4861,14 +4974,17 @@ const youtubeSeries = [
       "2:35": "_BPDwEmrlIw",
       "2:36": "Zb3IFt7XeL0",
       "2:37": "9vaqGFaTWoE",
-      "2:38": "yi0UIrLl69Q",
-    },
+      "2:38": "yi0UIrLl69Q"
+    }
   },
   {
-    ids: ["42099", "tt2050064"],
-    title: "Kuzey Güney",
-    year: "2011",
-    episodes: {
+    "ids": [
+      "42099",
+      "tt2050064"
+    ],
+    "title": "Kuzey Güney",
+    "year": "2011",
+    "episodes": {
       "1:1": "YjEfvVX-V9c",
       "1:2": "uPJ_O1j94Jw",
       "1:3": "Deeh0NI6r1s",
@@ -4948,14 +5064,17 @@ const youtubeSeries = [
       "2:37": "rZtXNP8PGhU",
       "2:38": "ijlwjp9H1q0",
       "2:39": "qrfixMCD3qA",
-      "2:40": "BOaJgN0oXxc",
-    },
+      "2:40": "BOaJgN0oXxc"
+    }
   },
   {
-    ids: ["49527", "tt0424754"],
-    title: "Çemberimde Gül Oya",
-    year: "2004",
-    episodes: {
+    "ids": [
+      "49527",
+      "tt0424754"
+    ],
+    "title": "Çemberimde Gül Oya",
+    "year": "2004",
+    "episodes": {
       "1:1": "5Hs5vLVQ1cg",
       "1:2": "UP7MF9S9mW8",
       "1:3": "stZi8UB4qmQ",
@@ -4995,14 +5114,17 @@ const youtubeSeries = [
       "1:37": "7mYZUHER82U",
       "1:38": "jrLGgqjYFsM",
       "1:39": "H_K660I5M48",
-      "1:40": "AeRHunEyoyU",
-    },
+      "1:40": "AeRHunEyoyU"
+    }
   },
   {
-    ids: ["48273", "tt0992966"],
-    title: "Yedi Numara",
-    year: "2000",
-    episodes: {
+    "ids": [
+      "48273",
+      "tt0992966"
+    ],
+    "title": "Yedi Numara",
+    "year": "2000",
+    "episodes": {
       "1:1": "ChS5CcxbXlc",
       "1:2": "PWFKYZ9cbis",
       "1:3": "c6-nkNe2W2I",
@@ -5093,14 +5215,17 @@ const youtubeSeries = [
       "3:13": "pDhEumxc9Qk",
       "3:14": "vLn9ocER4Jk",
       "3:16": "TtlLaI_6YWc",
-      "3:17": "Mvmga2Lj6Bg",
-    },
+      "3:17": "Mvmga2Lj6Bg"
+    }
   },
   {
-    ids: ["42875", "tt1173202"],
-    title: "Elveda Rumeli",
-    year: "2007",
-    episodes: {
+    "ids": [
+      "42875",
+      "tt1173202"
+    ],
+    "title": "Elveda Rumeli",
+    "year": "2007",
+    "episodes": {
       "1:1": "7wLaXylMt80",
       "1:2": "rEyyrwpGXAc",
       "1:3": "TejiYjV4WfE",
@@ -5183,14 +5308,17 @@ const youtubeSeries = [
       "3:3": "7Kzz2Jztwz0",
       "3:4": "nn2OrEkgqpg",
       "3:5": "fnjNsQ3EVuA",
-      "3:6": "1-eW6RqxSlo",
-    },
+      "3:6": "1-eW6RqxSlo"
+    }
   },
   {
-    ids: ["78058", "tt7923832"],
-    title: "Avlu",
-    year: "2018",
-    episodes: {
+    "ids": [
+      "78058",
+      "tt7923832"
+    ],
+    "title": "Avlu",
+    "year": "2018",
+    "episodes": {
       "1:1": "v3AxdwEd7lM",
       "1:2": "Nqt85yw38DI",
       "1:3": "q3ZHscN-g4E",
@@ -5234,14 +5362,17 @@ const youtubeSeries = [
       "2:30": "cNIZRbNQSlY",
       "2:31": "YgTIFILcSUY",
       "2:32": "UsAaqSzY-pU",
-      "2:33": "IexZ_oXPSDc",
-    },
+      "2:33": "IexZ_oXPSDc"
+    }
   },
   {
-    ids: ["61516", "tt3671754"],
-    title: "Kardeş Payı",
-    year: "2014",
-    episodes: {
+    "ids": [
+      "61516",
+      "tt3671754"
+    ],
+    "title": "Kardeş Payı",
+    "year": "2014",
+    "episodes": {
       "1:1": "ojkOnefAKKE",
       "1:2": "RDdL13SDFX8",
       "1:3": "-GYrkrEB-Xo",
@@ -5276,14 +5407,17 @@ const youtubeSeries = [
       "2:10": "DkjwDLWM3Ek",
       "2:11": "cmO33kZeOC0",
       "2:12": "WYUsB42PR_g",
-      "2:13": "AvEpFRCi0TU",
-    },
+      "2:13": "AvEpFRCi0TU"
+    }
   },
   {
-    ids: ["48162", "tt2311418"],
-    title: "İşler Güçler",
-    year: "2012",
-    episodes: {
+    "ids": [
+      "48162",
+      "tt2311418"
+    ],
+    "title": "İşler Güçler",
+    "year": "2012",
+    "episodes": {
       "1:1": "_awpSCBUwVU",
       "1:2": "JT_U1i8LhbU",
       "1:3": "MiUenMu8Cv4",
@@ -5324,14 +5458,17 @@ const youtubeSeries = [
       "1:38": "zUWnrkHfzbo",
       "1:39": "8HjXja16MQY",
       "1:40": "QMoIvHLMlSw",
-      "1:41": "xkv2IavXSwk",
-    },
+      "1:41": "xkv2IavXSwk"
+    }
   },
   {
-    ids: ["107075", "tt4312318"],
-    title: "Şeref Meselesi",
-    year: "2014",
-    episodes: {
+    "ids": [
+      "107075",
+      "tt4312318"
+    ],
+    "title": "Şeref Meselesi",
+    "year": "2014",
+    "episodes": {
       "1:1": "Bz4QzcHLgsI",
       "1:2": "fdTTvuIQ7_k",
       "1:3": "7gyxLURSpYo",
@@ -5357,14 +5494,17 @@ const youtubeSeries = [
       "1:23": "lHXdXOQKpIM",
       "1:24": "URHTncEzmjk",
       "1:25": "FHpY6Lr-W1A",
-      "1:26": "VfwKKAl5D_I",
-    },
+      "1:26": "VfwKKAl5D_I"
+    }
   },
   {
-    ids: ["59", "tt0421291"],
-    title: "Avrupa Yakası",
-    year: "2004",
-    episodes: {
+    "ids": [
+      "59",
+      "tt0421291"
+    ],
+    "title": "Avrupa Yakası",
+    "year": "2004",
+    "episodes": {
       "1:1": "FJV36H3Yf0E",
       "1:2": "cdxwxqKUBkQ",
       "1:3": "tV1AjEsVYhM",
@@ -5554,14 +5694,17 @@ const youtubeSeries = [
       "6:25": "vjdxdP-N8dQ",
       "6:26": "jTyB7oTDld4",
       "6:27": "spRHPXr-Fys",
-      "6:28": "R8WBeCCUrEs",
-    },
+      "6:28": "R8WBeCCUrEs"
+    }
   },
   {
-    ids: ["42717", "tt0287883"],
-    title: "Süper Baba",
-    year: "1993",
-    episodes: {
+    "ids": [
+      "42717",
+      "tt0287883"
+    ],
+    "title": "Süper Baba",
+    "year": "1993",
+    "episodes": {
       "1:1": "p3oOogfDAVo",
       "1:3": "REnRobF2seY",
       "1:5": "2EvngsTvfMA",
@@ -5673,14 +5816,17 @@ const youtubeSeries = [
       "4:28": "wzNJOz2eYCQ",
       "4:29": "vZMwfNjXMUs",
       "4:30": "2G0pquZ9ISM",
-      "4:31": "0jXPrVwImTc",
-    },
+      "4:31": "0jXPrVwImTc"
+    }
   },
   {
-    ids: ["43577", "tt2239964"],
-    title: "Acayip Hikayeler",
-    year: "2012",
-    episodes: {
+    "ids": [
+      "43577",
+      "tt2239964"
+    ],
+    "title": "Acayip Hikayeler",
+    "year": "2012",
+    "episodes": {
       "1:1": "zLRTgIGSzrY",
       "1:2": "lxWVvFPsHwU",
       "1:3": "SWduLA3xNeM",
@@ -5691,14 +5837,17 @@ const youtubeSeries = [
       "1:8": "jyR7o1n4NZM",
       "1:9": "2RNkX9Y3h5E",
       "1:10": "oOtrfEDRRa4",
-      "1:11": "vKYLQbwJhuk",
-    },
+      "1:11": "vKYLQbwJhuk"
+    }
   },
   {
-    ids: ["17635", "tt1286677"],
-    title: "Aşk-ı Memnu",
-    year: "2008",
-    episodes: {
+    "ids": [
+      "17635",
+      "tt1286677"
+    ],
+    "title": "Aşk-ı Memnu",
+    "year": "2008",
+    "episodes": {
       "1:1": "v-GYCHAc35Y",
       "1:2": "i-93z21hcxo",
       "1:3": "5JGpxrIpceg",
@@ -5777,14 +5926,17 @@ const youtubeSeries = [
       "2:38": "2mR3HMBZlZQ",
       "2:39": "NY_fViDUZGg",
       "2:40": "WaXuHeephik",
-      "2:41": "8HFs3DjdJBk",
-    },
+      "2:41": "8HFs3DjdJBk"
+    }
   },
   {
-    ids: ["69754", "tt2543258"],
-    title: "Şubat",
-    year: "2012",
-    episodes: {
+    "ids": [
+      "69754",
+      "tt2543258"
+    ],
+    "title": "Şubat",
+    "year": "2012",
+    "episodes": {
       "1:1": "bWYoHwkOlHc",
       "1:2": "wJ-k-qwASRU",
       "1:3": "y2qY9imxB4k",
@@ -5816,14 +5968,17 @@ const youtubeSeries = [
       "1:29": "EPOgqy3wBWY",
       "1:30": "swwBfvGv_gk",
       "1:31": "cujo5Qvw_l8",
-      "1:32": "vnpEQKGaTHU",
-    },
+      "1:32": "vnpEQKGaTHU"
+    }
   },
   {
-    ids: ["48535", "tt0346211"],
-    title: "Bir Demet Tiyatro",
-    year: "1995",
-    episodes: {
+    "ids": [
+      "48535",
+      "tt0346211"
+    ],
+    "title": "Bir Demet Tiyatro",
+    "year": "1995",
+    "episodes": {
       "1:1": "G09w3QlP0sg",
       "1:2": "B68_OvcdygQ",
       "1:3": "Cq9TkHVUsP0",
@@ -5979,14 +6134,17 @@ const youtubeSeries = [
       "8:15": "22css51_CAQ",
       "8:16": "HWknbECE-iA",
       "8:17": "GNTWMWpwDFY",
-      "8:18": "TWbxVKpDVvY",
-    },
+      "8:18": "TWbxVKpDVvY"
+    }
   },
   {
-    ids: ["34587", "tt0421384"],
-    title: "Kurtlar Vadisi",
-    year: "2003",
-    episodes: {
+    "ids": [
+      "34587",
+      "tt0421384"
+    ],
+    "title": "Kurtlar Vadisi",
+    "year": "2003",
+    "episodes": {
       "1:1": "Sb71iNewUJ8",
       "1:2": "cEQ8tAf5RGg",
       "1:3": "6C-j7nZjZqk",
@@ -6083,14 +6241,17 @@ const youtubeSeries = [
       "4:8": "hXZnQihFGvM",
       "4:9": "ls4eHmLgTss",
       "4:10": "yNTZKVBU5W8",
-      "4:11": "3lAYQt_PuN0",
-    },
+      "4:11": "3lAYQt_PuN0"
+    }
   },
   {
-    ids: ["48342", "tt0290995"],
-    title: "Yeditepe İstanbul",
-    year: "2001",
-    episodes: {
+    "ids": [
+      "48342",
+      "tt0290995"
+    ],
+    "title": "Yeditepe İstanbul",
+    "year": "2001",
+    "episodes": {
       "1:1": "XY0XaDzrdLs",
       "1:2": "FxfZWPToVK4",
       "1:3": "MtV-cN3iPLU",
@@ -6137,14 +6298,17 @@ const youtubeSeries = [
       "2:20": "lyDyCgZdBFs",
       "2:21": "owumaV-9IBM",
       "2:22": "RM5P6QJPb5g",
-      "2:23": "7nUYZdPA8QA",
-    },
+      "2:23": "7nUYZdPA8QA"
+    }
   },
   {
-    ids: ["62947", "tt4132514"],
-    title: "Yedi Güzel Adam",
-    year: "2014",
-    episodes: {
+    "ids": [
+      "62947",
+      "tt4132514"
+    ],
+    "title": "Yedi Güzel Adam",
+    "year": "2014",
+    "episodes": {
       "1:1": "fIXyxKrkPu4",
       "1:2": "9LSb8nxHcEI",
       "1:3": "-fdodgnIVko",
@@ -6183,14 +6347,17 @@ const youtubeSeries = [
       "2:28": "ovhbTwwhCqc",
       "2:29": "JO7HxTjmK3g",
       "2:30": "Okkm19J72V0",
-      "2:31": "fqnrxoR10ek",
-    },
+      "2:31": "fqnrxoR10ek"
+    }
   },
   {
-    ids: ["39176", "tt1795096"],
-    title: "Behzat Ç.: Bir Ankara Polisiyesi",
-    year: "2010",
-    episodes: {
+    "ids": [
+      "39176",
+      "tt1795096"
+    ],
+    "title": "Behzat Ç.: Bir Ankara Polisiyesi",
+    "year": "2010",
+    "episodes": {
       "1:1": "H6reBW0qKq0",
       "1:2": "2T6r2Y_n1sg",
       "1:3": "57P_Uysp2nc",
@@ -6286,14 +6453,17 @@ const youtubeSeries = [
       "3:24": "DGptWNYyE74",
       "3:25": "ADTrqCH75D8",
       "3:26": "AVw7ZBxZTCM",
-      "3:27": "4ZzzJi9nDFc",
-    },
+      "3:27": "4ZzzJi9nDFc"
+    }
   },
   {
-    ids: ["65556", "tt3142876"],
-    title: "Çalıkuşu",
-    year: "2013",
-    episodes: {
+    "ids": [
+      "65556",
+      "tt3142876"
+    ],
+    "title": "Çalıkuşu",
+    "year": "2013",
+    "episodes": {
       "1:1": "d1glHUTqIgY",
       "1:2": "dkbmd2r7xoI",
       "1:3": "78GEJgtjty0",
@@ -6323,14 +6493,17 @@ const youtubeSeries = [
       "1:27": "nH5lmBW0pco",
       "1:28": "CQLrHFvSpmM",
       "1:29": "tKkQjAJpzUk",
-      "1:30": "Sq7IzkL08PY",
-    },
+      "1:30": "Sq7IzkL08PY"
+    }
   },
   {
-    ids: ["34899", "tt1848220"],
-    title: "Muhteşem Yüzyıl",
-    year: "2011",
-    episodes: {
+    "ids": [
+      "34899",
+      "tt1848220"
+    ],
+    "title": "Muhteşem Yüzyıl",
+    "year": "2011",
+    "episodes": {
       "1:1": "JBaYiSyH3CY",
       "1:2": "qzAiRaCi0SI",
       "1:3": "6LSagipUf50",
@@ -6469,14 +6642,17 @@ const youtubeSeries = [
       "4:33": "HHXKp-rAq7E",
       "4:34": "ATZ11hxr4JE",
       "4:35": "my_UXEH94Lk",
-      "4:36": "fpXHA6WX81s",
-    },
+      "4:36": "fpXHA6WX81s"
+    }
   },
   {
-    ids: ["49340", "tt0302199"],
-    title: "Tatlı Hayat",
-    year: "2001",
-    episodes: {
+    "ids": [
+      "49340",
+      "tt0302199"
+    ],
+    "title": "Tatlı Hayat",
+    "year": "2001",
+    "episodes": {
       "1:1": "5RYuMOpmt9A",
       "1:2": "xGLHjTDhyN8",
       "1:3": "xY5Rd1yZPow",
@@ -6581,14 +6757,17 @@ const youtubeSeries = [
       "2:68": "R_hH-sy1tJM",
       "2:69": "EFwh6-iaG5o",
       "2:70": "nf9Jnv7wK8w",
-      "2:71": "kXQ-JzC_Cpk",
-    },
+      "2:71": "kXQ-JzC_Cpk"
+    }
   },
   {
-    ids: ["40417", "tt1831164"],
-    title: "Leyla ile Mecnun",
-    year: "2011",
-    episodes: {
+    "ids": [
+      "40417",
+      "tt1831164"
+    ],
+    "title": "Leyla ile Mecnun",
+    "year": "2011",
+    "episodes": {
       "1:1": "yK3dj4v3t6k",
       "1:2": "El53LO9CpMc",
       "1:3": "3Yt0V-azaoQ",
@@ -6692,14 +6871,17 @@ const youtubeSeries = [
       "3:40": "HcJucZf0xuc",
       "3:41": "iiOw5PjTz9s",
       "3:42": "sd03ltZpx8M",
-      "3:43": "z0ynFYyHmSM",
-    },
+      "3:43": "z0ynFYyHmSM"
+    }
   },
   {
-    ids: ["44761", "tt0264700"],
-    title: "İkinci Bahar",
-    year: "1998",
-    episodes: {
+    "ids": [
+      "44761",
+      "tt0264700"
+    ],
+    "title": "İkinci Bahar",
+    "year": "1998",
+    "episodes": {
       "1:1": "u5hnBZoO0Fk",
       "1:2": "5U7SY_nEC1U",
       "1:3": "Dofa0ZORGIs",
@@ -6736,15 +6918,682 @@ const youtubeSeries = [
       "3:11": "8UEnImxNXaw",
       "3:12": "Um88Nm4Xj0U",
       "3:13": "3o_K_m9IXCg",
-      "3:14": "Aen2YZNl3xc",
-    },
+      "3:14": "Aen2YZNl3xc"
+    }
   },
-  { ids: ["32519", "tt1534360"], title: "Ezel", year: "2009",
-    episodes: {"1:1":"T6UZhrunjSo","1:2":"4tulyH8Y91Q","1:3":"Jqm1MDxUNlo","1:4":"yl-iudreN-g","1:5":"TFjjfXJ9ojA","1:6":"6UOKx0PN8SA","1:7":"3HKbPaVJdHc","1:8":"JkVmwURfbZk","1:9":"q51gAOF7_P8","1:10":"qguf6giAFCg","1:11":"Tfwe8DJ6b4I","1:12":"gfT9SITvE3M","1:13":"w7BPGxjolrs","1:14":"FQxSrdWQbEo","1:15":"xvQMt9HiG4A","1:17":"w-wRMzMn6qU","1:18":"h4RopbsiSB4","1:19":"DBaP104n1h0","1:20":"eLUAd79XBr0","1:21":"3-I05yXRqI0","1:22":"o-3takMegcQ","1:23":"zeJczALttXU","1:24":"nK7dm5tzqiM","1:25":"ALIUflBdufw","1:26":"8x1S_u2l4ho","1:27":"P-7HmIfeLMI","1:28":"NG9H8LUynss","1:29":"QbfysxB-8QE","1:30":"Owz1RzIlBlg","1:31":"Plyw6wBtZes","1:32":"xq2Mi829nUA","2:1":"v4aS0GZKDto","2:3":"BB8JXsUz2wE","2:4":"T2OWCV4MLwc","2:5":"OhcVR71Y0j8","2:6":"8R9VubnGbos","2:7":"ebwSq7o2caI","2:8":"ZQuqGX4_hfs","2:9":"T8DBgllWHI4","2:10":"g0GkFahZd9s","2:11":"7OilsFQKlVw","2:12":"y94sH-Z7wJE","2:13":"h1DBLm_3rD8","2:14":"wUUAyhSU7lg","2:15":"5ghh5wU3d50","2:16":"47yVO6qZSko","2:17":"d6TFwq-yjKM","2:18":"X_beWVH_Ivo","2:19":"IWMzM123cI0","2:20":"GFWaIwJmLF0","2:21":"uGChILKue6M","2:22":"-IOEQLllM5U","2:23":"5y_cXJ02h88","2:24":"04Yf6X1J_c4","2:25":"5FUuV_8obVg","2:26":"sZlYB3ux0EM","2:27":"KaUN_1P4uJY","2:28":"2TAGbSWLUeo","2:29":"A2HFOc8jwDo","2:30":"FriFNqR1S5M","2:31":"TodXUxWs5UM","2:32":"gpfzDe284X0","2:33":"tnKugzIhm1Y","2:34":"afSba-e8Go4","2:35":"xhpO5vgKUUc","2:36":"-LNRjb9aNQU","2:37":"cE7kjEXsw08","2:38":"bGuffAKOZ6s","1:16":"lHQJuM03K70","2:2":"E0sRzb8rbY8"} },
-  { ids: ["32836", "tt0845088"], title: "Arka Sokaklar", year: "2006", youtubeChannel: "UCJBBp-6JoqjOeLzTxzol_7A",
-    episodes: { "1:1": "TBBRBD8Fudg", "1:2": "JjVOWBu4z48", "1:3": "AF7o7S8TBiQ" } },
-  { ids: ["tt2361816"], title: "Seksenler", year: "2012", youtubeChannel: "UCYRPB4TbD2RYHlIQdLgEeYA",
-    episodes: { "1:1": "Wn5piPtkki0" } }
+  {
+    "ids": [
+      "32519",
+      "tt1534360"
+    ],
+    "title": "Ezel",
+    "year": "2009",
+    "episodes": {
+      "1:1": "T6UZhrunjSo",
+      "1:2": "4tulyH8Y91Q",
+      "1:3": "Jqm1MDxUNlo",
+      "1:4": "yl-iudreN-g",
+      "1:5": "TFjjfXJ9ojA",
+      "1:6": "6UOKx0PN8SA",
+      "1:7": "3HKbPaVJdHc",
+      "1:8": "JkVmwURfbZk",
+      "1:9": "q51gAOF7_P8",
+      "1:10": "qguf6giAFCg",
+      "1:11": "Tfwe8DJ6b4I",
+      "1:12": "gfT9SITvE3M",
+      "1:13": "w7BPGxjolrs",
+      "1:14": "FQxSrdWQbEo",
+      "1:15": "xvQMt9HiG4A",
+      "1:17": "w-wRMzMn6qU",
+      "1:18": "h4RopbsiSB4",
+      "1:19": "DBaP104n1h0",
+      "1:20": "eLUAd79XBr0",
+      "1:21": "3-I05yXRqI0",
+      "1:22": "o-3takMegcQ",
+      "1:23": "zeJczALttXU",
+      "1:24": "nK7dm5tzqiM",
+      "1:25": "ALIUflBdufw",
+      "1:26": "8x1S_u2l4ho",
+      "1:27": "P-7HmIfeLMI",
+      "1:28": "NG9H8LUynss",
+      "1:29": "QbfysxB-8QE",
+      "1:30": "Owz1RzIlBlg",
+      "1:31": "Plyw6wBtZes",
+      "1:32": "xq2Mi829nUA",
+      "2:1": "v4aS0GZKDto",
+      "2:3": "BB8JXsUz2wE",
+      "2:4": "T2OWCV4MLwc",
+      "2:5": "OhcVR71Y0j8",
+      "2:6": "8R9VubnGbos",
+      "2:7": "ebwSq7o2caI",
+      "2:8": "ZQuqGX4_hfs",
+      "2:9": "T8DBgllWHI4",
+      "2:10": "g0GkFahZd9s",
+      "2:11": "7OilsFQKlVw",
+      "2:12": "y94sH-Z7wJE",
+      "2:13": "h1DBLm_3rD8",
+      "2:14": "wUUAyhSU7lg",
+      "2:15": "5ghh5wU3d50",
+      "2:16": "47yVO6qZSko",
+      "2:17": "d6TFwq-yjKM",
+      "2:18": "X_beWVH_Ivo",
+      "2:19": "IWMzM123cI0",
+      "2:20": "GFWaIwJmLF0",
+      "2:21": "uGChILKue6M",
+      "2:22": "-IOEQLllM5U",
+      "2:23": "5y_cXJ02h88",
+      "2:24": "04Yf6X1J_c4",
+      "2:25": "5FUuV_8obVg",
+      "2:26": "sZlYB3ux0EM",
+      "2:27": "KaUN_1P4uJY",
+      "2:28": "2TAGbSWLUeo",
+      "2:29": "A2HFOc8jwDo",
+      "2:30": "FriFNqR1S5M",
+      "2:31": "TodXUxWs5UM",
+      "2:32": "gpfzDe284X0",
+      "2:33": "tnKugzIhm1Y",
+      "2:34": "afSba-e8Go4",
+      "2:35": "xhpO5vgKUUc",
+      "2:36": "-LNRjb9aNQU",
+      "2:37": "cE7kjEXsw08",
+      "2:38": "bGuffAKOZ6s",
+      "1:16": "lHQJuM03K70",
+      "2:2": "E0sRzb8rbY8"
+    }
+  },
+  {
+    "ids": [
+      "32836",
+      "tt0845088"
+    ],
+    "title": "Arka Sokaklar",
+    "year": "2006",
+    "youtubeChannel": "UCJBBp-6JoqjOeLzTxzol_7A",
+    "episodes": {
+      "1:1": "TBBRBD8Fudg",
+      "1:2": "JjVOWBu4z48",
+      "1:3": "AF7o7S8TBiQ"
+    }
+  },
+  {
+    "ids": [
+      "tt2361816"
+    ],
+    "title": "Seksenler",
+    "year": "2012",
+    "youtubeChannel": "UCYRPB4TbD2RYHlIQdLgEeYA",
+    "episodes": {
+      "1:1": "Wn5piPtkki0",
+      "1:2": "Pc_hznlppHg"
+    }
+  },
+  {
+    "title": "Kuma",
+    "year": "2025",
+    "ids": [
+      "tt34807505"
+    ],
+    "episodes": {
+      "1:1": "UKmlA8uH7tI",
+      "1:2": "AQ_K1M9Quio"
+    }
+  },
+  {
+    "title": "Yeşil Vadi'nin Kızı",
+    "year": "2023",
+    "ids": [
+      "tt19246424"
+    ],
+    "episodes": {
+      "1:1": "AO5J0KjgoII",
+      "1:2": "LHdbNrJ3PEU"
+    }
+  },
+  {
+    "title": "Komedi Dükkanı",
+    "year": "2007",
+    "ids": [
+      "tt2710838"
+    ],
+    "episodes": {
+      "1:1": "ig4mdfsU-XA"
+    }
+  },
+  {
+    "title": "Arkadaşım Hoşgeldin",
+    "year": "2013",
+    "ids": [
+      "tt4241744"
+    ],
+    "episodes": {
+      "1:1": "wC2T_8q95yQ",
+      "1:2": "mp6X7IaGYGc"
+    }
+  },
+  {
+    "title": "Çocuklar Duymasın",
+    "year": "2002",
+    "ids": [
+      "tt0413623"
+    ],
+    "episodes": {
+      "1:1": "8qpR3Xbqq6A",
+      "1:2": "xRrA_1QwBvw"
+    }
+  },
+  {
+    "title": "Fazilet Hanım ve Kızları",
+    "year": "2017",
+    "ids": [
+      "tt6756704"
+    ],
+    "episodes": {
+      "1:1": "6LPoHjKWiYU",
+      "1:2": "55Z8YEYGWuo"
+    }
+  },
+  {
+    "title": "Muhteşem Yüzyıl: Kösem",
+    "year": "2015",
+    "ids": [
+      "tt4787028"
+    ],
+    "episodes": {
+      "1:1": "EDw3qtjBQVk",
+      "1:2": "UwXVEDCZ3gY"
+    }
+  },
+  {
+    "title": "Leyla: Hayat... Aşk... Adalet...",
+    "year": "2024",
+    "ids": [
+      "tt33264855"
+    ],
+    "episodes": {
+      "1:1": "ZY_kd4KSI8U",
+      "1:2": "fgw6htt-EKw"
+    }
+  },
+  {
+    "title": "Rüzgarlı Tepe",
+    "year": "2024",
+    "ids": [
+      "tt30690005"
+    ],
+    "episodes": {
+      "1:1": "AO-fxTQRpCg",
+      "1:2": "_7C4Lilxibk"
+    }
+  },
+  {
+    "title": "Akasya Durağı",
+    "year": "2008",
+    "ids": [
+      "tt1286883"
+    ],
+    "episodes": {
+      "1:1": "yiTn83EPj6E",
+      "1:2": "_RfnWMi1ejg"
+    }
+  },
+  {
+    "title": "Çarpışma",
+    "year": "2018",
+    "ids": [
+      "tt9114372"
+    ],
+    "episodes": {
+      "1:1": "zwVejtuEAmU",
+      "1:2": "O1nm0hdMlhc"
+    }
+  },
+  {
+    "title": "Cennet Mahallesi",
+    "year": "2004",
+    "ids": [
+      "tt0424619"
+    ],
+    "episodes": {
+      "1:1": "1Ppn2jsGPfU",
+      "1:2": "I4xZ8mphwIo"
+    }
+  },
+  {
+    "title": "Aşk Yeniden",
+    "year": "2015",
+    "ids": [
+      "tt5616644"
+    ],
+    "episodes": {
+      "1:1": "UyM7t4Bsqus",
+      "1:2": "7tAfx1xF-_4"
+    }
+  },
+  {
+    "title": "Sefirin Kızı",
+    "year": "2019",
+    "ids": [
+      "tt11256614"
+    ],
+    "episodes": {
+      "1:1": "sJfF5FeTRv8",
+      "1:2": "uYrovJIhkIQ"
+    }
+  },
+  {
+    "title": "Kaynanalar",
+    "year": "1974",
+    "ids": [
+      "tt0286365"
+    ],
+    "episodes": {
+      "1:1": "ZTE4JobzmuE",
+      "1:2": "jArsKdwO3Bw"
+    }
+  },
+  {
+    "title": "Çılgın Bediş",
+    "year": "1996",
+    "ids": [
+      "tt1162451"
+    ],
+    "episodes": {
+      "1:1": "V1lVYPoJ-K8",
+      "1:2": "E2NQ7iqCoRs"
+    }
+  },
+  {
+    "title": "Hanımın Çiftliği",
+    "year": "2009",
+    "ids": [
+      "tt1592293"
+    ],
+    "episodes": {
+      "1:1": "21bw7dHqAYY",
+      "1:2": "rPUexMG8iOE"
+    }
+  },
+  {
+    "title": "Sıla",
+    "year": "2006",
+    "ids": [
+      "tt0875103"
+    ],
+    "episodes": {
+      "1:1": "jurHPVXvE5k",
+      "1:2": "PtXvoc9Fs8g"
+    }
+  },
+  {
+    "title": "Öyle Bir Geçer Zaman Ki",
+    "year": "2010",
+    "ids": [
+      "tt1784141",
+      "39892"
+    ],
+    "episodes": {
+      "1:1": "-uoNSJpPABA",
+      "1:2": "GLdlTf2FE30",
+      "1:3": "MAW5ts_t5iY",
+      "1:4": "eaBhRgiaMHQ",
+      "1:5": "e-fnQqsCD5A",
+      "1:6": "cHV50YEQYFk",
+      "1:7": "TmE205bTxtM",
+      "1:8": "lBDKw3BiiT4",
+      "1:9": "aDljm7s0ODM",
+      "1:10": "wBxWJLtWZvg",
+      "1:11": "uZXxnmDyQNo",
+      "1:12": "HVC4y3eBrQs",
+      "1:13": "czs4CtQSECI",
+      "1:14": "r2ZtfkoZYkE",
+      "1:15": "SuxdqXkBXpk",
+      "1:16": "uoYqwdNZzfU",
+      "1:17": "9sfrOcXDITg",
+      "1:18": "MoSl83fKpJo",
+      "1:19": "u9vn-jJhz0s",
+      "1:20": "VhXjAh4CspI",
+      "1:21": "0vgbs5CZk5I",
+      "1:22": "SP9TKle0lI4",
+      "1:23": "98cJaxZAxVc",
+      "1:24": "QOB3Y3i60io",
+      "1:25": "Y5EVj010co4",
+      "1:26": "P6r83oRzYZ8",
+      "1:27": "cpu4EVfiREU",
+      "1:28": "UZSAlHS48Yw",
+      "1:29": "0YocBay8FDU",
+      "1:30": "YGYV0em2S8c",
+      "1:31": "PRXQDQ6yEfE",
+      "1:32": "Jvq4VDrZreQ",
+      "1:33": "kypZG0jKHmY",
+      "1:34": "0IjlzFkCCl0",
+      "1:35": "aRZlfqzQb0E",
+      "1:36": "x4tcWIl46k4",
+      "1:37": "c0eF4tyAAYU",
+      "1:38": "AbxkruFWYao",
+      "2:1": "2Gdi_XI2ZqY",
+      "2:2": "ZmFkMXLIvFo",
+      "2:3": "5YuJl0TF8mg",
+      "2:4": "hkSi_iyJhwE",
+      "2:5": "btFSyeQxR7s",
+      "2:6": "f9cKhhe8v1k",
+      "2:7": "2Xe0xLK9aoo",
+      "2:8": "MDiajRaO2Ic",
+      "2:9": "m4nWFG1jbRo",
+      "2:10": "11v1-9NcZ9k",
+      "2:11": "DJBYnOfSvhM",
+      "2:12": "xYXIg6cT9og",
+      "2:13": "Pg-s1MgQ0TA",
+      "2:14": "tXutl5omkrg",
+      "2:15": "AP0sRdJFT8U",
+      "2:16": "HMdUAzH8cv4",
+      "2:17": "uAF72iLV3Ro",
+      "2:18": "iVFOK4WJUYg",
+      "2:19": "PUtp0xEKk7w",
+      "2:20": "laB5nD7SvLc",
+      "2:21": "nJZ7S6ep_1k",
+      "2:22": "HbkjsCtXvKA",
+      "2:23": "AJYAaPlmPZY",
+      "2:24": "5mqjNNBkM1A",
+      "2:25": "LZYQR_1B-4Y",
+      "2:26": "dHEtJjoip3M",
+      "2:27": "-bbK5yKXc6U",
+      "2:28": "B7b_vIz0m5E",
+      "2:29": "610-9vYz15s",
+      "2:30": "m8DPhX-ng0c",
+      "2:31": "GIWqwBzS0_o",
+      "2:32": "JDt6ilGC99Q",
+      "2:33": "oIfq3SCey3Q",
+      "2:34": "4P0NRLUglFY",
+      "2:35": "G--15Kv3p2Y",
+      "2:36": "3hmEuKzB9dA",
+      "2:37": "Uefo1pIMfpo",
+      "2:38": "23FmL88PoVI",
+      "2:39": "KFrkoZ8LCfA",
+      "2:40": "fEmBNS98jN8",
+      "2:41": "COWbFlqDqzs",
+      "3:1": "GjIHKE7IcjI",
+      "3:2": "UvgLKOoKUug",
+      "3:3": "TrO0qvoSijM",
+      "3:4": "3ZyBBlM5H7s",
+      "3:5": "4WtZUON8Hcc",
+      "3:6": "qaDoFXh4HlQ",
+      "3:7": "VmkOT6OYO1c",
+      "3:8": "G89-3rqGDEU",
+      "3:9": "X1daeCAQ5UM",
+      "3:10": "2AUZaEZBUeQ",
+      "3:11": "AVSFYp5oxo0",
+      "3:12": "OyGIxDIMj-I",
+      "3:13": "6yU_kcUlPJU",
+      "3:14": "1f4owIIf8GY",
+      "3:15": "yleWE2bMpv4",
+      "3:16": "c7ruCyRaDLo",
+      "3:17": "Rm6c4E5_Z-E",
+      "3:18": "gR48Bq4UNTo",
+      "3:19": "w-R7_AXpskE",
+      "3:20": "VuqyIrtJG6w",
+      "3:21": "J9MQWq_BjlE",
+      "3:22": "7t45J26oYVM",
+      "3:23": "d3eH4jUu7IE",
+      "3:24": "RQzPPIefSSE",
+      "3:25": "_QJiC3XBraE",
+      "3:26": "Q6GtuaI9WAc",
+      "3:27": "5AJF3Xr-BlE",
+      "3:28": "lMqSYPew42A",
+      "3:29": "L1-sL7s1lGs",
+      "3:30": "OJT1D8RsITc",
+      "3:31": "JdYQQ_4fpAM",
+      "3:32": "nJ3sCHldXm4",
+      "3:33": "taTg_GyAl4I",
+      "3:34": "T2yXj-x1IaM",
+      "3:35": "RN9cDBhrdY4",
+      "3:36": "e2tL56dt7OI",
+      "3:37": "JiXGIM43Tlk",
+      "3:38": "oQ5nSsl9QMA",
+      "3:39": "YwdOWOhhgGo",
+      "3:40": "L_OZlGTeWqw",
+      "3:41": "ug9Jrflcsc4"
+    }
+  },
+  {
+    "title": "Bir İstanbul Masalı",
+    "year": "2003",
+    "ids": [
+      "tt0421297"
+    ],
+    "episodes": {
+      "1:1": "_aO2XbsPtCE",
+      "1:2": "0waG7yB1sXo"
+    }
+  },
+  {
+    "title": "Dadı",
+    "year": "2001",
+    "ids": [
+      "tt0303449"
+    ],
+    "episodes": {
+      "1:1": "yPloM-5c9-8",
+      "1:2": "xujNQL_4LIE"
+    }
+  },
+  {
+    "title": "Ruhsar",
+    "year": "1998",
+    "ids": [
+      "tt0846614"
+    ],
+    "episodes": {
+      "1:1": "5t9ElfaLpig",
+      "1:2": "Os9ExrAL_Cc"
+    }
+  },
+  {
+    "title": "Böyle mi Olacaktı",
+    "year": "1997",
+    "ids": [
+      "tt0462087"
+    ],
+    "episodes": {
+      "1:1": "C4giljXijB4",
+      "1:2": "a6B6AVjEZq0"
+    }
+  },
+  {
+    "title": "Kuzenlerim",
+    "year": "2002",
+    "ids": [
+      "tt0449138"
+    ],
+    "episodes": {
+      "1:1": "vREFnqDjQSI",
+      "1:2": "_qGZtAm793w"
+    }
+  },
+  {
+    "title": "Emanet",
+    "year": "2020",
+    "ids": [
+      "tt12562262"
+    ],
+    "episodes": {
+      "1:1": "T7dspKtImKo"
+    }
+  },
+  {
+    "title": "Teşkilat",
+    "year": "2021",
+    "ids": [
+      "tt13562418"
+    ],
+    "episodes": {
+      "1:1": "783_OJX_1fA",
+      "1:2": "Q5CUmF_-_ik"
+    }
+  },
+  {
+    "title": "Kurtlar Vadisi Pusu",
+    "year": "2007",
+    "ids": [
+      "tt1018501"
+    ],
+    "episodes": {
+      "1:1": "c9YySJu39_k",
+      "1:2": "9MqgtnZGCy0"
+    }
+  },
+  {
+    "title": "Mehmed: Fetihler Sultanı",
+    "year": "2024",
+    "ids": [
+      "tt31323988"
+    ],
+    "episodes": {
+      "1:1": "S76TuoUjZDg",
+      "1:2": "2MGCE6BAk6U"
+    }
+  },
+  {
+    "title": "Ekmek Teknesi",
+    "year": "2002",
+    "ids": [
+      "tt0421327"
+    ],
+    "episodes": {
+      "1:1": "tqaiKCdtvmg",
+      "1:2": "wTCNRTRJ5yA"
+    }
+  },
+  {
+    "title": "1 Kadın 1 Erkek",
+    "year": "2008",
+    "ids": [
+      "tt2184357"
+    ],
+    "episodes": {
+      "1:1": "taEd3wR2OzU"
+    }
+  },
+  {
+    "title": "Mahallenin Muhtarları",
+    "year": "1992",
+    "ids": [
+      "tt0299348"
+    ],
+    "episodes": {
+      "1:2": "g05cfyXEzFU"
+    }
+  },
+  {
+    "title": "Bizimkiler",
+    "year": "1989",
+    "ids": [
+      "tt0299268"
+    ],
+    "episodes": {
+      "1:1": "ShunV0n1tsI",
+      "1:2": "2qDGvrC0tdY"
+    }
+  },
+  {
+    "title": "Sıcak Saatler",
+    "year": "1998",
+    "ids": [
+      "tt0426789"
+    ],
+    "episodes": {
+      "1:1": "k-HOntpBHdI",
+      "1:2": "y8xgGS-NC0U"
+    }
+  },
+  {
+    "title": "Perihan Abla",
+    "year": "1986",
+    "ids": [
+      "tt0384759"
+    ],
+    "episodes": {
+      "1:1": "72tBQF4Y2PA",
+      "1:2": "VRcppPaeNTE"
+    }
+  },
+  {
+    "title": "İstanbullu Gelin",
+    "year": "2017",
+    "ids": [
+      "tt6462806",
+      "70798"
+    ],
+    "episodes": {
+      "1:1": "Kdt5Bh6WWBE",
+      "1:2": "DzDuB3rYMNs"
+    }
+  },
+  {
+    "title": "Küçük Ağa",
+    "year": "1983",
+    "ids": [
+      "tt0324867"
+    ],
+    "episodes": {
+      "1:1": "HVGA3k2eSzg",
+      "1:2": "7qjF9au7Dqo"
+    }
+  },
+  {
+    "title": "Ayrılsak da Beraberiz",
+    "year": "1999",
+    "ids": [
+      "tt0493471"
+    ],
+    "episodes": {
+      "1:1": "OjBAgDoBKa0",
+      "1:2": "V5R_03KbzFk"
+    }
+  },
+  {
+    "title": "Yeter Anne",
+    "year": "2002",
+    "ids": [
+      "tt0454585"
+    ],
+    "episodes": {
+      "1:1": "ohuZ56rULnk",
+      "1:2": "YAnVNebfEF8"
+    }
+  },
+  {
+    "title": "Çiçek Taksi",
+    "year": "1995",
+    "ids": [
+      "tt0494627"
+    ],
+    "episodes": {
+      "1:1": "u5_iBps1J7I",
+      "1:2": "m2_4fyEvCjQ"
+    }
+  },
+  {
+    "title": "Hayat Bilgisi",
+    "year": "2003",
+    "ids": [
+      "tt0426708"
+    ],
+    "episodes": {
+      "1:1": "Y1jBC6o9_uc",
+      "1:2": "cdKN9rAQMTA"
+    }
+  },
+  {
+    "title": "Doktorlar",
+    "year": "2006",
+    "ids": [
+      "tt0953931"
+    ],
+    "episodes": {
+      "1:1": "rTfg0OA8jLg",
+      "1:2": "XtGu_3Lx5Hs"
+    }
+  }
 ];
 
 const youtubeMovies = [
