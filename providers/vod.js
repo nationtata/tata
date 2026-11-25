@@ -169,6 +169,148 @@ async function runProvider(provider, lookup, type) {
 // Full-length uploads from the series' and producers' official YouTube channels.
 const youtubeSeries = [
   {
+    "title": "Ekmek Teknesi",
+    "year": "2002",
+    "ids": [
+      "tt0421327"
+    ],
+    "episodes": {
+      "1:1": "tqaiKCdtvmg",
+      "1:2": "wTCNRTRJ5yA"
+    }
+  },
+  {
+    "title": "1 Kadın 1 Erkek",
+    "year": "2008",
+    "ids": [
+      "tt2184357"
+    ],
+    "episodes": {
+      "1:1": "taEd3wR2OzU"
+    }
+  },
+  {
+    "title": "Mahallenin Muhtarları",
+    "year": "1992",
+    "ids": [
+      "tt0299348"
+    ],
+    "episodes": {
+      "1:2": "g05cfyXEzFU"
+    }
+  },
+  {
+    "title": "Bizimkiler",
+    "year": "1989",
+    "ids": [
+      "tt0299268"
+    ],
+    "episodes": {
+      "1:1": "ShunV0n1tsI",
+      "1:2": "2qDGvrC0tdY"
+    }
+  },
+  {
+    "title": "Sıcak Saatler",
+    "year": "1998",
+    "ids": [
+      "tt0426789"
+    ],
+    "episodes": {
+      "1:1": "k-HOntpBHdI",
+      "1:2": "y8xgGS-NC0U"
+    }
+  },
+  {
+    "title": "Perihan Abla",
+    "year": "1986",
+    "ids": [
+      "tt0384759"
+    ],
+    "episodes": {
+      "1:1": "72tBQF4Y2PA",
+      "1:2": "VRcppPaeNTE"
+    }
+  },
+  {
+    "title": "İstanbullu Gelin",
+    "year": "2017",
+    "ids": [
+      "tt6462806",
+      "70798"
+    ],
+    "episodes": {
+      "1:1": "Kdt5Bh6WWBE",
+      "1:2": "DzDuB3rYMNs"
+    }
+  },
+  {
+    "title": "Küçük Ağa",
+    "year": "1983",
+    "ids": [
+      "tt0324867"
+    ],
+    "episodes": {
+      "1:1": "HVGA3k2eSzg",
+      "1:2": "7qjF9au7Dqo"
+    }
+  },
+  {
+    "title": "Ayrılsak da Beraberiz",
+    "year": "1999",
+    "ids": [
+      "tt0493471"
+    ],
+    "episodes": {
+      "1:1": "OjBAgDoBKa0",
+      "1:2": "V5R_03KbzFk"
+    }
+  },
+  {
+    "title": "Yeter Anne",
+    "year": "2002",
+    "ids": [
+      "tt0454585"
+    ],
+    "episodes": {
+      "1:1": "ohuZ56rULnk",
+      "1:2": "YAnVNebfEF8"
+    }
+  },
+  {
+    "title": "Çiçek Taksi",
+    "year": "1995",
+    "ids": [
+      "tt0494627"
+    ],
+    "episodes": {
+      "1:1": "u5_iBps1J7I",
+      "1:2": "m2_4fyEvCjQ"
+    }
+  },
+  {
+    "title": "Hayat Bilgisi",
+    "year": "2003",
+    "ids": [
+      "tt0426708"
+    ],
+    "episodes": {
+      "1:1": "Y1jBC6o9_uc",
+      "1:2": "cdKN9rAQMTA"
+    }
+  },
+  {
+    "title": "Doktorlar",
+    "year": "2006",
+    "ids": [
+      "tt0953931"
+    ],
+    "episodes": {
+      "1:1": "rTfg0OA8jLg",
+      "1:2": "XtGu_3Lx5Hs"
+    }
+  },
+  {
     "title": "Doğduğun Ev Kaderindir",
     "year": "2019",
     "ids": [
