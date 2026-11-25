@@ -2721,7 +2721,9 @@ const youtubeSeries = [
       "3:2": "p2j8Rjox3R8",
       "3:3": "2mjmX9K6AOM",
       "3:4": "Buunwn6l6q8",
-      "3:5": "M0CbTE9T8f0"
+      "3:5": "M0CbTE9T8f0",
+      "3:6": "YXqGmcR4bxs",
+      "3:7": "8Q0bjyEBCXQ"
     }
   },
   {
