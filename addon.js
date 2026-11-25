@@ -246,13 +246,16 @@ app.get(["/stream/:type(movie|series)/:id.json", "/film/stream/:type(movie|serie
       const resolution = [result.quality, result.description, result.title]
         .map(value => String(value || "").match(/\b(?:480p|720p|1080p|4K)\b/i)?.[0])
         .find(Boolean);
+      const metadata = [result.description, result.quality, result.title].filter(value => typeof value === "string").join("\n");
+      const audio = metadata.match(/Ses:\s*(?:\p{Regional_Indicator}{2})(?:\s*\/\s*\p{Regional_Indicator}{2})*/u)?.[0];
+      const subtitle = metadata.match(/Altyazı:\s*(?:\p{Regional_Indicator}{2})(?:\s*\/\s*\p{Regional_Indicator}{2})*/u)?.[0];
       delete result.description;
       delete result.quality;
       delete result.title;
-      if (resolution) {
-        result.description = resolution.toLowerCase() === "4k" ? "4K" : resolution.toLowerCase();
-        result.quality = result.description;
-      }
+      const quality = resolution && (resolution.toLowerCase() === "4k" ? "4K" : resolution.toLowerCase());
+      const description = [[audio, subtitle].filter(Boolean).join(" • "), quality].filter(Boolean).join("\n");
+      if (description) result.description = description;
+      if (quality) result.quality = description;
       return result;
     }) });
   } catch (err) {
