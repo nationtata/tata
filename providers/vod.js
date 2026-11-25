@@ -2709,7 +2709,19 @@ const youtubeSeries = [
       "1:4": "RuhkRdxqIXo",
       "1:5": "KKb5Ehzb39A",
       "1:6": "aNiXb37deEE",
-      "1:7": "h-YvcAn1f8o"
+      "1:7": "h-YvcAn1f8o",
+      "2:1": "rKwCO4z00iY",
+      "2:2": "OpK_gd3KsLU",
+      "2:3": "eAyeFLoxA4Q",
+      "2:4": "FB-bYwiihmM",
+      "2:5": "yYCg7zNKAxo",
+      "2:6": "1FNZ-UUjTFU",
+      "2:7": "yTce7cgnqN4",
+      "3:1": "lNi2o0n6fUo",
+      "3:2": "p2j8Rjox3R8",
+      "3:3": "2mjmX9K6AOM",
+      "3:4": "Buunwn6l6q8",
+      "3:5": "M0CbTE9T8f0"
     }
   },
   {
