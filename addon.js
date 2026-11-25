@@ -241,7 +241,7 @@ app.get(["/stream/:type(movie|series)/:id.json", "/film/stream/:type(movie|serie
         }))
       }));
     }
-    return res.json({ streams: streams.map(stream => ({ ...proxyLawStream(stream), name: "🔻" })) });
+    return res.json({ streams: streams.map(stream => ({ ...proxyLawStream(stream), name: "🎬" })) });
   } catch (err) {
     console.error("[VOD STREAM ERROR]", err.message);
     return res.json({ streams: [] });
