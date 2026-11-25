@@ -169,6 +169,46 @@ async function runProvider(provider, lookup, type) {
 // Full-length uploads from the series' and producers' official YouTube channels.
 const youtubeSeries = [
   {
+    "title": "Kuma",
+    "year": "2025",
+    "ids": [
+      "tt34807505"
+    ],
+    "episodes": {
+      "1:1": "UKmlA8uH7tI"
+    }
+  },
+  {
+    "title": "Yeşil Vadi'nin Kızı",
+    "year": "2023",
+    "ids": [
+      "tt19246424"
+    ],
+    "episodes": {
+      "1:1": "AO5J0KjgoII"
+    }
+  },
+  {
+    "title": "Komedi Dükkanı",
+    "year": "2007",
+    "ids": [
+      "tt2710838"
+    ],
+    "episodes": {
+      "1:1": "ig4mdfsU-XA"
+    }
+  },
+  {
+    "title": "Arkadaşım Hoşgeldin",
+    "year": "2013",
+    "ids": [
+      "tt4241744"
+    ],
+    "episodes": {
+      "1:1": "wC2T_8q95yQ"
+    }
+  },
+  {
     "title": "Çocuklar Duymasın",
     "year": "2002",
     "ids": [
