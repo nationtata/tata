@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "lastVerifiedSeries": "Geniş Aile",
-  "nextSeries": "Diriliş: Ertuğrul",
+  "lastVerifiedSeries": "Aliye",
+  "nextSeries": "Seksenler",
   "pending": [
     {
       "title": "Çılgın Bediş",
@@ -88,6 +88,11 @@
       "title": "Dadı",
       "reason": "YouTube arşivinde 76 numaralı yükleme var. Yayın arşivleri 61 bölüm ve çelişen sezon sınırları veriyor. Kesitlerin orijinal bölümlerle eşleşmesi doğrulanacak.",
       "source": "https://www.youtube.com/playlist?list=PLbWphAONp8HVOinPVP_2QFNzUoZlAT4TZ"
+    },
+    {
+      "title": "Ruhsar",
+      "reason": "Kanal D Arşiv oynatma listesinde 107 tam bölüm var. 80. bölümün resmî YouTube bağlantısı doğrulanacak.",
+      "source": "https://www.youtube.com/playlist?list=PL6nM1RK5nFKfQ-Ip8eTIilxY43Gzlf_h1"
     }
   ]
 }
