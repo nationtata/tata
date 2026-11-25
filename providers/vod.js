@@ -428,6 +428,7 @@ const youtubeSeries = [
       "1:37": "I1BJeHAIBJg",
       "1:38": "oLlcxiLqGXw",
       "1:39": "HG7lhV9mJtY",
+      "1:40": "WPEUrNDWE7s",
       "1:41": "ctv7hyd_A6k",
       "1:42": "W5Bf9uYouZs"
     }
