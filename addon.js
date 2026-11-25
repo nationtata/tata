@@ -241,7 +241,20 @@ app.get(["/stream/:type(movie|series)/:id.json", "/film/stream/:type(movie|serie
         }))
       }));
     }
-    return res.json({ streams: streams.map(stream => ({ ...proxyLawStream(stream), name: "🎬" })) });
+    return res.json({ streams: streams.map(stream => {
+      const result = { ...proxyLawStream(stream), name: "🎬" };
+      const resolution = [result.quality, result.description, result.title]
+        .map(value => String(value || "").match(/\b(?:480p|720p|1080p|4K)\b/i)?.[0])
+        .find(Boolean);
+      delete result.description;
+      delete result.quality;
+      delete result.title;
+      if (resolution) {
+        result.description = resolution.toLowerCase() === "4k" ? "4K" : resolution.toLowerCase();
+        result.quality = result.description;
+      }
+      return result;
+    }) });
   } catch (err) {
     console.error("[VOD STREAM ERROR]", err.message);
     return res.json({ streams: [] });
