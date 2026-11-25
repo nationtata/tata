@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "lastVerifiedSeries": "Aliye",
-  "nextSeries": "Seksenler",
+  "lastVerifiedSeries": "Payitaht: Abdülhamid",
+  "nextSeries": "Böyle mi Olacaktı",
   "pending": [
     {
       "title": "Çılgın Bediş",
@@ -93,6 +93,16 @@
       "title": "Ruhsar",
       "reason": "Kanal D Arşiv oynatma listesinde 107 tam bölüm var. 80. bölümün resmî YouTube bağlantısı doğrulanacak.",
       "source": "https://www.youtube.com/playlist?list=PL6nM1RK5nFKfQ-Ip8eTIilxY43Gzlf_h1"
+    },
+    {
+      "title": "Seksenler",
+      "reason": "İlk sezonların ayrı listeleri ve 505–655 aralığı bulundu. Orta sezonların arşivi ve özel bölümlerin sezon eşleşmesi doğrulanacak.",
+      "source": "https://www.youtube.com/channel/UCYRPB4TbD2RYHlIQdLgEeYA"
+    },
+    {
+      "title": "Payitaht: Abdülhamid",
+      "reason": "153 tam bölüm eklendi. 143. bölüm (S5 B24) için resmî YouTube bağlantısı doğrulanacak.",
+      "source": "https://www.youtube.com/playlist?list=PLge_kMuGwvL8pfyOpLP0hXprI7yQ0L2q-"
     }
   ]
 }
