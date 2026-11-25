@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "lastVerifiedSeries": "Gülcemal",
-  "nextSeries": "1 Kadın 1 Erkek",
+  "lastVerifiedSeries": "1 Kadın 1 Erkek",
+  "nextSeries": "Mahallenin Muhtarları",
   "pending": [
     {
       "title": "Çılgın Bediş",
@@ -16,8 +16,9 @@
     },
     {
       "title": "1 Kadın 1 Erkek",
-      "reason": "Resmî kanaldaki farklı yayın dönemlerinin TMDB sezon yapısıyla eşleşmesi doğrulanacak.",
-      "verifiedEpisodeMappings": 1
+      "reason": "TürkMax 2008 yapımında 1. sezonun 1–32 ve 36. bölümleri kayıtlı. 33–35 ve sonraki sezonlar doğrulanacak.",
+      "verifiedEpisodeMappings": 33,
+      "source": "https://www.youtube.com/playlist?list=PLeHvXUSsXGrhfPtY2G0VfgEpUcyHl0AfT"
     },
     {
       "title": "Mahallenin Muhtarları",
@@ -41,8 +42,9 @@
     },
     {
       "title": "İstanbullu Gelin",
-      "reason": "Resmî Full HD listede ilk 50 bölüm var; 51-87 için eksiksiz resmî liste doğrulanacak.",
-      "verifiedEpisodeMappings": 2
+      "reason": "1–51 ve 87. bölümler kayıtlı. 52–86 aralığı için resmî bağlantılar doğrulanacak.",
+      "verifiedEpisodeMappings": 52,
+      "source": "https://www.youtube.com/playlist?list=PLPN7B0T9Fs_9vfCX-8CTYyY6nZFGwWCRs"
     },
     {
       "title": "Küçük Ağa",
