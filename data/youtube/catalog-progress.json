@@ -1,67 +1,83 @@
 {
   "schemaVersion": 1,
   "lastVerifiedSeries": "Gülcemal",
-  "nextSeries": "Ekmek Teknesi",
+  "nextSeries": "1 Kadın 1 Erkek",
   "pending": [
     {
       "title": "Çılgın Bediş",
-      "reason": "Resmî Kanal D arşivinde 1-65 bölümler bulunuyor ancak ana HD oynatma listesinde 43. bölüm eksik ve katalog sezon yapısı kesinleştiriliyor."
+      "reason": "Resmî Kanal D arşivinde 1-65 bölümler bulunuyor ancak ana HD oynatma listesinde 43. bölüm eksik ve katalog sezon yapısı kesinleştiriliyor.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Ekmek Teknesi",
-      "reason": "Resmî hak sahipliği ve eksiksiz sezon-bölüm eşleşmesi yeniden doğrulanacak."
+      "reason": "Çalışma dalında 2 bölüm kayıtlı. Yapım ve toplam 106 bölüm teyit edildi. Kalan videoların yayıncı veya hak sahibi bağlantısı ve sezon numaraları doğrulanacak.",
+      "verifiedEpisodeMappings": 2,
+      "source": "https://www.aydin.edu.tr/tr-tr/arastirma/universite-yayinlari/Documents/-T%C3%BCrkiye%E2%80%99de%20Dizi%20Sekt%C3%B6r%C3%BC%20ve%20D%C4%B1%C5%9F%20Sat%C4%B1m%20Olanaklar%C4%B1%20MEDYAPIM%20%C3%96RNE%C4%9E%C4%B0.pdf"
     },
     {
       "title": "1 Kadın 1 Erkek",
-      "reason": "Resmî kanaldaki farklı yayın dönemlerinin TMDB sezon yapısıyla eşleşmesi doğrulanacak."
+      "reason": "Resmî kanaldaki farklı yayın dönemlerinin TMDB sezon yapısıyla eşleşmesi doğrulanacak.",
+      "verifiedEpisodeMappings": 1
     },
     {
       "title": "Mahallenin Muhtarları",
-      "reason": "Resmî arşivde bölüm aralıkları parçalı; eksiksiz sezon eşleştirmesi bulunamadı."
+      "reason": "Resmî arşivde bölüm aralıkları parçalı; eksiksiz sezon eşleştirmesi bulunamadı.",
+      "verifiedEpisodeMappings": 1
     },
     {
       "title": "Bizimkiler",
-      "reason": "Resmî TRT oynatma listesi ilk 100 bölümü gösteriyor; 15 sezonun tam arşivi doğrulanacak."
+      "reason": "Resmî TRT oynatma listesi ilk 100 bölümü gösteriyor; 15 sezonun tam arşivi doğrulanacak.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Sıcak Saatler",
-      "reason": "Resmî tam bölüm arşivi ve sezon yapısı doğrulanacak."
+      "reason": "Resmî tam bölüm arşivi ve sezon yapısı doğrulanacak.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Perihan Abla",
-      "reason": "Resmî TRT listesinde 54 bölümün sırası karışık ve yinelenen kayıtlar var; sezon sınırları doğrulanacak."
+      "reason": "Resmî TRT listesinde 54 bölümün sırası karışık ve yinelenen kayıtlar var; sezon sınırları doğrulanacak.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "İstanbullu Gelin",
-      "reason": "Resmî Full HD listede ilk 50 bölüm var; 51-87 için eksiksiz resmî liste doğrulanacak."
+      "reason": "Resmî Full HD listede ilk 50 bölüm var; 51-87 için eksiksiz resmî liste doğrulanacak.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Küçük Ağa",
-      "reason": "Katalogdaki yapım yılı 1983 görünürken hedef 2014 sürümü; kimlik eşleşmesi kesinleştirilecek."
+      "reason": "Katalogdaki yapım yılı 1983 görünürken hedef 2014 sürümü; kimlik eşleşmesi kesinleştirilecek.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Ayrılsak da Beraberiz",
-      "reason": "Resmî atv arşivindeki oynatma listesi başka dizilerle karışık; tam bölüm dizisi çıkarılacak."
+      "reason": "Resmî atv arşivindeki oynatma listesi başka dizilerle karışık; tam bölüm dizisi çıkarılacak.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Yeter Anne",
-      "reason": "Resmî atv yüklemeleri bulundu; eksiksiz bölüm ve sezon sayısı doğrulanacak."
+      "reason": "Resmî atv yüklemeleri bulundu; eksiksiz bölüm ve sezon sayısı doğrulanacak.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Çiçek Taksi",
-      "reason": "Resmî TRT listesi ilk 100 bölümü gösteriyor; kalan bölümler ve sezon sınırları doğrulanacak."
+      "reason": "Resmî TRT listesi ilk 100 bölümü gösteriyor; kalan bölümler ve sezon sınırları doğrulanacak.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Hayat Bilgisi",
-      "reason": "Resmî listede 20-137 mevcut; 1-19 ve dört sezon sınırları doğrulanacak."
+      "reason": "Resmî listede 20-137 mevcut; 1-19 ve dört sezon sınırları doğrulanacak.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Doktorlar",
-      "reason": "Resmî kanal mevcut; tam bölüm oynatma listesi ve sezon sınırları doğrulanacak."
+      "reason": "Resmî kanal mevcut; tam bölüm oynatma listesi ve sezon sınırları doğrulanacak.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Çocuklar Duymasın",
-      "reason": "Birden fazla yayın dönemi bulunduğu için hedef 2002 sürümünün sezon kimlikleri ayrıştırılacak."
+      "reason": "Birden fazla yayın dönemi bulunduğu için hedef 2002 sürümünün sezon kimlikleri ayrıştırılacak.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Kara Melek",
@@ -69,35 +85,37 @@
     },
     {
       "title": "Hanımın Çiftliği",
-      "reason": "Resmî HD oynatma listesinde bölüm aralıkları eksik; 70 bölümün tamamı doğrulanamadı."
+      "reason": "Resmî HD oynatma listesinde bölüm aralıkları eksik; 70 bölümün tamamı doğrulanamadı.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Sıla",
-      "reason": "Resmî HD oynatma listesinde 1-57 mevcut; 58-79 için eksiksiz tam bölüm listesi doğrulanacak."
-    },
-    {
-      "title": "Öyle Bir Geçer Zaman Ki",
-      "reason": "Resmî 4K oynatma listesi sayfası bölüm öğelerini döndürmedi; 120 bölümün video kimlikleri yeniden alınacak."
+      "reason": "Resmî HD oynatma listesinde 1-57 mevcut; 58-79 için eksiksiz tam bölüm listesi doğrulanacak.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Bir İstanbul Masalı",
       "reason": "Resmî oynatma listelerinde 1-30 ve 55-71 arasında tam bölümler bulundu. Aradaki eksik bölümlerin resmî video bağlantıları doğrulanacak.",
-      "source": "https://www.youtube.com/channel/UCMjxUpT-ivLak-julYMxgbg"
+      "source": "https://www.youtube.com/channel/UCMjxUpT-ivLak-julYMxgbg",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Dadı",
       "reason": "YouTube arşivinde 76 numaralı yükleme var. Yayın arşivleri 61 bölüm ve çelişen sezon sınırları veriyor. Kesitlerin orijinal bölümlerle eşleşmesi doğrulanacak.",
-      "source": "https://www.youtube.com/playlist?list=PLbWphAONp8HVOinPVP_2QFNzUoZlAT4TZ"
+      "source": "https://www.youtube.com/playlist?list=PLbWphAONp8HVOinPVP_2QFNzUoZlAT4TZ",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Ruhsar",
       "reason": "Kanal D Arşiv oynatma listesinde 107 tam bölüm var. 80. bölümün resmî YouTube bağlantısı doğrulanacak.",
-      "source": "https://www.youtube.com/playlist?list=PL6nM1RK5nFKfQ-Ip8eTIilxY43Gzlf_h1"
+      "source": "https://www.youtube.com/playlist?list=PL6nM1RK5nFKfQ-Ip8eTIilxY43Gzlf_h1",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Seksenler",
       "reason": "İlk sezonların ayrı listeleri ve 505–655 aralığı bulundu. Orta sezonların arşivi ve özel bölümlerin sezon eşleşmesi doğrulanacak.",
-      "source": "https://www.youtube.com/channel/UCYRPB4TbD2RYHlIQdLgEeYA"
+      "source": "https://www.youtube.com/channel/UCYRPB4TbD2RYHlIQdLgEeYA",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Payitaht: Abdülhamid",
@@ -107,17 +125,20 @@
     {
       "title": "Böyle mi Olacaktı",
       "reason": "Yapımcının kanalında 1. bölüm doğrulandı. 167 bölümlük arşivin geri kalanı için resmî tam bölüm bağlantıları araştırılacak.",
-      "source": "https://www.youtube.com/watch?v=C4giljXijB4"
+      "source": "https://www.youtube.com/watch?v=C4giljXijB4",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Kuzenlerim",
       "reason": "Resmî tabii sayfası bulundu. Tam bölümlerin resmî YouTube arşivi doğrulanamadı.",
-      "source": "https://www.tabii.com/tr/detail/1667/kuzenlerim"
+      "source": "https://www.tabii.com/tr/detail/1667/kuzenlerim",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Emanet",
       "reason": "Kanal 7 toplam 805 bölüm yayımladı. İncelenen YouTube liste görünümünde 606–805 var. Önceki video kimlikleri ve katalogdaki 877 kayıtla bölüm eşleşmesi doğrulanacak.",
-      "source": "https://www.youtube.com/playlist?list=PLW-AJux17Ta64EbbX9ursoEUwp5qbt-nR"
+      "source": "https://www.youtube.com/playlist?list=PLW-AJux17Ta64EbbX9ursoEUwp5qbt-nR",
+      "verifiedEpisodeMappings": 1
     },
     {
       "title": "Arka Sokaklar",
@@ -130,11 +151,13 @@
     },
     {
       "title": "Teşkilat",
-      "reason": "TRT’nin resmî bölüm listesi bulundu. Bölüm kimlikleri ve sezon eşleşmesi doğrulanacak."
+      "reason": "TRT’nin resmî bölüm listesi bulundu. Bölüm kimlikleri ve sezon eşleşmesi doğrulanacak.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Kurtlar Vadisi Pusu",
-      "reason": "Kanal D arşivi ve resmî bölüm yüklemesi bulundu. Tam arşiv sezon bazında doğrulanacak."
+      "reason": "Kanal D arşivi ve resmî bölüm yüklemesi bulundu. Tam arşiv sezon bazında doğrulanacak.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Arafta",
@@ -150,7 +173,8 @@
     },
     {
       "title": "Mehmed: Fetihler Sultanı",
-      "reason": "Resmî kanal bulundu. Güncel bölüm aralığı ve sezon sınırları doğrulanacak."
+      "reason": "Resmî kanal bulundu. Güncel bölüm aralığı ve sezon sınırları doğrulanacak.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Mucize Doktor",
@@ -158,19 +182,23 @@
     },
     {
       "title": "Fazilet Hanım ve Kızları",
-      "reason": "Resmî final adayı bulundu. Tekil tam bölüm listesi ve yükleyen kanal doğrulanacak."
+      "reason": "Resmî final adayı bulundu. Tekil tam bölüm listesi ve yükleyen kanal doğrulanacak.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Muhteşem Yüzyıl: Kösem",
-      "reason": "Final yüklemesi bulundu. Tam bölüm oynatma listesi ve sezon eşleşmesi doğrulanacak."
+      "reason": "Final yüklemesi bulundu. Tam bölüm oynatma listesi ve sezon eşleşmesi doğrulanacak.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Leyla: Hayat... Aşk... Adalet...",
-      "reason": "Aramada finalden sahneler bulundu. Resmî tekil tam bölüm listesi doğrulanacak."
+      "reason": "Aramada finalden sahneler bulundu. Resmî tekil tam bölüm listesi doğrulanacak.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Rüzgarlı Tepe",
-      "reason": "Canlı yayın ve finalden kesitler bulundu. Tekil tam bölüm arşivi doğrulanacak."
+      "reason": "Canlı yayın ve finalden kesitler bulundu. Tekil tam bölüm arşivi doğrulanacak.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Mezarlık",
@@ -182,7 +210,8 @@
     },
     {
       "title": "Akasya Durağı",
-      "reason": "174. bölüm yüklemesi bulundu. Hak sahipliği ve arşiv eşleşmesi doğrulanacak."
+      "reason": "174. bölüm yüklemesi bulundu. Hak sahipliği ve arşiv eşleşmesi doğrulanacak.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Seni Tanıyorum",
@@ -194,19 +223,23 @@
     },
     {
       "title": "Çarpışma",
-      "reason": "Resmî bölüm ve final bulundu. Tam arşivin oynatma listesi doğrulanacak."
+      "reason": "Resmî bölüm ve final bulundu. Tam arşivin oynatma listesi doğrulanacak.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Cennet Mahallesi",
-      "reason": "119 bölümden 118 liste kaydı bulundu. Eksik bölüm ve sezon sınırları doğrulanacak."
+      "reason": "119 bölümden 118 liste kaydı bulundu. Eksik bölüm ve sezon sınırları doğrulanacak.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Aşk Yeniden",
-      "reason": "Final bulundu. İncelenen liste tam bölümler yerine sahneleri döndürdü."
+      "reason": "Final bulundu. İncelenen liste tam bölümler yerine sahneleri döndürdü.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Sefirin Kızı",
-      "reason": "52 bölümlük yayının incelenen listesinde 1–26 var. Kalan resmî bağlantılar doğrulanacak."
+      "reason": "52 bölümlük yayının incelenen listesinde 1–26 var. Kalan resmî bağlantılar doğrulanacak.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Kimler Geldi Kimler Geçti",
@@ -218,15 +251,13 @@
     },
     {
       "title": "Kuma",
-      "reason": "Yüklemelerde farklı bölüm numaralandırmaları var. Tam bölümler ve katalog eşleşmesi doğrulanacak."
-    },
-    {
-      "title": "Aşk Mantık İntikam",
-      "reason": "Eklenen bölüm sayısı 41. Eksik bölüm 40."
+      "reason": "Yüklemelerde farklı bölüm numaralandırmaları var. Tam bölümler ve katalog eşleşmesi doğrulanacak.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Yeşil Vadi'nin Kızı",
-      "reason": "Türkçe resmî YouTube arşivi doğrulanamadı."
+      "reason": "Türkçe resmî YouTube arşivi doğrulanamadı.",
+      "verifiedEpisodeMappings": 2
     },
     {
       "title": "Enfes Bir Akşam",
@@ -240,7 +271,8 @@
     {
       "title": "Komedi Dükkanı",
       "reason": "Numaralı sahne yüklemeleri bulundu. Tam bölümler ve sezon sırası doğrulanacak.",
-      "source": "https://www.youtube.com/watch?v=bF2oc_vx1Pw"
+      "source": "https://www.youtube.com/watch?v=bF2oc_vx1Pw",
+      "verifiedEpisodeMappings": 1
     },
     {
       "title": "Asaf",
@@ -258,7 +290,8 @@
     },
     {
       "title": "Arkadaşım Hoşgeldin",
-      "reason": "Tekil tam bölümlerin resmî YouTube arşivi ve sezon sırası doğrulanacak."
+      "reason": "Tekil tam bölümlerin resmî YouTube arşivi ve sezon sırası doğrulanacak.",
+      "verifiedEpisodeMappings": 2
     }
   ],
   "lastReviewedSeries": "Arkadaşım Hoşgeldin"
