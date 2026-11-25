@@ -778,11 +778,14 @@ const youtubeSeries = [
       "1:23": "ls_M5e1ihpw",
       "2:1": "1ZLaRLYL2Y0",
       "2:2": "3LDxrmL7Ltk",
+      "2:3": "oMHsXk22I8g",
+      "2:4": "FHdhKp3UQwc",
       "2:5": "CFrARJTp4bw",
       "2:6": "V9YckIbU180",
       "2:7": "WmLTNFoNhC0",
       "2:8": "VnxS9mSmLxM",
       "2:9": "g1CAWyVCIZ8",
+      "2:10": "aeD7RZD7kjk",
       "2:11": "D8MTMG1Ol3k",
       "2:12": "0x1L_Dsc70o",
       "2:13": "zSDALebdDN4",
@@ -790,6 +793,7 @@ const youtubeSeries = [
       "2:15": "4HfuLALyd6o",
       "2:16": "GorU9gJ2g1U",
       "2:17": "jwGn0nWh2hk",
+      "2:18": "v3ZV0W4Me7g",
       "2:19": "xXBH2OoDo-c",
       "2:20": "M7Qn4UMvlCM",
       "2:21": "4uEdkfL9xm0",
@@ -805,7 +809,8 @@ const youtubeSeries = [
       "2:31": "Y7PGfzBmPzw",
       "2:32": "ZmU1ykoKtSM",
       "2:33": "sQS9aY42DPY",
-      "2:34": "GEf1WyeSRVU"
+      "2:34": "GEf1WyeSRVU",
+      "2:35": "n9prTRYJAG0"
     }
   },
   {
