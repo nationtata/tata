@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "lastVerifiedSeries": "Aşk Mantık İntikam",
-  "nextSeries": "Dolunay",
+  "lastVerifiedSeries": "Gülcemal",
+  "nextSeries": "Ekmek Teknesi",
   "pending": [
     {
       "title": "Çılgın Bediş",
@@ -231,6 +231,35 @@
     {
       "title": "Enfes Bir Akşam",
       "reason": "Resmî YouTube tam bölüm arşivi doğrulanamadı."
+    },
+    {
+      "title": "Dünyayla Benim Aramda",
+      "reason": "Disney+ resmî tanıtımı bulundu. Tekil tam bölüm yüklemeleri doğrulanamadı.",
+      "source": "https://www.youtube.com/watch?v=1zUUOJLDvv0"
+    },
+    {
+      "title": "Komedi Dükkanı",
+      "reason": "Numaralı sahne yüklemeleri bulundu. Tam bölümler ve sezon sırası doğrulanacak.",
+      "source": "https://www.youtube.com/watch?v=bF2oc_vx1Pw"
+    },
+    {
+      "title": "Asaf",
+      "reason": "Yapım doğrulandı. Resmî YouTube tam bölüm arşivi bulunamadı.",
+      "source": "https://www.imdb.com/title/tt23480510/"
+    },
+    {
+      "title": "Kaçış",
+      "reason": "Resmî YouTube tam bölüm arşivi doğrulanamadı."
+    },
+    {
+      "title": "Börü",
+      "reason": "Star TV’nin bölüm arşivi bulundu. YouTube’daki tam bölüm yüklemelerinin hak sahipliği ve kapsamı doğrulanacak.",
+      "source": "https://www.startv.com.tr/dizi/boru"
+    },
+    {
+      "title": "Arkadaşım Hoşgeldin",
+      "reason": "Tekil tam bölümlerin resmî YouTube arşivi ve sezon sırası doğrulanacak."
     }
-  ]
+  ],
+  "lastReviewedSeries": "Arkadaşım Hoşgeldin"
 }
