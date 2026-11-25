@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "lastVerifiedSeries": "Binbir Gece",
+  "nextSeries": "Hanımın Çiftliği",
+  "pending": [
+    {
+      "title": "Çılgın Bediş",
+      "reason": "Resmî Kanal D arşivinde 1-65 bölümler bulunuyor ancak ana HD oynatma listesinde 43. bölüm eksik ve katalog sezon yapısı kesinleştiriliyor."
+    },
+    {
+      "title": "Ekmek Teknesi",
+      "reason": "Resmî hak sahipliği ve eksiksiz sezon-bölüm eşleşmesi yeniden doğrulanacak."
+    },
+    {
+      "title": "1 Kadın 1 Erkek",
+      "reason": "Resmî kanaldaki farklı yayın dönemlerinin TMDB sezon yapısıyla eşleşmesi doğrulanacak."
+    },
+    {
+      "title": "Mahallenin Muhtarları",
+      "reason": "Resmî arşivde bölüm aralıkları parçalı; eksiksiz sezon eşleştirmesi bulunamadı."
+    },
+    {
+      "title": "Bizimkiler",
+      "reason": "Resmî TRT oynatma listesi ilk 100 bölümü gösteriyor; 15 sezonun tam arşivi doğrulanacak."
+    },
+    {
+      "title": "Sıcak Saatler",
+      "reason": "Resmî tam bölüm arşivi ve sezon yapısı doğrulanacak."
+    },
+    {
+      "title": "Perihan Abla",
+      "reason": "Resmî TRT listesinde 54 bölümün sırası karışık ve yinelenen kayıtlar var; sezon sınırları doğrulanacak."
+    },
+    {
+      "title": "İstanbullu Gelin",
+      "reason": "Resmî Full HD listede ilk 50 bölüm var; 51-87 için eksiksiz resmî liste doğrulanacak."
+    },
+    {
+      "title": "Küçük Ağa",
+      "reason": "Katalogdaki yapım yılı 1983 görünürken hedef 2014 sürümü; kimlik eşleşmesi kesinleştirilecek."
+    },
+    {
+      "title": "Ayrılsak da Beraberiz",
+      "reason": "Resmî atv arşivindeki oynatma listesi başka dizilerle karışık; tam bölüm dizisi çıkarılacak."
+    },
+    {
+      "title": "Yeter Anne",
+      "reason": "Resmî atv yüklemeleri bulundu; eksiksiz bölüm ve sezon sayısı doğrulanacak."
+    },
+    {
+      "title": "Çiçek Taksi",
+      "reason": "Resmî TRT listesi ilk 100 bölümü gösteriyor; kalan bölümler ve sezon sınırları doğrulanacak."
+    },
+    {
+      "title": "Hayat Bilgisi",
+      "reason": "Resmî listede 20-137 mevcut; 1-19 ve dört sezon sınırları doğrulanacak."
+    },
+    {
+      "title": "Doktorlar",
+      "reason": "Resmî kanal mevcut; tam bölüm oynatma listesi ve sezon sınırları doğrulanacak."
+    },
+    {
+      "title": "Çocuklar Duymasın",
+      "reason": "Birden fazla yayın dönemi bulunduğu için hedef 2002 sürümünün sezon kimlikleri ayrıştırılacak."
+    },
+    {
+      "title": "Kara Melek",
+      "reason": "Hak sahibine ait eksiksiz resmî YouTube tam bölüm arşivi doğrulanamadı."
+    }
+  ]
+}
