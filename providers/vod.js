@@ -7,8 +7,8 @@ const { mergeStreams, enrichStreams, describe, inspect } = require("./stream-met
 const { findYouTubeStreams } = require("./youtube");
 
 const MAX_ACTIVE_SEARCHES = 16;
-const INITIAL_WAIT_MIN_MS = 5000;
-const INITIAL_WAIT_MAX_MS = 5000;
+const INITIAL_WAIT_MIN_MS = 6000;
+const INITIAL_WAIT_MAX_MS = 6000;
 const BACKGROUND_TIMEOUT_MS = 40000;
 // Signed video URLs can expire quickly; keep only metadata long-lived.
 const CACHE_TTL_MS = 120000;
