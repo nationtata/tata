@@ -1,9 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-name="TRT 1" tvg-logo="https://itv224186.tmp.tivibu.com.tr:6430/images/poster/20250801839124.png" group-title="Ulusal",TRT 1
-
-
-
-http://176.65.153.66:6001/play/a01x/index.m3u8
 #EXTINF:-1 tvg-name="ATV" tvg-logo="https://itv224234.tmp.tivibu.com.tr:6430/images/poster/20250801838305.png" group-title="Ulusal",ATV
 
 
