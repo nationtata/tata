@@ -105,6 +105,27 @@ async function resolveFilm(row) {
   return result && { ...result, title: row.sourceTitle, isHls: true, headers };
 }
 
+function loadLocalFilmIndex(source, key) {
+  if (!indexes.has(source)) {
+    indexes.set(source, readEncryptedPlaylist(sources[source], key).then(text => indexFilms(text, source)).catch(error => {
+      indexes.delete(source);
+      throw error;
+    }));
+  }
+  return indexes.get(source);
+}
+
+// Prepare local indexes before the first VOD request, sequentially to limit startup load.
+setImmediate(async () => {
+  for (const source of Object.keys(sources)) {
+    const key = directSources.has(source) ? process.env.TATA_EXTRA_FILM_M3U_KEY : process.env.TATA_FILM_M3U_KEY;
+    if (!key) continue;
+    try { await loadLocalFilmIndex(source, key); }
+    catch (error) { console.warn("[M3U warmup]", source, error.message); }
+    await new Promise(resolve => setImmediate(resolve));
+  }
+});
+
 async function getFilmPlaylistStreams(source, details, requestId) {
   if (source === "powerCinema") {
     const id = requestId.startsWith("tt") ? requestId : details.external_ids?.imdb_id ?? details.imdb_id;
@@ -116,12 +137,7 @@ async function getFilmPlaylistStreams(source, details, requestId) {
   const key = directSources.has(source)
     ? process.env.TATA_EXTRA_FILM_M3U_KEY : process.env.TATA_FILM_M3U_KEY;
   if (!key && source !== "metvCinema") return [];
-  if (source !== "metvCinema" && !indexes.has(source)) {
-    indexes.set(source, readEncryptedPlaylist(sources[source], key).then(text => indexFilms(text, source)).catch(error => {
-      indexes.delete(source);
-      throw error;
-    }));
-  }
+  if (source !== "metvCinema") loadLocalFilmIndex(source, key);
   const { imdb, titles } = source === "metvCinema"
     ? { titles: await getMetvFilmIndex() } : await indexes.get(source);
   const id = requestId.startsWith("tt") ? requestId : details.external_ids?.imdb_id ?? details.imdb_id;
