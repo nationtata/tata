@@ -73,7 +73,7 @@ function indexPlaylist(text, remote = false) {
 
 function remotePlaylistIndex(url, index, bundledFile) {
   let cached, pending, bundled, expiresAt = 0;
-  return async () => {
+  const load = async () => {
     if (cached && Date.now() < expiresAt) return cached;
     pending ??= (async () => {
       const response = await fetch(url, { signal: AbortSignal.timeout(15000) });
@@ -90,9 +90,19 @@ function remotePlaylistIndex(url, index, bundledFile) {
     }).finally(() => { pending = undefined; });
     if (cached) return cached;
     bundled ??= readFile(join(__dirname, "..", "assets", bundledFile))
-      .then(data => index(gunzipSync(data).toString("utf8")));
-    return Promise.any([pending, bundled]);
+      .then(data => index(gunzipSync(data).toString("utf8")))
+      .then(snapshot => { if (!snapshot.size) throw new Error("Empty bundled playlist"); return snapshot; })
+      .catch(error => { bundled = undefined; throw error; });
+    return Promise.any([pending, bundled]).then(snapshot => {
+      if (!cached) { cached = snapshot; expiresAt = Date.now() + 60000; }
+      return cached;
+    });
   };
+  const refresh = () => load().catch(error => console.warn("[M3U warmup]", bundledFile, error.message));
+  setImmediate(refresh);
+  const timer = setInterval(refresh, 60000);
+  timer.unref();
+  return load;
 }
 
 const getMetvSeriesIndex = remotePlaylistIndex(
@@ -102,6 +112,11 @@ const getMetvSeriesIndex = remotePlaylistIndex(
 );
 
 let indexed;
+function warmSeriesPlaylist() {
+  return getPlaylistStreams({}, 0, 0).catch(error => console.warn("[M3U warmup] series", error.message));
+}
+setImmediate(warmSeriesPlaylist);
+
 async function getPlaylistStreams(details, season, episode) {
   const path = process.env.TATA_SERIES_M3U_PATH;
   const key = process.env.TATA_SERIES_M3U_KEY;
