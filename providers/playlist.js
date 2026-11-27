@@ -5,7 +5,7 @@ const { join } = require("node:path");
 
 async function readPlaylist(path, key) {
   if (path) return readFile(path, "utf8");
-  return readEncryptedPlaylist("series.m3u.gz.enc", key);
+  return readEncryptedPlaylist("dizi2.m3u.gz.enc", key);
 }
 
 async function readEncryptedPlaylist(filename, key) {
@@ -108,7 +108,7 @@ function remotePlaylistIndex(url, index, bundledFile) {
 const getMetvSeriesIndex = remotePlaylistIndex(
   "https://raw.githubusercontent.com/kimbumuratyavuz/capcanli/refs/heads/main/dizi.m3u",
   text => indexPlaylist(text, true),
-  "metv-series.m3u.gz"
+  "dizi1.m3u.gz"
 );
 
 let indexed;

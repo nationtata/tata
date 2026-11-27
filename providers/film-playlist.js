@@ -1,23 +1,23 @@
 const { readEncryptedPlaylist, titleKey, remotePlaylistIndex, metvLanguageVariant } = require("./playlist");
 
 const sources = {
-  fullhdfi: "fullhdfi.m3u.gz.enc",
-  vixolity: "vixolity.m3u.gz.enc",
-  fullmovies: "fullmovies.m3u.gz.enc",
-  rectv: "rectv.m3u.gz.enc",
-  pixeldrain: "pixeldrain.m3u.gz.enc",
-  imgsapi: "imgsapi.m3u.gz.enc"
+  fullhdfi: "film1.m3u.gz.enc",
+  vixolity: "film2.m3u.gz.enc",
+  fullmovies: "film3.m3u.gz.enc",
+  rectv: "film4.m3u.gz.enc",
+  pixeldrain: "film5.m3u.gz.enc",
+  imgsapi: "film6.m3u.gz.enc"
 };
 const indexes = new Map();
 const getMetvFilmIndex = remotePlaylistIndex(
   "https://raw.githubusercontent.com/kimbumuratyavuz/capcanli/refs/heads/main/filmuygulama.m3u",
   text => indexFilms(text, "metvCinema").titles,
-  "metv-films.m3u.gz"
+  "film8.m3u.gz"
 );
 const getPowerCinemaIndex = remotePlaylistIndex(
   "https://raw.githubusercontent.com/GitLatte/patr0n/refs/heads/site/lists/power-sinema.m3u",
   text => indexFilms(text, "powerCinema").imdb,
-  "power-cinema.m3u.gz"
+  "film7.m3u.gz"
 );
 const directSources = new Set(["fullmovies", "rectv", "pixeldrain", "imgsapi", "metvCinema"]);
 
