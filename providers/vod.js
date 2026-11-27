@@ -115,7 +115,7 @@ function cleanStream(stream, provider) {
   return {
     [providerKey]: provider,
     [streamKey]: ++streamSequence,
-    ...(provider === "ME TV Medya" && stream.metvVariant && { metvVariant: stream.metvVariant }),
+    ...((provider === "film8" || provider === "dizi1") && stream.metvVariant && { metvVariant: stream.metvVariant }),
     name: provider,
     ...(stream.description || stream.quality ? { description: stream.description || stream.quality } : {}),
     ...(stream.quality && { quality: stream.quality }),
@@ -14298,29 +14298,29 @@ async function search(type, request, publish, remove, progress) {
     return getStreams(id, type === "series" ? "tv" : "movie", request.season, request.episode);
   }, type) }));
   if (type === "series" && (process.env.TATA_SERIES_M3U_PATH || process.env.TATA_SERIES_M3U_KEY)) {
-    jobs.unshift({ name: "TATA M3U", promise: runProvider("TATA M3U", async () =>
+    jobs.unshift({ name: "dizi2", promise: runProvider("dizi2", async () =>
       getPlaylistStreams(await animeDetails, request.season, request.episode), type) });
   }
   if (type === "series") {
-    jobs.push({ name: "ME TV Medya", promise: runProvider("ME TV Medya", async () =>
+    jobs.push({ name: "dizi1", promise: runProvider("dizi1", async () =>
       getMetvSeriesStreams(await animeDetails, request.season, request.episode), type) });
   }
   if (type === "movie") {
-    jobs.push({ name: "ME TV Medya", promise: runProvider("ME TV Medya", () => getFilmPlaylistStreams("metvCinema", details, request.id), type) });
+    jobs.push({ name: "film8", promise: runProvider("film8", () => getFilmPlaylistStreams("metvCinema", details, request.id), type) });
     jobs.unshift({ name: "İzlefilm", promise: runProvider("İzlefilm", () => getMovieStreams(details), type) });
     if (process.env.TATA_EXTRA_FILM_M3U_KEY) {
       jobs.unshift(
-        { name: "TATA M3U · Filmler", promise: runProvider("TATA M3U · Filmler", () => getFilmPlaylistStreams("fullmovies", details, request.id), type) },
-        { name: "TATA M3U · RecTV", promise: runProvider("TATA M3U · RecTV", () => getFilmPlaylistStreams("rectv", details, request.id), type) },
-        { name: "TATA M3U · PixelDrain", promise: runProvider("TATA M3U · PixelDrain", () => getFilmPlaylistStreams("pixeldrain", details, request.id), type) },
-        { name: "TATA M3U · ImgsAPI", promise: runProvider("TATA M3U · ImgsAPI", () => getFilmPlaylistStreams("imgsapi", details, request.id), type) }
+        { name: "film3", promise: runProvider("film3", () => getFilmPlaylistStreams("fullmovies", details, request.id), type) },
+        { name: "film4", promise: runProvider("film4", () => getFilmPlaylistStreams("rectv", details, request.id), type) },
+        { name: "film5", promise: runProvider("film5", () => getFilmPlaylistStreams("pixeldrain", details, request.id), type) },
+        { name: "film6", promise: runProvider("film6", () => getFilmPlaylistStreams("imgsapi", details, request.id), type) }
       );
     }
-    jobs.push({ name: "Power Sinema", promise: runProvider("Power Sinema", () => getFilmPlaylistStreams("powerCinema", details, request.id), type) });
+    jobs.push({ name: "film7", promise: runProvider("film7", () => getFilmPlaylistStreams("powerCinema", details, request.id), type) });
     if (process.env.TATA_FILM_M3U_KEY) {
       jobs.unshift(
-        { name: "TATA M3U · FullHD", promise: runProvider("TATA M3U · FullHD", () => getFilmPlaylistStreams("fullhdfi", details, request.id), type) },
-        { name: "TATA M3U · Vixolity", promise: runProvider("TATA M3U · Vixolity", () => getFilmPlaylistStreams("vixolity", details, request.id), type) }
+        { name: "film1", promise: runProvider("film1", () => getFilmPlaylistStreams("fullhdfi", details, request.id), type) },
+        { name: "film2", promise: runProvider("film2", () => getFilmPlaylistStreams("vixolity", details, request.id), type) }
       );
     }
   }
